@@ -1,4 +1,4 @@
-# my-component
+# qw-button
 
 
 
@@ -9,22 +9,20 @@
 
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
-| `first`  | `first`   |             | `string` | `undefined` |
-| `last`   | `last`    |             | `string` | `undefined` |
-| `middle` | `middle`  |             | `string` | `undefined` |
+| `label`  | `label`   |             | `string` | `undefined` |
 
 
 ## Dependencies
 
-### Depends on
+### Used by
 
-- [qw-button](../shared/qw-button)
+ - [my-component](../../my-component)
 
 ### Graph
 ```mermaid
 graph TD;
   my-component --> qw-button
-  style my-component fill:#f9f,stroke:#333,stroke-width:4px
+  style qw-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -10,20 +10,13 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface MyComponent {
-    /**
-    * The first name
-    */
     'first': string;
-    /**
-    * The last name
-    */
     'last': string;
-    /**
-    * The middle name
-    */
     'middle': string;
   }
-  interface SecondComponent {}
+  interface QwButton {
+    'label': string;
+  }
 }
 
 declare global {
@@ -35,37 +28,30 @@ declare global {
     new (): HTMLMyComponentElement;
   };
 
-  interface HTMLSecondComponentElement extends Components.SecondComponent, HTMLStencilElement {}
-  var HTMLSecondComponentElement: {
-    prototype: HTMLSecondComponentElement;
-    new (): HTMLSecondComponentElement;
+  interface HTMLQwButtonElement extends Components.QwButton, HTMLStencilElement {}
+  var HTMLQwButtonElement: {
+    prototype: HTMLQwButtonElement;
+    new (): HTMLQwButtonElement;
   };
   interface HTMLElementTagNameMap {
     'my-component': HTMLMyComponentElement;
-    'second-component': HTMLSecondComponentElement;
+    'qw-button': HTMLQwButtonElement;
   }
 }
 
 declare namespace LocalJSX {
   interface MyComponent {
-    /**
-    * The first name
-    */
     'first'?: string;
-    /**
-    * The last name
-    */
     'last'?: string;
-    /**
-    * The middle name
-    */
     'middle'?: string;
   }
-  interface SecondComponent {}
+  interface QwButton {
+    'label'?: string;
+  }
 
   interface IntrinsicElements {
     'my-component': MyComponent;
-    'second-component': SecondComponent;
+    'qw-button': QwButton;
   }
 }
 
@@ -76,7 +62,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
-      'second-component': LocalJSX.SecondComponent & JSXBase.HTMLAttributes<HTMLSecondComponentElement>;
+      'qw-button': LocalJSX.QwButton & JSXBase.HTMLAttributes<HTMLQwButtonElement>;
     }
   }
 }
