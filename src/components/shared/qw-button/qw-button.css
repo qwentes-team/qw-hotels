@@ -1,3 +1,7 @@
-:host {
-  display: block;
+.qw-button {
+  --qw-button-background: pink;
+  
+  appearance: none;
+  cursor: pointer;
+  background: var(--qw-button-background);
 }

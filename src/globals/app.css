@@ -1,0 +1,8 @@
+@import "../components/shared/shared.css";
+
+:root {
+  --qw-hotel-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --qw-hotel-gap-lg: 24px;
+  --qw-hotel-gap-md: 16px;
+  --qw-hotel-gap-sm: 8px;
+}

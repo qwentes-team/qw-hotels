@@ -1,0 +1,5 @@
+qw-room-detail {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--qw-hotel-font-family);
+}

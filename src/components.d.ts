@@ -9,49 +9,51 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface MyComponent {
-    'first': string;
-    'last': string;
-    'middle': string;
+  interface QwCard {
+    'cardTitle': string;
   }
-  interface QwButton {
-    'label': string;
-  }
+  interface QwRoomDetail {}
+  interface QwRoomList {}
 }
 
 declare global {
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLQwCardElement extends Components.QwCard, HTMLStencilElement {}
+  var HTMLQwCardElement: {
+    prototype: HTMLQwCardElement;
+    new (): HTMLQwCardElement;
   };
 
-  interface HTMLQwButtonElement extends Components.QwButton, HTMLStencilElement {}
-  var HTMLQwButtonElement: {
-    prototype: HTMLQwButtonElement;
-    new (): HTMLQwButtonElement;
+  interface HTMLQwRoomDetailElement extends Components.QwRoomDetail, HTMLStencilElement {}
+  var HTMLQwRoomDetailElement: {
+    prototype: HTMLQwRoomDetailElement;
+    new (): HTMLQwRoomDetailElement;
+  };
+
+  interface HTMLQwRoomListElement extends Components.QwRoomList, HTMLStencilElement {}
+  var HTMLQwRoomListElement: {
+    prototype: HTMLQwRoomListElement;
+    new (): HTMLQwRoomListElement;
   };
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
-    'qw-button': HTMLQwButtonElement;
+    'qw-card': HTMLQwCardElement;
+    'qw-room-detail': HTMLQwRoomDetailElement;
+    'qw-room-list': HTMLQwRoomListElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface MyComponent {
-    'first'?: string;
-    'last'?: string;
-    'middle'?: string;
+  interface QwCard {
+    'cardTitle'?: string;
   }
-  interface QwButton {
-    'label'?: string;
-  }
+  interface QwRoomDetail {}
+  interface QwRoomList {}
 
   interface IntrinsicElements {
-    'my-component': MyComponent;
-    'qw-button': QwButton;
+    'qw-card': QwCard;
+    'qw-room-detail': QwRoomDetail;
+    'qw-room-list': QwRoomList;
   }
 }
 
@@ -61,8 +63,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
-      'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
-      'qw-button': LocalJSX.QwButton & JSXBase.HTMLAttributes<HTMLQwButtonElement>;
+      'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
+      'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
+      'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
     }
   }
 }
