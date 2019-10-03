@@ -61,6 +61,7 @@ declare namespace LocalJSX {
     'QwRoomCardCaption'?: string;
     'QwRoomCardGuests'?: string;
     'QwRoomCardTitle'?: string;
+    'onQwRoomCardClickHeader'?: (event: CustomEvent<any>) => void;
   }
   interface QwRoomDetail {}
   interface QwRoomList {}

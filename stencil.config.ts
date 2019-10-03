@@ -5,6 +5,7 @@ export const config: Config = {
   bundles: [
     { components: ['qw-room-list'] },
     { components: ['qw-room-detail'] },
+    { components: ['qw-room-card'] },
   ],
   hashFileNames: false, // rimuovere in prod
   outputTargets: [

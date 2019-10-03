@@ -1,5 +1,6 @@
 qw-room-card {
   display: flex;
+  flex-direction: column;
 }
 
 .qw-room-card__header, .qw-room-card__footer {
