@@ -1,0 +1,8 @@
+qw-room-card {
+  display: flex;
+}
+
+.qw-room-card__header, .qw-room-card__footer {
+  display: flex;
+  justify-content: space-between;
+}

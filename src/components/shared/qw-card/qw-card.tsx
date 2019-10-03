@@ -1,4 +1,4 @@
-import {Component, h, Prop} from '@stencil/core';
+import {Component, h, Host} from '@stencil/core';
 
 @Component({
   tag: 'qw-card',
@@ -6,15 +6,11 @@ import {Component, h, Prop} from '@stencil/core';
   shadow: false
 })
 export class QwCard {
-
-  @Prop() cardTitle: string;
-
   render() {
     return (
-      <div>
-        <h3>{this.cardTitle}</h3>
+      <Host>
         <slot></slot>
-      </div>
+      </Host>
     );
   }
 

@@ -1,9 +1,7 @@
 qw-card {
-  --qw-card-background: red;
+  --qw-card-background: var(--qw-hotel-background);
   
   display: flex;
   flex-direction: column;
   background-color: var(--qw-card-background);
-  padding: var(--qw-hotel-gap-md);
-  margin: var(--qw-hotel-gap-sm) 0;
 }

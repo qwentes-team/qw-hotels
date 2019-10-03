@@ -9,8 +9,12 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface QwCard {
-    'cardTitle': string;
+  interface QwCard {}
+  interface QwRoomCard {
+    'QwRoomCardBeds': string;
+    'QwRoomCardCaption': string;
+    'QwRoomCardGuests': string;
+    'QwRoomCardTitle': string;
   }
   interface QwRoomDetail {}
   interface QwRoomList {}
@@ -23,6 +27,12 @@ declare global {
   var HTMLQwCardElement: {
     prototype: HTMLQwCardElement;
     new (): HTMLQwCardElement;
+  };
+
+  interface HTMLQwRoomCardElement extends Components.QwRoomCard, HTMLStencilElement {}
+  var HTMLQwRoomCardElement: {
+    prototype: HTMLQwRoomCardElement;
+    new (): HTMLQwRoomCardElement;
   };
 
   interface HTMLQwRoomDetailElement extends Components.QwRoomDetail, HTMLStencilElement {}
@@ -38,20 +48,26 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     'qw-card': HTMLQwCardElement;
+    'qw-room-card': HTMLQwRoomCardElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-list': HTMLQwRoomListElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface QwCard {
-    'cardTitle'?: string;
+  interface QwCard {}
+  interface QwRoomCard {
+    'QwRoomCardBeds'?: string;
+    'QwRoomCardCaption'?: string;
+    'QwRoomCardGuests'?: string;
+    'QwRoomCardTitle'?: string;
   }
   interface QwRoomDetail {}
   interface QwRoomList {}
 
   interface IntrinsicElements {
     'qw-card': QwCard;
+    'qw-room-card': QwRoomCard;
     'qw-room-detail': QwRoomDetail;
     'qw-room-list': QwRoomList;
   }
@@ -64,6 +80,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
+      'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
     }

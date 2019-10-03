@@ -1,6 +1,4 @@
 import {Component, h, Host} from '@stencil/core';
-import {QwButton} from '../shared/qw-button/qw-button';
-import {QwImage} from '../shared/qw-image/qw-image';
 
 @Component({
   tag: 'qw-room-list',
@@ -8,18 +6,24 @@ import {QwImage} from '../shared/qw-image/qw-image';
   shadow: false
 })
 export class QwRoomList {
-
   render() {
+    const undefinedValue = undefined;
     return (
       <Host>
-        <h1>Sono la lista</h1>
-        <QwButton buttonLabel="Press meeee" />
-        <qw-card card-title="Sono la card della lista">
-          <p>Sono il contenuto della card della lista</p>
-        </qw-card>
-        <QwImage imageUrl="https://via.placeholder.com/400"/>
+        <qw-room-card
+          qw-room-card-title="Room Card"
+          qw-room-card-caption="Room Caption"
+          qw-room-card-guests="2 people"
+          qw-room-card-beds="1 bed"
+        />
+        <hr/>
+        <qw-room-card
+          qw-room-card-title={undefinedValue}
+          qw-room-card-caption={undefinedValue}
+          qw-room-card-guests={undefinedValue}
+          qw-room-card-beds={undefinedValue}
+        />
       </Host>
     );
   }
-
 }
