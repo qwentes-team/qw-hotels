@@ -25,5 +25,8 @@
     "@stencil/core": "^1.3.3",
     "workbox-build": "4.3.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "booking-state-manager": "file:../d-edge/booking-state-manager/booking-state-manager-0.0.7.tgz"
+  }
 }

@@ -14,6 +14,7 @@ export namespace Components {
     'QwRoomCardBeds': string;
     'QwRoomCardCaption': string;
     'QwRoomCardGuests': string;
+    'QwRoomCardImage': string;
     'QwRoomCardTitle': string;
   }
   interface QwRoomDetail {}
@@ -60,8 +61,8 @@ declare namespace LocalJSX {
     'QwRoomCardBeds'?: string;
     'QwRoomCardCaption'?: string;
     'QwRoomCardGuests'?: string;
+    'QwRoomCardImage'?: string;
     'QwRoomCardTitle'?: string;
-    'onQwRoomCardClickHeader'?: (event: CustomEvent<any>) => void;
   }
   interface QwRoomDetail {}
   interface QwRoomList {}

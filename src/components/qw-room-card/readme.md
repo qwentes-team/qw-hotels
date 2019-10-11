@@ -12,14 +12,8 @@
 | `QwRoomCardBeds`    | `qw-room-card-beds`    |             | `string` | `undefined` |
 | `QwRoomCardCaption` | `qw-room-card-caption` |             | `string` | `undefined` |
 | `QwRoomCardGuests`  | `qw-room-card-guests`  |             | `string` | `undefined` |
+| `QwRoomCardImage`   | `qw-room-card-image`   |             | `string` | `undefined` |
 | `QwRoomCardTitle`   | `qw-room-card-title`   |             | `string` | `undefined` |
-
-
-## Events
-
-| Event                   | Description | Type               |
-| ----------------------- | ----------- | ------------------ |
-| `qwRoomCardClickHeader` |             | `CustomEvent<any>` |
 
 
 ## Dependencies

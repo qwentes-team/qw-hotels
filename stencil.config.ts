@@ -2,12 +2,17 @@ import { Config } from '@stencil/core';
 
 export const config: Config = {
   namespace: 'qw-hotels',
+  commonjs: {
+    namedExports: {
+      'booking-state-manager': ['SessionService', 'RoomService']
+    }
+  },
   bundles: [
     { components: ['qw-room-list'] },
     { components: ['qw-room-detail'] },
     { components: ['qw-room-card'] },
   ],
-  hashFileNames: false, // rimuovere in prod
+  hashFileNames: false, // todo rimuovere in prod
   outputTargets: [
     {
       type: 'dist',
