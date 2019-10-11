@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop} from '@stencil/core';
-import {QwImage} from '../shared/qw-image/qw-image';
+import {QwImage} from '../qw-image/qw-image';
 
 @Component({
   tag: 'qw-room-card',

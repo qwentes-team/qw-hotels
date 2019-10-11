@@ -9,7 +9,7 @@
 
 ### Depends on
 
-- [qw-room-card](../qw-room-card)
+- [qw-room-card](../shared/qw-room-card)
 
 ### Graph
 ```mermaid

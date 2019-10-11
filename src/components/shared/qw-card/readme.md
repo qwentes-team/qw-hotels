@@ -9,7 +9,7 @@
 
 ### Used by
 
- - [qw-room-card](../../qw-room-card)
+ - [qw-room-card](../qw-room-card)
  - [qw-room-detail](../../qw-room-detail)
 
 ### Graph

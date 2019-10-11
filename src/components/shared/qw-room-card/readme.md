@@ -20,11 +20,11 @@
 
 ### Used by
 
- - [qw-room-list](../qw-room-list)
+ - [qw-room-list](../../qw-room-list)
 
 ### Depends on
 
-- [qw-card](../shared/qw-card)
+- [qw-card](../qw-card)
 
 ### Graph
 ```mermaid

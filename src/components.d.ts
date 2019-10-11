@@ -19,6 +19,9 @@ export namespace Components {
   }
   interface QwRoomDetail {}
   interface QwRoomList {}
+  interface QwRoomListContent {
+    'QwRoomListContentRooms': any;
+  }
 }
 
 declare global {
@@ -47,11 +50,18 @@ declare global {
     prototype: HTMLQwRoomListElement;
     new (): HTMLQwRoomListElement;
   };
+
+  interface HTMLQwRoomListContentElement extends Components.QwRoomListContent, HTMLStencilElement {}
+  var HTMLQwRoomListContentElement: {
+    prototype: HTMLQwRoomListContentElement;
+    new (): HTMLQwRoomListContentElement;
+  };
   interface HTMLElementTagNameMap {
     'qw-card': HTMLQwCardElement;
     'qw-room-card': HTMLQwRoomCardElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-list': HTMLQwRoomListElement;
+    'qw-room-list-content': HTMLQwRoomListContentElement;
   }
 }
 
@@ -66,12 +76,16 @@ declare namespace LocalJSX {
   }
   interface QwRoomDetail {}
   interface QwRoomList {}
+  interface QwRoomListContent {
+    'QwRoomListContentRooms'?: any;
+  }
 
   interface IntrinsicElements {
     'qw-card': QwCard;
     'qw-room-card': QwRoomCard;
     'qw-room-detail': QwRoomDetail;
     'qw-room-list': QwRoomList;
+    'qw-room-list-content': QwRoomListContent;
   }
 }
 
@@ -85,6 +99,7 @@ declare module "@stencil/core" {
       'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
+      'qw-room-list-content': LocalJSX.QwRoomListContent & JSXBase.HTMLAttributes<HTMLQwRoomListContentElement>;
     }
   }
 }
