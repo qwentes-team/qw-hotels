@@ -27,6 +27,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "booking-state-manager": "file:../d-edge/booking-state-manager/booking-state-manager-0.0.7.tgz"
+    "booking-state-manager": "file:../d-edge/booking-state-manager/booking-state-manager-0.0.10.tgz"
   }
 }

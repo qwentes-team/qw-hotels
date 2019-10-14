@@ -9,6 +9,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface QwBasket {}
   interface QwCard {}
   interface QwRoomCard {
     'QwRoomCardBeds': string;
@@ -19,13 +20,16 @@ export namespace Components {
   }
   interface QwRoomDetail {}
   interface QwRoomList {}
-  interface QwRoomListContent {
-    'QwRoomListContentRooms': any;
-  }
 }
 
 declare global {
 
+
+  interface HTMLQwBasketElement extends Components.QwBasket, HTMLStencilElement {}
+  var HTMLQwBasketElement: {
+    prototype: HTMLQwBasketElement;
+    new (): HTMLQwBasketElement;
+  };
 
   interface HTMLQwCardElement extends Components.QwCard, HTMLStencilElement {}
   var HTMLQwCardElement: {
@@ -50,22 +54,17 @@ declare global {
     prototype: HTMLQwRoomListElement;
     new (): HTMLQwRoomListElement;
   };
-
-  interface HTMLQwRoomListContentElement extends Components.QwRoomListContent, HTMLStencilElement {}
-  var HTMLQwRoomListContentElement: {
-    prototype: HTMLQwRoomListContentElement;
-    new (): HTMLQwRoomListContentElement;
-  };
   interface HTMLElementTagNameMap {
+    'qw-basket': HTMLQwBasketElement;
     'qw-card': HTMLQwCardElement;
     'qw-room-card': HTMLQwRoomCardElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-list': HTMLQwRoomListElement;
-    'qw-room-list-content': HTMLQwRoomListContentElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface QwBasket {}
   interface QwCard {}
   interface QwRoomCard {
     'QwRoomCardBeds'?: string;
@@ -76,16 +75,13 @@ declare namespace LocalJSX {
   }
   interface QwRoomDetail {}
   interface QwRoomList {}
-  interface QwRoomListContent {
-    'QwRoomListContentRooms'?: any;
-  }
 
   interface IntrinsicElements {
+    'qw-basket': QwBasket;
     'qw-card': QwCard;
     'qw-room-card': QwRoomCard;
     'qw-room-detail': QwRoomDetail;
     'qw-room-list': QwRoomList;
-    'qw-room-list-content': QwRoomListContent;
   }
 }
 
@@ -95,11 +91,11 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      'qw-basket': LocalJSX.QwBasket & JSXBase.HTMLAttributes<HTMLQwBasketElement>;
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
       'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
-      'qw-room-list-content': LocalJSX.QwRoomListContent & JSXBase.HTMLAttributes<HTMLQwRoomListContentElement>;
     }
   }
 }

@@ -4,7 +4,11 @@ export const config: Config = {
   namespace: 'qw-hotels',
   commonjs: {
     namedExports: {
-      'booking-state-manager': ['SessionService', 'RoomService']
+      'booking-state-manager': [
+        'SessionService',
+        'RoomService', 'RoomHelper',
+        'BasketQuery', 'BasketService', 'BasketHelper',
+      ]
     }
   },
   bundles: [
