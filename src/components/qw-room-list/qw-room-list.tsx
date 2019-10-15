@@ -10,7 +10,7 @@ export class QwRoomList {
   @State() rooms: RoomModel[] = [];
 
   public componentDidLoad() {
-    RoomService.getRooms().subscribe(res => this.rooms = res)
+    RoomService.getRooms().subscribe(res => this.rooms = res);
   }
 
   private setRoomToBasket(room: RoomModel) {
