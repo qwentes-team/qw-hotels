@@ -1,3 +1,4 @@
 qw-basket {
   display: flex;
+  justify-content: space-between;
 }

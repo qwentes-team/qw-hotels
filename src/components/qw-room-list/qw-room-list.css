@@ -3,3 +3,7 @@ qw-room-list {
   flex-direction: column;
   font-family: var(--qw-hotel-font-family);
 }
+
+qw-room-list qw-room-card {
+  margin: var(--qw-hotel-gap-sm) 0;
+}

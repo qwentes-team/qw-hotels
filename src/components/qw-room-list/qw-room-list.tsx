@@ -9,11 +9,11 @@ import {RoomService, RoomModel, BasketService, RoomHelper} from 'booking-state-m
 export class QwRoomList {
   @State() rooms: RoomModel[] = [];
 
-  componentDidLoad() {
+  public componentDidLoad() {
     RoomService.getRooms().subscribe(res => this.rooms = res)
   }
 
-  setRoomToBasket(room: RoomModel) {
+  private setRoomToBasket(room: RoomModel) {
     BasketService.setRoomInBasket({
       roomId: room.roomId,
       rateId: RoomHelper.getCheapestRate(room).rateId,
@@ -22,11 +22,16 @@ export class QwRoomList {
     }).subscribe();
   }
 
-  render() {
+  private hasPrice(room: RoomModel) {
+    return RoomHelper.getCheapestRateFormatted(room) !== RoomHelper.DEFAULT_NO_PRICE_LABEL;
+  }
+
+  public render() {
     return (
       <Host>
         {this.rooms.map(r => {
           return <qw-room-card
+            class={!this.hasPrice(r) && 'qw-room-card__disabled'}
             onClick={() => this.setRoomToBasket(r)}
             qw-room-card-title={r.name}
             qw-room-card-caption={RoomHelper.getCheapestRateFormatted(r)}

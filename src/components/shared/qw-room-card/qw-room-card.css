@@ -7,3 +7,8 @@ qw-room-card {
   display: flex;
   justify-content: space-between;
 }
+
+qw-room-card.qw-room-card__disabled {
+  opacity: .5;
+  pointer-events: none !important;
+}
