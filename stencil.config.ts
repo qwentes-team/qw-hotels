@@ -6,15 +6,15 @@ export const config: Config = {
     namedExports: {
       'booking-state-manager': [
         'SessionService',
-        'RoomService', 'RoomHelper',
-        'BasketQuery', 'BasketService', 'BasketHelper',
+        'RoomService', 'RoomHelper', 'RoomQuery',
+        'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$',
       ]
     }
   },
   bundles: [
     { components: ['qw-room-list'] },
     { components: ['qw-room-detail'] },
-    { components: ['qw-room-card'] },
+    { components: ['qw-basket'] },
   ],
   hashFileNames: false, // todo rimuovere in prod
   outputTargets: [

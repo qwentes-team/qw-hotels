@@ -1,5 +1,14 @@
-import {Component, h, Host, State} from '@stencil/core';
-import {RoomService, RoomModel, BasketService, RoomHelper} from 'booking-state-manager';
+import {Component, h, Host, Prop, State} from '@stencil/core';
+import {
+  RoomModel,
+  BasketService,
+  RoomHelper,
+  RoomQuery,
+  RoomModelCollection,
+  BasketWithPrice$,
+  RoomService
+} from 'booking-state-manager';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   tag: 'qw-room-list',
@@ -7,10 +16,22 @@ import {RoomService, RoomModel, BasketService, RoomHelper} from 'booking-state-m
   shadow: false
 })
 export class QwRoomList {
-  @State() rooms: RoomModel[] = [];
+  @Prop() QwRoomListTriggerBasket: boolean = false;
+  @State() rooms: RoomModelCollection = {};
 
   public componentDidLoad() {
-    RoomService.getRooms().subscribe(res => this.rooms = res);
+    if (this.QwRoomListTriggerBasket) {
+      BasketService.getBasket().subscribe();
+    }
+
+    RoomQuery.select().subscribe(res => this.rooms = res);
+
+    BasketWithPrice$
+      .pipe(switchMap(() => RoomService.getRooms()))
+      .subscribe((res) => {
+        console.log('da BasketQuery.select');
+        console.log('Rooms', res);
+      });
   }
 
   private setRoomToBasket(room: RoomModel) {
@@ -29,7 +50,7 @@ export class QwRoomList {
   public render() {
     return (
       <Host>
-        {this.rooms.map(r => {
+        {Object.values(this.rooms).map(r => {
           return <qw-room-card
             class={!this.hasPrice(r) && 'qw-room-card__disabled'}
             onClick={() => this.setRoomToBasket(r)}

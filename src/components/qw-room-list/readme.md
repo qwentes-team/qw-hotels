@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property                  | Attribute                     | Description | Type      | Default |
+| ------------------------- | ----------------------------- | ----------- | --------- | ------- |
+| `QwRoomListTriggerBasket` | `qw-room-list-trigger-basket` |             | `boolean` | `false` |
+
+
 ## Dependencies
 
 ### Depends on

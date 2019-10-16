@@ -19,7 +19,9 @@ export namespace Components {
     'QwRoomCardTitle': string;
   }
   interface QwRoomDetail {}
-  interface QwRoomList {}
+  interface QwRoomList {
+    'QwRoomListTriggerBasket': boolean;
+  }
 }
 
 declare global {
@@ -74,7 +76,9 @@ declare namespace LocalJSX {
     'QwRoomCardTitle'?: string;
   }
   interface QwRoomDetail {}
-  interface QwRoomList {}
+  interface QwRoomList {
+    'QwRoomListTriggerBasket'?: boolean;
+  }
 
   interface IntrinsicElements {
     'qw-basket': QwBasket;
