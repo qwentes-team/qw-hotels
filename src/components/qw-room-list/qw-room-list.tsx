@@ -28,10 +28,7 @@ export class QwRoomList {
 
     BasketWithPrice$
       .pipe(switchMap(() => RoomService.getRooms()))
-      .subscribe((res) => {
-        console.log('da BasketQuery.select');
-        console.log('Rooms', res);
-      });
+      .subscribe();
   }
 
   private setRoomToBasket(room: RoomModel) {
