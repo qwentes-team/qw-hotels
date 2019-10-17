@@ -11,11 +11,15 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface QwBasket {}
   interface QwCard {}
+  interface QwLoading {
+    'QwLoadingSize': string;
+  }
   interface QwRoomCard {
     'QwRoomCardBeds': string;
     'QwRoomCardCaption': string;
     'QwRoomCardGuests': string;
     'QwRoomCardImage': string;
+    'QwRoomCardOnClickBook': () => void;
     'QwRoomCardTitle': string;
   }
   interface QwRoomDetail {}
@@ -39,6 +43,12 @@ declare global {
     new (): HTMLQwCardElement;
   };
 
+  interface HTMLQwLoadingElement extends Components.QwLoading, HTMLStencilElement {}
+  var HTMLQwLoadingElement: {
+    prototype: HTMLQwLoadingElement;
+    new (): HTMLQwLoadingElement;
+  };
+
   interface HTMLQwRoomCardElement extends Components.QwRoomCard, HTMLStencilElement {}
   var HTMLQwRoomCardElement: {
     prototype: HTMLQwRoomCardElement;
@@ -59,6 +69,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'qw-basket': HTMLQwBasketElement;
     'qw-card': HTMLQwCardElement;
+    'qw-loading': HTMLQwLoadingElement;
     'qw-room-card': HTMLQwRoomCardElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-list': HTMLQwRoomListElement;
@@ -68,11 +79,15 @@ declare global {
 declare namespace LocalJSX {
   interface QwBasket {}
   interface QwCard {}
+  interface QwLoading {
+    'QwLoadingSize'?: string;
+  }
   interface QwRoomCard {
     'QwRoomCardBeds'?: string;
     'QwRoomCardCaption'?: string;
     'QwRoomCardGuests'?: string;
     'QwRoomCardImage'?: string;
+    'QwRoomCardOnClickBook'?: () => void;
     'QwRoomCardTitle'?: string;
   }
   interface QwRoomDetail {}
@@ -83,6 +98,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'qw-basket': QwBasket;
     'qw-card': QwCard;
+    'qw-loading': QwLoading;
     'qw-room-card': QwRoomCard;
     'qw-room-detail': QwRoomDetail;
     'qw-room-list': QwRoomList;
@@ -97,6 +113,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'qw-basket': LocalJSX.QwBasket & JSXBase.HTMLAttributes<HTMLQwBasketElement>;
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
+      'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;

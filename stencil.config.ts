@@ -7,7 +7,7 @@ export const config: Config = {
       'booking-state-manager': [
         'SessionService',
         'RoomService', 'RoomHelper', 'RoomQuery',
-        'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$',
+        'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
       ]
     }
   },

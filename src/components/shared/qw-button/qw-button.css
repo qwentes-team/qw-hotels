@@ -1,7 +1,20 @@
 .qw-button {
-  --qw-button-background: pink;
+  --qw-button-color: var(--qw-hotel-neutral-dark);
+  --qw-button-background: var(--qw-hotel-secondary-color);
+  --qw-button-border: 1px solid var(--qw-button-color);
+  --qw-button-gap: var(--qw-hotel-gap-sm);
+  --qw-button-border-radius: 2px;
   
-  appearance: none;
   cursor: pointer;
+  padding: var(--qw-button-gap);
+  color: var(--qw-button-color);
   background: var(--qw-button-background);
+  border: var(--qw-button-border);
+  border-radius: var(--qw-button-border-radius);
+  text-align: center;
+}
+
+.qw-button.qw-button--disabled {
+  opacity: var(--qw-hotel-opacity);
+  pointer-events: none !important;
 }

@@ -1,8 +1,7 @@
 qw-card {
-  --qw-card-background: var(--qw-hotel-background);
+  --qw-card-background: transparent;
   
   display: flex;
   flex-direction: column;
   background-color: var(--qw-card-background);
-  font-family: var(--qw-hotel-font-family);
 }

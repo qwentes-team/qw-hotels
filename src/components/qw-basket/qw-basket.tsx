@@ -1,5 +1,6 @@
 import {Component, Host, h, State} from '@stencil/core';
-import {BasketHelper, BasketQuery, BasketService, MoneyPrice} from 'booking-state-manager';
+import {BasketHelper, BasketIsLoading$, BasketQuery, BasketService, MoneyPrice} from 'booking-state-manager';
+import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
   tag: 'qw-basket',
@@ -8,12 +9,14 @@ import {BasketHelper, BasketQuery, BasketService, MoneyPrice} from 'booking-stat
 })
 export class QwBasket {
   @State() totalPrice: MoneyPrice;
+  @State() isLoading: boolean;
 
   public componentDidLoad() {
     BasketService.getBasket().subscribe();
-    BasketQuery.select().subscribe(basket => {
-      this.totalPrice = BasketHelper.getTotalOriginalPrice(basket);
-    })
+    BasketQuery.select().subscribe(basket => this.totalPrice = BasketHelper.getTotalOriginalPrice(basket));
+    BasketIsLoading$.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
   }
 
   private deleteBasket() {
@@ -23,8 +26,13 @@ export class QwBasket {
   public render() {
     return (
       <Host>
-        <div>{this.totalPrice && this.totalPrice.text}</div>
-        <button onClick={() => this.deleteBasket()}>Empty basket</button>
+        <div class="qw-basket__price">
+          <div class={this.isLoading && 'qw-basket__price__amount--disabled'}>
+            {this.totalPrice && this.totalPrice.text}
+          </div>
+          {this.isLoading && <qw-loading qw-loading-size="18"></qw-loading>}
+        </div>
+        <QwButton QwButtonLabel="Empty basket" QwButtonOnClick={this.deleteBasket} />
       </Host>
     );
   }

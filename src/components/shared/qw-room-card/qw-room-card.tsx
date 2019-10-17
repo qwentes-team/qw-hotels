@@ -1,5 +1,6 @@
 import {Component, Host, h, Prop} from '@stencil/core';
 import {QwImage} from '../qw-image/qw-image';
+import {QwButton} from '../qw-button/qw-button';
 
 @Component({
   tag: 'qw-room-card',
@@ -12,6 +13,7 @@ export class QwRoomCard {
   @Prop() QwRoomCardGuests: string;
   @Prop() QwRoomCardBeds: string;
   @Prop() QwRoomCardImage: string;
+  @Prop() QwRoomCardOnClickBook: () => void;
 
   render() {
     return (
@@ -25,6 +27,9 @@ export class QwRoomCard {
           <div class="qw-room-card__footer">
             <p>{this.QwRoomCardGuests}</p>
             <p>{this.QwRoomCardBeds}</p>
+          </div>
+          <div class="qw-room-card__cta">
+            <QwButton QwButtonOnClick={() => this.QwRoomCardOnClickBook()} QwButtonLabel="Book now"/>
           </div>
         </qw-card>
       </Host>

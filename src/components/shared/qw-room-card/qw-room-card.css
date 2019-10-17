@@ -1,6 +1,13 @@
 qw-room-card {
+  --qw-room-card-gap: var(--qw-hotel-gap-sm);
+  --qw-room-card-background: var(--qw-hotel-background);
+  --qw-room-card-border-radius: 2px;
+
   display: flex;
   flex-direction: column;
+  padding: var(--qw-room-card-gap);
+  background: var(--qw-room-card-background);
+  border-radius: var(--qw-room-card-border-radius);
 }
 
 .qw-room-card__header, .qw-room-card__footer {
@@ -9,6 +16,6 @@ qw-room-card {
 }
 
 qw-room-card.qw-room-card__disabled {
-  opacity: .5;
+  opacity: var(--qw-hotel-opacity);
   pointer-events: none !important;
 }

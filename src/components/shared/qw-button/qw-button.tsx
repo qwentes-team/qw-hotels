@@ -1,9 +1,10 @@
 import {FunctionalComponent, h} from '@stencil/core';
 
 interface QwButtonProps {
-  buttonLabel: string;
+  QwButtonLabel: string;
+  QwButtonOnClick?: () => any;
 }
 
-export const QwButton: FunctionalComponent<QwButtonProps> = ({buttonLabel}) => (
-  <button class="qw-button">{buttonLabel}</button>
+export const QwButton: FunctionalComponent<QwButtonProps> = (props) => (
+  <div onClick={() => props.QwButtonOnClick()} class="qw-button">{props.QwButtonLabel}</div>
 );

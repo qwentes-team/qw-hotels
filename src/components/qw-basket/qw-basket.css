@@ -2,3 +2,16 @@ qw-basket {
   display: flex;
   justify-content: space-between;
 }
+
+.qw-basket__price {
+  display: flex;
+  align-items: center;
+}
+
+.qw-basket__price qw-loading {
+  margin-left: var(--qw-hotel-gap-sm);
+}
+
+.qw-basket__price .qw-basket__price__amount--disabled {
+  opacity: var(--qw-hotel-opacity);
+}
