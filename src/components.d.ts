@@ -19,6 +19,7 @@ export namespace Components {
     'QwRoomCardCaption': string;
     'QwRoomCardGuests': string;
     'QwRoomCardImage': string;
+    'QwRoomCardIsLoading': boolean;
     'QwRoomCardOnClickBook': () => void;
     'QwRoomCardTitle': string;
   }
@@ -87,6 +88,7 @@ declare namespace LocalJSX {
     'QwRoomCardCaption'?: string;
     'QwRoomCardGuests'?: string;
     'QwRoomCardImage'?: string;
+    'QwRoomCardIsLoading'?: boolean;
     'QwRoomCardOnClickBook'?: () => void;
     'QwRoomCardTitle'?: string;
   }

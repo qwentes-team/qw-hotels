@@ -13,6 +13,7 @@ export class QwRoomCard {
   @Prop() QwRoomCardGuests: string;
   @Prop() QwRoomCardBeds: string;
   @Prop() QwRoomCardImage: string;
+  @Prop() QwRoomCardIsLoading: boolean;
   @Prop() QwRoomCardOnClickBook: () => void;
 
   render() {
@@ -29,7 +30,10 @@ export class QwRoomCard {
             <p>{this.QwRoomCardBeds}</p>
           </div>
           <div class="qw-room-card__cta">
-            <QwButton QwButtonOnClick={() => this.QwRoomCardOnClickBook()} QwButtonLabel="Book now"/>
+            <QwButton
+              QwButtonLabel="Book now"
+              QwButtonIsLoading={this.QwRoomCardIsLoading}
+              QwButtonOnClick={() => this.QwRoomCardOnClickBook()}/>
           </div>
         </qw-card>
       </Host>

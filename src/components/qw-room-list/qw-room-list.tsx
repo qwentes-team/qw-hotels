@@ -3,12 +3,11 @@ import {
   RoomModel,
   BasketService,
   RoomHelper,
-  RoomQuery,
-  RoomModelCollection,
+  RoomLoaded$,
   BasketWithPrice$,
-  RoomService
+  RoomService, BasketIsLoading$, RoomIsLoading$
 } from 'booking-state-manager';
-import {filter, switchMap} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   tag: 'qw-room-list',
@@ -17,7 +16,9 @@ import {filter, switchMap} from 'rxjs/operators';
 })
 export class QwRoomList {
   @Prop() QwRoomListTriggerBasket: boolean = false;
-  @State() rooms: RoomModelCollection = {};
+  @State() rooms: RoomModel[] = [];
+  @State() isBasketLoading: boolean;
+  @State() isRoomLoading: boolean;
 
   constructor() {
     this.setRoomToBasket = this.setRoomToBasket.bind(this);
@@ -28,14 +29,12 @@ export class QwRoomList {
       BasketService.getBasket().subscribe();
     }
 
-    RoomQuery.select().subscribe(res => {
-      this.rooms = res;
-    });
+    RoomLoaded$.subscribe(res => this.rooms = res);
+    BasketIsLoading$.subscribe(isLoading => this.isBasketLoading = isLoading);
+    RoomIsLoading$.subscribe(isLoading => this.isRoomLoading = isLoading);
 
     BasketWithPrice$
-      .pipe(
-        filter(basket => !(basket as any).loading), // todo fix BasketModel e portare questo filter nel selettore
-        switchMap(() => RoomService.getRooms()))
+      .pipe(switchMap(() => RoomService.getRooms()))
       .subscribe();
   }
 
@@ -55,7 +54,7 @@ export class QwRoomList {
   public render() {
     return (
       <Host>
-        {Object.values(this.rooms).map(r => {
+        {this.rooms.map(r => {
           return <qw-room-card
             class={!this.hasPrice(r) && 'qw-room-card__disabled'}
             qw-room-card-title={r.name}
@@ -63,6 +62,7 @@ export class QwRoomList {
             qw-room-card-guests={RoomHelper.getDefaultOccupancy(r).definition.text}
             qw-room-card-beds={r.bedding.beds[0].count + ' ' + r.bedding.beds[0].type.text}
             qw-room-card-image={RoomHelper.getCoverImage(r).url}
+            qw-room-card-is-loading={this.isBasketLoading || this.isRoomLoading}
             QwRoomCardOnClickBook={() => this.setRoomToBasket(r)}
           />
         })}

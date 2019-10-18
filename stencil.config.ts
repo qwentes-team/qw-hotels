@@ -6,7 +6,7 @@ export const config: Config = {
     namedExports: {
       'booking-state-manager': [
         'SessionService',
-        'RoomService', 'RoomHelper', 'RoomQuery',
+        'RoomService', 'RoomHelper', 'RoomQuery', 'RoomLoaded$', 'RoomIsLoading$',
         'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
       ]
     }

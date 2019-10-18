@@ -11,10 +11,15 @@
   background: var(--qw-button-background);
   border: var(--qw-button-border);
   border-radius: var(--qw-button-border-radius);
-  text-align: center;
+  justify-content: center;
+  display: flex;
 }
 
 .qw-button.qw-button--disabled {
   opacity: var(--qw-hotel-opacity);
   pointer-events: none !important;
+}
+
+.qw-button qw-loading {
+  margin-right: var(--qw-button-gap);
 }
