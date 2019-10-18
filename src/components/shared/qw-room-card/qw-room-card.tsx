@@ -9,7 +9,8 @@ import {QwButton} from '../qw-button/qw-button';
 })
 export class QwRoomCard {
   @Prop() QwRoomCardTitle: string;
-  @Prop() QwRoomCardCaption: string;
+  @Prop() QwRoomCardPrice: string;
+  @Prop() QwRoomCardAvailability: string;
   @Prop() QwRoomCardGuests: string;
   @Prop() QwRoomCardBeds: string;
   @Prop() QwRoomCardImage: string;
@@ -21,8 +22,11 @@ export class QwRoomCard {
       <Host>
         <qw-card>
           <div class="qw-room-card__header">
-            <h3 class="qw-room-card__title">{this.QwRoomCardTitle}</h3>
-            <h6 class="qw-room-card__caption">{this.QwRoomCardCaption}</h6>
+            <h4 class="qw-room-card__title">{this.QwRoomCardTitle}</h4>
+            <h6 class="qw-room-card__caption">
+              <div>{this.QwRoomCardPrice}</div>
+              <div>{`${this.QwRoomCardAvailability} availability`}</div>
+            </h6>
           </div>
           <QwImage imageUrl={this.QwRoomCardImage} alt={this.QwRoomCardTitle}/>
           <div class="qw-room-card__footer">

@@ -15,12 +15,13 @@ export namespace Components {
     'QwLoadingSize': string;
   }
   interface QwRoomCard {
+    'QwRoomCardAvailability': string;
     'QwRoomCardBeds': string;
-    'QwRoomCardCaption': string;
     'QwRoomCardGuests': string;
     'QwRoomCardImage': string;
     'QwRoomCardIsLoading': boolean;
     'QwRoomCardOnClickBook': () => void;
+    'QwRoomCardPrice': string;
     'QwRoomCardTitle': string;
   }
   interface QwRoomDetail {}
@@ -84,12 +85,13 @@ declare namespace LocalJSX {
     'QwLoadingSize'?: string;
   }
   interface QwRoomCard {
+    'QwRoomCardAvailability'?: string;
     'QwRoomCardBeds'?: string;
-    'QwRoomCardCaption'?: string;
     'QwRoomCardGuests'?: string;
     'QwRoomCardImage'?: string;
     'QwRoomCardIsLoading'?: boolean;
     'QwRoomCardOnClickBook'?: () => void;
+    'QwRoomCardPrice'?: string;
     'QwRoomCardTitle'?: string;
   }
   interface QwRoomDetail {}

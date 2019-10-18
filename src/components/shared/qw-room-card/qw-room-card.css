@@ -13,6 +13,7 @@ qw-room-card {
 .qw-room-card__header, .qw-room-card__footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 qw-room-card.qw-room-card__disabled {

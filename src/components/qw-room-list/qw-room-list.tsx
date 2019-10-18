@@ -1,11 +1,7 @@
 import {Component, h, Host, Prop, State} from '@stencil/core';
 import {
-  RoomModel,
-  BasketService,
-  RoomHelper,
-  RoomLoaded$,
-  BasketWithPrice$,
-  RoomService, BasketIsLoading$, RoomIsLoading$
+  BasketWithPrice$, BasketIsLoading$, BasketService,
+  RoomService, RoomIsLoading$, RoomLoaded$, RoomHelper, RoomDefaultLabel, RoomModel,
 } from 'booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 
@@ -48,7 +44,7 @@ export class QwRoomList {
   }
 
   private hasPrice(room: RoomModel) {
-    return RoomHelper.getCheapestRateFormatted(room) !== RoomHelper.DEFAULT_NO_PRICE_LABEL;
+    return RoomHelper.getCheapestRateFormatted(room) !== RoomDefaultLabel.NoPrice;
   }
 
   public render() {
@@ -58,7 +54,8 @@ export class QwRoomList {
           return <qw-room-card
             class={!this.hasPrice(r) && 'qw-room-card__disabled'}
             qw-room-card-title={r.name}
-            qw-room-card-caption={RoomHelper.getCheapestRateFormatted(r)}
+            qw-room-card-price={RoomHelper.getCheapestRateFormatted(r)}
+            qw-room-card-availability={RoomHelper.getAvailabilityForCheapestRate(r)}
             qw-room-card-guests={RoomHelper.getDefaultOccupancy(r).definition.text}
             qw-room-card-beds={r.bedding.beds[0].count + ' ' + r.bedding.beds[0].type.text}
             qw-room-card-image={RoomHelper.getCoverImage(r).url}
