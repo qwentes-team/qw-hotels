@@ -13,7 +13,7 @@ import {
   shadow: false
 })
 export class QwCalendar {
-  @Prop() QwCalendarNumberOfMonths: number = 1;
+  @Prop() qwCalendarNumberOfMonths: number = 2;
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean = false;
@@ -48,9 +48,9 @@ export class QwCalendar {
     return (
       <Host>
         <qw-calendar-picker
-          qw-calendar-picker-number-of-monts={this.QwCalendarNumberOfMonths}
+          qw-calendar-picker-number-of-months={this.qwCalendarNumberOfMonths}
           qw-calendar-picker-disabled={this.isSessionLoading}
-          qw-calendar-picker-stay-period={JSON.stringify(this.stayPeriod)}/>
+          qwCalendarPickerStayPeriod={this.stayPeriod}/>
       </Host>
     );
   }

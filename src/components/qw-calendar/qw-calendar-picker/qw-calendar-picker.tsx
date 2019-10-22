@@ -10,16 +10,15 @@ const CALENDAR_ID = 'flatpickr-element';
   shadow: false
 })
 export class QwCalendarPicker {
-  @Prop() QwCalendarPickerDisabled: boolean = false;
-  @Prop() QwCalendarPickerNumberOfMonths: number = 1;
-  @Prop() qwCalendarPickerStayPeriod: string;
+  @Prop() qwCalendarPickerDisabled: boolean = false;
+  @Prop() qwCalendarPickerNumberOfMonths: number = 1;
+  @Prop() qwCalendarPickerStayPeriod: SessionStayPeriod;
   @State() disableStartDate: boolean = false;
+  @State() calendarInstance: flatpickr.Instance;
   @Event() qwCalendarPickerChangeDates: EventEmitter<SessionStayPeriod>;
 
   private elementCalendarInstance: HTMLElement;
   private configCalendarInstance: { [key: string]: any } = {};
-
-  @State() calendarInstance: flatpickr.Instance;
 
   public componentDidLoad() {
     this.initCalendar();
@@ -31,14 +30,14 @@ export class QwCalendarPicker {
       mode: 'range',
       minDate: 'today',
       inline: true,
-      showMonths: this.QwCalendarPickerNumberOfMonths,
+      showMonths: this.qwCalendarPickerNumberOfMonths,
       onChange: this.change,
     };
     this.calendarInstance = flatpickr(this.elementCalendarInstance, this.configCalendarInstance);
   }
 
   change = (selectedDates: Date[], dateStr: string) => {
-    if(selectedDates.length === 1) {
+    if (selectedDates.length === 1) {
       this.disableStartDate = true;
     }
 
@@ -53,11 +52,9 @@ export class QwCalendarPicker {
     }
   };
 
-  // todo: JSON.parse è pesante, capire se vale la pena altrimenti fare tutto in componente statefull
   @Watch('qwCalendarPickerStayPeriod')
-  watchStayPeriod(newValue: string) {
-    const parsedNewValue: SessionStayPeriod = JSON.parse(newValue);
-    this.updateConfigCalendar({defaultDate: [parsedNewValue.arrivalDate, parsedNewValue.departureDate]});
+  watchStayPeriod(newValue: SessionStayPeriod) {
+    this.updateConfigCalendar({defaultDate: [newValue.arrivalDate, newValue.departureDate]});
   }
 
   private updateConfigCalendar(options) {
@@ -73,7 +70,7 @@ export class QwCalendarPicker {
   render() {
     return (
       <Host class={`
-        ${this.QwCalendarPickerDisabled && 'qw-calendar-picker--disabled'} 
+        ${this.qwCalendarPickerDisabled && 'qw-calendar-picker--disabled'} 
         ${this.disableStartDate && 'qw-calendar-picker--disable-start-date'}
       `}>
         <div id={CALENDAR_ID}/>
