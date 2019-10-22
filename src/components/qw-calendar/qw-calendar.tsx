@@ -1,6 +1,11 @@
-import {Component, Host, h, Prop, State, Element, Listen} from '@stencil/core';
-import {SessionLoaded$, SessionModel, SessionService, SessionStayPeriod} from 'booking-state-manager';
-import {HTMLStencilElement} from '@stencil/core/internal';
+import {Component, Host, h, Prop, State, Listen} from '@stencil/core';
+import {
+  SessionIsLoading$,
+  SessionLoaded$,
+  SessionModel,
+  SessionService,
+  SessionStayPeriod
+} from 'booking-state-manager';
 
 @Component({
   tag: 'qw-calendar',
@@ -10,8 +15,8 @@ import {HTMLStencilElement} from '@stencil/core/internal';
 export class QwCalendar {
   @Prop() QwCalendarNumberOfMonths: number = 1;
   @State() session: SessionModel;
-  @State() stayPeriod: SessionStayPeriod = {arrivalDate: undefined, departureDate: undefined};
-  @Element() el: HTMLStencilElement;
+  @State() stayPeriod: SessionStayPeriod;
+  @State() isSessionLoading: boolean = false;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -19,19 +24,24 @@ export class QwCalendar {
       this.session = session;
       this.stayPeriod = {...session.context.stayPeriod};
     });
+    SessionIsLoading$.subscribe(isLoading => this.isSessionLoading = isLoading);
   }
 
   @Listen('qwCalendarPickerChangeDates')
-  todoCompletedHandler(event: CustomEvent) {
-    const stayPeriod: SessionStayPeriod = event.detail;
-    console.log('Received the custom qwCalendarPickerChangeDates event: ', stayPeriod);
-    SessionService.updateContextSession({stayPeriod}).subscribe({
-      error: (err) => {
-        console.log(err);
-        // todo: gestire errore 'basket not empty'
-        // this.stayPeriod = {arrivalDate: '2019-10-20', departureDate: '2019-10-22'}
-      }
-    });
+  updateStayPeriod(event: CustomEvent<SessionStayPeriod>) {
+    SessionService.updateContextSession({...this.session.context, stayPeriod: event.detail})
+      .subscribe({
+        error: (err) => {
+          // todo: gestire errore 'basket not empty'
+          console.log(err);
+          this.restoreStayPeriod();
+        }
+      });
+  }
+
+  private restoreStayPeriod() {
+    this.stayPeriod = {} as SessionStayPeriod;
+    setTimeout(() => this.stayPeriod = {...this.session.context.stayPeriod});
   }
 
   render() {
@@ -39,7 +49,7 @@ export class QwCalendar {
       <Host>
         <qw-calendar-picker
           qw-calendar-picker-number-of-monts={this.QwCalendarNumberOfMonths}
-          qw-calendar-picker-disabled={!this.session}
+          qw-calendar-picker-disabled={this.isSessionLoading}
           qw-calendar-picker-stay-period={JSON.stringify(this.stayPeriod)}/>
       </Host>
     );

@@ -4,7 +4,8 @@ qw-calendar-picker {
   padding: var(--qw-hotel-gap-md);
 }
 
-qw-calendar-picker.qw-calendar-picker--disabled {
+qw-calendar-picker.qw-calendar-picker--disabled,
+qw-calendar-picker.qw-calendar-picker--disable-start-date .flatpickr-day.selected.startRange {
   opacity: var(--qw-hotel-opacity);
   pointer-events: none !important;
 }

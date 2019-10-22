@@ -18,7 +18,7 @@ export namespace Components {
   interface QwCalendarPicker {
     'QwCalendarPickerDisabled': boolean;
     'QwCalendarPickerNumberOfMonths': number;
-    'QwCalendarPickerStayPeriod': string;
+    'qwCalendarPickerStayPeriod': string;
   }
   interface QwCard {}
   interface QwLoading {
@@ -110,8 +110,8 @@ declare namespace LocalJSX {
   interface QwCalendarPicker {
     'QwCalendarPickerDisabled'?: boolean;
     'QwCalendarPickerNumberOfMonths'?: number;
-    'QwCalendarPickerStayPeriod'?: string;
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
+    'qwCalendarPickerStayPeriod'?: string;
   }
   interface QwCard {}
   interface QwLoading {

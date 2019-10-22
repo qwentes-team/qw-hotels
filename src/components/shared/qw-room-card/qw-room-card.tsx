@@ -23,10 +23,13 @@ export class QwRoomCard {
         <qw-card>
           <div class="qw-room-card__header">
             <h4 class="qw-room-card__title">{this.QwRoomCardTitle}</h4>
-            <h6 class="qw-room-card__caption">
-              <div>{this.QwRoomCardPrice}</div>
-              <div>{`${this.QwRoomCardAvailability} availability`}</div>
-            </h6>
+            {!this.QwRoomCardIsLoading
+              ? (<h6 class="qw-room-card__caption">
+                <div>{this.QwRoomCardPrice}</div>
+                <div>{`${this.QwRoomCardAvailability} availability`}</div>
+              </h6>)
+              : <qw-loading class="qw-room-card__caption" qw-loading-size="22"/>
+            }
           </div>
           <QwImage imageUrl={this.QwRoomCardImage} alt={this.QwRoomCardTitle}/>
           <div class="qw-room-card__footer">

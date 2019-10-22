@@ -10,6 +10,10 @@ qw-room-card {
   border-radius: var(--qw-room-card-border-radius);
 }
 
+qw-room-card .qw-room-card__caption {
+  margin: 0;
+}
+
 .qw-room-card__header, .qw-room-card__footer {
   display: flex;
   justify-content: space-between;
