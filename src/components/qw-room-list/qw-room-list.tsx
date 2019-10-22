@@ -1,9 +1,11 @@
 import {Component, h, Host, Prop, State} from '@stencil/core';
 import {
-  BasketWithPrice$, BasketIsLoading$, BasketService,
+  BasketIsLoading$, BasketService,
   RoomService, RoomIsLoading$, RoomLoaded$, RoomHelper, RoomDefaultLabel, RoomModel,
+  SessionService, SessionLoaded$, SessionModel,
 } from 'booking-state-manager';
 import {switchMap} from 'rxjs/operators';
+import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   tag: 'qw-room-list',
@@ -15,23 +17,28 @@ export class QwRoomList {
   @State() rooms: RoomModel[] = [];
   @State() isBasketLoading: boolean;
   @State() isRoomLoading: boolean;
+  @State() session: SessionModel;
 
   constructor() {
     this.setRoomToBasket = this.setRoomToBasket.bind(this);
   }
 
   public componentDidLoad() {
-    if (this.QwRoomListTriggerBasket) {
-      BasketService.getBasket().subscribe();
-    }
+    SessionService.getSession().pipe(
+      switchMap(session => {
+        return this.QwRoomListTriggerBasket ? BasketService.getBasket(session) : of(undefined)
+      })).subscribe();
+
+    SessionLoaded$.pipe(
+      switchMap(session => {
+        this.session = session;
+        return RoomService.getRooms(session.sessionId);
+      })
+    ).subscribe();
 
     RoomLoaded$.subscribe(res => this.rooms = res);
     BasketIsLoading$.subscribe(isLoading => this.isBasketLoading = isLoading);
     RoomIsLoading$.subscribe(isLoading => this.isRoomLoading = isLoading);
-
-    BasketWithPrice$
-      .pipe(switchMap(() => RoomService.getRooms()))
-      .subscribe();
   }
 
   public setRoomToBasket(room: RoomModel) {
@@ -50,6 +57,7 @@ export class QwRoomList {
   public render() {
     return (
       <Host>
+        {this.session && <div>Guests: {this.session.context.guests.adults}</div>}
         {this.rooms.map(r => {
           return <qw-room-card
             class={!this.hasPrice(r) && 'qw-room-card__disabled'}

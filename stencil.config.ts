@@ -5,7 +5,7 @@ export const config: Config = {
   commonjs: {
     namedExports: {
       'booking-state-manager': [
-        'SessionService',
+        'SessionService', 'SessionLoaded$', 'SessionQuery',
         'RoomService', 'RoomHelper', 'RoomQuery', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel',
         'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
       ]

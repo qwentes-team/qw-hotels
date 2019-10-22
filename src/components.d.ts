@@ -6,10 +6,20 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  SessionStayPeriod,
+} from 'booking-state-manager';
 
 export namespace Components {
   interface QwBasket {}
+  interface QwCalendar {
+    'QwCalendarNumberOfMonths': number;
+  }
+  interface QwCalendarPicker {
+    'QwCalendarPickerDisabled': boolean;
+    'QwCalendarPickerNumberOfMonths': number;
+    'QwCalendarPickerStayPeriod': string;
+  }
   interface QwCard {}
   interface QwLoading {
     'QwLoadingSize': string;
@@ -37,6 +47,18 @@ declare global {
   var HTMLQwBasketElement: {
     prototype: HTMLQwBasketElement;
     new (): HTMLQwBasketElement;
+  };
+
+  interface HTMLQwCalendarElement extends Components.QwCalendar, HTMLStencilElement {}
+  var HTMLQwCalendarElement: {
+    prototype: HTMLQwCalendarElement;
+    new (): HTMLQwCalendarElement;
+  };
+
+  interface HTMLQwCalendarPickerElement extends Components.QwCalendarPicker, HTMLStencilElement {}
+  var HTMLQwCalendarPickerElement: {
+    prototype: HTMLQwCalendarPickerElement;
+    new (): HTMLQwCalendarPickerElement;
   };
 
   interface HTMLQwCardElement extends Components.QwCard, HTMLStencilElement {}
@@ -70,6 +92,8 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     'qw-basket': HTMLQwBasketElement;
+    'qw-calendar': HTMLQwCalendarElement;
+    'qw-calendar-picker': HTMLQwCalendarPickerElement;
     'qw-card': HTMLQwCardElement;
     'qw-loading': HTMLQwLoadingElement;
     'qw-room-card': HTMLQwRoomCardElement;
@@ -80,6 +104,15 @@ declare global {
 
 declare namespace LocalJSX {
   interface QwBasket {}
+  interface QwCalendar {
+    'QwCalendarNumberOfMonths'?: number;
+  }
+  interface QwCalendarPicker {
+    'QwCalendarPickerDisabled'?: boolean;
+    'QwCalendarPickerNumberOfMonths'?: number;
+    'QwCalendarPickerStayPeriod'?: string;
+    'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
+  }
   interface QwCard {}
   interface QwLoading {
     'QwLoadingSize'?: string;
@@ -101,6 +134,8 @@ declare namespace LocalJSX {
 
   interface IntrinsicElements {
     'qw-basket': QwBasket;
+    'qw-calendar': QwCalendar;
+    'qw-calendar-picker': QwCalendarPicker;
     'qw-card': QwCard;
     'qw-loading': QwLoading;
     'qw-room-card': QwRoomCard;
@@ -116,6 +151,8 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'qw-basket': LocalJSX.QwBasket & JSXBase.HTMLAttributes<HTMLQwBasketElement>;
+      'qw-calendar': LocalJSX.QwCalendar & JSXBase.HTMLAttributes<HTMLQwCalendarElement>;
+      'qw-calendar-picker': LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;

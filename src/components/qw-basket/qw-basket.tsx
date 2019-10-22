@@ -1,6 +1,10 @@
 import {Component, Host, h, State} from '@stencil/core';
-import {BasketHelper, BasketIsLoading$, BasketQuery, BasketService, MoneyPrice} from 'booking-state-manager';
+import {
+  BasketHelper, BasketIsLoading$, BasketQuery, BasketService,
+  MoneyPrice, SessionLoaded$, SessionService
+} from 'booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   tag: 'qw-basket',
@@ -12,7 +16,9 @@ export class QwBasket {
   @State() isLoading: boolean;
 
   public componentDidLoad() {
-    BasketService.getBasket().subscribe();
+    SessionService.getSession().subscribe();
+    SessionLoaded$.pipe(switchMap(BasketService.getBasket)).subscribe();
+
     BasketQuery.select().subscribe(basket => this.totalPrice = BasketHelper.getTotalOriginalPrice(basket));
     BasketIsLoading$.subscribe(isLoading => {
       this.isLoading = isLoading;

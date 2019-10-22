@@ -1,4 +1,5 @@
 @import "../components/shared/shared.css";
+@import "./flatpickr.min.css";
 
 :root {
   --qw-hotel-primary-color: #4C5BF4;

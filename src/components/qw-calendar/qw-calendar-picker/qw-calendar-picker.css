@@ -1,0 +1,15 @@
+qw-calendar-picker {
+  display: flex;
+  justify-content: center;
+  padding: var(--qw-hotel-gap-md);
+}
+
+qw-calendar-picker.qw-calendar-picker--disabled {
+  opacity: var(--qw-hotel-opacity);
+  pointer-events: none !important;
+}
+
+/* classi che sovrascrivono flatpickr.min.css*/
+qw-calendar-picker .flatpickr-calendar.inline {
+  top: 0;
+}
