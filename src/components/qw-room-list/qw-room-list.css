@@ -6,4 +6,17 @@ qw-room-list {
 
 qw-room-list qw-room-card {
   margin: var(--qw-hotel-gap-sm) 0;
+  width: 100%;
+}
+
+qw-room-list .qw-room-list__wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+@media only screen and (min-width: 600px) {
+  qw-room-list qw-room-card {
+    width: 47%;
+  }
 }

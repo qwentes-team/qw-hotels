@@ -25,9 +25,8 @@ export class QwRoomList {
 
   public componentDidLoad() {
     SessionService.getSession().pipe(
-      switchMap(session => {
-        return this.QwRoomListTriggerBasket ? BasketService.getBasket(session) : of(undefined)
-      })).subscribe();
+      switchMap(session => this.QwRoomListTriggerBasket ? BasketService.getBasket(session) : of(undefined))
+    ).subscribe();
 
     SessionLoaded$.pipe(
       switchMap(session => {
@@ -58,19 +57,22 @@ export class QwRoomList {
     return (
       <Host>
         {this.session && <div>Guests: {this.session.context.guests.adults}</div>}
-        {this.rooms.map(r => {
-          return <qw-room-card
-            class={!this.hasPrice(r) && 'qw-room-card__disabled'}
-            qw-room-card-title={r.name}
-            qw-room-card-price={RoomHelper.getCheapestRateFormatted(r)}
-            qw-room-card-availability={RoomHelper.getAvailabilityForCheapestRate(r)}
-            qw-room-card-guests={RoomHelper.getDefaultOccupancy(r).definition.text}
-            qw-room-card-beds={r.bedding.beds[0].count + ' ' + r.bedding.beds[0].type.text}
-            qw-room-card-image={RoomHelper.getCoverImage(r).url}
-            qw-room-card-is-loading={this.isBasketLoading || this.isRoomLoading}
-            QwRoomCardOnClickBook={() => this.setRoomToBasket(r)}
-          />
-        })}
+        <div class="qw-room-list__wrapper">
+          {this.rooms.map(r => {
+            return <qw-room-card
+              class={!this.hasPrice(r) && 'qw-room-card__disabled'}
+              qw-room-card-title={r.name}
+              qw-room-card-price={`From: ${RoomHelper.getCheapestRateFormatted(r)}`}
+              qw-room-card-availability={RoomHelper.getAvailabilityForCheapestRate(r)}
+              qw-room-card-guests={RoomHelper.getDefaultOccupancy(r).definition.text}
+              qw-room-card-beds={r.bedding.beds[0].count + ' ' + r.bedding.beds[0].type.text}
+              qw-room-card-image={RoomHelper.getCoverImage(r).url}
+              qwRoomCardRates={r.rates}
+              qw-room-card-is-loading={this.isBasketLoading || this.isRoomLoading}
+              QwRoomCardOnClickBook={() => this.setRoomToBasket(r)}
+            />
+          })}
+        </div>
       </Host>
     );
   }

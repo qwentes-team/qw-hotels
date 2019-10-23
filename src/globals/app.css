@@ -2,6 +2,8 @@
 @import "./flatpickr.min.css";
 
 :root {
+  --qw-hotel-media-min-desktop: 600px;
+  
   --qw-hotel-primary-color: #4C5BF4;
   --qw-hotel-secondary-color: #B0B7FA;
   

@@ -10,14 +10,30 @@ qw-room-card {
   border-radius: var(--qw-room-card-border-radius);
 }
 
-qw-room-card .qw-room-card__caption {
-  margin: 0;
+qw-room-card .qw-room-card__caption, qw-room-card .qw-room-card__title {
+  margin: var(--qw-room-card-gap) 0;
 }
 
 .qw-room-card__header, .qw-room-card__footer {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.qw-room-card__footer-top {
+  width: 100%;
+  display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.qw-room-card__footer-bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 12px;
+  /*  todo fare veriabili e meglio */
 }
 
 qw-room-card.qw-room-card__disabled {

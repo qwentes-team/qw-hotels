@@ -1,6 +1,7 @@
 import {Component, Host, h, Prop} from '@stencil/core';
 import {QwImage} from '../qw-image/qw-image';
 import {QwButton} from '../qw-button/qw-button';
+import {Rate} from 'booking-state-manager';
 
 @Component({
   tag: 'qw-room-card',
@@ -14,10 +15,12 @@ export class QwRoomCard {
   @Prop() QwRoomCardGuests: string;
   @Prop() QwRoomCardBeds: string;
   @Prop() QwRoomCardImage: string;
+  @Prop() qwRoomCardRates: Rate[];
   @Prop() QwRoomCardIsLoading: boolean;
   @Prop() QwRoomCardOnClickBook: () => void;
 
   render() {
+    console.log(this.qwRoomCardRates);
     return (
       <Host>
         <qw-card>
@@ -33,8 +36,15 @@ export class QwRoomCard {
           </div>
           <QwImage imageUrl={this.QwRoomCardImage} alt={this.QwRoomCardTitle}/>
           <div class="qw-room-card__footer">
-            <p>{this.QwRoomCardGuests}</p>
-            <p>{this.QwRoomCardBeds}</p>
+            <div class="qw-room-card__footer-top">
+              <p>{this.QwRoomCardGuests}</p>
+              <p>{this.QwRoomCardBeds}</p>
+            </div>
+            <div class="qw-room-card__footer-bottom">
+              {this.qwRoomCardRates && this.qwRoomCardRates.map(rate => {
+                return <div>RoomId: {rate.rateId} - Price: {rate.price.totalPrice.original.text}</div>
+              })}
+            </div>
           </div>
           <div class="qw-room-card__cta">
             <QwButton

@@ -7,6 +7,7 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  Rate,
   SessionStayPeriod,
 } from 'booking-state-manager';
 
@@ -33,6 +34,7 @@ export namespace Components {
     'QwRoomCardOnClickBook': () => void;
     'QwRoomCardPrice': string;
     'QwRoomCardTitle': string;
+    'qwRoomCardRates': Rate[];
   }
   interface QwRoomDetail {}
   interface QwRoomList {
@@ -126,6 +128,7 @@ declare namespace LocalJSX {
     'QwRoomCardOnClickBook'?: () => void;
     'QwRoomCardPrice'?: string;
     'QwRoomCardTitle'?: string;
+    'qwRoomCardRates'?: Rate[];
   }
   interface QwRoomDetail {}
   interface QwRoomList {
