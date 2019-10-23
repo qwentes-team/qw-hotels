@@ -20,7 +20,6 @@ export class QwRoomCard {
   @Prop() QwRoomCardOnClickBook: () => void;
 
   render() {
-    console.log(this.qwRoomCardRates);
     return (
       <Host>
         <qw-card>
