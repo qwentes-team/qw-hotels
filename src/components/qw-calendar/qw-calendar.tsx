@@ -48,8 +48,8 @@ export class QwCalendar {
     return (
       <Host>
         <qw-calendar-picker
-          qw-calendar-picker-number-of-months={this.qwCalendarNumberOfMonths}
-          qw-calendar-picker-disabled={this.isSessionLoading}
+          qwCalendarPickerNumberOfMonths={this.qwCalendarNumberOfMonths}
+          qwCalendarPickerDisabled={this.isSessionLoading}
           qwCalendarPickerStayPeriod={this.stayPeriod}/>
       </Host>
     );
