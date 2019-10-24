@@ -1,0 +1,45 @@
+qw-week-calendar {
+  --qw-week-calendar-font-size: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--qw-hotel-neutral-lightest);
+  border: 1px solid var(--qw-hotel-neutral-light);
+  font-size: var(--qw-week-calendar-font-size);
+  padding: var(--qw-hotel-gap-sm);
+}
+
+qw-week-calendar .qw-calendar-week__block {
+  background: var(--qw-hotel-neutral-light);
+  padding: var(--qw-hotel-gap-sm);
+  text-align: center;
+}
+
+qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--selected {
+  background: var(--qw-hotel-primary-color);
+}
+
+qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--first {
+  border-radius: 50px 0 0 50px;
+}
+
+qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--last {
+  border-radius: 0 50px 50px 0;
+  background: var(--qw-hotel-secondary-color);
+}
+
+qw-week-calendar .qw-calendar-week__block-date {
+  padding-bottom: 2px;
+}
+qw-week-calendar .qw-calendar-week__block-price {
+  font-weight: bold;
+}
+
+qw-week-calendar qw-loading {
+  width: 100%;
+}
+
+qw-week-calendar qw-loading svg circle {
+  stroke: var(--qw-hotel-neutral-dark);
+}

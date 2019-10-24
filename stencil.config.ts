@@ -8,15 +8,16 @@ export const config: Config = {
         'SessionService', 'SessionLoaded$', 'SessionQuery', 'SessionIsLoading$',
         'RoomService', 'RoomHelper', 'RoomQuery', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel',
         'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
+        'DateUtil', 'DateFormat',
       ]
     }
   },
   bundles: [
     { components: ['qw-room-list'] },
-    { components: ['qw-room-detail'] },
+    { components: ['qw-calendar'] },
     { components: ['qw-basket'] },
   ],
-  hashFileNames: false, // todo rimuovere in prod
+  hashFileNames: true, // todo rimuovere in prod
   outputTargets: [
     {
       type: 'dist',

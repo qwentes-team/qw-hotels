@@ -4,9 +4,9 @@ qw-room-list {
   font-family: var(--qw-hotel-font-family);
 }
 
-qw-room-list qw-room-card {
+qw-room-list .qw-room-list__card-wrapper {
   margin: var(--qw-hotel-gap-sm) 0;
-  width: 100%;
+  width: auto;
 }
 
 qw-room-list .qw-room-list__wrapper {
@@ -16,7 +16,7 @@ qw-room-list .qw-room-list__wrapper {
 }
 
 @media only screen and (min-width: 600px) {
-  qw-room-list qw-room-card {
-    width: 47%;
+  qw-room-list .qw-room-list__card-wrapper {
+    width: 49%;
   }
 }

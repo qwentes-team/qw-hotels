@@ -13,7 +13,7 @@ import {
   shadow: false
 })
 export class QwCalendar {
-  @Prop() qwCalendarNumberOfMonths: number = 2;
+  @Prop() qwCalendarNumberOfMonths: number = 1;
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean = false;
@@ -32,7 +32,6 @@ export class QwCalendar {
     SessionService.updateContextSession({...this.session.context, stayPeriod: event.detail})
       .subscribe({
         error: (err) => {
-          // todo: gestire errore 'basket not empty'
           console.log(err);
           this.restoreStayPeriod();
         }

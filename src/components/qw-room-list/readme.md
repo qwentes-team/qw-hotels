@@ -17,12 +17,16 @@
 ### Depends on
 
 - [qw-room-card](../shared/qw-room-card)
+- [qw-week-calendar](../qw-week-calendar)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-room-list --> qw-room-card
+  qw-room-list --> qw-week-calendar
   qw-room-card --> qw-card
+  qw-room-card --> qw-loading
+  qw-week-calendar --> qw-loading
   style qw-room-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
