@@ -19,10 +19,12 @@ export namespace Components {
   interface QwBasket {}
   interface QwCalendar {
     'qwCalendarNumberOfMonths': number;
+    'qwCalendarResponsive': boolean;
   }
   interface QwCalendarPicker {
     'qwCalendarPickerDisabled': boolean;
     'qwCalendarPickerNumberOfMonths': number;
+    'qwCalendarPickerResponsive': boolean;
     'qwCalendarPickerStayPeriod': SessionStayPeriod;
   }
   interface QwCard {}
@@ -145,11 +147,13 @@ declare namespace LocalJSX {
   interface QwBasket {}
   interface QwCalendar {
     'qwCalendarNumberOfMonths'?: number;
+    'qwCalendarResponsive'?: boolean;
   }
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarPickerDisabled'?: boolean;
     'qwCalendarPickerNumberOfMonths'?: number;
+    'qwCalendarPickerResponsive'?: boolean;
     'qwCalendarPickerStayPeriod'?: SessionStayPeriod;
   }
   interface QwCard {}

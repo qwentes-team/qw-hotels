@@ -1,7 +1,7 @@
 qw-calendar-picker {
   display: flex;
   justify-content: center;
-  padding: var(--qw-hotel-gap-md);
+  padding: var(--qw-hotel-gap-md) 0;
 }
 
 qw-calendar-picker.qw-calendar-picker--disabled,
@@ -13,4 +13,20 @@ qw-calendar-picker.qw-calendar-picker--disable-start-date .flatpickr-day.selecte
 /* classi che sovrascrivono flatpickr.min.css*/
 qw-calendar-picker .flatpickr-calendar.inline {
   top: 0;
+}
+
+qw-calendar-picker.qw-calendar-picker--responsive .flatpickr-calendar,
+qw-calendar-picker.qw-calendar-picker--responsive .flatpickr-rContainer,
+qw-calendar-picker.qw-calendar-picker--responsive .flatpickr-days {
+  width: 100%!important;
+}
+
+qw-calendar-picker.qw-calendar-picker--responsive .dayContainer {
+  width: 100%;
+  min-width: inherit;
+  max-width: inherit;
+}
+
+qw-calendar-picker.qw-calendar-picker--responsive .flatpickr-day {
+  max-width: inherit;
 }

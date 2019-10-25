@@ -10,8 +10,9 @@ const CALENDAR_ID = 'flatpickr-element';
   shadow: false
 })
 export class QwCalendarPicker {
-  @Prop() qwCalendarPickerDisabled: boolean = false;
-  @Prop() qwCalendarPickerNumberOfMonths: number = 1;
+  @Prop() qwCalendarPickerDisabled: boolean;
+  @Prop() qwCalendarPickerNumberOfMonths: number;
+  @Prop() qwCalendarPickerResponsive: boolean;
   @Prop() qwCalendarPickerStayPeriod: SessionStayPeriod;
   @State() disableStartDate: boolean = false;
   @State() calendarInstance: flatpickr.Instance;
@@ -72,6 +73,7 @@ export class QwCalendarPicker {
       <Host class={`
         ${this.qwCalendarPickerDisabled && 'qw-calendar-picker--disabled'} 
         ${this.disableStartDate && 'qw-calendar-picker--disable-start-date'}
+        ${this.qwCalendarPickerResponsive && 'qw-calendar-picker--responsive'}
       `}>
         <div id={CALENDAR_ID}/>
       </Host>
