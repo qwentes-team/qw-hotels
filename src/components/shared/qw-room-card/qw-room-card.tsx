@@ -45,7 +45,7 @@ export class QwRoomCard {
           <div class="qw-room-card__cta">
             <QwButton
               QwButtonLabel="Book now"
-              QwButtonIsLoading={this.qwRoomCardIsLoading}
+              QwButtonDisabled={this.qwRoomCardIsLoading}
               QwButtonOnClick={() => this.qwRoomCardOnClickBook()}/>
           </div>
         </qw-card>

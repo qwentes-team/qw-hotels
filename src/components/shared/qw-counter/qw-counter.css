@@ -1,0 +1,20 @@
+qw-counter {
+  --qw-counter-button-size: 22px;
+
+  display: flex;
+  align-items: center;
+}
+
+qw-counter .qw-counter__value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--qw-counter-button-size);
+  height: var(--qw-counter-button-size);
+  padding: var(--qw-hotel-gap-sm);
+}
+
+qw-counter .qw-button {
+  width: var(--qw-counter-button-size);
+  height: var(--qw-counter-button-size);
+}

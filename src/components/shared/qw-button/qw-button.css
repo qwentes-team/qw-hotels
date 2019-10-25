@@ -12,6 +12,7 @@
   border: var(--qw-button-border);
   border-radius: var(--qw-button-border-radius);
   justify-content: center;
+  align-items: center;
   display: flex;
 }
 

@@ -11,6 +11,9 @@ import {
   RoomModel,
   SessionStayPeriod,
 } from 'booking-state-manager';
+import {
+  QwCounterEmitter,
+} from './components/shared/qw-counter/qw-counter';
 
 export namespace Components {
   interface QwBasket {}
@@ -23,6 +26,11 @@ export namespace Components {
     'qwCalendarPickerStayPeriod': SessionStayPeriod;
   }
   interface QwCard {}
+  interface QwCounter {
+    'qwCounterName': string;
+    'qwCounterValue': number;
+  }
+  interface QwGuest {}
   interface QwLoading {
     'QwLoadingSize': string;
   }
@@ -77,6 +85,18 @@ declare global {
     new (): HTMLQwCardElement;
   };
 
+  interface HTMLQwCounterElement extends Components.QwCounter, HTMLStencilElement {}
+  var HTMLQwCounterElement: {
+    prototype: HTMLQwCounterElement;
+    new (): HTMLQwCounterElement;
+  };
+
+  interface HTMLQwGuestElement extends Components.QwGuest, HTMLStencilElement {}
+  var HTMLQwGuestElement: {
+    prototype: HTMLQwGuestElement;
+    new (): HTMLQwGuestElement;
+  };
+
   interface HTMLQwLoadingElement extends Components.QwLoading, HTMLStencilElement {}
   var HTMLQwLoadingElement: {
     prototype: HTMLQwLoadingElement;
@@ -111,6 +131,8 @@ declare global {
     'qw-calendar': HTMLQwCalendarElement;
     'qw-calendar-picker': HTMLQwCalendarPickerElement;
     'qw-card': HTMLQwCardElement;
+    'qw-counter': HTMLQwCounterElement;
+    'qw-guest': HTMLQwGuestElement;
     'qw-loading': HTMLQwLoadingElement;
     'qw-room-card': HTMLQwRoomCardElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
@@ -131,6 +153,12 @@ declare namespace LocalJSX {
     'qwCalendarPickerStayPeriod'?: SessionStayPeriod;
   }
   interface QwCard {}
+  interface QwCounter {
+    'onQwCounterChangeValue'?: (event: CustomEvent<QwCounterEmitter>) => void;
+    'qwCounterName'?: string;
+    'qwCounterValue'?: number;
+  }
+  interface QwGuest {}
   interface QwLoading {
     'QwLoadingSize'?: string;
   }
@@ -162,6 +190,8 @@ declare namespace LocalJSX {
     'qw-calendar': QwCalendar;
     'qw-calendar-picker': QwCalendarPicker;
     'qw-card': QwCard;
+    'qw-counter': QwCounter;
+    'qw-guest': QwGuest;
     'qw-loading': QwLoading;
     'qw-room-card': QwRoomCard;
     'qw-room-detail': QwRoomDetail;
@@ -180,6 +210,8 @@ declare module "@stencil/core" {
       'qw-calendar': LocalJSX.QwCalendar & JSXBase.HTMLAttributes<HTMLQwCalendarElement>;
       'qw-calendar-picker': LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
+      'qw-counter': LocalJSX.QwCounter & JSXBase.HTMLAttributes<HTMLQwCounterElement>;
+      'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
