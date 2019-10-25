@@ -11,7 +11,6 @@ export class QwPrice {
   @Prop() qwPriceCaption: string;
 
   render() {
-    console.log(this.qwPriceMainPrice);
     return (
       <Host>
         {this.qwPriceCrossedPrice && <div class="qw-price__crossed-price">{this.qwPriceCrossedPrice}</div>}

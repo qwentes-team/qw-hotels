@@ -7,6 +7,7 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  PricesForStayPeriod,
   Rate,
   RoomModel,
   SessionStayPeriod,
@@ -61,7 +62,7 @@ export namespace Components {
   }
   interface QwWeekCalendar {
     'qwWeekCalendarIsPriceLoading': boolean;
-    'qwWeekCalendarPricesByRoom': any;
+    'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate': Date[];
     'qwWeekCalendarRangeDateSession': Date[];
     'qwWeekCalendarSelectedRoomId': RoomModel['roomId'];
@@ -206,7 +207,7 @@ declare namespace LocalJSX {
   }
   interface QwWeekCalendar {
     'qwWeekCalendarIsPriceLoading'?: boolean;
-    'qwWeekCalendarPricesByRoom'?: any;
+    'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate'?: Date[];
     'qwWeekCalendarRangeDateSession'?: Date[];
     'qwWeekCalendarSelectedRoomId'?: RoomModel['roomId'];
