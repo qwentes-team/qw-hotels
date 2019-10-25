@@ -8,7 +8,7 @@ export const config: Config = {
         'SessionService', 'SessionLoaded$', 'SessionQuery', 'SessionIsLoading$',
         'RoomService', 'RoomHelper', 'RoomQuery', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel',
         'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
-        'DateUtil', 'DateFormat',
+        'DateUtil', 'DateFormat', 'MONEY_SYMBOLS',
       ]
     }
   },

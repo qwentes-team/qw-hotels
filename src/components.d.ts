@@ -38,8 +38,14 @@ export namespace Components {
   interface QwLoading {
     'QwLoadingSize': string;
   }
+  interface QwPrice {
+    'qwPriceCaption': string;
+    'qwPriceCrossedPrice': string;
+    'qwPriceMainPrice': string;
+  }
   interface QwRoomCard {
     'qwRoomCardAvailability': number;
+    'qwRoomCardAveragePrice': string;
     'qwRoomCardBeds': string;
     'qwRoomCardGuests': string;
     'qwRoomCardImage': string;
@@ -107,6 +113,12 @@ declare global {
     new (): HTMLQwLoadingElement;
   };
 
+  interface HTMLQwPriceElement extends Components.QwPrice, HTMLStencilElement {}
+  var HTMLQwPriceElement: {
+    prototype: HTMLQwPriceElement;
+    new (): HTMLQwPriceElement;
+  };
+
   interface HTMLQwRoomCardElement extends Components.QwRoomCard, HTMLStencilElement {}
   var HTMLQwRoomCardElement: {
     prototype: HTMLQwRoomCardElement;
@@ -138,6 +150,7 @@ declare global {
     'qw-counter': HTMLQwCounterElement;
     'qw-guest': HTMLQwGuestElement;
     'qw-loading': HTMLQwLoadingElement;
+    'qw-price': HTMLQwPriceElement;
     'qw-room-card': HTMLQwRoomCardElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-list': HTMLQwRoomListElement;
@@ -170,8 +183,14 @@ declare namespace LocalJSX {
   interface QwLoading {
     'QwLoadingSize'?: string;
   }
+  interface QwPrice {
+    'qwPriceCaption'?: string;
+    'qwPriceCrossedPrice'?: string;
+    'qwPriceMainPrice'?: string;
+  }
   interface QwRoomCard {
     'qwRoomCardAvailability'?: number;
+    'qwRoomCardAveragePrice'?: string;
     'qwRoomCardBeds'?: string;
     'qwRoomCardGuests'?: string;
     'qwRoomCardImage'?: string;
@@ -201,6 +220,7 @@ declare namespace LocalJSX {
     'qw-counter': QwCounter;
     'qw-guest': QwGuest;
     'qw-loading': QwLoading;
+    'qw-price': QwPrice;
     'qw-room-card': QwRoomCard;
     'qw-room-detail': QwRoomDetail;
     'qw-room-list': QwRoomList;
@@ -221,6 +241,7 @@ declare module "@stencil/core" {
       'qw-counter': LocalJSX.QwCounter & JSXBase.HTMLAttributes<HTMLQwCounterElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
+      'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
       'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;

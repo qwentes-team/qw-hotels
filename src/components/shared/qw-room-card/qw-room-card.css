@@ -14,6 +14,12 @@ qw-room-card .qw-room-card__caption, qw-room-card .qw-room-card__title {
   margin: var(--qw-room-card-gap) 0;
 }
 
+.qw-room-card__header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--qw-hotel-gap-sm);
+}
+
 .qw-room-card__header, .qw-room-card__footer {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,24 @@
+qw-price {
+  --qw-price-main-price-font-size: 21px;
+  --qw-price-crossed-price-font-size: 12px;
+  --qw-price-background: var(--qw-hotel-secondary-color);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--qw-price-background);
+  padding: var(--qw-hotel-gap-sm);
+}
+
+qw-price .qw-price__crossed-price {
+  font-size: var(--qw-price-crossed-price-font-size);
+  opacity: .5;
+  text-decoration: line-through;
+}
+qw-price .qw-price__main-price {
+  font-size: var(--qw-price-main-price-font-size);
+}
+qw-price .qw-price__caption {
+  font-size: var(--qw-price-crossed-price-font-size);
+}

@@ -43,7 +43,7 @@ export class QwWeekCalendar {
     if (!this.qwWeekCalendarPricesByRoom[this.qwWeekCalendarSelectedRoomId]) {
       return FALLBACK_PRICE_LABEL;
     }
-    return this.qwWeekCalendarPricesByRoom[this.qwWeekCalendarSelectedRoomId][DateUtil.getDateStringFromDate(date)];
+    return this.qwWeekCalendarPricesByRoom[this.qwWeekCalendarSelectedRoomId][DateUtil.getDateStringFromDate(date)].text;
   }
 
   private isFirstDateInSession(date: Date) {

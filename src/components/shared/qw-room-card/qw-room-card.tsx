@@ -11,6 +11,7 @@ import {Rate} from 'booking-state-manager';
 export class QwRoomCard {
   @Prop() qwRoomCardTitle: string;
   @Prop() qwRoomCardPrice: string;
+  @Prop() qwRoomCardAveragePrice: string;
   @Prop() qwRoomCardAvailability: number;
   @Prop() qwRoomCardGuests: string;
   @Prop() qwRoomCardBeds: string;
@@ -23,12 +24,17 @@ export class QwRoomCard {
     return (
       <Host>
         <qw-card>
-          <div class="qw-room-card__header">
-            <h4 class="qw-room-card__title">{this.qwRoomCardTitle}</h4>
-            <h6 class="qw-room-card__caption">
-              <div>{this.qwRoomCardPrice}</div>
-              <div>{`${this.qwRoomCardAvailability} availability`}</div>
-            </h6>
+          <div class="qw-room-card__header-wrapper">
+            <div class="qw-room-card__header">
+              <h4 class="qw-room-card__title">{this.qwRoomCardTitle}</h4>
+              <h6 class="qw-room-card__caption">
+                <div>{this.qwRoomCardPrice}</div>
+                <div>{`${this.qwRoomCardAvailability} availability`}</div>
+              </h6>
+            </div>
+            <qw-price
+              qw-price-main-price={this.qwRoomCardAveragePrice}
+              qw-price-caption={'Average per night'}/>
           </div>
           <QwImage imageUrl={this.qwRoomCardImage} alt={this.qwRoomCardTitle}/>
           <div class="qw-room-card__footer">
