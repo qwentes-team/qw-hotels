@@ -32,7 +32,9 @@ export namespace Components {
     'qwCounterName': string;
     'qwCounterValue': number;
   }
-  interface QwGuest {}
+  interface QwGuest {
+    'qwGuestCenter': boolean;
+  }
   interface QwLoading {
     'QwLoadingSize': string;
   }
@@ -162,7 +164,9 @@ declare namespace LocalJSX {
     'qwCounterName'?: string;
     'qwCounterValue'?: number;
   }
-  interface QwGuest {}
+  interface QwGuest {
+    'qwGuestCenter'?: boolean;
+  }
   interface QwLoading {
     'QwLoadingSize'?: string;
   }

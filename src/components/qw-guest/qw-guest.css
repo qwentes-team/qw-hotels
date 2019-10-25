@@ -6,6 +6,10 @@ qw-guest {
   width: var(--qw-guest-width);
 }
 
+qw-guest.qw-guest--center {
+  margin: 0 auto;
+}
+
 qw-guest.qw-guest--disabled {
   opacity: var(--qw-hotel-opacity);
   pointer-events: none !important;

@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen} from '@stencil/core';
+import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
 import {SessionGuests, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService} from 'booking-state-manager';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 
@@ -8,6 +8,7 @@ import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
   shadow: false,
 })
 export class QwGuest {
+  @Prop() qwGuestCenter: boolean;
   @State() session: SessionModel;
   @State() guests: SessionGuests;
   @State() isSessionLoading: boolean = false;
@@ -41,7 +42,10 @@ export class QwGuest {
 
   render() {
     return (
-      this.guests && <Host class={this.isSessionLoading ? 'qw-guest--disabled' : ''}>
+      this.guests && <Host class={`
+        ${this.qwGuestCenter ? 'qw-guest--center' : ''}
+        ${this.isSessionLoading ? 'qw-guest--disabled' : ''}
+      `}>
         {Object.keys(this.guests).map(guestKey => {
           return (
             <div class="qw-guest__counter-wrapper">

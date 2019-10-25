@@ -13,7 +13,7 @@ import {
   shadow: false
 })
 export class QwCalendar {
-  @Prop() qwCalendarNumberOfMonths: number = 2;
+  @Prop() qwCalendarNumberOfMonths: number = 1;
   @Prop() qwCalendarResponsive: boolean = true;
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
