@@ -20,7 +20,7 @@ import {
 } from 'booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {tap} from 'rxjs/internal/operators/tap';
+import {zip} from 'rxjs/internal/observable/zip';
 
 @Component({
   tag: 'qw-room-list',
@@ -44,38 +44,33 @@ export class QwRoomList {
   private symbol: string;
   private rangeDateString: string[];
   private rangeDateStored: string[] = [];
+  private todayString: string;
 
   constructor() {
     this.setRoomToBasket = this.setRoomToBasket.bind(this);
   }
 
   public componentDidLoad() {
+    this.todayString = DateUtil.getDateStringFromDate(this.initNewDate(new Date()));
     SessionService.getSession().pipe(
       switchMap(session => this.QwRoomListTriggerBasket ? BasketService.getBasket(session) : of(undefined)),
     ).subscribe();
 
-    // todo lanciare insieme rooms e prezzi
+    // todo gestire meglio il loading dei prezzi
     SessionLoaded$.pipe(
-      tap(() => this.isPriceLoading = true),
       switchMap(session => {
+        this.isPriceLoading = true;
         this.session = session;
         this.symbol = MONEY_SYMBOLS[session.display.currency] || session.display.currency;
-        return RoomService.getRooms(session.sessionId);
+        return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
       }),
-      switchMap(() => this.getRoomsSearchForRange(this.session.context.stayPeriod)),
-    ).subscribe({
-      next: newRoomPrices => {
-        this.roomPrices = this.mergeActiveRoomPricesWitNewRoomPrices(newRoomPrices);
-        this.isPriceLoading = false;
-      },
-      error: err => {
-        console.log(err);
-        this.isPriceLoading = false;
-      },
-      complete: () => {
-        console.log('completed');
-        this.isPriceLoading = false;
-      },
+    ).subscribe(([newRoomPrices]) => {
+      const firstRoomId = Object.keys(newRoomPrices).length && Object.keys(newRoomPrices)[0];
+      const newDatesToStore = newRoomPrices[firstRoomId] ? Object.keys(newRoomPrices[firstRoomId]) : [];
+      const mergedDataStored = [...this.rangeDateStored, ...newDatesToStore];
+      this.rangeDateStored = [...new Set(mergedDataStored)].sort();
+      this.roomPrices = this.mergeActiveRoomPricesWitNewRoomPrices(newRoomPrices);
+      this.isPriceLoading = false;
     });
 
     RoomLoaded$.subscribe(res => this.rooms = res);
@@ -91,34 +86,31 @@ export class QwRoomList {
 
     return Object.keys(newRoomPrices).reduce((acc, roomId) => {
       const newRoomPriceMerged = {...this.roomPrices[roomId], ...newRoomPrices[roomId]};
-      return {...acc, [roomId]: newRoomPriceMerged}
+      return {...acc, [roomId]: newRoomPriceMerged};
     }, {} as PricesForStayPeriod);
   }
 
   private getRoomsSearchForRange(sessionStayPeriod: SessionStayPeriod) {
-    this.startDate = DateUtil.addDaysToDate(-1, this.initNewDate(sessionStayPeriod.arrivalDate));
+    const dayToRemoveToStartDate = sessionStayPeriod.arrivalDate <= this.todayString ? 0 : -1;
+    this.startDate = DateUtil.addDaysToDate(dayToRemoveToStartDate, this.initNewDate(sessionStayPeriod.arrivalDate));
     this.endDate = DateUtil.addDaysToDate(6, this.initNewDate(this.startDate));
     this.rangeDate = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.Date);
     this.rangeDateString = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.String);
     this.rangeDateSession = DateUtil.getDatesRange(this.initNewDate(sessionStayPeriod.arrivalDate), this.initNewDate(sessionStayPeriod.departureDate), DateFormat.Date);
 
     const newDateToRequest = this.rangeDateString.filter(d => !this.rangeDateStored.includes(d));
-    const mergedDataStored = [...this.rangeDateStored, ...newDateToRequest];
-    this.rangeDateStored = [...new Set(mergedDataStored)].sort();
 
     if (!newDateToRequest.length) {
       return of({});
     }
 
     const endDateStringPlusOneDay = DateUtil.getDateStringFromDate(
-      DateUtil.addDaysToDate(1, this.initNewDate(newDateToRequest[newDateToRequest.length - 1]))
+      DateUtil.addDaysToDate(1, this.initNewDate(newDateToRequest[newDateToRequest.length - 1])),
     );
 
     const newDateToRequestStayPeriods = DateUtil.getAllPossibleStayPeriod({
       arrivalDate: newDateToRequest[0], departureDate: endDateStringPlusOneDay,
     });
-    console.log(newDateToRequest);
-    console.log(this.rangeDateStored);
     return RoomService.getRoomPricesForStayPeriods(newDateToRequestStayPeriods);
   }
 
@@ -127,14 +119,14 @@ export class QwRoomList {
       return `${this.symbol} 0`;
     }
 
-    const stayPeriod = this.session.context.stayPeriod; // todo rendere stayPeriod globale del componente
+    const stayPeriod = this.session.context.stayPeriod;
     const arrivalDate = this.initNewDate(stayPeriod.arrivalDate);
     const departureDate = this.initNewDate(stayPeriod.departureDate);
     const endDateSession = departureDate <= this.endDate ? departureDate : this.endDate;
 
     const range = DateUtil.getDatesRange(arrivalDate, endDateSession, DateFormat.String);
     const pricesForSession = range.reduce((acc, date) => {
-      const valueToAdd = this.roomPrices[roomId][date].value.amount;
+      const valueToAdd = this.roomPrices[roomId][date] ? this.roomPrices[roomId][date].value.amount : 0;
       return acc + valueToAdd;
     }, 0) / range.length;
     return `${this.symbol} ${Math.round(pricesForSession).toString()}`;

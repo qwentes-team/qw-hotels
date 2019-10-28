@@ -11,7 +11,7 @@ qw-week-calendar {
 }
 
 qw-week-calendar .qw-calendar-week__block {
-  background: var(--qw-hotel-neutral-light);
+  background: var(--qw-hotel-neutral-lightest);
   padding: var(--qw-hotel-gap-sm);
   text-align: center;
 }

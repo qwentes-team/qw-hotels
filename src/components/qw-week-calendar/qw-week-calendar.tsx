@@ -1,6 +1,6 @@
 import {Component, h, Host, Prop, State} from '@stencil/core';
 import {
-  DateUtil, PricesForStayPeriod, RoomModel,
+  DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel,
   SessionLoaded$, SessionModel, SessionService,
 } from 'booking-state-manager';
 
@@ -15,7 +15,7 @@ export class QwWeekCalendar {
   @Prop() qwWeekCalendarRangeDateSession: Date[];
   @Prop() qwWeekCalendarPricesByRoom: PricesForStayPeriod[RoomModel['roomId']] = {};
   @Prop() qwWeekCalendarSelectedRoomId: RoomModel['roomId'];
-  @State() session: SessionModel;
+  @State() session: SessionModel; // todo passare lingua come prop e rimuovere session
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -28,14 +28,12 @@ export class QwWeekCalendar {
   }
 
   private isDateInSession(date: Date) {
-    return this.qwWeekCalendarRangeDateSession.some(d => {
-      return d.getTime() === date.getTime();
-    });
+    return this.qwWeekCalendarRangeDateSession.some(d => d.getTime() === date.getTime());
   }
 
   private getPriceForDate(date: Date) {
     const price = this.qwWeekCalendarPricesByRoom[DateUtil.getDateStringFromDate(date)];
-    return price && price.text;
+    return price ? price.text : RoomDefaultLabel.NoPrice;
   }
 
   private isFirstDateInSession(date: Date) {
@@ -57,7 +55,7 @@ export class QwWeekCalendar {
           }>
             <div class="qw-calendar-week__block-date">{`${this.formatDate(date)}`}</div>
             <div class="qw-calendar-week__block-price">
-              {this.getPriceForDate(date) || <qw-loading qw-loading-size="16"></qw-loading>}
+              {this.qwWeekCalendarIsPriceLoading ? <qw-loading qw-loading-size="16" /> : this.getPriceForDate(date)}
             </div>
           </div>;
         })}
