@@ -172,7 +172,6 @@ export class QwRoomList {
                 qwRoomCardIsLoading={this.isLoadingData()}
                 qwRoomCardOnClickBook={() => this.setRoomToBasket(r)}/>
               <qw-week-calendar
-                qwWeekCalendarIsPriceLoading={this.isPriceLoading}
                 qwWeekCalendarRangeDate={this.rangeDate}
                 qwWeekCalendarRangeDateSession={this.rangeDateSession}
                 qwWeekCalendarPricesByRoom={this.roomPrices[r.roomId]}

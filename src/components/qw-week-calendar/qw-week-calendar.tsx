@@ -10,7 +10,6 @@ import {
   shadow: false,
 })
 export class QwWeekCalendar {
-  @Prop() qwWeekCalendarIsPriceLoading: boolean;
   @Prop() qwWeekCalendarRangeDate: Date[];
   @Prop() qwWeekCalendarRangeDateSession: Date[];
   @Prop() qwWeekCalendarPricesByRoom: PricesForStayPeriod[RoomModel['roomId']] = {};

@@ -61,7 +61,6 @@ export namespace Components {
     'QwRoomListTriggerBasket': boolean;
   }
   interface QwWeekCalendar {
-    'qwWeekCalendarIsPriceLoading': boolean;
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate': Date[];
     'qwWeekCalendarRangeDateSession': Date[];
@@ -206,7 +205,6 @@ declare namespace LocalJSX {
     'QwRoomListTriggerBasket'?: boolean;
   }
   interface QwWeekCalendar {
-    'qwWeekCalendarIsPriceLoading'?: boolean;
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate'?: Date[];
     'qwWeekCalendarRangeDateSession'?: Date[];
