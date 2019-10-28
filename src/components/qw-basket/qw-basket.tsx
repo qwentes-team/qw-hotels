@@ -1,7 +1,7 @@
 import {Component, Host, h, State} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$, BasketQuery, BasketService,
-  MoneyPrice, SessionLoaded$, SessionService
+  MoneyPrice, SessionLoaded$, SessionService,
 } from 'booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {switchMap} from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {switchMap} from 'rxjs/operators';
 @Component({
   tag: 'qw-basket',
   styleUrl: 'qw-basket.css',
-  shadow: false
+  shadow: false,
 })
 export class QwBasket {
   @State() totalPrice: MoneyPrice;
@@ -36,9 +36,9 @@ export class QwBasket {
           <div class={this.isLoading && 'qw-basket__price__amount--disabled'}>
             {this.totalPrice && this.totalPrice.text}
           </div>
-          {this.isLoading && <qw-loading qw-loading-size="18"></qw-loading>}
+          {this.isLoading && <qw-loading qw-loading-size="18"/>}
         </div>
-        <QwButton QwButtonLabel="Empty basket" QwButtonOnClick={this.deleteBasket} />
+        <QwButton QwButtonLabel="Empty basket" QwButtonOnClick={this.deleteBasket}/>
       </Host>
     );
   }
