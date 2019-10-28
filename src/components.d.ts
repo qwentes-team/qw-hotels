@@ -27,7 +27,9 @@ export namespace Components {
     'qwCalendarResponsive': boolean;
     'qwCalendarSyncOnChange': boolean;
   }
-  interface QwCalendarGuestInline {}
+  interface QwCalendarGuestInline {
+    'qwCalendarGuestInlineShowCheckButton': boolean;
+  }
   interface QwCalendarPicker {
     'qwCalendarPickerDisabled': boolean;
     'qwCalendarPickerNumberOfMonths': number;
@@ -197,6 +199,7 @@ declare namespace LocalJSX {
   interface QwCalendarGuestInline {
     'onQwCalendarGuestInlineCheckAvailability'?: (event: CustomEvent<void>) => void;
     'onQwCalendarGuestInlineClickInput'?: (event: CustomEvent<QwCalendarGuestInlineInputType>) => void;
+    'qwCalendarGuestInlineShowCheckButton'?: boolean;
   }
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;

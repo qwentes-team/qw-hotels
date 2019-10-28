@@ -1,6 +1,7 @@
 qw-input {
   display: flex;
   flex-flow: column;
+  width: 100%;
 }
 
 qw-input .qw-input__label {

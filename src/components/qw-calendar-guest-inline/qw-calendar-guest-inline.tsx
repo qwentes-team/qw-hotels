@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
+import {Component, Host, h, State, Event, EventEmitter, Prop} from '@stencil/core';
 import {SessionLoaded$, SessionModel, SessionService, SessionHelper, SessionIsLoading$} from 'booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCalendarGuestInlineInputType} from '../../index';
@@ -9,6 +9,7 @@ import {QwCalendarGuestInlineInputType} from '../../index';
   shadow: false,
 })
 export class QwCalendarGuestInline {
+  @Prop() qwCalendarGuestInlineShowCheckButton: boolean = true;
   @State() session: SessionModel;
   @State() isSessionLoading: boolean;
   @Event() qwCalendarGuestInlineCheckAvailability: EventEmitter<void>;
@@ -31,20 +32,22 @@ export class QwCalendarGuestInline {
   render() {
     return (
       <Host>
-        <qw-input
-          onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Date)}
-          qwInputIsReadonly={true}
-          qwInputLabel="Dates"
-          qwInputValue={(this.session && SessionHelper.formatStayPeriod(this.session)) || 'Dates'}/>
-        <qw-input
-          onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Guest)}
-          qwInputIsReadonly={true}
-          qwInputLabel="Guests"
-          qwInputValue={(this.session && `${SessionHelper.getTotalGuests(this.session)} guests`) || 'Guests'}/>
-        <QwButton
+        <div class="qw-calendar-guest-inline__input-fields">
+          <qw-input
+            onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Date)}
+            qwInputIsReadonly={true}
+            qwInputLabel="Dates"
+            qwInputValue={(this.session && SessionHelper.formatStayPeriod(this.session)) || 'Dates'}/>
+          <qw-input
+            onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Guest)}
+            qwInputIsReadonly={true}
+            qwInputLabel="Guests"
+            qwInputValue={(this.session && `${SessionHelper.getTotalGuests(this.session)} guests`) || 'Guests'}/>
+        </div>
+        {this.qwCalendarGuestInlineShowCheckButton && <QwButton
           QwButtonLabel="Check Availability"
           QwButtonDisabled={this.isSessionLoading}
-          QwButtonOnClick={() => this.onCheckAvailability()}/>
+          QwButtonOnClick={() => this.onCheckAvailability()}/>}
       </Host>
     );
   }

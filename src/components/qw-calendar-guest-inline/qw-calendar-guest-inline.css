@@ -5,3 +5,7 @@ qw-calendar-guest-inline {
 qw-calendar-guest-inline qw-input {
   margin-bottom: var(--qw-hotel-gap-md);
 }
+
+qw-calendar-guest-inline .qw-calendar-guest-inline__input-fields {
+  display: flex;
+}
