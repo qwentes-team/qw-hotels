@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, State, Listen} from '@stencil/core';
+import {Component, Host, h, Prop, State, Listen, Event, EventEmitter} from '@stencil/core';
 import {
   SessionIsLoading$,
   SessionLoaded$,
@@ -15,9 +15,11 @@ import {
 export class QwCalendar {
   @Prop() qwCalendarNumberOfMonths: number = 1;
   @Prop() qwCalendarResponsive: boolean = true;
+  @Prop() qwCalendarSyncOnChange: boolean = true;
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean;
+  @Event() qwCalendarChange: EventEmitter<SessionStayPeriod>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -30,7 +32,14 @@ export class QwCalendar {
 
   @Listen('qwCalendarPickerChangeDates')
   updateStayPeriod(event: CustomEvent<SessionStayPeriod>) {
-    SessionService.updateContextSession({...this.session.context, stayPeriod: event.detail})
+    this.stayPeriod = {...event.detail};
+    this.qwCalendarChange.emit(this.stayPeriod);
+
+    if (!this.qwCalendarSyncOnChange) {
+      return
+    }
+
+    SessionService.updateContextSession({...this.session.context, stayPeriod: this.stayPeriod})
       .subscribe({
         error: (err) => {
           console.log(err);

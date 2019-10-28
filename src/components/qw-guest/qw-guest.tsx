@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
+import {Component, Host, h, State, Listen, Prop, Event, EventEmitter} from '@stencil/core';
 import {SessionGuests, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService} from 'booking-state-manager';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 
@@ -9,9 +9,11 @@ import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 })
 export class QwGuest {
   @Prop() qwGuestCenter: boolean;
+  @Prop() qwGuestSyncOnChange: boolean = true;
   @State() session: SessionModel;
   @State() guests: SessionGuests;
   @State() isSessionLoading: boolean = false;
+  @Event() qwGuestChange: EventEmitter<SessionGuests>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -24,9 +26,14 @@ export class QwGuest {
 
   @Listen('qwCounterChangeValue')
   public updateSessionGuest(event: CustomEvent<QwCounterEmitter>) {
-    console.log(event.detail);
-    const newGuestOption = {...this.guests, [event.detail.name]: event.detail.value};
-    SessionService.updateContextSession({...this.session.context, guests: newGuestOption})
+    this.guests = {...this.guests, [event.detail.name]: event.detail.value};
+    this.qwGuestChange.emit(this.guests);
+
+    if (!this.qwGuestSyncOnChange) {
+      return
+    }
+
+    SessionService.updateContextSession({...this.session.context, guests: this.guests})
       .subscribe({
         error: (err) => {
           console.log(err);

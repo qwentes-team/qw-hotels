@@ -7,14 +7,15 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
-  QwCalendarGuestInlineInputType,
-} from './index';
-import {
   PricesForStayPeriod,
   Rate,
   RoomModel,
+  SessionGuests,
   SessionStayPeriod,
 } from 'booking-state-manager';
+import {
+  QwCalendarGuestInlineInputType,
+} from './index';
 import {
   QwCounterEmitter,
 } from './components/shared/qw-counter/qw-counter';
@@ -24,6 +25,7 @@ export namespace Components {
   interface QwCalendar {
     'qwCalendarNumberOfMonths': number;
     'qwCalendarResponsive': boolean;
+    'qwCalendarSyncOnChange': boolean;
   }
   interface QwCalendarGuestInline {}
   interface QwCalendarPicker {
@@ -39,6 +41,7 @@ export namespace Components {
   }
   interface QwGuest {
     'qwGuestCenter': boolean;
+    'qwGuestSyncOnChange': boolean;
   }
   interface QwInput {
     'qwInputIsReadonly': boolean;
@@ -186,8 +189,10 @@ declare global {
 declare namespace LocalJSX {
   interface QwBasket {}
   interface QwCalendar {
+    'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarNumberOfMonths'?: number;
     'qwCalendarResponsive'?: boolean;
+    'qwCalendarSyncOnChange'?: boolean;
   }
   interface QwCalendarGuestInline {
     'onQwCalendarGuestInlineCheckAvailability'?: (event: CustomEvent<void>) => void;
@@ -207,7 +212,9 @@ declare namespace LocalJSX {
     'qwCounterValue'?: number;
   }
   interface QwGuest {
+    'onQwGuestChange'?: (event: CustomEvent<SessionGuests>) => void;
     'qwGuestCenter'?: boolean;
+    'qwGuestSyncOnChange'?: boolean;
   }
   interface QwInput {
     'qwInputIsReadonly'?: boolean;
