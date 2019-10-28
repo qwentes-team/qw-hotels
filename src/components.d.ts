@@ -7,6 +7,9 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  QwCalendarGuestInlineInputType,
+} from './index';
+import {
   PricesForStayPeriod,
   Rate,
   RoomModel,
@@ -186,7 +189,10 @@ declare namespace LocalJSX {
     'qwCalendarNumberOfMonths'?: number;
     'qwCalendarResponsive'?: boolean;
   }
-  interface QwCalendarGuestInline {}
+  interface QwCalendarGuestInline {
+    'onQwCalendarGuestInlineCheckAvailability'?: (event: CustomEvent<void>) => void;
+    'onQwCalendarGuestInlineClickInput'?: (event: CustomEvent<QwCalendarGuestInlineInputType>) => void;
+  }
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarPickerDisabled'?: boolean;

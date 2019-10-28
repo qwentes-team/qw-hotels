@@ -17,7 +17,7 @@ export class QwCalendar {
   @Prop() qwCalendarResponsive: boolean = true;
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
-  @State() isSessionLoading: boolean = false;
+  @State() isSessionLoading: boolean;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
