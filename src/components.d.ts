@@ -22,6 +22,7 @@ export namespace Components {
     'qwCalendarNumberOfMonths': number;
     'qwCalendarResponsive': boolean;
   }
+  interface QwCalendarGuestInline {}
   interface QwCalendarPicker {
     'qwCalendarPickerDisabled': boolean;
     'qwCalendarPickerNumberOfMonths': number;
@@ -35,6 +36,13 @@ export namespace Components {
   }
   interface QwGuest {
     'qwGuestCenter': boolean;
+  }
+  interface QwInput {
+    'qwInputIsReadonly': boolean;
+    'qwInputLabel': string;
+    'qwInputName': string;
+    'qwInputType': string;
+    'qwInputValue': string;
   }
   interface QwLoading {
     'QwLoadingSize': string;
@@ -83,6 +91,12 @@ declare global {
     new (): HTMLQwCalendarElement;
   };
 
+  interface HTMLQwCalendarGuestInlineElement extends Components.QwCalendarGuestInline, HTMLStencilElement {}
+  var HTMLQwCalendarGuestInlineElement: {
+    prototype: HTMLQwCalendarGuestInlineElement;
+    new (): HTMLQwCalendarGuestInlineElement;
+  };
+
   interface HTMLQwCalendarPickerElement extends Components.QwCalendarPicker, HTMLStencilElement {}
   var HTMLQwCalendarPickerElement: {
     prototype: HTMLQwCalendarPickerElement;
@@ -105,6 +119,12 @@ declare global {
   var HTMLQwGuestElement: {
     prototype: HTMLQwGuestElement;
     new (): HTMLQwGuestElement;
+  };
+
+  interface HTMLQwInputElement extends Components.QwInput, HTMLStencilElement {}
+  var HTMLQwInputElement: {
+    prototype: HTMLQwInputElement;
+    new (): HTMLQwInputElement;
   };
 
   interface HTMLQwLoadingElement extends Components.QwLoading, HTMLStencilElement {}
@@ -145,10 +165,12 @@ declare global {
   interface HTMLElementTagNameMap {
     'qw-basket': HTMLQwBasketElement;
     'qw-calendar': HTMLQwCalendarElement;
+    'qw-calendar-guest-inline': HTMLQwCalendarGuestInlineElement;
     'qw-calendar-picker': HTMLQwCalendarPickerElement;
     'qw-card': HTMLQwCardElement;
     'qw-counter': HTMLQwCounterElement;
     'qw-guest': HTMLQwGuestElement;
+    'qw-input': HTMLQwInputElement;
     'qw-loading': HTMLQwLoadingElement;
     'qw-price': HTMLQwPriceElement;
     'qw-room-card': HTMLQwRoomCardElement;
@@ -164,6 +186,7 @@ declare namespace LocalJSX {
     'qwCalendarNumberOfMonths'?: number;
     'qwCalendarResponsive'?: boolean;
   }
+  interface QwCalendarGuestInline {}
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarPickerDisabled'?: boolean;
@@ -179,6 +202,13 @@ declare namespace LocalJSX {
   }
   interface QwGuest {
     'qwGuestCenter'?: boolean;
+  }
+  interface QwInput {
+    'qwInputIsReadonly'?: boolean;
+    'qwInputLabel'?: string;
+    'qwInputName'?: string;
+    'qwInputType'?: string;
+    'qwInputValue'?: string;
   }
   interface QwLoading {
     'QwLoadingSize'?: string;
@@ -214,10 +244,12 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'qw-basket': QwBasket;
     'qw-calendar': QwCalendar;
+    'qw-calendar-guest-inline': QwCalendarGuestInline;
     'qw-calendar-picker': QwCalendarPicker;
     'qw-card': QwCard;
     'qw-counter': QwCounter;
     'qw-guest': QwGuest;
+    'qw-input': QwInput;
     'qw-loading': QwLoading;
     'qw-price': QwPrice;
     'qw-room-card': QwRoomCard;
@@ -235,10 +267,12 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'qw-basket': LocalJSX.QwBasket & JSXBase.HTMLAttributes<HTMLQwBasketElement>;
       'qw-calendar': LocalJSX.QwCalendar & JSXBase.HTMLAttributes<HTMLQwCalendarElement>;
+      'qw-calendar-guest-inline': LocalJSX.QwCalendarGuestInline & JSXBase.HTMLAttributes<HTMLQwCalendarGuestInlineElement>;
       'qw-calendar-picker': LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
       'qw-counter': LocalJSX.QwCounter & JSXBase.HTMLAttributes<HTMLQwCounterElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
+      'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
       'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;

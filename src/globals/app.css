@@ -21,6 +21,10 @@
   --qw-hotel-opacity: .5;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--qw-hotel-font-family);
 }

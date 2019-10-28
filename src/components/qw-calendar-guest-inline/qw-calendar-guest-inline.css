@@ -1,0 +1,7 @@
+qw-calendar-guest-inline {
+  display: block;
+}
+
+qw-calendar-guest-inline qw-input {
+  margin-bottom: var(--qw-hotel-gap-md);
+}

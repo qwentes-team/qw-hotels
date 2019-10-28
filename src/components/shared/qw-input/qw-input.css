@@ -1,0 +1,23 @@
+qw-input {
+  display: flex;
+  flex-flow: column;
+}
+
+qw-input .qw-input__label {
+  margin-bottom: var(--qw-hotel-gap-sm);
+}
+
+qw-input input {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--qw-hotel-gap-sm);
+  height: 100%;
+  border: none;
+  outline: 1px solid var(--qw-hotel-neutral-light);
+}
+
+qw-input input:focus {
+  outline-offset: 0;
+}
