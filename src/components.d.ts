@@ -61,15 +61,16 @@ export namespace Components {
     'qwPriceMainPrice': string;
   }
   interface QwRoomCard {
-    'qwRoomCardAvailability': number;
     'qwRoomCardAveragePrice': string;
     'qwRoomCardBeds': string;
+    'qwRoomCardDescription': string;
     'qwRoomCardGuests': string;
     'qwRoomCardImage': string;
     'qwRoomCardIsLoading': boolean;
     'qwRoomCardOnClickBook': () => void;
     'qwRoomCardPrice': string;
     'qwRoomCardRates': Rate[];
+    'qwRoomCardSquareMeter': string;
     'qwRoomCardTitle': string;
   }
   interface QwRoomDetail {}
@@ -235,15 +236,16 @@ declare namespace LocalJSX {
     'qwPriceMainPrice'?: string;
   }
   interface QwRoomCard {
-    'qwRoomCardAvailability'?: number;
     'qwRoomCardAveragePrice'?: string;
     'qwRoomCardBeds'?: string;
+    'qwRoomCardDescription'?: string;
     'qwRoomCardGuests'?: string;
     'qwRoomCardImage'?: string;
     'qwRoomCardIsLoading'?: boolean;
     'qwRoomCardOnClickBook'?: () => void;
     'qwRoomCardPrice'?: string;
     'qwRoomCardRates'?: Rate[];
+    'qwRoomCardSquareMeter'?: string;
     'qwRoomCardTitle'?: string;
   }
   interface QwRoomDetail {}

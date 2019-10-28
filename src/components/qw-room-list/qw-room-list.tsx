@@ -133,12 +133,8 @@ export class QwRoomList {
   }
 
   public setRoomToBasket(room: RoomModel) {
-    BasketService.setRoomInBasket({
-      roomId: room.roomId,
-      rateId: RoomHelper.getCheapestRate(room).rateId,
-      occupancyId: RoomHelper.getDefaultOccupancy(room).occupancyId,
-      quantity: 1,
-    }).subscribe();
+    // todo: fare emitter
+    console.log(room);
   }
 
   private hasPrice(room: RoomModel) {
@@ -163,13 +159,14 @@ export class QwRoomList {
                 class={(this.isLoadingData() || !this.hasPrice(r)) && 'qw-room-card__disabled'}
                 qwRoomCardTitle={r.name}
                 qwRoomCardPrice={`From: ${RoomHelper.getCheapestPriceFormatted(r)}`}
-                qw-room-card-average-price={!this.isPriceLoading && this.getAveragePricePerNight(r.roomId)}
-                qwRoomCardAvailability={RoomHelper.getAvailabilityForCheapestRate(r)}
+                qwRoomCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
+                qwRoomCardSquareMeter={r.surfaceArea.text}
                 qwRoomCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
-                qwRoomCardBeds={r.bedding.beds[0].count + ' ' + r.bedding.beds[0].type.text}
+                qwRoomCardBeds={`${r.bedding.beds[0].count} ${r.bedding.beds[0].type.text}`}
                 qwRoomCardImage={RoomHelper.getCoverImage(r).url}
                 qwRoomCardRates={r.rates}
                 qwRoomCardIsLoading={this.isLoadingData()}
+                qw-room-card-description={RoomHelper.getSummary(r).text}
                 qwRoomCardOnClickBook={() => this.setRoomToBasket(r)}/>
               <qw-week-calendar
                 qwWeekCalendarRangeDate={this.rangeDate}
