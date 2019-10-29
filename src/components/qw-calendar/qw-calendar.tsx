@@ -16,6 +16,7 @@ export class QwCalendar {
   @Prop() qwCalendarNumberOfMonths: number = 1;
   @Prop() qwCalendarResponsive: boolean = true;
   @Prop() qwCalendarSyncOnChange: boolean = true;
+  @Prop() qwCalendarDesktopLimit: number = 600;
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean;
@@ -57,6 +58,7 @@ export class QwCalendar {
     return (
       <Host>
         <qw-calendar-picker
+          qwCalendarPickerDesktopLimit={this.qwCalendarDesktopLimit}
           qwCalendarPickerResponsive={this.qwCalendarResponsive}
           qwCalendarPickerNumberOfMonths={this.qwCalendarNumberOfMonths}
           qwCalendarPickerDisabled={this.isSessionLoading}

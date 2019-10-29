@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, Watch, State, Event, EventEmitter} from '@stencil/core';
+import {Component, Host, h, Prop, Watch, State, Event, EventEmitter, Listen} from '@stencil/core';
 import flatpickr from 'flatpickr';
 import {SessionStayPeriod} from 'booking-state-manager';
 
@@ -14,6 +14,7 @@ export class QwCalendarPicker {
   @Prop() qwCalendarPickerNumberOfMonths: number;
   @Prop() qwCalendarPickerResponsive: boolean;
   @Prop() qwCalendarPickerStayPeriod: SessionStayPeriod;
+  @Prop() qwCalendarPickerDesktopLimit: number;
   @State() disableStartDate: boolean = false;
   @State() calendarInstance: flatpickr.Instance;
   @Event() qwCalendarPickerChangeDates: EventEmitter<SessionStayPeriod>;
@@ -35,6 +36,7 @@ export class QwCalendarPicker {
       onChange: this.change,
     };
     this.calendarInstance = flatpickr(this.elementCalendarInstance, this.configCalendarInstance);
+    this.setOneOrTwoMonthIfResponsive();
   }
 
   change = (selectedDates: Date[], dateStr: string) => {
@@ -53,11 +55,6 @@ export class QwCalendarPicker {
     }
   };
 
-  @Watch('qwCalendarPickerStayPeriod')
-  watchStayPeriod(newValue: SessionStayPeriod) {
-    this.updateConfigCalendar({defaultDate: [newValue.arrivalDate, newValue.departureDate]});
-  }
-
   private updateConfigCalendar(options) {
     this.configCalendarInstance = {
       ...this.configCalendarInstance,
@@ -66,6 +63,33 @@ export class QwCalendarPicker {
 
     // todo: capire perché non funziona il set, ma solo reistanziandolo
     this.calendarInstance = flatpickr(this.elementCalendarInstance, this.configCalendarInstance);
+  }
+
+  private setOneOrTwoMonthIfResponsive() {
+    if (!this.qwCalendarPickerResponsive) {
+      return;
+    }
+
+    const width = window.innerWidth;
+    if (width > this.qwCalendarPickerDesktopLimit && this.qwCalendarPickerNumberOfMonths === 1) {
+      this.qwCalendarPickerNumberOfMonths = 2;
+      this.updateConfigCalendar({showMonths: this.qwCalendarPickerNumberOfMonths});
+    }
+
+    if (width <= this.qwCalendarPickerDesktopLimit && this.qwCalendarPickerNumberOfMonths === 2) {
+      this.qwCalendarPickerNumberOfMonths = 1;
+      this.updateConfigCalendar({showMonths: this.qwCalendarPickerNumberOfMonths});
+    }
+  }
+
+  @Watch('qwCalendarPickerStayPeriod')
+  watchStayPeriod(newValue: SessionStayPeriod) {
+    this.updateConfigCalendar({defaultDate: [newValue.arrivalDate, newValue.departureDate]});
+  }
+
+  @Listen('resize', { target: 'window' })
+  handleScroll() {
+    this.setOneOrTwoMonthIfResponsive();
   }
 
   render() {

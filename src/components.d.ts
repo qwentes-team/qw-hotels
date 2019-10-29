@@ -23,6 +23,7 @@ import {
 export namespace Components {
   interface QwBasket {}
   interface QwCalendar {
+    'qwCalendarDesktopLimit': number;
     'qwCalendarNumberOfMonths': number;
     'qwCalendarResponsive': boolean;
     'qwCalendarSyncOnChange': boolean;
@@ -31,6 +32,7 @@ export namespace Components {
     'qwCalendarGuestInlineShowCheckButton': boolean;
   }
   interface QwCalendarPicker {
+    'qwCalendarPickerDesktopLimit': number;
     'qwCalendarPickerDisabled': boolean;
     'qwCalendarPickerNumberOfMonths': number;
     'qwCalendarPickerResponsive': boolean;
@@ -193,6 +195,7 @@ declare namespace LocalJSX {
   interface QwBasket {}
   interface QwCalendar {
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
+    'qwCalendarDesktopLimit'?: number;
     'qwCalendarNumberOfMonths'?: number;
     'qwCalendarResponsive'?: boolean;
     'qwCalendarSyncOnChange'?: boolean;
@@ -204,6 +207,7 @@ declare namespace LocalJSX {
   }
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
+    'qwCalendarPickerDesktopLimit'?: number;
     'qwCalendarPickerDisabled'?: boolean;
     'qwCalendarPickerNumberOfMonths'?: number;
     'qwCalendarPickerResponsive'?: boolean;
