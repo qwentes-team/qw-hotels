@@ -17,7 +17,7 @@
 ### Used by
 
  - [qw-basket](../../qw-basket)
- - [qw-room-card](../qw-room-card)
+ - [qw-room-card](../../qw-room-list/qw-room-card)
  - [qw-week-calendar](../../qw-week-calendar)
 
 ### Graph

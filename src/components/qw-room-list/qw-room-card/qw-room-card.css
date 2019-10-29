@@ -1,0 +1,78 @@
+qw-room-card {
+  --qw-room-card-gap: var(--qw-hotel-gap-sm);
+  --qw-room-card-background: var(--qw-hotel-background);
+  --qw-room-card-border-radius: 2px;
+  
+  display: flex;
+  flex-direction: column;
+  padding: var(--qw-room-card-gap);
+  background: var(--qw-room-card-background);
+  border-radius: var(--qw-room-card-border-radius);
+}
+
+qw-room-card h4, qw-room-card h6 {
+  margin: 0; padding: 0;
+}
+
+qw-room-card.qw-room-card__disabled {
+  opacity: var(--qw-hotel-opacity);
+  pointer-events: none !important;
+}
+
+qw-room-card qw-card {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(4, auto);
+  width: 100%;
+  height: auto;
+}
+
+qw-room-card qw-card div {
+  margin: 4px;
+}
+
+qw-room-card .qw-room-card__image {
+  grid-column: 1 / 2;
+  grid-row: 1 / 5;
+}
+
+qw-room-card .qw-room-card__image img {
+  width: 100%;
+}
+
+qw-room-card .qw-room-card__title,
+qw-room-card .qw-room-card__descriptions,
+qw-room-card .qw-room-card__prices,
+qw-room-card .qw-room-card__cta {
+  grid-column: 2 / 2;
+}
+
+qw-room-card .qw-room-card__title {
+  display: flex;
+  justify-content: space-between;
+  grid-row: 1 / 2;
+}
+qw-room-card .qw-room-card__title-content {
+  display: flex;
+  flex-direction: column;
+}
+qw-room-card .qw-room-card__descriptions {
+  grid-row: 2 / 3;
+}
+qw-room-card .qw-room-card__prices {
+  grid-row: 3 / 4;
+}
+qw-room-card .qw-room-card__cta {
+  grid-row: 4 / 5;
+  align-self: end;
+}
+
+@media only screen and (max-width: 678px) {
+  qw-room-card qw-card {
+    display: flex;
+    flex-flow: column;
+  }
+  .qw-room-card__title {
+    order: -1
+  }
+}

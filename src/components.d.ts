@@ -64,7 +64,6 @@ export namespace Components {
   }
   interface QwRoomCard {
     'qwRoomCardAveragePrice': string;
-    'qwRoomCardBeds': string;
     'qwRoomCardDescription': string;
     'qwRoomCardGuests': string;
     'qwRoomCardImage': string;
@@ -241,7 +240,6 @@ declare namespace LocalJSX {
   }
   interface QwRoomCard {
     'qwRoomCardAveragePrice'?: string;
-    'qwRoomCardBeds'?: string;
     'qwRoomCardDescription'?: string;
     'qwRoomCardGuests'?: string;
     'qwRoomCardImage'?: string;

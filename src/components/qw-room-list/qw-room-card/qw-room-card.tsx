@@ -1,6 +1,6 @@
 import {Component, Host, h, Prop} from '@stencil/core';
-import {QwImage} from '../qw-image/qw-image';
-import {QwButton} from '../qw-button/qw-button';
+import {QwImage} from '../../shared/qw-image/qw-image';
+import {QwButton} from '../../shared/qw-button/qw-button';
 import {Rate} from 'booking-state-manager';
 
 @Component({
@@ -14,7 +14,6 @@ export class QwRoomCard {
   @Prop() qwRoomCardAveragePrice: string;
   @Prop() qwRoomCardSquareMeter: string;
   @Prop() qwRoomCardGuests: string;
-  @Prop() qwRoomCardBeds: string;
   @Prop() qwRoomCardImage: string;
   @Prop() qwRoomCardRates: Rate[];
   @Prop() qwRoomCardIsLoading: boolean;
@@ -25,25 +24,28 @@ export class QwRoomCard {
     return (
       <Host>
         <qw-card>
-          <div class="qw-room-card__header-wrapper">
-            <div class="qw-room-card__header">
-              <h4 class="qw-room-card__title">{this.qwRoomCardTitle}</h4>
+          <div class="qw-room-card__image">
+            <QwImage imageUrl={this.qwRoomCardImage} alt={this.qwRoomCardTitle}/>
+          </div>
+
+          <div class="qw-room-card__title">
+            <div class="qw-room-card__title-content">
+              <h4>{this.qwRoomCardTitle}</h4>
               <h6 class="qw-room-card__caption">
-                <div>{this.qwRoomCardGuests}{this.qwRoomCardSquareMeter && ` / ${this.qwRoomCardSquareMeter}`}</div>
+                {this.qwRoomCardGuests}{this.qwRoomCardSquareMeter && ` / ${this.qwRoomCardSquareMeter}`}
               </h6>
             </div>
-            <qw-price
-              qw-price-main-price={this.qwRoomCardAveragePrice}
-              qw-price-caption={'Average per night'}/>
+            <qw-price qw-price-main-price={this.qwRoomCardAveragePrice} qw-price-caption={'Average per night'}/>
           </div>
-          <QwImage imageUrl={this.qwRoomCardImage} alt={this.qwRoomCardTitle}/>
-          <div class="qw-room-card__footer">
-            <div class="qw-room-card__footer-top">
-              <p>{this.qwRoomCardDescription}</p>
-              {/*<p>{this.qwRoomCardGuests}</p>*/}
-              {/*<p>{this.qwRoomCardBeds}</p>*/}
-            </div>
+
+          <div class="qw-room-card__descriptions">
+            <p>{this.qwRoomCardDescription}</p>
           </div>
+
+          <div class="qw-room-card__prices">
+            PREZZI
+          </div>
+
           <div class="qw-room-card__cta">
             <QwButton
               QwButtonLabel="Book now"

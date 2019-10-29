@@ -24,12 +24,12 @@
 
 ### Used by
 
- - [qw-room-list](../../qw-room-list)
+ - [qw-room-list](..)
 
 ### Depends on
 
-- [qw-card](../qw-card)
-- [qw-loading](../qw-loading)
+- [qw-card](../../shared/qw-card)
+- [qw-loading](../../shared/qw-loading)
 
 ### Graph
 ```mermaid

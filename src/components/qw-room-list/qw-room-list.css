@@ -14,9 +14,3 @@ qw-room-list .qw-room-list__wrapper {
   flex-flow: row wrap;
   justify-content: space-between;
 }
-
-@media only screen and (min-width: 600px) {
-  qw-room-list .qw-room-list__card-wrapper {
-    width: 49%;
-  }
-}

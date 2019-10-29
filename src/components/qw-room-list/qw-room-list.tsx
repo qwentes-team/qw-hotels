@@ -162,7 +162,6 @@ export class QwRoomList {
                 qwRoomCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
                 qwRoomCardSquareMeter={r.surfaceArea.text}
                 qwRoomCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
-                qwRoomCardBeds={`${r.bedding.beds[0].count} ${r.bedding.beds[0].type.text}`}
                 qwRoomCardImage={RoomHelper.getCoverImage(r).url}
                 qwRoomCardRates={r.rates}
                 qwRoomCardIsLoading={this.isLoadingData()}

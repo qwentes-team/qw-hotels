@@ -16,7 +16,7 @@
 
 ### Depends on
 
-- [qw-room-card](../shared/qw-room-card)
+- [qw-room-card](qw-room-card)
 - [qw-week-calendar](../qw-week-calendar)
 
 ### Graph
