@@ -27,8 +27,8 @@ qw-room-card qw-card {
   height: auto;
 }
 
-qw-room-card qw-card div {
-  margin: 4px;
+qw-room-card qw-card > div {
+  margin: calc(var(--qw-hotel-gap-sm) / 2);
 }
 
 qw-room-card .qw-room-card__image {
@@ -55,6 +55,7 @@ qw-room-card .qw-room-card__title {
 qw-room-card .qw-room-card__title-content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 qw-room-card .qw-room-card__descriptions {
   grid-row: 2 / 3;

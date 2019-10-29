@@ -157,6 +157,7 @@ export class QwRoomList {
             return <div class="qw-room-list__card-wrapper">
               <qw-room-card
                 class={(this.isLoadingData() || !this.hasPrice(r)) && 'qw-room-card__disabled'}
+                qwRoomCardId={r.roomId}
                 qwRoomCardTitle={r.name}
                 qwRoomCardPrice={`From: ${RoomHelper.getCheapestPriceFormatted(r)}`}
                 qwRoomCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
@@ -165,13 +166,11 @@ export class QwRoomList {
                 qwRoomCardImage={RoomHelper.getCoverImage(r).url}
                 qwRoomCardRates={r.rates}
                 qwRoomCardIsLoading={this.isLoadingData()}
-                qw-room-card-description={RoomHelper.getSummary(r).text}
+                qwRoomCardDescription={RoomHelper.getSummary(r).text}
+                qwRoomCardRangeDate={this.rangeDate}
+                qwRoomCardRangeDateSession={this.rangeDateSession}
+                qwRoomCardPrices={this.roomPrices[r.roomId]}
                 qwRoomCardOnClickBook={() => this.setRoomToBasket(r)}/>
-              <qw-week-calendar
-                qwWeekCalendarRangeDate={this.rangeDate}
-                qwWeekCalendarRangeDateSession={this.rangeDateSession}
-                qwWeekCalendarPricesByRoom={this.roomPrices[r.roomId]}
-                qwWeekCalendarSelectedRoomId={r.roomId}/>
             </div>;
           })}
         </div>

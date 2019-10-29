@@ -4,8 +4,7 @@ qw-week-calendar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--qw-hotel-neutral-lightest);
-  border: 1px solid var(--qw-hotel-neutral-light);
+  border: 1px solid var(--qw-hotel-secondary-color);
   font-size: var(--qw-week-calendar-font-size);
   padding: var(--qw-hotel-gap-sm);
 }

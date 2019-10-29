@@ -1,7 +1,8 @@
 import {Component, Host, h, Prop} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {Rate} from 'booking-state-manager';
+import {Rate, RoomModel} from 'booking-state-manager';
+import {MoneyPrice} from 'booking-state-manager/src/core/money/money';
 
 @Component({
   tag: 'qw-room-card',
@@ -9,6 +10,7 @@ import {Rate} from 'booking-state-manager';
   shadow: false
 })
 export class QwRoomCard {
+  @Prop() qwRoomCardId: RoomModel['roomId'];
   @Prop() qwRoomCardTitle: string;
   @Prop() qwRoomCardPrice: string;
   @Prop() qwRoomCardAveragePrice: string;
@@ -18,6 +20,9 @@ export class QwRoomCard {
   @Prop() qwRoomCardRates: Rate[];
   @Prop() qwRoomCardIsLoading: boolean;
   @Prop() qwRoomCardDescription: string;
+  @Prop() qwRoomCardRangeDate: Date[];
+  @Prop() qwRoomCardRangeDateSession: Date[];
+  @Prop() qwRoomCardPrices: {[dateString: string]: MoneyPrice};
   @Prop() qwRoomCardOnClickBook: () => void;
 
   render() {
@@ -43,7 +48,11 @@ export class QwRoomCard {
           </div>
 
           <div class="qw-room-card__prices">
-            PREZZI
+            <qw-week-calendar
+              qwWeekCalendarRangeDate={this.qwRoomCardRangeDate}
+              qwWeekCalendarRangeDateSession={this.qwRoomCardRangeDateSession}
+              qwWeekCalendarPricesByRoom={this.qwRoomCardPrices}
+              qwWeekCalendarSelectedRoomId={this.qwRoomCardId}/>
           </div>
 
           <div class="qw-room-card__cta">

@@ -19,6 +19,9 @@ import {
 import {
   QwCounterEmitter,
 } from './components/shared/qw-counter/qw-counter';
+import {
+  MoneyPrice,
+} from 'booking-state-manager/src/core/money/money';
 
 export namespace Components {
   interface QwBasket {}
@@ -66,10 +69,14 @@ export namespace Components {
     'qwRoomCardAveragePrice': string;
     'qwRoomCardDescription': string;
     'qwRoomCardGuests': string;
+    'qwRoomCardId': RoomModel['roomId'];
     'qwRoomCardImage': string;
     'qwRoomCardIsLoading': boolean;
     'qwRoomCardOnClickBook': () => void;
     'qwRoomCardPrice': string;
+    'qwRoomCardPrices': {[dateString: string]: MoneyPrice};
+    'qwRoomCardRangeDate': Date[];
+    'qwRoomCardRangeDateSession': Date[];
     'qwRoomCardRates': Rate[];
     'qwRoomCardSquareMeter': string;
     'qwRoomCardTitle': string;
@@ -242,10 +249,14 @@ declare namespace LocalJSX {
     'qwRoomCardAveragePrice'?: string;
     'qwRoomCardDescription'?: string;
     'qwRoomCardGuests'?: string;
+    'qwRoomCardId'?: RoomModel['roomId'];
     'qwRoomCardImage'?: string;
     'qwRoomCardIsLoading'?: boolean;
     'qwRoomCardOnClickBook'?: () => void;
     'qwRoomCardPrice'?: string;
+    'qwRoomCardPrices'?: {[dateString: string]: MoneyPrice};
+    'qwRoomCardRangeDate'?: Date[];
+    'qwRoomCardRangeDateSession'?: Date[];
     'qwRoomCardRates'?: Rate[];
     'qwRoomCardSquareMeter'?: string;
     'qwRoomCardTitle'?: string;
