@@ -23,6 +23,7 @@ export class QwRoomCard {
   @Prop() qwRoomCardRangeDate: Date[];
   @Prop() qwRoomCardRangeDateSession: Date[];
   @Prop() qwRoomCardPrices: {[dateString: string]: MoneyPrice};
+  @Prop() qwRoomCardShowPrices: boolean = true;
   @Prop() qwRoomCardOnClickBook: () => void;
   @Prop() qwRoomCardOnClickView: () => void;
 
@@ -48,13 +49,13 @@ export class QwRoomCard {
             <p>{this.qwRoomCardDescription}</p>
           </div>
 
-          <div class="qw-room-card__prices">
+          {this.qwRoomCardShowPrices && <div class="qw-room-card__prices">
             <qw-week-calendar
               qwWeekCalendarRangeDate={this.qwRoomCardRangeDate}
               qwWeekCalendarRangeDateSession={this.qwRoomCardRangeDateSession}
               qwWeekCalendarPricesByRoom={this.qwRoomCardPrices}
               qwWeekCalendarSelectedRoomId={this.qwRoomCardId}/>
-          </div>
+          </div>}
 
           <div class="qw-room-card__cta">
             <QwButton QwButtonLabel="Book now" QwButtonOnClick={() => this.qwRoomCardOnClickBook()}/>

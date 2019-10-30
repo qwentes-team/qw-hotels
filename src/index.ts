@@ -9,3 +9,8 @@ export enum QwRoomCardButtonType {
   BookNow = 'bookNow',
   ViewRoom = 'viewRoom',
 }
+
+export enum QwRoomListType {
+  Inline = 'inline',
+  Grid = 'grid',
+}

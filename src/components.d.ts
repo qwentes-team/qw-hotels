@@ -16,6 +16,7 @@ import {
 import {
   QwCalendarGuestInlineInputType,
   QwRoomCardButtonType,
+  QwRoomListType,
 } from './index';
 import {
   QwCounterEmitter,
@@ -80,11 +81,16 @@ export namespace Components {
     'qwRoomCardRangeDate': Date[];
     'qwRoomCardRangeDateSession': Date[];
     'qwRoomCardRates': Rate[];
+    'qwRoomCardShowPrices': boolean;
     'qwRoomCardSquareMeter': string;
     'qwRoomCardTitle': string;
   }
   interface QwRoomDetail {}
-  interface QwRoomList {}
+  interface QwRoomList {
+    'qwRoomListFilterRoomsWith': string;
+    'qwRoomListShowPrices': boolean;
+    'qwRoomListType': QwRoomListType;
+  }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate': Date[];
@@ -259,12 +265,16 @@ declare namespace LocalJSX {
     'qwRoomCardRangeDate'?: Date[];
     'qwRoomCardRangeDateSession'?: Date[];
     'qwRoomCardRates'?: Rate[];
+    'qwRoomCardShowPrices'?: boolean;
     'qwRoomCardSquareMeter'?: string;
     'qwRoomCardTitle'?: string;
   }
   interface QwRoomDetail {}
   interface QwRoomList {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomCardButtonType, room: RoomModel}>) => void;
+    'qwRoomListFilterRoomsWith'?: string;
+    'qwRoomListShowPrices'?: boolean;
+    'qwRoomListType'?: QwRoomListType;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];

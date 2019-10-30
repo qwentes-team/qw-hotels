@@ -27,6 +27,11 @@ qw-room-card qw-card {
   height: auto;
 }
 
+qw-room-card.qw-room-card--grid qw-card {
+  display: flex;
+  flex-flow: column;
+}
+
 qw-room-card qw-card > div {
   margin: calc(var(--qw-hotel-gap-sm) / 2);
 }
@@ -76,7 +81,11 @@ qw-room-card .qw-room-card__cta {
     display: flex;
     flex-flow: column;
   }
-  .qw-room-card__title {
-    order: -1
+  qw-room-card .qw-room-card__title {
+    order: -1;
+  }
+  
+  qw-room-card.qw-room-card--grid qw-card .qw-room-card__title {
+    order: 0;
   }
 }
