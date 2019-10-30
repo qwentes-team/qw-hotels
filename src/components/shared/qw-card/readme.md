@@ -9,7 +9,7 @@
 
 ### Used by
 
- - [qw-room-card](../../qw-room-list/qw-room-card)
+ - [qw-room-card](../../qw-room-list/qw-room-list-card)
 
 ### Graph
 ```mermaid

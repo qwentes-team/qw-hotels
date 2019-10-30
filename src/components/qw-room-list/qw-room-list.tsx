@@ -19,7 +19,7 @@ import {
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
-import {QwRoomCardButtonType, QwRoomListType} from '../../index';
+import {QwRoomListCardButtonType, QwRoomListType} from '../../index';
 
 @Component({
   tag: 'qw-room-list',
@@ -39,7 +39,7 @@ export class QwRoomList {
   @State() rangeDateSession: Date[];
   @State() roomPrices: PricesForStayPeriod = {};
   @State() isPriceLoading: boolean;
-  @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomCardButtonType, room: RoomModel}>;
+  @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
 
   private startDate: Date;
   private endDate: Date;
@@ -69,7 +69,7 @@ export class QwRoomList {
       this.isPriceLoading = false;
     });
 
-    RoomLoaded$.subscribe(res => this.rooms = this.qwRoomListFilterRoomsWith ? res : this.getFilteredRooms(res));
+    RoomLoaded$.subscribe(res => this.rooms = !this.qwRoomListFilterRoomsWith ? res : this.getFilteredRooms(res));
     RoomIsLoading$.subscribe(isLoading => this.isRoomLoading = isLoading);
     SessionIsLoading$.subscribe(isLoading => this.isSessionLoading = isLoading);
   }
@@ -132,7 +132,7 @@ export class QwRoomList {
     return `${this.symbol} ${Math.round(pricesForSession).toString()}`;
   }
 
-  clickButton = (type: QwRoomCardButtonType, room: RoomModel) => {
+  clickButton = (type: QwRoomListCardButtonType, room: RoomModel) => {
     this.qwRoomListClickRoom.emit({type, room});
   };
 
@@ -153,27 +153,27 @@ export class QwRoomList {
       <Host class={this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}>
         {this.rooms.map(r => {
           return <div class="qw-room-list__card-wrapper">
-            <qw-room-card
+            <qw-room-list-card
               class={`
-                ${(this.isLoadingData() || !this.hasPrice(r)) ? 'qw-room-card__disabled' : ''}
-                ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-card--grid' : ''}
+                ${(this.isLoadingData() || !this.hasPrice(r)) ? 'qw-room-list-card__disabled' : ''}
+                ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list-card--grid' : ''}
               `}
-              qwRoomCardId={r.roomId}
-              qwRoomCardTitle={r.name}
-              qwRoomCardPrice={`From: ${RoomHelper.getCheapestPriceFormatted(r)}`}
-              qwRoomCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
-              qwRoomCardSquareMeter={r.surfaceArea.text}
-              qwRoomCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
-              qwRoomCardImage={RoomHelper.getCoverImage(r).url}
-              qwRoomCardRates={r.rates}
-              qwRoomCardIsLoading={this.isLoadingData()}
-              qwRoomCardDescription={RoomHelper.getSummary(r).text}
-              qwRoomCardRangeDate={this.rangeDate}
-              qwRoomCardRangeDateSession={this.rangeDateSession}
-              qwRoomCardPrices={this.roomPrices[r.roomId]}
-              qwRoomCardShowPrices={this.qwRoomListShowPrices}
-              qwRoomCardOnClickBook={() => this.clickButton(QwRoomCardButtonType.BookNow, r)}
-              qwRoomCardOnClickView={() => this.clickButton(QwRoomCardButtonType.ViewRoom, r)}/>
+              qwRoomListCardId={r.roomId}
+              qwRoomListCardTitle={r.name}
+              qwRoomListCardPrice={`From: ${RoomHelper.getCheapestPriceFormatted(r)}`}
+              qwRoomListCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
+              qwRoomListCardSquareMeter={r.surfaceArea.text}
+              qwRoomListCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
+              qwRoomListCardImage={RoomHelper.getCoverImage(r).url}
+              qwRoomListCardRates={r.rates}
+              qwRoomListCardIsLoading={this.isLoadingData()}
+              qwRoomListCardDescription={RoomHelper.getSummary(r).text}
+              qwRoomListCardRangeDate={this.rangeDate}
+              qwRoomListCardRangeDateSession={this.rangeDateSession}
+              qwRoomListCardPrices={this.roomPrices[r.roomId]}
+              qwRoomListCardShowPrices={this.qwRoomListShowPrices}
+              qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
+              qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}/>
           </div>;
         })}
       </Host>

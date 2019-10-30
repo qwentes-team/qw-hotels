@@ -15,7 +15,7 @@ import {
 } from 'booking-state-manager';
 import {
   QwCalendarGuestInlineInputType,
-  QwRoomCardButtonType,
+  QwRoomListCardButtonType,
   QwRoomListType,
 } from './index';
 import {
@@ -67,29 +67,29 @@ export namespace Components {
     'qwPriceCrossedPrice': string;
     'qwPriceMainPrice': string;
   }
-  interface QwRoomCard {
-    'qwRoomCardAveragePrice': string;
-    'qwRoomCardDescription': string;
-    'qwRoomCardGuests': string;
-    'qwRoomCardId': RoomModel['roomId'];
-    'qwRoomCardImage': string;
-    'qwRoomCardIsLoading': boolean;
-    'qwRoomCardOnClickBook': () => void;
-    'qwRoomCardOnClickView': () => void;
-    'qwRoomCardPrice': string;
-    'qwRoomCardPrices': {[dateString: string]: MoneyPrice};
-    'qwRoomCardRangeDate': Date[];
-    'qwRoomCardRangeDateSession': Date[];
-    'qwRoomCardRates': Rate[];
-    'qwRoomCardShowPrices': boolean;
-    'qwRoomCardSquareMeter': string;
-    'qwRoomCardTitle': string;
-  }
   interface QwRoomDetail {}
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
     'qwRoomListShowPrices': boolean;
     'qwRoomListType': QwRoomListType;
+  }
+  interface QwRoomListCard {
+    'qwRoomListCardAveragePrice': string;
+    'qwRoomListCardDescription': string;
+    'qwRoomListCardGuests': string;
+    'qwRoomListCardId': RoomModel['roomId'];
+    'qwRoomListCardImage': string;
+    'qwRoomListCardIsLoading': boolean;
+    'qwRoomListCardOnClickBook': () => void;
+    'qwRoomListCardOnClickView': () => void;
+    'qwRoomListCardPrice': string;
+    'qwRoomListCardPrices': {[dateString: string]: MoneyPrice};
+    'qwRoomListCardRangeDate': Date[];
+    'qwRoomListCardRangeDateSession': Date[];
+    'qwRoomListCardRates': Rate[];
+    'qwRoomListCardShowPrices': boolean;
+    'qwRoomListCardSquareMeter': string;
+    'qwRoomListCardTitle': string;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
@@ -162,12 +162,6 @@ declare global {
     new (): HTMLQwPriceElement;
   };
 
-  interface HTMLQwRoomCardElement extends Components.QwRoomCard, HTMLStencilElement {}
-  var HTMLQwRoomCardElement: {
-    prototype: HTMLQwRoomCardElement;
-    new (): HTMLQwRoomCardElement;
-  };
-
   interface HTMLQwRoomDetailElement extends Components.QwRoomDetail, HTMLStencilElement {}
   var HTMLQwRoomDetailElement: {
     prototype: HTMLQwRoomDetailElement;
@@ -178,6 +172,12 @@ declare global {
   var HTMLQwRoomListElement: {
     prototype: HTMLQwRoomListElement;
     new (): HTMLQwRoomListElement;
+  };
+
+  interface HTMLQwRoomListCardElement extends Components.QwRoomListCard, HTMLStencilElement {}
+  var HTMLQwRoomListCardElement: {
+    prototype: HTMLQwRoomListCardElement;
+    new (): HTMLQwRoomListCardElement;
   };
 
   interface HTMLQwWeekCalendarElement extends Components.QwWeekCalendar, HTMLStencilElement {}
@@ -196,9 +196,9 @@ declare global {
     'qw-input': HTMLQwInputElement;
     'qw-loading': HTMLQwLoadingElement;
     'qw-price': HTMLQwPriceElement;
-    'qw-room-card': HTMLQwRoomCardElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-list': HTMLQwRoomListElement;
+    'qw-room-list-card': HTMLQwRoomListCardElement;
     'qw-week-calendar': HTMLQwWeekCalendarElement;
   }
 }
@@ -251,30 +251,30 @@ declare namespace LocalJSX {
     'qwPriceCrossedPrice'?: string;
     'qwPriceMainPrice'?: string;
   }
-  interface QwRoomCard {
-    'qwRoomCardAveragePrice'?: string;
-    'qwRoomCardDescription'?: string;
-    'qwRoomCardGuests'?: string;
-    'qwRoomCardId'?: RoomModel['roomId'];
-    'qwRoomCardImage'?: string;
-    'qwRoomCardIsLoading'?: boolean;
-    'qwRoomCardOnClickBook'?: () => void;
-    'qwRoomCardOnClickView'?: () => void;
-    'qwRoomCardPrice'?: string;
-    'qwRoomCardPrices'?: {[dateString: string]: MoneyPrice};
-    'qwRoomCardRangeDate'?: Date[];
-    'qwRoomCardRangeDateSession'?: Date[];
-    'qwRoomCardRates'?: Rate[];
-    'qwRoomCardShowPrices'?: boolean;
-    'qwRoomCardSquareMeter'?: string;
-    'qwRoomCardTitle'?: string;
-  }
   interface QwRoomDetail {}
   interface QwRoomList {
-    'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomCardButtonType, room: RoomModel}>) => void;
+    'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
     'qwRoomListFilterRoomsWith'?: string;
     'qwRoomListShowPrices'?: boolean;
     'qwRoomListType'?: QwRoomListType;
+  }
+  interface QwRoomListCard {
+    'qwRoomListCardAveragePrice'?: string;
+    'qwRoomListCardDescription'?: string;
+    'qwRoomListCardGuests'?: string;
+    'qwRoomListCardId'?: RoomModel['roomId'];
+    'qwRoomListCardImage'?: string;
+    'qwRoomListCardIsLoading'?: boolean;
+    'qwRoomListCardOnClickBook'?: () => void;
+    'qwRoomListCardOnClickView'?: () => void;
+    'qwRoomListCardPrice'?: string;
+    'qwRoomListCardPrices'?: {[dateString: string]: MoneyPrice};
+    'qwRoomListCardRangeDate'?: Date[];
+    'qwRoomListCardRangeDateSession'?: Date[];
+    'qwRoomListCardRates'?: Rate[];
+    'qwRoomListCardShowPrices'?: boolean;
+    'qwRoomListCardSquareMeter'?: string;
+    'qwRoomListCardTitle'?: string;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];
@@ -294,9 +294,9 @@ declare namespace LocalJSX {
     'qw-input': QwInput;
     'qw-loading': QwLoading;
     'qw-price': QwPrice;
-    'qw-room-card': QwRoomCard;
     'qw-room-detail': QwRoomDetail;
     'qw-room-list': QwRoomList;
+    'qw-room-list-card': QwRoomListCard;
     'qw-week-calendar': QwWeekCalendar;
   }
 }
@@ -317,9 +317,9 @@ declare module "@stencil/core" {
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
-      'qw-room-card': LocalJSX.QwRoomCard & JSXBase.HTMLAttributes<HTMLQwRoomCardElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
+      'qw-room-list-card': LocalJSX.QwRoomListCard & JSXBase.HTMLAttributes<HTMLQwRoomListCardElement>;
       'qw-week-calendar': LocalJSX.QwWeekCalendar & JSXBase.HTMLAttributes<HTMLQwWeekCalendarElement>;
     }
   }
