@@ -24,6 +24,7 @@ export class QwRoomCard {
   @Prop() qwRoomCardRangeDateSession: Date[];
   @Prop() qwRoomCardPrices: {[dateString: string]: MoneyPrice};
   @Prop() qwRoomCardOnClickBook: () => void;
+  @Prop() qwRoomCardOnClickView: () => void;
 
   render() {
     return (
@@ -56,10 +57,8 @@ export class QwRoomCard {
           </div>
 
           <div class="qw-room-card__cta">
-            <QwButton
-              QwButtonLabel="Book now"
-              QwButtonDisabled={this.qwRoomCardIsLoading}
-              QwButtonOnClick={() => this.qwRoomCardOnClickBook()}/>
+            <QwButton QwButtonLabel="Book now" QwButtonOnClick={() => this.qwRoomCardOnClickBook()}/>
+            <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomCardOnClickBook()}/>
           </div>
         </qw-card>
       </Host>

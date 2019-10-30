@@ -1,7 +1,5 @@
-import {Component, h, Host, Prop, State} from '@stencil/core';
+import {Component, Event, EventEmitter, h, Host, State} from '@stencil/core';
 import {
-  BasketIsLoading$,
-  BasketService,
   DateFormat,
   DateUtil,
   MONEY_SYMBOLS,
@@ -21,6 +19,7 @@ import {
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
+import {QwRoomCardButtonType} from '../../index';
 
 @Component({
   tag: 'qw-room-list',
@@ -28,7 +27,6 @@ import {zip} from 'rxjs/internal/observable/zip';
   shadow: false,
 })
 export class QwRoomList {
-  @Prop() QwRoomListTriggerBasket: boolean = false;
   @State() rooms: RoomModel[] = [];
   @State() isBasketLoading: boolean;
   @State() isRoomLoading: boolean;
@@ -38,6 +36,7 @@ export class QwRoomList {
   @State() rangeDateSession: Date[];
   @State() roomPrices: PricesForStayPeriod = {};
   @State() isPriceLoading: boolean;
+  @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomCardButtonType, room: RoomModel}>;
 
   private startDate: Date;
   private endDate: Date;
@@ -47,14 +46,11 @@ export class QwRoomList {
   private todayString: string;
 
   constructor() {
-    this.setRoomToBasket = this.setRoomToBasket.bind(this);
   }
 
   public componentDidLoad() {
     this.todayString = DateUtil.getDateStringFromDate(this.initNewDate(new Date()));
-    SessionService.getSession().pipe(
-      switchMap(session => this.QwRoomListTriggerBasket ? BasketService.getBasket(session) : of(undefined)),
-    ).subscribe();
+    SessionService.getSession().subscribe();
 
     // todo gestire meglio il loading dei prezzi
     SessionLoaded$.pipe(
@@ -74,7 +70,6 @@ export class QwRoomList {
     });
 
     RoomLoaded$.subscribe(res => this.rooms = res);
-    BasketIsLoading$.subscribe(isLoading => this.isBasketLoading = isLoading);
     RoomIsLoading$.subscribe(isLoading => this.isRoomLoading = isLoading);
     SessionIsLoading$.subscribe(isLoading => this.isSessionLoading = isLoading);
   }
@@ -132,10 +127,9 @@ export class QwRoomList {
     return `${this.symbol} ${Math.round(pricesForSession).toString()}`;
   }
 
-  public setRoomToBasket(room: RoomModel) {
-    // todo: fare emitter
-    console.log(room);
-  }
+  clickButton = (type: QwRoomCardButtonType, room: RoomModel) => {
+    this.qwRoomListClickRoom.emit({type, room});
+  };
 
   private hasPrice(room: RoomModel) {
     return RoomHelper.getCheapestPriceFormatted(room) !== RoomDefaultLabel.NoPrice;
@@ -170,7 +164,8 @@ export class QwRoomList {
                 qwRoomCardRangeDate={this.rangeDate}
                 qwRoomCardRangeDateSession={this.rangeDateSession}
                 qwRoomCardPrices={this.roomPrices[r.roomId]}
-                qwRoomCardOnClickBook={() => this.setRoomToBasket(r)}/>
+                qwRoomCardOnClickBook={() => this.clickButton(QwRoomCardButtonType.BookNow, r)}
+                qwRoomCardOnClickView={() => this.clickButton(QwRoomCardButtonType.ViewRoom, r)}/>
             </div>;
           })}
         </div>

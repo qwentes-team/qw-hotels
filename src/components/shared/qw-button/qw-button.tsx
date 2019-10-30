@@ -9,7 +9,7 @@ interface QwButtonProps {
 export const QwButton: FunctionalComponent<QwButtonProps> = (props) => {
   return (
     <div
-      class={`qw-button ${props.QwButtonDisabled && 'qw-button--disabled'}`}
+      class={`qw-button ${props.QwButtonDisabled ? 'qw-button--disabled' : ''}`}
       onClick={() => props.QwButtonOnClick && props.QwButtonOnClick()}>
       {props.QwButtonLabel}
     </div>

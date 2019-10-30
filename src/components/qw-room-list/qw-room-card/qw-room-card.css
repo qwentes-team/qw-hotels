@@ -66,6 +66,9 @@ qw-room-card .qw-room-card__prices {
 qw-room-card .qw-room-card__cta {
   grid-row: 4 / 5;
   align-self: end;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 @media only screen and (max-width: 678px) {
