@@ -9,8 +9,10 @@
 
 | Property                         | Attribute                             | Description | Type                | Default     |
 | -------------------------------- | ------------------------------------- | ----------- | ------------------- | ----------- |
-| `qwCalendarPickerDisabled`       | `qw-calendar-picker-disabled`         |             | `boolean`           | `false`     |
-| `qwCalendarPickerNumberOfMonths` | `qw-calendar-picker-number-of-months` |             | `number`            | `1`         |
+| `qwCalendarPickerDesktopLimit`   | `qw-calendar-picker-desktop-limit`    |             | `number`            | `undefined` |
+| `qwCalendarPickerDisabled`       | `qw-calendar-picker-disabled`         |             | `boolean`           | `undefined` |
+| `qwCalendarPickerNumberOfMonths` | `qw-calendar-picker-number-of-months` |             | `number`            | `undefined` |
+| `qwCalendarPickerResponsive`     | `qw-calendar-picker-responsive`       |             | `boolean`           | `undefined` |
 | `qwCalendarPickerStayPeriod`     | --                                    |             | `SessionStayPeriod` | `undefined` |
 
 

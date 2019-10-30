@@ -7,26 +7,34 @@
 
 ## Properties
 
-| Property                  | Attribute                     | Description | Type      | Default |
-| ------------------------- | ----------------------------- | ----------- | --------- | ------- |
-| `QwRoomListTriggerBasket` | `qw-room-list-trigger-basket` |             | `boolean` | `false` |
+| Property                    | Attribute                        | Description | Type                                           | Default                 |
+| --------------------------- | -------------------------------- | ----------- | ---------------------------------------------- | ----------------------- |
+| `qwRoomListFilterRoomsWith` | `qw-room-list-filter-rooms-with` |             | `string`                                       | `undefined`             |
+| `qwRoomListShowPrices`      | `qw-room-list-show-prices`       |             | `boolean`                                      | `true`                  |
+| `qwRoomListType`            | `qw-room-list-type`              |             | `QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline` |
+
+
+## Events
+
+| Event                 | Description | Type                                                                |
+| --------------------- | ----------- | ------------------------------------------------------------------- |
+| `qwRoomListClickRoom` |             | `CustomEvent<{ type: QwRoomListCardButtonType; room: RoomModel; }>` |
 
 
 ## Dependencies
 
 ### Depends on
 
-- [qw-room-card](qw-room-list-card)
-- [qw-week-calendar](../qw-week-calendar)
+- [qw-room-list-card](qw-room-list-card)
 
 ### Graph
 ```mermaid
 graph TD;
-  qw-room-list --> qw-room-card
-  qw-room-list --> qw-week-calendar
-  qw-room-card --> qw-card
-  qw-room-card --> qw-loading
-  qw-week-calendar --> qw-loading
+  qw-room-list --> qw-room-list-card
+  qw-room-list-card --> qw-card
+  qw-room-list-card --> qw-price
+  qw-room-list-card --> qw-week-calendar
+  qw-price --> qw-loading
   style qw-room-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

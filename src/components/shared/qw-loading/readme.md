@@ -17,15 +17,13 @@
 ### Used by
 
  - [qw-basket](../../qw-basket)
- - [qw-room-card](../../qw-room-list/qw-room-list-card)
- - [qw-week-calendar](../../qw-week-calendar)
+ - [qw-price](../../qw-price)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-basket --> qw-loading
-  qw-room-card --> qw-loading
-  qw-week-calendar --> qw-loading
+  qw-price --> qw-loading
   style qw-loading fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

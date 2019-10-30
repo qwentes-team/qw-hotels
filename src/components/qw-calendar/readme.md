@@ -7,9 +7,19 @@
 
 ## Properties
 
-| Property                   | Attribute                      | Description | Type     | Default |
-| -------------------------- | ------------------------------ | ----------- | -------- | ------- |
-| `qwCalendarNumberOfMonths` | `qw-calendar-number-of-months` |             | `number` | `1`     |
+| Property                   | Attribute                      | Description | Type      | Default |
+| -------------------------- | ------------------------------ | ----------- | --------- | ------- |
+| `qwCalendarDesktopLimit`   | `qw-calendar-desktop-limit`    |             | `number`  | `600`   |
+| `qwCalendarNumberOfMonths` | `qw-calendar-number-of-months` |             | `number`  | `1`     |
+| `qwCalendarResponsive`     | `qw-calendar-responsive`       |             | `boolean` | `true`  |
+| `qwCalendarSyncOnChange`   | `qw-calendar-sync-on-change`   |             | `boolean` | `true`  |
+
+
+## Events
+
+| Event              | Description | Type                             |
+| ------------------ | ----------- | -------------------------------- |
+| `qwCalendarChange` |             | `CustomEvent<SessionStayPeriod>` |
 
 
 ## Dependencies

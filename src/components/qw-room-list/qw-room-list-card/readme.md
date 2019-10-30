@@ -7,17 +7,24 @@
 
 ## Properties
 
-| Property                 | Attribute                   | Description | Type         | Default     |
-| ------------------------ | --------------------------- | ----------- | ------------ | ----------- |
-| `qwRoomCardAvailability` | `qw-room-card-availability` |             | `number`     | `undefined` |
-| `qwRoomCardBeds`         | `qw-room-card-beds`         |             | `string`     | `undefined` |
-| `qwRoomCardGuests`       | `qw-room-card-guests`       |             | `string`     | `undefined` |
-| `qwRoomCardImage`        | `qw-room-card-image`        |             | `string`     | `undefined` |
-| `qwRoomCardIsLoading`    | `qw-room-card-is-loading`   |             | `boolean`    | `undefined` |
-| `qwRoomCardOnClickBook`  | --                          |             | `() => void` | `undefined` |
-| `qwRoomCardPrice`        | `qw-room-card-price`        |             | `string`     | `undefined` |
-| `qwRoomCardRates`        | --                          |             | `Rate[]`     | `undefined` |
-| `qwRoomCardTitle`        | `qw-room-card-title`        |             | `string`     | `undefined` |
+| Property                         | Attribute                         | Description | Type                                    | Default     |
+| -------------------------------- | --------------------------------- | ----------- | --------------------------------------- | ----------- |
+| `qwRoomListCardAveragePrice`     | `qw-room-list-card-average-price` |             | `string`                                | `undefined` |
+| `qwRoomListCardDescription`      | `qw-room-list-card-description`   |             | `string`                                | `undefined` |
+| `qwRoomListCardGuests`           | `qw-room-list-card-guests`        |             | `string`                                | `undefined` |
+| `qwRoomListCardId`               | `qw-room-list-card-id`            |             | `number`                                | `undefined` |
+| `qwRoomListCardImage`            | `qw-room-list-card-image`         |             | `string`                                | `undefined` |
+| `qwRoomListCardIsLoading`        | `qw-room-list-card-is-loading`    |             | `boolean`                               | `undefined` |
+| `qwRoomListCardOnClickBook`      | --                                |             | `() => void`                            | `undefined` |
+| `qwRoomListCardOnClickView`      | --                                |             | `() => void`                            | `undefined` |
+| `qwRoomListCardPrice`            | `qw-room-list-card-price`         |             | `string`                                | `undefined` |
+| `qwRoomListCardPrices`           | --                                |             | `{ [dateString: string]: MoneyPrice; }` | `undefined` |
+| `qwRoomListCardRangeDate`        | --                                |             | `Date[]`                                | `undefined` |
+| `qwRoomListCardRangeDateSession` | --                                |             | `Date[]`                                | `undefined` |
+| `qwRoomListCardRates`            | --                                |             | `Rate[]`                                | `undefined` |
+| `qwRoomListCardShowPrices`       | `qw-room-list-card-show-prices`   |             | `boolean`                               | `true`      |
+| `qwRoomListCardSquareMeter`      | `qw-room-list-card-square-meter`  |             | `string`                                | `undefined` |
+| `qwRoomListCardTitle`            | `qw-room-list-card-title`         |             | `string`                                | `undefined` |
 
 
 ## Dependencies
@@ -29,15 +36,18 @@
 ### Depends on
 
 - [qw-card](../../shared/qw-card)
-- [qw-loading](../../shared/qw-loading)
+- [qw-price](../../qw-price)
+- [qw-week-calendar](../../qw-week-calendar)
 
 ### Graph
 ```mermaid
 graph TD;
-  qw-room-card --> qw-card
-  qw-room-card --> qw-loading
-  qw-room-list --> qw-room-card
-  style qw-room-card fill:#f9f,stroke:#333,stroke-width:4px
+  qw-room-list-card --> qw-card
+  qw-room-list-card --> qw-price
+  qw-room-list-card --> qw-week-calendar
+  qw-price --> qw-loading
+  qw-room-list --> qw-room-list-card
+  style qw-room-list-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

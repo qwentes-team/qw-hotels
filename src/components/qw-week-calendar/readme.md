@@ -7,30 +7,24 @@
 
 ## Properties
 
-| Property                         | Attribute                           | Description | Type      | Default     |
-| -------------------------------- | ----------------------------------- | ----------- | --------- | ----------- |
-| `qwWeekCalendarIsPriceLoading`   | `qw-week-calendar-is-price-loading` |             | `boolean` | `undefined` |
-| `qwWeekCalendarPricesByRoom`     | `qw-week-calendar-prices-by-room`   |             | `any`     | `undefined` |
-| `qwWeekCalendarRangeDate`        | --                                  |             | `Date[]`  | `undefined` |
-| `qwWeekCalendarRangeDateSession` | --                                  |             | `Date[]`  | `undefined` |
-| `qwWeekCalendarSelectedRoomId`   | `qw-week-calendar-selected-room-id` |             | `number`  | `undefined` |
+| Property                         | Attribute                           | Description | Type                                    | Default     |
+| -------------------------------- | ----------------------------------- | ----------- | --------------------------------------- | ----------- |
+| `qwWeekCalendarPricesByRoom`     | --                                  |             | `{ [dateString: string]: MoneyPrice; }` | `{}`        |
+| `qwWeekCalendarRangeDate`        | --                                  |             | `Date[]`                                | `undefined` |
+| `qwWeekCalendarRangeDateSession` | --                                  |             | `Date[]`                                | `undefined` |
+| `qwWeekCalendarSelectedRoomId`   | `qw-week-calendar-selected-room-id` |             | `number`                                | `undefined` |
 
 
 ## Dependencies
 
 ### Used by
 
- - [qw-room-list](../qw-room-list)
-
-### Depends on
-
-- [qw-loading](../shared/qw-loading)
+ - [qw-room-list-card](../qw-room-list/qw-room-list-card)
 
 ### Graph
 ```mermaid
 graph TD;
-  qw-week-calendar --> qw-loading
-  qw-room-list --> qw-week-calendar
+  qw-room-list-card --> qw-week-calendar
   style qw-week-calendar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
