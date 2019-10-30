@@ -14,7 +14,7 @@ qw-room-list.qw-room-list--grid .qw-room-list__card-wrapper {
   width: 49%;
 }
 
-@media only screen and (max-width: 678px) {
+@media only screen and (max-width: var(--qw-hotel-media-min-desktop)) {
   qw-room-list.qw-room-list--grid .qw-room-list__card-wrapper {
     width: auto;
   }

@@ -22,8 +22,14 @@ import {
   QwCounterEmitter,
 } from './components/shared/qw-counter/qw-counter';
 import {
+  QwRoomRateAddToBasketEmitter,
+} from './components/qw-room-rate/qw-room-rate';
+import {
   MoneyPrice,
 } from 'booking-state-manager/src/core/money/money';
+import {
+  QwRoomRateAddToBasketEmitter as QwRoomRateAddToBasketEmitter1,
+} from './components/qw-room-rate/qw-room-rate';
 
 export namespace Components {
   interface QwBasket {}
@@ -67,7 +73,15 @@ export namespace Components {
     'qwPriceCrossedPrice': string;
     'qwPriceMainPrice': string;
   }
-  interface QwRoomDetail {}
+  interface QwRoomDetail {
+    'qwRoomDetailId': string;
+  }
+  interface QwRoomDetailCard {
+    'qwRoomDetailCardAvailability': string;
+    'qwRoomDetailCardImage': string;
+    'qwRoomDetailCardRates': Rate[];
+    'qwRoomDetailCardTitle': string;
+  }
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
     'qwRoomListShowPrices': boolean;
@@ -90,6 +104,9 @@ export namespace Components {
     'qwRoomListCardShowPrices': boolean;
     'qwRoomListCardSquareMeter': string;
     'qwRoomListCardTitle': string;
+  }
+  interface QwRoomRate {
+    'qwRoomRateRate': Rate;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
@@ -168,6 +185,12 @@ declare global {
     new (): HTMLQwRoomDetailElement;
   };
 
+  interface HTMLQwRoomDetailCardElement extends Components.QwRoomDetailCard, HTMLStencilElement {}
+  var HTMLQwRoomDetailCardElement: {
+    prototype: HTMLQwRoomDetailCardElement;
+    new (): HTMLQwRoomDetailCardElement;
+  };
+
   interface HTMLQwRoomListElement extends Components.QwRoomList, HTMLStencilElement {}
   var HTMLQwRoomListElement: {
     prototype: HTMLQwRoomListElement;
@@ -178,6 +201,12 @@ declare global {
   var HTMLQwRoomListCardElement: {
     prototype: HTMLQwRoomListCardElement;
     new (): HTMLQwRoomListCardElement;
+  };
+
+  interface HTMLQwRoomRateElement extends Components.QwRoomRate, HTMLStencilElement {}
+  var HTMLQwRoomRateElement: {
+    prototype: HTMLQwRoomRateElement;
+    new (): HTMLQwRoomRateElement;
   };
 
   interface HTMLQwWeekCalendarElement extends Components.QwWeekCalendar, HTMLStencilElement {}
@@ -197,8 +226,10 @@ declare global {
     'qw-loading': HTMLQwLoadingElement;
     'qw-price': HTMLQwPriceElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
+    'qw-room-detail-card': HTMLQwRoomDetailCardElement;
     'qw-room-list': HTMLQwRoomListElement;
     'qw-room-list-card': HTMLQwRoomListCardElement;
+    'qw-room-rate': HTMLQwRoomRateElement;
     'qw-week-calendar': HTMLQwWeekCalendarElement;
   }
 }
@@ -251,7 +282,16 @@ declare namespace LocalJSX {
     'qwPriceCrossedPrice'?: string;
     'qwPriceMainPrice'?: string;
   }
-  interface QwRoomDetail {}
+  interface QwRoomDetail {
+    'qwRoomDetailId'?: string;
+  }
+  interface QwRoomDetailCard {
+    'onQwRoomDetailCardAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'qwRoomDetailCardAvailability'?: string;
+    'qwRoomDetailCardImage'?: string;
+    'qwRoomDetailCardRates'?: Rate[];
+    'qwRoomDetailCardTitle'?: string;
+  }
   interface QwRoomList {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
     'qwRoomListFilterRoomsWith'?: string;
@@ -276,6 +316,10 @@ declare namespace LocalJSX {
     'qwRoomListCardSquareMeter'?: string;
     'qwRoomListCardTitle'?: string;
   }
+  interface QwRoomRate {
+    'onQwRoomRateAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'qwRoomRateRate'?: Rate;
+  }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate'?: Date[];
@@ -295,8 +339,10 @@ declare namespace LocalJSX {
     'qw-loading': QwLoading;
     'qw-price': QwPrice;
     'qw-room-detail': QwRoomDetail;
+    'qw-room-detail-card': QwRoomDetailCard;
     'qw-room-list': QwRoomList;
     'qw-room-list-card': QwRoomListCard;
+    'qw-room-rate': QwRoomRate;
     'qw-week-calendar': QwWeekCalendar;
   }
 }
@@ -318,8 +364,10 @@ declare module "@stencil/core" {
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
+      'qw-room-detail-card': LocalJSX.QwRoomDetailCard & JSXBase.HTMLAttributes<HTMLQwRoomDetailCardElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
       'qw-room-list-card': LocalJSX.QwRoomListCard & JSXBase.HTMLAttributes<HTMLQwRoomListCardElement>;
+      'qw-room-rate': LocalJSX.QwRoomRate & JSXBase.HTMLAttributes<HTMLQwRoomRateElement>;
       'qw-week-calendar': LocalJSX.QwWeekCalendar & JSXBase.HTMLAttributes<HTMLQwWeekCalendarElement>;
     }
   }
