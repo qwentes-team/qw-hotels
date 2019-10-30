@@ -152,30 +152,30 @@ export class QwRoomList {
     return (
       <Host class={this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}>
         {this.rooms.map(r => {
-        return <div class="qw-room-list__card-wrapper">
-          <qw-room-card
-            class={`
-              ${(this.isLoadingData() || !this.hasPrice(r)) ? 'qw-room-card__disabled' : ''}
-              ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-card--grid' : ''}
-            `}
-            qwRoomCardId={r.roomId}
-            qwRoomCardTitle={r.name}
-            qwRoomCardPrice={`From: ${RoomHelper.getCheapestPriceFormatted(r)}`}
-            qwRoomCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
-            qwRoomCardSquareMeter={r.surfaceArea.text}
-            qwRoomCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
-            qwRoomCardImage={RoomHelper.getCoverImage(r).url}
-            qwRoomCardRates={r.rates}
-            qwRoomCardIsLoading={this.isLoadingData()}
-            qwRoomCardDescription={RoomHelper.getSummary(r).text}
-            qwRoomCardRangeDate={this.rangeDate}
-            qwRoomCardRangeDateSession={this.rangeDateSession}
-            qwRoomCardPrices={this.roomPrices[r.roomId]}
-            qwRoomCardShowPrices={this.qwRoomListShowPrices}
-            qwRoomCardOnClickBook={() => this.clickButton(QwRoomCardButtonType.BookNow, r)}
-            qwRoomCardOnClickView={() => this.clickButton(QwRoomCardButtonType.ViewRoom, r)}/>
-        </div>;
-      })}
+          return <div class="qw-room-list__card-wrapper">
+            <qw-room-card
+              class={`
+                ${(this.isLoadingData() || !this.hasPrice(r)) ? 'qw-room-card__disabled' : ''}
+                ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-card--grid' : ''}
+              `}
+              qwRoomCardId={r.roomId}
+              qwRoomCardTitle={r.name}
+              qwRoomCardPrice={`From: ${RoomHelper.getCheapestPriceFormatted(r)}`}
+              qwRoomCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
+              qwRoomCardSquareMeter={r.surfaceArea.text}
+              qwRoomCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
+              qwRoomCardImage={RoomHelper.getCoverImage(r).url}
+              qwRoomCardRates={r.rates}
+              qwRoomCardIsLoading={this.isLoadingData()}
+              qwRoomCardDescription={RoomHelper.getSummary(r).text}
+              qwRoomCardRangeDate={this.rangeDate}
+              qwRoomCardRangeDateSession={this.rangeDateSession}
+              qwRoomCardPrices={this.roomPrices[r.roomId]}
+              qwRoomCardShowPrices={this.qwRoomListShowPrices}
+              qwRoomCardOnClickBook={() => this.clickButton(QwRoomCardButtonType.BookNow, r)}
+              qwRoomCardOnClickView={() => this.clickButton(QwRoomCardButtonType.ViewRoom, r)}/>
+          </div>;
+        })}
       </Host>
     );
   }
