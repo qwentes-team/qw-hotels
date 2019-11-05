@@ -11,7 +11,6 @@ import {QwImage} from '../../shared/qw-image/qw-image';
 export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardTitle: string;
   @Prop() qwRoomDetailCardImage: string;
-  @Prop() qwRoomDetailCardAvailability: number;
   @Prop() qwRoomDetailCardRates: Rate[];
   @Prop() qwRoomDetailCardSquareMeter: string;
   @Prop() qwRoomDetailCardGuests: string;
@@ -33,7 +32,6 @@ export class QwRoomDetailCard {
 
           <div class="qw-room-detail-card__title">
             <h4>{this.qwRoomDetailCardTitle}</h4>
-            <p>{this.qwRoomDetailCardAvailability} rooms available</p>
           </div>
 
           <div class="qw-room-detail-card__rates">

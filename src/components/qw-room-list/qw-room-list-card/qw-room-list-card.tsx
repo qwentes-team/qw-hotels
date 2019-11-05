@@ -23,9 +23,11 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardRangeDate: Date[];
   @Prop() qwRoomListCardRangeDateSession: Date[];
   @Prop() qwRoomListCardPrices: {[dateString: string]: MoneyPrice};
+  @Prop() qwRoomListCardIsLoadingPrice: boolean;
   @Prop() qwRoomListCardShowPrices: boolean = true;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
+  @Prop() qwRoomListCardOnClickChangeDate: () => void;
 
   render() {
     return (
@@ -42,7 +44,10 @@ export class QwRoomListCard {
                 {this.qwRoomListCardGuests}{this.qwRoomListCardSquareMeter && ` / ${this.qwRoomListCardSquareMeter}`}
               </h6>
             </div>
-            <qw-price qw-price-main-price={this.qwRoomListCardAveragePrice} qw-price-caption={'Average per night'}/>
+            {!this.qwRoomListCardIsLoadingPrice && !this.qwRoomListCardPrices
+              ? <qw-error>This room is not available fot the dates selected. Please choose different dates.</qw-error>
+              : <qw-price qw-price-main-price={this.qwRoomListCardAveragePrice} qw-price-caption={'Average per night'}/>
+            }
           </div>
 
           <div class="qw-room-list-card__descriptions">
@@ -58,8 +63,12 @@ export class QwRoomListCard {
           </div>}
 
           <div class="qw-room-list-card__cta">
-            <QwButton QwButtonLabel="Book now" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
-            <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
+            <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
+            {!this.qwRoomListCardIsLoadingPrice &&
+              (this.qwRoomListCardPrices
+                ? <QwButton QwButtonLabel="Book now" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
+                : <QwButton QwButtonLabel="Change dates" QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>)
+            }
           </div>
         </qw-card>
       </Host>

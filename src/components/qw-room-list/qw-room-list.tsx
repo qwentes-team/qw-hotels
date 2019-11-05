@@ -4,7 +4,6 @@ import {
   DateUtil,
   MONEY_SYMBOLS,
   PricesForStayPeriod,
-  RoomDefaultLabel,
   RoomHelper,
   RoomIsLoading$,
   RoomLoaded$,
@@ -137,10 +136,6 @@ export class QwRoomList {
     this.qwRoomListClickRoom.emit({type, room});
   };
 
-  private hasPrice(room: RoomModel) {
-    return RoomHelper.getCheapestPriceFormatted(room) !== RoomDefaultLabel.NoPrice;
-  }
-
   private initNewDate(date: string | Date) {
     return DateUtil.removeTimeFromDate(new Date(date));
   }
@@ -157,7 +152,7 @@ export class QwRoomList {
           return <div class="qw-room-list__card-wrapper">
             <qw-room-list-card
               class={`
-                ${(this.isLoadingData() || !this.hasPrice(r)) ? 'qw-room-list-card__disabled' : ''}
+                ${this.isLoadingData() ? 'qw-room-list-card__disabled' : ''}
                 ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list-card--grid' : ''}
               `}
               qwRoomListCardId={r.roomId}
@@ -169,13 +164,15 @@ export class QwRoomList {
               qwRoomListCardImage={RoomHelper.getCoverImage(r).url}
               qwRoomListCardRates={r.rates}
               qwRoomListCardIsLoading={this.isLoadingData()}
+              qwRoomListCardIsLoadingPrice={this.isPriceLoading}
               qwRoomListCardDescription={RoomHelper.getSummary(r).text}
               qwRoomListCardRangeDate={this.rangeDate}
               qwRoomListCardRangeDateSession={this.rangeDateSession}
               qwRoomListCardPrices={this.roomPrices[r.roomId]}
               qwRoomListCardShowPrices={this.qwRoomListShowPrices}
               qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
-              qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}/>
+              qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
+              qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}/>
           </div>;
         })}
       </Host>

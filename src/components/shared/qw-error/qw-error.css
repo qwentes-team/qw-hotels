@@ -1,0 +1,7 @@
+qw-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--qw-hotel-gap-sm);
+  border: 1px solid red;
+}

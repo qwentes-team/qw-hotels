@@ -8,6 +8,7 @@ export enum QwCalendarGuestInlineInputType {
 export enum QwRoomListCardButtonType {
   BookNow = 'bookNow',
   ViewRoom = 'viewRoom',
+  ChangeDate = 'changeDate',
 }
 
 export enum QwRoomListType {

@@ -40,7 +40,6 @@ export class QwRoomDetail {
         {this.room && <qw-room-detail-card
           qwRoomDetailCardTitle={this.room.name}
           qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}
-          qwRoomDetailCardAvailability={this.room.totalCount}
           qwRoomDetailCardSquareMeter={this.room.surfaceArea.text}
           qwRoomDetailCardGuests={RoomHelper.getDefaultOccupancy(this.room).definition.text}
           qwRoomDetailCardBed={this.room.bedding.beds[0].type.text}
