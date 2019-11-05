@@ -5,6 +5,13 @@ qw-room-list {
   font-family: var(--qw-hotel-font-family);
 }
 
+qw-room-list .qw-room-list__header-message {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 qw-room-list .qw-room-list__card-wrapper {
   margin: var(--qw-hotel-gap-sm) 0;
   width: auto;

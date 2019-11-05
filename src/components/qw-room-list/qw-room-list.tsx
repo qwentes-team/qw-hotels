@@ -30,6 +30,7 @@ export class QwRoomList {
   @Prop() qwRoomListType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomListFilterRoomsWith: string;
   @Prop() qwRoomListShowPrices: boolean = true;
+  @Prop() qwRoomListHeaderMessage: string;
   @State() rooms: RoomModel[] = [];
   @State() isBasketLoading: boolean;
   @State() isRoomLoading: boolean;
@@ -151,6 +152,7 @@ export class QwRoomList {
   public render() {
     return (
       <Host class={this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}>
+        <div class="qw-room-list__header-message">{this.qwRoomListHeaderMessage}</div>
         {this.rooms.map(r => {
           return <div class="qw-room-list__card-wrapper">
             <qw-room-list-card

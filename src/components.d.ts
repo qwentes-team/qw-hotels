@@ -32,7 +32,9 @@ import {
 } from './components/qw-room-rate/qw-room-rate';
 
 export namespace Components {
-  interface QwBasket {}
+  interface QwBasket {
+    'qwBasketShowEmptyButton': boolean;
+  }
   interface QwCalendar {
     'qwCalendarDesktopLimit': number;
     'qwCalendarNumberOfMonths': number;
@@ -87,6 +89,7 @@ export namespace Components {
   }
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
+    'qwRoomListHeaderMessage': string;
     'qwRoomListShowPrices': boolean;
     'qwRoomListType': QwRoomListType;
   }
@@ -238,7 +241,9 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface QwBasket {}
+  interface QwBasket {
+    'qwBasketShowEmptyButton'?: boolean;
+  }
   interface QwCalendar {
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarDesktopLimit'?: number;
@@ -302,6 +307,7 @@ declare namespace LocalJSX {
   interface QwRoomList {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
     'qwRoomListFilterRoomsWith'?: string;
+    'qwRoomListHeaderMessage'?: string;
     'qwRoomListShowPrices'?: boolean;
     'qwRoomListType'?: QwRoomListType;
   }

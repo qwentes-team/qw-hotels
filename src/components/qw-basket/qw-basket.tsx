@@ -1,4 +1,4 @@
-import {Component, Host, h, State} from '@stencil/core';
+import {Component, Host, h, State, Prop} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$, BasketQuery, BasketService,
   MoneyPrice, SessionLoaded$, SessionService,
@@ -12,6 +12,7 @@ import {switchMap} from 'rxjs/operators';
   shadow: false,
 })
 export class QwBasket {
+  @Prop() qwBasketShowEmptyButton: boolean = false;
   @State() totalPrice: MoneyPrice;
   @State() isLoading: boolean;
 
@@ -38,7 +39,7 @@ export class QwBasket {
           </div>
           {this.isLoading && <qw-loading qw-loading-size="18"/>}
         </div>
-        <QwButton QwButtonLabel="Empty basket" QwButtonOnClick={this.deleteBasket}/>
+        {this.qwBasketShowEmptyButton && <QwButton QwButtonLabel="Empty basket" QwButtonOnClick={this.deleteBasket}/>}
       </Host>
     );
   }
