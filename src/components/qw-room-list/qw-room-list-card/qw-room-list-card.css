@@ -75,16 +75,3 @@ qw-room-list-card .qw-room-list-card__cta {
   display: flex;
   justify-content: space-evenly;
 }
-
-@media only screen and (max-width: var(--qw-hotel-media-min-desktop)) {
-  qw-room-list-card qw-card {
-    display: flex;
-    flex-flow: column;
-  }
-  qw-room-list-card .qw-room-list-card__title {
-    order: -1;
-  }
-  qw-room-list-card.qw-room-list-card--grid qw-card .qw-room-list-card__title {
-    order: 0;
-  }
-}

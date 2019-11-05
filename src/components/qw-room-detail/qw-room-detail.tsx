@@ -1,38 +1,50 @@
-import {Component, h, Host, Listen, Prop, State} from '@stencil/core';
-import {RoomModel, RoomService, SessionLoaded$, SessionService} from 'booking-state-manager';
+import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
+import {BasketService, RoomHelper, RoomModel, RoomService, SessionLoaded$, SessionService} from 'booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 
 @Component({
   tag: 'qw-room-detail',
   styleUrl: 'qw-room-detail.css',
-  shadow: false
+  shadow: false,
 })
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
   @State() room: RoomModel;
+  @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
-      switchMap(session => RoomService.getRooms(session.sessionId))
+      switchMap(session => RoomService.getRooms(session.sessionId)),
     ).subscribe(rooms => {
       this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
-      console.log(this.room);
-    })
+    });
   }
 
   @Listen('qwRoomDetailCardAddToBasket')
   public addToBasket(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
-    console.log(e.detail);
+    BasketService.setRoomInBasket({
+      roomId: this.room.roomId,
+      rateId: e.detail.rateId,
+      occupancyId: RoomHelper.getDefaultOccupancy(this.room).occupancyId,
+      quantity: e.detail.quantity,
+    }).subscribe(() => {
+      this.qwRoomDetailAddToBasketSuccess.emit();
+    });
   }
-
 
   render() {
     return (
       <Host>
         {this.room && <qw-room-detail-card
-          qwRoomDetailCardRates={this.room.rates}/>}
+          qwRoomDetailCardTitle={this.room.name}
+          qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}
+          qwRoomDetailCardAvailability={this.room.totalCount}
+          qwRoomDetailCardSquareMeter={this.room.surfaceArea.text}
+          qwRoomDetailCardGuests={RoomHelper.getDefaultOccupancy(this.room).definition.text}
+          qwRoomDetailCardBed={this.room.bedding.beds[0].type.text}
+          qwRoomDetailCardRates={this.room.rates || []}/>}
       </Host>
     );
   }

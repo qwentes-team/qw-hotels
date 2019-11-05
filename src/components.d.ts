@@ -77,9 +77,12 @@ export namespace Components {
     'qwRoomDetailId': string;
   }
   interface QwRoomDetailCard {
-    'qwRoomDetailCardAvailability': string;
+    'qwRoomDetailCardAvailability': number;
+    'qwRoomDetailCardBed': string;
+    'qwRoomDetailCardGuests': string;
     'qwRoomDetailCardImage': string;
     'qwRoomDetailCardRates': Rate[];
+    'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
   }
   interface QwRoomList {
@@ -283,13 +286,17 @@ declare namespace LocalJSX {
     'qwPriceMainPrice'?: string;
   }
   interface QwRoomDetail {
+    'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<void>) => void;
     'qwRoomDetailId'?: string;
   }
   interface QwRoomDetailCard {
     'onQwRoomDetailCardAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
-    'qwRoomDetailCardAvailability'?: string;
+    'qwRoomDetailCardAvailability'?: number;
+    'qwRoomDetailCardBed'?: string;
+    'qwRoomDetailCardGuests'?: string;
     'qwRoomDetailCardImage'?: string;
     'qwRoomDetailCardRates'?: Rate[];
+    'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
   }
   interface QwRoomList {

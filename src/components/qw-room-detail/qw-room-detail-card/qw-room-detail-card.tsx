@@ -11,8 +11,11 @@ import {QwImage} from '../../shared/qw-image/qw-image';
 export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardTitle: string;
   @Prop() qwRoomDetailCardImage: string;
-  @Prop() qwRoomDetailCardAvailability: string;
+  @Prop() qwRoomDetailCardAvailability: number;
   @Prop() qwRoomDetailCardRates: Rate[];
+  @Prop() qwRoomDetailCardSquareMeter: string;
+  @Prop() qwRoomDetailCardGuests: string;
+  @Prop() qwRoomDetailCardBed: string;
   @Event() qwRoomDetailCardAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
   @Listen('qwRoomRateAddToBasket')
@@ -23,24 +26,31 @@ export class QwRoomDetailCard {
   render() {
     return (
       <Host>
-        <div class="qw-room-detail-card__image">
-          <QwImage imageUrl={this.qwRoomDetailCardImage} alt={this.qwRoomDetailCardTitle}/>
-        </div>
+        <qw-card>
+          <div class="qw-room-detail-card__image">
+            <QwImage imageUrl={this.qwRoomDetailCardImage} alt={this.qwRoomDetailCardTitle}/>
+          </div>
 
-        <div class="qw-room-detail-card__title">
-          <h4>{this.qwRoomDetailCardTitle}</h4>
-          <p>{this.qwRoomDetailCardAvailability}</p>
-        </div>
+          <div class="qw-room-detail-card__title">
+            <h4>{this.qwRoomDetailCardTitle}</h4>
+            <p>{this.qwRoomDetailCardAvailability} rooms available</p>
+          </div>
 
-        <div class="qw-room-detail-card__rates">
-          {this.qwRoomDetailCardRates.map(rate => {
-            return <qw-room-rate qwRoomRateRate={rate}/>;
-          })}
-        </div>
+          <div class="qw-room-detail-card__rates">
+            {this.qwRoomDetailCardRates.length
+              ? this.qwRoomDetailCardRates.map(rate => <qw-room-rate qwRoomRateRate={rate}/>)
+              : 'No Rate Available'
+            }
+          </div>
 
-        <div class="qw-room-detail-card__services">
-          - TODO
-        </div>
+          <div class="qw-room-detail-card__services">
+            <ul>
+              <li>Maximum occupancy: {this.qwRoomDetailCardGuests}</li>
+              <li>{this.qwRoomDetailCardBed}</li>
+              <li>Average size of {this.qwRoomDetailCardSquareMeter}</li>
+            </ul>
+          </div>
+        </qw-card>
       </Host>
     );
   }
