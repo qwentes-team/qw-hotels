@@ -12,6 +12,13 @@
 | `qwRoomDetailId` | `qw-room-detail-id` |             | `string` | `undefined` |
 
 
+## Events
+
+| Event                            | Description | Type                |
+| -------------------------------- | ----------- | ------------------- |
+| `qwRoomDetailAddToBasketSuccess` |             | `CustomEvent<void>` |
+
+
 ## Dependencies
 
 ### Depends on
@@ -22,6 +29,7 @@
 ```mermaid
 graph TD;
   qw-room-detail --> qw-room-detail-card
+  qw-room-detail-card --> qw-card
   qw-room-detail-card --> qw-room-rate
   style qw-room-detail fill:#f9f,stroke:#333,stroke-width:4px
 ```

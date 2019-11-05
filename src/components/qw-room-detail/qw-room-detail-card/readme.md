@@ -7,12 +7,14 @@
 
 ## Properties
 
-| Property                       | Attribute                          | Description | Type     | Default     |
-| ------------------------------ | ---------------------------------- | ----------- | -------- | ----------- |
-| `qwRoomDetailCardAvailability` | `qw-room-detail-card-availability` |             | `string` | `undefined` |
-| `qwRoomDetailCardImage`        | `qw-room-detail-card-image`        |             | `string` | `undefined` |
-| `qwRoomDetailCardRates`        | --                                 |             | `Rate[]` | `undefined` |
-| `qwRoomDetailCardTitle`        | `qw-room-detail-card-title`        |             | `string` | `undefined` |
+| Property                      | Attribute                          | Description | Type     | Default     |
+| ----------------------------- | ---------------------------------- | ----------- | -------- | ----------- |
+| `qwRoomDetailCardBed`         | `qw-room-detail-card-bed`          |             | `string` | `undefined` |
+| `qwRoomDetailCardGuests`      | `qw-room-detail-card-guests`       |             | `string` | `undefined` |
+| `qwRoomDetailCardImage`       | `qw-room-detail-card-image`        |             | `string` | `undefined` |
+| `qwRoomDetailCardRates`       | --                                 |             | `Rate[]` | `undefined` |
+| `qwRoomDetailCardSquareMeter` | `qw-room-detail-card-square-meter` |             | `string` | `undefined` |
+| `qwRoomDetailCardTitle`       | `qw-room-detail-card-title`        |             | `string` | `undefined` |
 
 
 ## Events
@@ -30,11 +32,13 @@
 
 ### Depends on
 
+- [qw-card](../../shared/qw-card)
 - [qw-room-rate](../../qw-room-rate)
 
 ### Graph
 ```mermaid
 graph TD;
+  qw-room-detail-card --> qw-card
   qw-room-detail-card --> qw-room-rate
   qw-room-detail --> qw-room-detail-card
   style qw-room-detail-card fill:#f9f,stroke:#333,stroke-width:4px

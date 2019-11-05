@@ -7,24 +7,26 @@
 
 ## Properties
 
-| Property                         | Attribute                         | Description | Type                                    | Default     |
-| -------------------------------- | --------------------------------- | ----------- | --------------------------------------- | ----------- |
-| `qwRoomListCardAveragePrice`     | `qw-room-list-card-average-price` |             | `string`                                | `undefined` |
-| `qwRoomListCardDescription`      | `qw-room-list-card-description`   |             | `string`                                | `undefined` |
-| `qwRoomListCardGuests`           | `qw-room-list-card-guests`        |             | `string`                                | `undefined` |
-| `qwRoomListCardId`               | `qw-room-list-card-id`            |             | `number`                                | `undefined` |
-| `qwRoomListCardImage`            | `qw-room-list-card-image`         |             | `string`                                | `undefined` |
-| `qwRoomListCardIsLoading`        | `qw-room-list-card-is-loading`    |             | `boolean`                               | `undefined` |
-| `qwRoomListCardOnClickBook`      | --                                |             | `() => void`                            | `undefined` |
-| `qwRoomListCardOnClickView`      | --                                |             | `() => void`                            | `undefined` |
-| `qwRoomListCardPrice`            | `qw-room-list-card-price`         |             | `string`                                | `undefined` |
-| `qwRoomListCardPrices`           | --                                |             | `{ [dateString: string]: MoneyPrice; }` | `undefined` |
-| `qwRoomListCardRangeDate`        | --                                |             | `Date[]`                                | `undefined` |
-| `qwRoomListCardRangeDateSession` | --                                |             | `Date[]`                                | `undefined` |
-| `qwRoomListCardRates`            | --                                |             | `Rate[]`                                | `undefined` |
-| `qwRoomListCardShowPrices`       | `qw-room-list-card-show-prices`   |             | `boolean`                               | `true`      |
-| `qwRoomListCardSquareMeter`      | `qw-room-list-card-square-meter`  |             | `string`                                | `undefined` |
-| `qwRoomListCardTitle`            | `qw-room-list-card-title`         |             | `string`                                | `undefined` |
+| Property                          | Attribute                            | Description | Type                                    | Default     |
+| --------------------------------- | ------------------------------------ | ----------- | --------------------------------------- | ----------- |
+| `qwRoomListCardAveragePrice`      | `qw-room-list-card-average-price`    |             | `string`                                | `undefined` |
+| `qwRoomListCardDescription`       | `qw-room-list-card-description`      |             | `string`                                | `undefined` |
+| `qwRoomListCardGuests`            | `qw-room-list-card-guests`           |             | `string`                                | `undefined` |
+| `qwRoomListCardId`                | `qw-room-list-card-id`               |             | `number`                                | `undefined` |
+| `qwRoomListCardImage`             | `qw-room-list-card-image`            |             | `string`                                | `undefined` |
+| `qwRoomListCardIsLoading`         | `qw-room-list-card-is-loading`       |             | `boolean`                               | `undefined` |
+| `qwRoomListCardIsLoadingPrice`    | `qw-room-list-card-is-loading-price` |             | `boolean`                               | `undefined` |
+| `qwRoomListCardOnClickBook`       | --                                   |             | `() => void`                            | `undefined` |
+| `qwRoomListCardOnClickChangeDate` | --                                   |             | `() => void`                            | `undefined` |
+| `qwRoomListCardOnClickView`       | --                                   |             | `() => void`                            | `undefined` |
+| `qwRoomListCardPrice`             | `qw-room-list-card-price`            |             | `string`                                | `undefined` |
+| `qwRoomListCardPrices`            | --                                   |             | `{ [dateString: string]: MoneyPrice; }` | `undefined` |
+| `qwRoomListCardRangeDate`         | --                                   |             | `Date[]`                                | `undefined` |
+| `qwRoomListCardRangeDateSession`  | --                                   |             | `Date[]`                                | `undefined` |
+| `qwRoomListCardRates`             | --                                   |             | `Rate[]`                                | `undefined` |
+| `qwRoomListCardShowPrices`        | `qw-room-list-card-show-prices`      |             | `boolean`                               | `true`      |
+| `qwRoomListCardSquareMeter`       | `qw-room-list-card-square-meter`     |             | `string`                                | `undefined` |
+| `qwRoomListCardTitle`             | `qw-room-list-card-title`            |             | `string`                                | `undefined` |
 
 
 ## Dependencies
@@ -36,6 +38,7 @@
 ### Depends on
 
 - [qw-card](../../shared/qw-card)
+- [qw-error](../../shared/qw-error)
 - [qw-price](../../qw-price)
 - [qw-week-calendar](../../qw-week-calendar)
 
@@ -43,6 +46,7 @@
 ```mermaid
 graph TD;
   qw-room-list-card --> qw-card
+  qw-room-list-card --> qw-error
   qw-room-list-card --> qw-price
   qw-room-list-card --> qw-week-calendar
   qw-price --> qw-loading

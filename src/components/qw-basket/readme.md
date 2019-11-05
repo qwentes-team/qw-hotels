@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property                  | Attribute                     | Description | Type      | Default |
+| ------------------------- | ----------------------------- | ----------- | --------- | ------- |
+| `qwBasketShowEmptyButton` | `qw-basket-show-empty-button` |             | `boolean` | `false` |
+
+
 ## Dependencies
 
 ### Depends on

@@ -18,8 +18,8 @@ export class QwRoomRate {
   @State() quantity: number = 0;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
-  changeSelect = (quantity: number) => {
-    this.quantity = quantity;
+  changeSelect = (quantity: string) => {
+    this.quantity = parseInt(quantity);
   };
 
   addToBasket = () => {
