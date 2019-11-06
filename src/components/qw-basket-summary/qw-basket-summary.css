@@ -1,0 +1,20 @@
+qw-basket-summary {
+  display: flex;
+}
+
+qw-basket-summary .qw-basket-summary__rooms {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+qw-basket-summary .qw-basket-summary__room {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+qw-basket-summary .qw-basket-summary__room > div {
+  width: 16%;
+}

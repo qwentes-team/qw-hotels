@@ -35,6 +35,7 @@ export namespace Components {
   interface QwBasket {
     'qwBasketShowEmptyButton': boolean;
   }
+  interface QwBasketSummary {}
   interface QwCalendar {
     'qwCalendarDesktopLimit': number;
     'qwCalendarNumberOfMonths': number;
@@ -131,6 +132,12 @@ declare global {
   var HTMLQwBasketElement: {
     prototype: HTMLQwBasketElement;
     new (): HTMLQwBasketElement;
+  };
+
+  interface HTMLQwBasketSummaryElement extends Components.QwBasketSummary, HTMLStencilElement {}
+  var HTMLQwBasketSummaryElement: {
+    prototype: HTMLQwBasketSummaryElement;
+    new (): HTMLQwBasketSummaryElement;
   };
 
   interface HTMLQwCalendarElement extends Components.QwCalendar, HTMLStencilElement {}
@@ -230,6 +237,7 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     'qw-basket': HTMLQwBasketElement;
+    'qw-basket-summary': HTMLQwBasketSummaryElement;
     'qw-calendar': HTMLQwCalendarElement;
     'qw-calendar-guest-inline': HTMLQwCalendarGuestInlineElement;
     'qw-calendar-picker': HTMLQwCalendarPickerElement;
@@ -253,6 +261,7 @@ declare namespace LocalJSX {
   interface QwBasket {
     'qwBasketShowEmptyButton'?: boolean;
   }
+  interface QwBasketSummary {}
   interface QwCalendar {
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarDesktopLimit'?: number;
@@ -353,6 +362,7 @@ declare namespace LocalJSX {
 
   interface IntrinsicElements {
     'qw-basket': QwBasket;
+    'qw-basket-summary': QwBasketSummary;
     'qw-calendar': QwCalendar;
     'qw-calendar-guest-inline': QwCalendarGuestInline;
     'qw-calendar-picker': QwCalendarPicker;
@@ -379,6 +389,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'qw-basket': LocalJSX.QwBasket & JSXBase.HTMLAttributes<HTMLQwBasketElement>;
+      'qw-basket-summary': LocalJSX.QwBasketSummary & JSXBase.HTMLAttributes<HTMLQwBasketSummaryElement>;
       'qw-calendar': LocalJSX.QwCalendar & JSXBase.HTMLAttributes<HTMLQwCalendarElement>;
       'qw-calendar-guest-inline': LocalJSX.QwCalendarGuestInline & JSXBase.HTMLAttributes<HTMLQwCalendarGuestInlineElement>;
       'qw-calendar-picker': LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
