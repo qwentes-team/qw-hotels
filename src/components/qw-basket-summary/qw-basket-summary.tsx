@@ -3,7 +3,7 @@ import {
   BasketIsLoading$,
   BasketModel,
   BasketQuery,
-  BasketService, Rate, RoomLoaded$, RoomModel, RoomService, SessionHelper,
+  BasketService, RateHelper, RateModel, RateService, RoomBasketModel, RoomLoaded$, RoomModel, RoomService, SessionHelper,
   SessionLoaded$, SessionModel,
   SessionService,
 } from 'booking-state-manager';
@@ -13,9 +13,7 @@ import {zip} from 'rxjs';
 
 interface QwBasketSummaryChangeSelectEvent {
   quantity: string;
-  rateId: Rate['rateId'];
-  roomId: RoomModel['roomId'];
-  occupancyId: number;
+  room: RoomBasketModel;
 }
 
 @Component({
@@ -27,6 +25,7 @@ export class QwBasketSummary {
   @State() basket: BasketModel;
   @State() session: SessionModel;
   @State() rooms: {[roomId: string]: RoomModel} = {};
+  @State() rates: {[rateId: string]: RateModel} = {};
   @State() basketIsLoading: boolean;
 
   public componentDidLoad() {
@@ -37,26 +36,43 @@ export class QwBasketSummary {
       if (Object.keys(this.rooms).length) {
         return BasketService.getBasket(session);
       }
+
+      this.getRates(session.sessionId);
       return zip(BasketService.getBasket(session), RoomService.getRooms(session.sessionId));
     })).subscribe();
 
-    BasketQuery.select().subscribe(basket => {
-      this.basket = basket;
-      console.log(this.basket);
-    });
+    BasketQuery.select().subscribe(basket => this.basket = basket);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
     RoomLoaded$.subscribe(res => this.rooms = res.reduce((acc, r) => ({...acc, [r.roomId]: r}), {}));
   }
 
+  private getRates(sessionId: SessionModel['sessionId']) {
+    RateService.getRates(sessionId).subscribe(res => {
+      this.rates = res.reduce((acc, r) => ({...acc, [r.rateId]: r}), {});
+    })
+  }
+
   changeSelect = (e: QwBasketSummaryChangeSelectEvent) => {
-    console.log(e);
     BasketService.setRoomInBasket({
-      roomId: e.roomId,
-      rateId: e.rateId,
-      occupancyId: e.occupancyId,
+      roomId: e.room.roomId,
+      rateId: e.room.occupancies[0].rateId,
+      occupancyId: e.room.occupancies[0].occupancyId,
       quantity: parseInt(e.quantity),
     }).subscribe();
   };
+
+  public getRateName(rateId) {
+    const rateIdPart = RateHelper.getIdPartOfRateId(rateId);
+    return this.rates[rateIdPart] && this.rates[rateIdPart].name
+  }
+
+  public getRoomType(roomId) {
+    return this.rooms[roomId] && this.rooms[roomId].type.text;
+  }
+
+  public getRoomName(roomId) {
+    return this.rooms[roomId] && this.rooms[roomId].name
+  }
 
   render() {
     return (
@@ -76,19 +92,15 @@ export class QwBasketSummary {
               <div class="qw-basket-summary__room">
                 <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
                 <div class="qw-basket-summary__room-name">
-                  <div class="qw-basket-summary__room-title">{this.rooms[basketRoom.roomId] && this.rooms[basketRoom.roomId].name}</div>
-                  <div
-                    class="qw-basket-summary__room-guests">{this.rooms[basketRoom.roomId] && this.rooms[basketRoom.roomId].type.text}</div>
+                  <div class="qw-basket-summary__room-title">{this.getRoomName(basketRoom.roomId)}</div>
+                  <div class="qw-basket-summary__room-guests">{this.getRoomType(basketRoom.roomId)}</div>
                 </div>
-                <div>Rate</div>
-                <div>{SessionHelper.getNumberOfNights(this.session)}</div>
-                <div>{
-                  <QwSelect QwSelectDisabled={this.basketIsLoading} QwSelectOnChange={(e) => this.changeSelect({
-                    quantity: e.target.value,
-                    roomId: basketRoom.roomId,
-                    rateId: basketRoom.occupancies[0].rateId,
-                    occupancyId: basketRoom.occupancies[0].occupancyId,
-                  })}>
+                <div class="qw-basket-summary__room-rate">{this.getRateName(basketRoom.occupancies[0].rateId)}</div>
+                <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
+                <div class="qw-basket-summary__room-quantity">{
+                  <QwSelect
+                    QwSelectDisabled={this.basketIsLoading}
+                    QwSelectOnChange={(e) => this.changeSelect({quantity: e.target.value, room: basketRoom})}>
                     {Array.from(Array(basketRoom.occupancies[0].availableQuantity).keys()).map(o => {
                       const value = o + 1;
                       return (
@@ -102,7 +114,7 @@ export class QwBasketSummary {
                     })}
                   </QwSelect>
                 }</div>
-                <div>{basketRoom.occupancies[0].price.original.text}</div>
+                <div class="qw-basket-summary__room-price">{basketRoom.occupancies[0].price.original.text}</div>
               </div>
             );
           })
