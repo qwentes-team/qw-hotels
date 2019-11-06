@@ -9,6 +9,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   PricesForStayPeriod,
   Rate,
+  RateModel,
   RoomModel,
   SessionGuests,
   SessionStayPeriod,
@@ -85,6 +86,7 @@ export namespace Components {
     'qwRoomDetailCardGuests': string;
     'qwRoomDetailCardImage': string;
     'qwRoomDetailCardRates': Rate[];
+    'qwRoomDetailCardRatesModel': {[rateId: string]: RateModel};
     'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
   }
@@ -115,6 +117,7 @@ export namespace Components {
     'qwRoomListCardTitle': string;
   }
   interface QwRoomRate {
+    'qwRoomRateName': String;
     'qwRoomRateRate': Rate;
   }
   interface QwWeekCalendar {
@@ -319,6 +322,7 @@ declare namespace LocalJSX {
     'qwRoomDetailCardGuests'?: string;
     'qwRoomDetailCardImage'?: string;
     'qwRoomDetailCardRates'?: Rate[];
+    'qwRoomDetailCardRatesModel'?: {[rateId: string]: RateModel};
     'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
   }
@@ -351,6 +355,7 @@ declare namespace LocalJSX {
   }
   interface QwRoomRate {
     'onQwRoomRateAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'qwRoomRateName'?: String;
     'qwRoomRateRate'?: Rate;
   }
   interface QwWeekCalendar {

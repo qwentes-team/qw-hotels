@@ -1,5 +1,14 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
-import {BasketService, RoomHelper, RoomModel, RoomService, SessionLoaded$, SessionService} from 'booking-state-manager';
+import {
+  BasketService,
+  RateModel,
+  RateService,
+  RoomHelper,
+  RoomModel,
+  RoomService,
+  SessionLoaded$, SessionModel,
+  SessionService,
+} from 'booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 
@@ -11,15 +20,29 @@ import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
   @State() room: RoomModel;
+  @State() rates: {[rateId: string]: RateModel} = {};
   @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
-      switchMap(session => RoomService.getRooms(session.sessionId)),
+      switchMap(session => {
+        if (!Object.keys(this.rates).length) {
+          this.getRates(session.sessionId);
+        }
+
+        return RoomService.getRooms(session.sessionId);
+      }),
     ).subscribe(rooms => {
       this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
     });
+  }
+
+  // todo ottimizzare getRates
+  private getRates(sessionId: SessionModel['sessionId']) {
+    RateService.getRates(sessionId).subscribe(res => {
+      this.rates = res.reduce((acc, r) => ({...acc, [r.rateId]: r}), {});
+    })
   }
 
   @Listen('qwRoomDetailCardAddToBasket')
@@ -43,6 +66,7 @@ export class QwRoomDetail {
           qwRoomDetailCardSquareMeter={this.room.surfaceArea.text}
           qwRoomDetailCardGuests={RoomHelper.getDefaultOccupancy(this.room).definition.text}
           qwRoomDetailCardBed={this.room.bedding.beds[0].type.text}
+          qwRoomDetailCardRatesModel={this.rates}
           qwRoomDetailCardRates={this.room.rates || []}/>}
       </Host>
     );

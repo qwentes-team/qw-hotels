@@ -15,6 +15,7 @@ export interface QwRoomRateAddToBasketEmitter {
 })
 export class QwRoomRate {
   @Prop() qwRoomRateRate: Rate;
+  @Prop() qwRoomRateName: String;
   @State() quantity: number = 0;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
@@ -29,7 +30,7 @@ export class QwRoomRate {
   render() {
     return (
       <Host>
-        <div class="qw-room-rate__title">{this.qwRoomRateRate.offerId}</div>
+        <div class="qw-room-rate__title">{this.qwRoomRateName}</div>
         <div class="qw-room-rate__price">{this.qwRoomRateRate.price.totalPrice.converted.text}</div>
         <QwSelect QwSelectLabel="Room qty." QwSelectOnChange={(e) => this.changeSelect(e.target.value)}>
           {Array.from(Array(this.qwRoomRateRate.availableQuantity + 1).keys()).map(o => {
