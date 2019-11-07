@@ -125,10 +125,12 @@ export class QwRoomList {
     const endDateSession = departureDate <= this.endDate ? departureDate : this.endDate;
 
     const range = DateUtil.getDatesRange(arrivalDate, endDateSession, DateFormat.String);
-    const pricesForSession = range.reduce((acc, date) => {
+    const rangeWithoutDepartureDate = [...range];
+    rangeWithoutDepartureDate.length = range.length - 1;
+    const pricesForSession = rangeWithoutDepartureDate.reduce((acc, date) => {
       const valueToAdd = this.roomPrices[roomId][date] ? this.roomPrices[roomId][date].value.amount : 0;
       return acc + valueToAdd;
-    }, 0) / range.length;
+    }, 0) / rangeWithoutDepartureDate.length;
     return `${this.symbol} ${Math.round(pricesForSession).toString()}`;
   }
 
@@ -152,6 +154,7 @@ export class QwRoomList {
         </div>
         <div class="qw-room-list__header-message">{this.qwRoomListHeaderMessage}</div>
         {this.rooms.map(r => {
+          console.log(RoomHelper.getCheapestCrossedOutPriceFormatted(r));
           return <div class="qw-room-list__card-wrapper">
             <qw-room-list-card
               class={`
@@ -160,7 +163,8 @@ export class QwRoomList {
               `}
               qwRoomListCardId={r.roomId}
               qwRoomListCardTitle={r.name}
-              qwRoomListCardPrice={`From: ${RoomHelper.getCheapestPriceFormatted(r)}`}
+              qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r)}
+              qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
               qwRoomListCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
               qwRoomListCardSquareMeter={r.surfaceArea.text}
               qwRoomListCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}

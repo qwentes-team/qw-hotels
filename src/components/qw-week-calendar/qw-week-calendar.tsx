@@ -1,6 +1,6 @@
 import {Component, h, Host, Prop, State} from '@stencil/core';
 import {
-  DateUtil, PricesForStayPeriod, RoomModel,
+  DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel,
   SessionLoaded$, SessionModel, SessionService,
 } from 'booking-state-manager';
 
@@ -32,7 +32,7 @@ export class QwWeekCalendar {
 
   private getPriceForDate(date: Date) {
     const price = this.qwWeekCalendarPricesByRoom[DateUtil.getDateStringFromDate(date)];
-    return price ? price.text : '--';
+    return price ? price.text : RoomDefaultLabel.NoPrice;
   }
 
   private isFirstDateInSession(date: Date) {

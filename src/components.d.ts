@@ -98,6 +98,7 @@ export namespace Components {
   }
   interface QwRoomListCard {
     'qwRoomListCardAveragePrice': string;
+    'qwRoomListCardCrossedOutPrice': string;
     'qwRoomListCardDescription': string;
     'qwRoomListCardGuests': string;
     'qwRoomListCardId': RoomModel['roomId'];
@@ -335,6 +336,7 @@ declare namespace LocalJSX {
   }
   interface QwRoomListCard {
     'qwRoomListCardAveragePrice'?: string;
+    'qwRoomListCardCrossedOutPrice'?: string;
     'qwRoomListCardDescription'?: string;
     'qwRoomListCardGuests'?: string;
     'qwRoomListCardId'?: RoomModel['roomId'];

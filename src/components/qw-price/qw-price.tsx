@@ -1,4 +1,5 @@
 import {Component, Host, h, Prop} from '@stencil/core';
+import {RoomDefaultLabel} from 'booking-state-manager';
 
 @Component({
   tag: 'qw-price',
@@ -13,7 +14,7 @@ export class QwPrice {
   render() {
     return (
       <Host>
-        {this.qwPriceCrossedPrice && <div class="qw-price__crossed-price">{this.qwPriceCrossedPrice}</div>}
+        {(this.qwPriceCrossedPrice && this.qwPriceCrossedPrice !== RoomDefaultLabel.NoPrice) && <div class="qw-price__crossed-price">{this.qwPriceCrossedPrice}</div>}
         <div class="qw-price__main-price">{this.qwPriceMainPrice || <qw-loading qw-loading-size="22" />}</div>
         <div class="qw-price__caption">{this.qwPriceCaption}</div>
       </Host>

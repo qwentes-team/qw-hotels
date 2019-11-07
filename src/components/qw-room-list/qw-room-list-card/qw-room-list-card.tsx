@@ -1,7 +1,7 @@
 import {Component, Host, h, Prop} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {Rate, RoomModel} from 'booking-state-manager';
+import {Rate, RoomDefaultLabel, RoomModel} from 'booking-state-manager';
 import {MoneyPrice} from 'booking-state-manager/src/core/money/money';
 
 @Component({
@@ -13,6 +13,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardId: RoomModel['roomId'];
   @Prop() qwRoomListCardTitle: string;
   @Prop() qwRoomListCardPrice: string;
+  @Prop() qwRoomListCardCrossedOutPrice: string;
   @Prop() qwRoomListCardAveragePrice: string;
   @Prop() qwRoomListCardSquareMeter: string;
   @Prop() qwRoomListCardGuests: string;
@@ -46,7 +47,10 @@ export class QwRoomListCard {
             </div>
             {!this.qwRoomListCardIsLoadingPrice && !this.qwRoomListCardPrices
               ? <qw-error>This room is not available fot the dates selected. Please choose different dates.</qw-error>
-              : <qw-price qw-price-main-price={this.qwRoomListCardAveragePrice} qw-price-caption={'Average per night'}/>
+              : <qw-price
+                  qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}
+                  qwPriceMainPrice={this.qwRoomListCardPrice}
+                  qwPriceCaption={`Average per night: ${this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}`}/>
             }
           </div>
 
