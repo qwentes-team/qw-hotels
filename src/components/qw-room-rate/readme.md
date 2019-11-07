@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property         | Attribute | Description | Type   | Default     |
-| ---------------- | --------- | ----------- | ------ | ----------- |
-| `qwRoomRateRate` | --        |             | `Rate` | `undefined` |
+| Property         | Attribute | Description | Type     | Default     |
+| ---------------- | --------- | ----------- | -------- | ----------- |
+| `qwRoomRateName` | --        |             | `String` | `undefined` |
+| `qwRoomRateRate` | --        |             | `Rate`   | `undefined` |
 
 
 ## Events

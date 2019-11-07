@@ -79,12 +79,12 @@ export class QwBasketSummary {
       <Host>
         <div class="qw-basket-summary__rooms">
           <div class="qw-basket-summary__room qw-basket-summary__room-header">
-            <div>Dates</div>
-            <div>Type of room</div>
-            <div>Rate</div>
-            <div>Nights</div>
-            <div>Room qty.</div>
-            <div>Subtotal</div>
+            <div class="qw-basket-summary__room-date">Dates</div>
+            <div class="qw-basket-summary__room-name">Type of room</div>
+            <div class="qw-basket-summary__room-rate">Rate</div>
+            <div class="qw-basket-summary__room-night">Nights</div>
+            <div class="qw-basket-summary__room-quantity">Room qty.</div>
+            <div class="qw-basket-summary__room-price">Subtotal</div>
           </div>
 
           {this.basket && this.basket.rooms.map(basketRoom => {

@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property                      | Attribute                          | Description | Type     | Default     |
-| ----------------------------- | ---------------------------------- | ----------- | -------- | ----------- |
-| `qwRoomDetailCardBed`         | `qw-room-detail-card-bed`          |             | `string` | `undefined` |
-| `qwRoomDetailCardGuests`      | `qw-room-detail-card-guests`       |             | `string` | `undefined` |
-| `qwRoomDetailCardImage`       | `qw-room-detail-card-image`        |             | `string` | `undefined` |
-| `qwRoomDetailCardRates`       | --                                 |             | `Rate[]` | `undefined` |
-| `qwRoomDetailCardSquareMeter` | `qw-room-detail-card-square-meter` |             | `string` | `undefined` |
-| `qwRoomDetailCardTitle`       | `qw-room-detail-card-title`        |             | `string` | `undefined` |
+| Property                      | Attribute                          | Description | Type                               | Default     |
+| ----------------------------- | ---------------------------------- | ----------- | ---------------------------------- | ----------- |
+| `qwRoomDetailCardBed`         | `qw-room-detail-card-bed`          |             | `string`                           | `undefined` |
+| `qwRoomDetailCardGuests`      | `qw-room-detail-card-guests`       |             | `string`                           | `undefined` |
+| `qwRoomDetailCardImage`       | `qw-room-detail-card-image`        |             | `string`                           | `undefined` |
+| `qwRoomDetailCardRates`       | --                                 |             | `Rate[]`                           | `undefined` |
+| `qwRoomDetailCardRatesModel`  | --                                 |             | `{ [rateId: string]: RateModel; }` | `{}`        |
+| `qwRoomDetailCardSquareMeter` | `qw-room-detail-card-square-meter` |             | `string`                           | `undefined` |
+| `qwRoomDetailCardTitle`       | `qw-room-detail-card-title`        |             | `string`                           | `undefined` |
 
 
 ## Events
