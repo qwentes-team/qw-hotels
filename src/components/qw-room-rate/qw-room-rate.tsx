@@ -1,7 +1,6 @@
-import {Component, Host, h, Prop, EventEmitter, Event, State} from '@stencil/core';
+import {Component, Host, h, Prop, EventEmitter, Event, State, Listen} from '@stencil/core';
 import {QwButton} from '../shared/qw-button/qw-button';
-import {QwSelect} from '../shared/qw-select/qw-select';
-import {Rate} from 'booking-state-manager';
+import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 
 export interface QwRoomRateAddToBasketEmitter {
   quantity: number;
@@ -14,14 +13,16 @@ export interface QwRoomRateAddToBasketEmitter {
   shadow: false,
 })
 export class QwRoomRate {
-  @Prop() qwRoomRateRate: Rate;
-  @Prop() qwRoomRateName: String;
+  @Prop() qwRoomRateRate: any; // Rate
+  @Prop() qwRoomRateName: string;
+  @Prop() qwRoomRateIsLoading: boolean;
   @State() quantity: number = 0;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
-  changeSelect = (quantity: string) => {
-    this.quantity = parseInt(quantity);
-  };
+  @Listen('qwCounterChangeValue')
+  public counterChanged(event: CustomEvent<QwCounterEmitter>) {
+    this.quantity = event.detail.value;
+  }
 
   addToBasket = () => {
     this.qwRoomRateAddToBasket.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
@@ -30,16 +31,22 @@ export class QwRoomRate {
   render() {
     return (
       <Host>
-        <div class="qw-room-rate__title">{this.qwRoomRateName}</div>
-        <div class="qw-room-rate__price">{this.qwRoomRateRate.price.totalPrice.converted.text}</div>
-        <QwSelect QwSelectLabel="Room qty." QwSelectOnChange={(e) => this.changeSelect(e.target.value)}>
-          {Array.from(Array(this.qwRoomRateRate.availableQuantity + 1).keys()).map(o => {
-            return <option value={o}>{o}</option>;
-          })}
-        </QwSelect>
+        <div class="qw-room-rate__title">
+          <div class="qw-room-rate__title-name">{this.qwRoomRateName}</div>
+          <div class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity} available</div>
+        </div>
+        <div class="qw-room-rate__price">
+          {this.qwRoomRateRate.price.totalPrice ? this.qwRoomRateRate.price.totalPrice.converted.text : this.qwRoomRateRate.price.converted.text}
+        </div>
+
+        <qw-counter
+          qwCounterName={this.qwRoomRateName}
+          qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
+          qwCounterMaxValue={this.qwRoomRateRate.availableQuantity}/>
+
         <QwButton
           QwButtonLabel="Add to cart"
-          QwButtonDisabled={!this.quantity}
+          QwButtonDisabled={!this.quantity || this.qwRoomRateIsLoading}
           QwButtonOnClick={() => this.addToBasket()}/>
       </Host>
     );

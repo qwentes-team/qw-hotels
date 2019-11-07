@@ -1,15 +1,16 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
+  BasketQuery,
   BasketService,
   RateModel,
-  RateService,
-  RoomHelper,
+  RateService, RoomBasketOccupancy,
+  RoomHelper, RoomLoaded$,
   RoomModel,
-  RoomService,
+  RoomService, SessionHelper,
   SessionLoaded$, SessionModel,
   SessionService,
 } from 'booking-state-manager';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, filter} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 
 @Component({
@@ -20,7 +21,10 @@ import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
   @State() room: RoomModel;
+  @State() basketRoom: RoomBasketOccupancy;
+  @State() numberOfNights: number;
   @State() rates: {[rateId: string]: RateModel} = {};
+  @State() basketIsLoading: boolean;
   @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<void>;
 
   public componentDidLoad() {
@@ -31,10 +35,17 @@ export class QwRoomDetail {
           this.getRates(session.sessionId);
         }
 
+        this.numberOfNights = SessionHelper.getNumberOfNights(session);
         return RoomService.getRooms(session.sessionId);
       }),
-    ).subscribe(rooms => {
-      this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
+    ).subscribe();
+
+    RoomLoaded$.subscribe(rooms => this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId)));
+    BasketQuery.select().pipe(filter(basket => !basket.loading)).subscribe(basket => {
+      console.log(basket);
+      this.basketRoom = basket.rooms[0] && basket.rooms[0].occupancies[0]; // todo prendere roomId
+      console.log(this.basketRoom);
+      debugger;
     });
   }
 
@@ -47,12 +58,14 @@ export class QwRoomDetail {
 
   @Listen('qwRoomDetailCardAddToBasket')
   public addToBasket(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
+    this.basketIsLoading = true;
     BasketService.setRoomInBasket({
       roomId: this.room.roomId,
       rateId: e.detail.rateId,
       occupancyId: RoomHelper.getDefaultOccupancy(this.room).occupancyId,
       quantity: e.detail.quantity,
     }).subscribe(() => {
+      this.basketIsLoading = false;
       this.qwRoomDetailAddToBasketSuccess.emit();
     });
   }
@@ -70,7 +83,9 @@ export class QwRoomDetail {
           qwRoomDetailCardGuests={RoomHelper.getDefaultOccupancy(this.room).definition.text}
           qwRoomDetailCardBed={this.room.bedding.beds[0].type.text}
           qwRoomDetailCardRatesModel={this.rates}
-          qwRoomDetailCardRates={this.room.rates || []}/>}
+          qwRoomDetailCardNumberOfNights={this.numberOfNights}
+          qwRoomDetailCardIsLoading={this.basketIsLoading}
+          qwRoomDetailCardRates={this.room.rates || []}/> /* this.basketRoom */ }
       </Host>
     );
   }

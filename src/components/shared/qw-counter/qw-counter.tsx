@@ -19,6 +19,7 @@ export interface QwCounterEmitter {
 export class QwCounter {
   @Prop() qwCounterName: string;
   @Prop() qwCounterValue: number = 0;
+  @Prop() qwCounterMaxValue: number;
   @Event() qwCounterChangeValue: EventEmitter<QwCounterEmitter>;
 
   private click(action: QwCounterAction) {
@@ -35,6 +36,7 @@ export class QwCounter {
           QwButtonOnClick={() => this.click(QwCounterAction.Minus)}/>
         <div class="qw-counter__value">{this.qwCounterValue}</div>
         <QwButton
+          QwButtonDisabled={this.qwCounterMaxValue && this.qwCounterValue >= this.qwCounterMaxValue}
           QwButtonLabel={QwCounterAction.Plus}
           QwButtonOnClick={() => this.click(QwCounterAction.Plus)}/>
       </Host>

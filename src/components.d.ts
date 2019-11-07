@@ -55,6 +55,7 @@ export namespace Components {
   }
   interface QwCard {}
   interface QwCounter {
+    'qwCounterMaxValue': number;
     'qwCounterName': string;
     'qwCounterValue': number;
   }
@@ -85,7 +86,9 @@ export namespace Components {
     'qwRoomDetailCardBed': string;
     'qwRoomDetailCardGuests': string;
     'qwRoomDetailCardImage': string;
-    'qwRoomDetailCardRates': Rate[];
+    'qwRoomDetailCardIsLoading': boolean;
+    'qwRoomDetailCardNumberOfNights': number;
+    'qwRoomDetailCardRates': any;
     'qwRoomDetailCardRatesModel': {[rateId: string]: RateModel};
     'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
@@ -118,8 +121,9 @@ export namespace Components {
     'qwRoomListCardTitle': string;
   }
   interface QwRoomRate {
-    'qwRoomRateName': String;
-    'qwRoomRateRate': Rate;
+    'qwRoomRateIsLoading': boolean;
+    'qwRoomRateName': string;
+    'qwRoomRateRate': any;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
@@ -289,6 +293,7 @@ declare namespace LocalJSX {
   interface QwCard {}
   interface QwCounter {
     'onQwCounterChangeValue'?: (event: CustomEvent<QwCounterEmitter>) => void;
+    'qwCounterMaxValue'?: number;
     'qwCounterName'?: string;
     'qwCounterValue'?: number;
   }
@@ -322,7 +327,9 @@ declare namespace LocalJSX {
     'qwRoomDetailCardBed'?: string;
     'qwRoomDetailCardGuests'?: string;
     'qwRoomDetailCardImage'?: string;
-    'qwRoomDetailCardRates'?: Rate[];
+    'qwRoomDetailCardIsLoading'?: boolean;
+    'qwRoomDetailCardNumberOfNights'?: number;
+    'qwRoomDetailCardRates'?: any;
     'qwRoomDetailCardRatesModel'?: {[rateId: string]: RateModel};
     'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
@@ -357,8 +364,9 @@ declare namespace LocalJSX {
   }
   interface QwRoomRate {
     'onQwRoomRateAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
-    'qwRoomRateName'?: String;
-    'qwRoomRateRate'?: Rate;
+    'qwRoomRateIsLoading'?: boolean;
+    'qwRoomRateName'?: string;
+    'qwRoomRateRate'?: any;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];

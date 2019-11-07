@@ -11,10 +11,12 @@ import {QwImage} from '../../shared/qw-image/qw-image';
 export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardTitle: string;
   @Prop() qwRoomDetailCardImage: string;
-  @Prop() qwRoomDetailCardRates: Rate[];
+  @Prop() qwRoomDetailCardRates: any; // Rate[] | RoomBasketOccupancy[]
   @Prop() qwRoomDetailCardSquareMeter: string;
   @Prop() qwRoomDetailCardGuests: string;
   @Prop() qwRoomDetailCardBed: string;
+  @Prop() qwRoomDetailCardNumberOfNights: number;
+  @Prop() qwRoomDetailCardIsLoading: boolean;
   @Prop() qwRoomDetailCardRatesModel: {[rateId: string]: RateModel} = {};
   @Event() qwRoomDetailCardAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
@@ -38,12 +40,16 @@ export class QwRoomDetailCard {
 
           <div class="qw-room-detail-card__title">
             <h4>{this.qwRoomDetailCardTitle}</h4>
+            <div class="qw-room-detail-card__nights">Prices for {this.qwRoomDetailCardNumberOfNights} nights</div>
           </div>
 
           <div class="qw-room-detail-card__rates">
             {this.qwRoomDetailCardRates.length
               ? this.qwRoomDetailCardRates.map(rate => {
-                return <qw-room-rate qwRoomRateRate={rate} qwRoomRateName={this.getRateName(rate.rateId)}/>
+                return <qw-room-rate
+                  qwRoomRateRate={rate}
+                  qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
+                  qwRoomRateName={this.getRateName(rate.rateId)}/>
               })
               : 'No Rate Available'
             }
