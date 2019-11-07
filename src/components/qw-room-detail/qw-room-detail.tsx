@@ -60,6 +60,9 @@ export class QwRoomDetail {
   render() {
     return (
       <Host>
+        <div style={this.room && { 'display': 'none' }}>
+          <slot name="qwRoomDetailLoading"/>
+        </div>
         {this.room && <qw-room-detail-card
           qwRoomDetailCardTitle={this.room.name}
           qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}

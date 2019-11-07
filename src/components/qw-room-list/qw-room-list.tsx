@@ -147,6 +147,9 @@ export class QwRoomList {
   public render() {
     return (
       <Host class={this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}>
+        <div style={this.rooms.length && { 'display': 'none' }}>
+          <slot name="qwRoomListLoading"/>
+        </div>
         <div class="qw-room-list__header-message">{this.qwRoomListHeaderMessage}</div>
         {this.rooms.map(r => {
           return <div class="qw-room-list__card-wrapper">
