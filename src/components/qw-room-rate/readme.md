@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property         | Attribute | Description | Type     | Default     |
-| ---------------- | --------- | ----------- | -------- | ----------- |
-| `qwRoomRateName` | --        |             | `String` | `undefined` |
-| `qwRoomRateRate` | --        |             | `Rate`   | `undefined` |
+| Property              | Attribute                 | Description | Type      | Default     |
+| --------------------- | ------------------------- | ----------- | --------- | ----------- |
+| `qwRoomRateIsLoading` | `qw-room-rate-is-loading` |             | `boolean` | `undefined` |
+| `qwRoomRateName`      | `qw-room-rate-name`       |             | `string`  | `undefined` |
+| `qwRoomRateRate`      | --                        |             | `Rate`    | `undefined` |
 
 
 ## Events
@@ -26,9 +27,14 @@
 
  - [qw-room-detail-card](../qw-room-detail/qw-room-detail-card)
 
+### Depends on
+
+- [qw-counter](../shared/qw-counter)
+
 ### Graph
 ```mermaid
 graph TD;
+  qw-room-rate --> qw-counter
   qw-room-detail-card --> qw-room-rate
   style qw-room-rate fill:#f9f,stroke:#333,stroke-width:4px
 ```
