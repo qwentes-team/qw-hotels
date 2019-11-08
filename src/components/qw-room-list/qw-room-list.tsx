@@ -1,21 +1,22 @@
 import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
 import {
+  BasketQuery,
   DateFormat,
   DateUtil,
   MONEY_SYMBOLS,
-  PricesForStayPeriod,
+  PricesForStayPeriod, RoomDefaultLabel,
   RoomHelper,
   RoomIsLoading$,
   RoomLoaded$,
   RoomModel,
-  RoomService,
+  RoomService, SessionHelper,
   SessionIsLoading$,
   SessionLoaded$,
   SessionModel,
   SessionService,
   SessionStayPeriod,
 } from 'booking-state-manager';
-import {switchMap} from 'rxjs/operators';
+import {filter, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
 import {QwRoomListCardButtonType, QwRoomListType} from '../../index';
@@ -39,6 +40,8 @@ export class QwRoomList {
   @State() rangeDateSession: Date[];
   @State() roomPrices: PricesForStayPeriod = {};
   @State() isPriceLoading: boolean;
+  @State() nights: number;
+  @State() basketRoomTotals: {[roomId: string]: string};
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
 
   private startDate: Date;
@@ -58,6 +61,7 @@ export class QwRoomList {
         this.isPriceLoading = true;
         this.session = session;
         this.symbol = MONEY_SYMBOLS[session.display.currency] || session.display.currency;
+        this.nights = SessionHelper.getNumberOfNights(session);
         return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
       }),
     ).subscribe(([newRoomPrices]) => {
@@ -70,6 +74,12 @@ export class QwRoomList {
     });
 
     RoomLoaded$.subscribe(res => this.rooms = !this.qwRoomListFilterRoomsWith ? res : this.getFilteredRooms(res));
+    BasketQuery.select().pipe(filter(basket => !basket.loading)).subscribe(basket => {
+      this.basketRoomTotals = basket.rooms.reduce((acc, room) => {
+        return {...acc, [room.roomId]: room.occupancies[0].price.converted.text};
+      }, {});
+    });
+
     RoomIsLoading$.subscribe(isLoading => this.isRoomLoading = isLoading);
     SessionIsLoading$.subscribe(isLoading => this.isSessionLoading = isLoading);
   }
@@ -114,9 +124,9 @@ export class QwRoomList {
     return RoomService.getRoomPricesForStayPeriods(newDateToRequestStayPeriods);
   }
 
-  private getAveragePricePerNight(roomId) {
+  private getAveragePricePerNight(roomId: RoomModel['roomId']) {
     if (!this.roomPrices[roomId]) {
-      return `${this.symbol} 0`;
+      return RoomDefaultLabel.NoPrice;
     }
 
     const stayPeriod = this.session.context.stayPeriod;
@@ -127,11 +137,23 @@ export class QwRoomList {
     const range = DateUtil.getDatesRange(arrivalDate, endDateSession, DateFormat.String);
     const rangeWithoutDepartureDate = [...range];
     rangeWithoutDepartureDate.length = range.length - 1;
-    const pricesForSession = rangeWithoutDepartureDate.reduce((acc, date) => {
+
+    if (this.hasAtLeastOneDateNull(roomId, rangeWithoutDepartureDate)) {
+      return RoomDefaultLabel.NoPrice;
+    }
+
+    return `${this.symbol} ${Math.round(this.calculateAverage(roomId, rangeWithoutDepartureDate)).toString()}`;
+  }
+
+  private hasAtLeastOneDateNull(roomId: RoomModel['roomId'], rangeWithoutDepartureDate: string[]) {
+    return rangeWithoutDepartureDate.find(date => !!(this.roomPrices[roomId][date] === undefined));
+  }
+
+  private calculateAverage(roomId: RoomModel['roomId'], rangeWithoutDepartureDate: string[]) {
+    return rangeWithoutDepartureDate.reduce((acc, date) => {
       const valueToAdd = this.roomPrices[roomId][date] ? this.roomPrices[roomId][date].value.amount : 0;
       return acc + valueToAdd;
     }, 0) / rangeWithoutDepartureDate.length;
-    return `${this.symbol} ${Math.round(pricesForSession).toString()}`;
   }
 
   clickButton = (type: QwRoomListCardButtonType, room: RoomModel) => {
@@ -154,7 +176,6 @@ export class QwRoomList {
         </div>
         <div class="qw-room-list__header-message">{this.qwRoomListHeaderMessage}</div>
         {this.rooms.map(r => {
-          console.log(RoomHelper.getCheapestCrossedOutPriceFormatted(r));
           return <div class="qw-room-list__card-wrapper">
             <qw-room-list-card
               class={`
@@ -163,7 +184,7 @@ export class QwRoomList {
               `}
               qwRoomListCardId={r.roomId}
               qwRoomListCardTitle={r.name}
-              qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r)}
+              qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || this.basketRoomTotals[r.roomId]}
               qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
               qwRoomListCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
               qwRoomListCardSquareMeter={r.surfaceArea.text}
@@ -177,6 +198,7 @@ export class QwRoomList {
               qwRoomListCardRangeDateSession={this.rangeDateSession}
               qwRoomListCardPrices={this.roomPrices[r.roomId]}
               qwRoomListCardShowPrices={this.qwRoomListShowPrices}
+              qwRoomListCardNights={this.nights}
               qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
               qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
               qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}/>

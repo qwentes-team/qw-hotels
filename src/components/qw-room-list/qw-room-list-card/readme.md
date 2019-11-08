@@ -17,6 +17,7 @@
 | `qwRoomListCardImage`             | `qw-room-list-card-image`             |             | `string`                                | `undefined` |
 | `qwRoomListCardIsLoading`         | `qw-room-list-card-is-loading`        |             | `boolean`                               | `undefined` |
 | `qwRoomListCardIsLoadingPrice`    | `qw-room-list-card-is-loading-price`  |             | `boolean`                               | `undefined` |
+| `qwRoomListCardNights`            | `qw-room-list-card-nights`            |             | `number`                                | `undefined` |
 | `qwRoomListCardOnClickBook`       | --                                    |             | `() => void`                            | `undefined` |
 | `qwRoomListCardOnClickChangeDate` | --                                    |             | `() => void`                            | `undefined` |
 | `qwRoomListCardOnClickView`       | --                                    |             | `() => void`                            | `undefined` |

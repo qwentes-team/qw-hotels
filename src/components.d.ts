@@ -108,6 +108,7 @@ export namespace Components {
     'qwRoomListCardImage': string;
     'qwRoomListCardIsLoading': boolean;
     'qwRoomListCardIsLoadingPrice': boolean;
+    'qwRoomListCardNights': number;
     'qwRoomListCardOnClickBook': () => void;
     'qwRoomListCardOnClickChangeDate': () => void;
     'qwRoomListCardOnClickView': () => void;
@@ -350,6 +351,7 @@ declare namespace LocalJSX {
     'qwRoomListCardImage'?: string;
     'qwRoomListCardIsLoading'?: boolean;
     'qwRoomListCardIsLoadingPrice'?: boolean;
+    'qwRoomListCardNights'?: number;
     'qwRoomListCardOnClickBook'?: () => void;
     'qwRoomListCardOnClickChangeDate'?: () => void;
     'qwRoomListCardOnClickView'?: () => void;

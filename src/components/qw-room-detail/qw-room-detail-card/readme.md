@@ -37,14 +37,12 @@
 
 - [qw-card](../../shared/qw-card)
 - [qw-room-rate](../../qw-room-rate)
-- [qw-loading](../../shared/qw-loading)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-room-detail-card --> qw-card
   qw-room-detail-card --> qw-room-rate
-  qw-room-detail-card --> qw-loading
   qw-room-rate --> qw-counter
   qw-room-detail --> qw-room-detail-card
   style qw-room-detail-card fill:#f9f,stroke:#333,stroke-width:4px

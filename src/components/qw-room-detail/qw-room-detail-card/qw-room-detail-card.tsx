@@ -46,11 +46,10 @@ export class QwRoomDetailCard {
           <div class="qw-room-detail-card__rates">
             {this.qwRoomDetailCardRates.length
               && this.qwRoomDetailCardRates.map(rate => {
-                return rate ? <qw-room-rate
+                return rate && <qw-room-rate
                   qwRoomRateRate={rate}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
-                  qwRoomRateName={this.getRateName(rate.rateId)}/>
-                  : <qw-loading qw-loading-size="22"/>
+                  qwRoomRateName={this.getRateName(rate.rateId)}/>;
               })
             }
           </div>
