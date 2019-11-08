@@ -47,7 +47,7 @@ export class QwRoomRate {
 
         <QwButton
           QwButtonLabel="Add to cart"
-          QwButtonDisabled={!this.quantity || this.qwRoomRateIsLoading}
+          QwButtonDisabled={!this.quantity || this.quantity === this.qwRoomRateRate.selectedQuantity || this.qwRoomRateIsLoading}
           QwButtonOnClick={() => this.addToBasket()}/>
       </Host>
     );

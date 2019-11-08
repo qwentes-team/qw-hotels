@@ -10,8 +10,9 @@ import {
 import {switchMap} from 'rxjs/operators';
 import {QwSelect} from '../shared/qw-select/qw-select';
 import {zip} from 'rxjs';
+import {QwButton} from '../shared/qw-button/qw-button';
 
-interface QwBasketSummaryChangeSelectEvent {
+interface QwBasketSummaryChangeRoomEvent {
   quantity: string;
   room: RoomBasketModel;
 }
@@ -49,10 +50,10 @@ export class QwBasketSummary {
   private getRates(sessionId: SessionModel['sessionId']) {
     RateService.getRates(sessionId).subscribe(res => {
       this.rates = res.reduce((acc, r) => ({...acc, [r.rateId]: r}), {});
-    })
+    });
   }
 
-  changeSelect = (e: QwBasketSummaryChangeSelectEvent) => {
+  setRoomInBasket = (e: QwBasketSummaryChangeRoomEvent) => {
     BasketService.setRoomInBasket({
       roomId: e.room.roomId,
       rateId: e.room.occupancies[0].rateId,
@@ -63,7 +64,7 @@ export class QwBasketSummary {
 
   public getRateName(rateId) {
     const rateIdPart = RateHelper.getIdPartOfRateId(rateId);
-    return this.rates[rateIdPart] && this.rates[rateIdPart].name
+    return this.rates[rateIdPart] && this.rates[rateIdPart].name;
   }
 
   public getRoomType(roomId) {
@@ -71,7 +72,7 @@ export class QwBasketSummary {
   }
 
   public getRoomName(roomId) {
-    return this.rooms[roomId] && this.rooms[roomId].name
+    return this.rooms[roomId] && this.rooms[roomId].name;
   }
 
   render() {
@@ -85,6 +86,7 @@ export class QwBasketSummary {
             <div class="qw-basket-summary__room-night">Nights</div>
             <div class="qw-basket-summary__room-quantity">Room qty.</div>
             <div class="qw-basket-summary__room-price">Subtotal</div>
+            <div class="qw-basket-summary__room-delete"></div>
           </div>
 
           {this.basket && this.basket.rooms.map(basketRoom => {
@@ -100,7 +102,7 @@ export class QwBasketSummary {
                 <div class="qw-basket-summary__room-quantity">{
                   <QwSelect
                     QwSelectDisabled={this.basketIsLoading}
-                    QwSelectOnChange={(e) => this.changeSelect({quantity: e.target.value, room: basketRoom})}>
+                    QwSelectOnChange={(e) => this.setRoomInBasket({quantity: e.target.value, room: basketRoom})}>
                     {Array.from(Array(basketRoom.occupancies[0].availableQuantity).keys()).map(o => {
                       const value = o + 1;
                       return (
@@ -115,6 +117,9 @@ export class QwBasketSummary {
                   </QwSelect>
                 }</div>
                 <div class="qw-basket-summary__room-price">{basketRoom.occupancies[0].price.original.text}</div>
+                <div class="qw-basket-summary__room-delete">
+                  <QwButton QwButtonLabel="Remove" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom})}/>
+                </div>
               </div>
             );
           })
