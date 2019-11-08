@@ -88,7 +88,7 @@ export namespace Components {
     'qwRoomDetailCardImage': string;
     'qwRoomDetailCardIsLoading': boolean;
     'qwRoomDetailCardNumberOfNights': number;
-    'qwRoomDetailCardRates': any;
+    'qwRoomDetailCardRates': Rate[];
     'qwRoomDetailCardRatesModel': {[rateId: string]: RateModel};
     'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
@@ -123,7 +123,7 @@ export namespace Components {
   interface QwRoomRate {
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateName': string;
-    'qwRoomRateRate': any;
+    'qwRoomRateRate': Rate;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
@@ -329,7 +329,7 @@ declare namespace LocalJSX {
     'qwRoomDetailCardImage'?: string;
     'qwRoomDetailCardIsLoading'?: boolean;
     'qwRoomDetailCardNumberOfNights'?: number;
-    'qwRoomDetailCardRates'?: any;
+    'qwRoomDetailCardRates'?: Rate[];
     'qwRoomDetailCardRatesModel'?: {[rateId: string]: RateModel};
     'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
@@ -366,7 +366,7 @@ declare namespace LocalJSX {
     'onQwRoomRateAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateName'?: string;
-    'qwRoomRateRate'?: any;
+    'qwRoomRateRate'?: Rate;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];

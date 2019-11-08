@@ -11,7 +11,7 @@ import {QwImage} from '../../shared/qw-image/qw-image';
 export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardTitle: string;
   @Prop() qwRoomDetailCardImage: string;
-  @Prop() qwRoomDetailCardRates: any; // Rate[] | RoomBasketOccupancy[]
+  @Prop() qwRoomDetailCardRates: Rate[];
   @Prop() qwRoomDetailCardSquareMeter: string;
   @Prop() qwRoomDetailCardGuests: string;
   @Prop() qwRoomDetailCardBed: string;
@@ -45,13 +45,13 @@ export class QwRoomDetailCard {
 
           <div class="qw-room-detail-card__rates">
             {this.qwRoomDetailCardRates.length
-              ? this.qwRoomDetailCardRates.map(rate => {
-                return <qw-room-rate
+              && this.qwRoomDetailCardRates.map(rate => {
+                return rate ? <qw-room-rate
                   qwRoomRateRate={rate}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
                   qwRoomRateName={this.getRateName(rate.rateId)}/>
+                  : <qw-loading qw-loading-size="22"/>
               })
-              : 'No Rate Available'
             }
           </div>
 

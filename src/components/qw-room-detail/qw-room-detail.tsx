@@ -1,9 +1,9 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
   BasketQuery,
-  BasketService,
+  BasketService, Rate,
   RateModel,
-  RateService, RoomBasketOccupancy,
+  RateService, RoomBasketModel,
   RoomHelper, RoomLoaded$,
   RoomModel,
   RoomService, SessionHelper,
@@ -12,6 +12,7 @@ import {
 } from 'booking-state-manager';
 import {switchMap, filter} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
+import {createRateFromRoomBasketOccupancy} from 'booking-state-manager/dist/feature/rate/model/rate';
 
 @Component({
   tag: 'qw-room-detail',
@@ -21,7 +22,7 @@ import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
   @State() room: RoomModel;
-  @State() basketRoom: RoomBasketOccupancy;
+  @State() basketRoomRate: Rate;
   @State() numberOfNights: number;
   @State() rates: {[rateId: string]: RateModel} = {};
   @State() basketIsLoading: boolean;
@@ -40,20 +41,28 @@ export class QwRoomDetail {
       }),
     ).subscribe();
 
-    RoomLoaded$.subscribe(rooms => this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId)));
-    BasketQuery.select().pipe(filter(basket => !basket.loading)).subscribe(basket => {
-      console.log(basket);
-      this.basketRoom = basket.rooms[0] && basket.rooms[0].occupancies[0]; // todo prendere roomId
-      console.log(this.basketRoom);
-      debugger;
-    });
+    RoomLoaded$
+      .pipe(
+        switchMap(rooms => {
+          this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
+          return BasketQuery.select().pipe(filter(basket => !basket.loading));
+        }),
+      )
+      .subscribe(basket => {
+        const basketRoom = this.getBasketRoom(basket.rooms);
+        this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[0]);
+      });
   }
 
   // todo ottimizzare getRates
   private getRates(sessionId: SessionModel['sessionId']) {
     RateService.getRates(sessionId).subscribe(res => {
       this.rates = res.reduce((acc, r) => ({...acc, [r.rateId]: r}), {});
-    })
+    });
+  }
+
+  private getBasketRoom(rooms: RoomBasketModel[]) {
+    return rooms.find(r => r.roomId === this.room.roomId);
   }
 
   @Listen('qwRoomDetailCardAddToBasket')
@@ -73,7 +82,7 @@ export class QwRoomDetail {
   render() {
     return (
       <Host>
-        <div style={this.room && { 'display': 'none' }}>
+        <div style={this.room && {'display': 'none'}}>
           <slot name="qwRoomDetailLoading"/>
         </div>
         {this.room && <qw-room-detail-card
@@ -85,7 +94,7 @@ export class QwRoomDetail {
           qwRoomDetailCardRatesModel={this.rates}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
           qwRoomDetailCardIsLoading={this.basketIsLoading}
-          qwRoomDetailCardRates={this.room.rates || []}/> /* this.basketRoom */ }
+          qwRoomDetailCardRates={this.room.rates || [this.basketRoomRate] || []}/>}
       </Host>
     );
   }
