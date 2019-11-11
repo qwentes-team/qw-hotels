@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event                            | Description | Type                |
-| -------------------------------- | ----------- | ------------------- |
-| `qwRoomDetailAddToBasketSuccess` |             | `CustomEvent<void>` |
+| Event                            | Description | Type                                          |
+| -------------------------------- | ----------- | --------------------------------------------- |
+| `qwRoomDetailAddToBasketSuccess` |             | `CustomEvent<QwRoomDetailAddToBasketEmitter>` |
 
 
 ## Dependencies

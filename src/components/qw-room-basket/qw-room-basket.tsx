@@ -52,9 +52,12 @@ export class QwRoomBasket {
   render() {
     return (
       <Host>
-        {this.basket && this.basket.rooms.map(basketRoom => {
-          const currentRoom = this.rooms[basketRoom.roomId] || {} as RoomModel;
-          return <qw-room-list-card
+        <div style={Object.keys(this.rooms).length && { 'display': 'none' }}>
+          <slot name="qwRoomBasketLoading"/>
+        </div>
+        {this.basket && Object.keys(this.rooms) && this.basket.rooms.map(basketRoom => {
+          const currentRoom = this.rooms[basketRoom.roomId];
+          return currentRoom && <qw-room-list-card
               class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
               qwRoomListCardId={basketRoom.roomId}
               qwRoomListCardTitle={currentRoom.name}

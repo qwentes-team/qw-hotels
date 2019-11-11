@@ -21,9 +21,7 @@ export class QwBasket {
     SessionLoaded$.pipe(switchMap(BasketService.getBasket)).subscribe();
 
     BasketQuery.select().subscribe(basket => this.totalPrice = BasketHelper.getTotalOriginalPrice(basket));
-    BasketIsLoading$.subscribe(isLoading => {
-      this.isLoading = isLoading;
-    });
+    BasketIsLoading$.subscribe(isLoading => this.isLoading = isLoading);
   }
 
   private deleteBasket() {
