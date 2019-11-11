@@ -22,7 +22,7 @@ qw-room-list-card.qw-room-list-card__disabled {
 qw-room-list-card qw-card {
   display: grid;
   grid-template-columns: repeat(2, 50%);
-  grid-template-rows: repeat(4, auto);
+  grid-template-rows: repeat(5, auto);
   width: 100%;
   height: auto;
 }
@@ -48,7 +48,8 @@ qw-room-list-card .qw-room-list-card__image img {
 qw-room-list-card .qw-room-list-card__title,
 qw-room-list-card .qw-room-list-card__descriptions,
 qw-room-list-card .qw-room-list-card__prices,
-qw-room-list-card .qw-room-list-card__cta {
+qw-room-list-card .qw-room-list-card__cta,
+qw-room-list-card .qw-room-list-card__basket-actions {
   grid-column: 2 / 2;
 }
 
@@ -68,8 +69,12 @@ qw-room-list-card .qw-room-list-card__descriptions {
 qw-room-list-card .qw-room-list-card__prices {
   grid-row: 3 / 4;
 }
-qw-room-list-card .qw-room-list-card__cta {
+qw-room-list-card .qw-room-list-card__basket-actions {
   grid-row: 4 / 5;
+  display: flex;
+}
+qw-room-list-card .qw-room-list-card__cta {
+  grid-row: 5 / 6;
   align-self: end;
   width: 100%;
   display: flex;

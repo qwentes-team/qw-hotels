@@ -1,3 +1,5 @@
+import {RoomBasketModel} from 'booking-state-manager';
+
 export * from './components';
 
 export enum QwCalendarGuestInlineInputType {
@@ -15,3 +17,9 @@ export enum QwRoomListType {
   Inline = 'inline',
   Grid = 'grid',
 }
+
+export interface QwChangeRoomEvent {
+  quantity: string;
+  room: RoomBasketModel;
+}
+

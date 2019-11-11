@@ -1,8 +1,10 @@
 import {Component, Host, h, Prop} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {Rate, RoomDefaultLabel, RoomModel} from 'booking-state-manager';
+import {Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from 'booking-state-manager';
 import {MoneyPrice} from 'booking-state-manager/src/core/money/money';
+import {QwChangeRoomEvent} from '../../../index';
+import {QwSelect} from '../../shared/qw-select/qw-select';
 
 @Component({
   tag: 'qw-room-list-card',
@@ -25,11 +27,16 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardRangeDateSession: Date[];
   @Prop() qwRoomListCardPrices: {[dateString: string]: MoneyPrice};
   @Prop() qwRoomListCardIsLoadingPrice: boolean;
-  @Prop() qwRoomListCardShowPrices: boolean = true;
+  @Prop() qwRoomListCardIsLoadingBasket: boolean;
   @Prop() qwRoomListCardNights: number;
+  @Prop() qwRoomListCardShowPrices: boolean = true;
+  @Prop() qwRoomListCardShowCta: boolean = true;
+  @Prop() qwRoomListCardShowPrice: boolean = true;
+  @Prop() qwRoomListCardBasketRoom: RoomBasketModel;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
+  @Prop() qwRoomListCardOnChangeRoom: (e: QwChangeRoomEvent) => void;
 
   private getMessageError() {
     // todo differenziare i due errori
@@ -51,12 +58,12 @@ export class QwRoomListCard {
                 {this.qwRoomListCardGuests}{this.qwRoomListCardSquareMeter && ` / ${this.qwRoomListCardSquareMeter}`}
               </h6>
             </div>
-            {!this.qwRoomListCardPrice
+            {this.qwRoomListCardShowPrice && (!this.qwRoomListCardPrice
               ? <qw-error>{this.getMessageError()}</qw-error>
               : <qw-price
                   qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}
                   qwPriceMainPrice={this.qwRoomListCardPrice || RoomDefaultLabel.NoPrice}
-                  qwPriceCaption={`Total for ${this.qwRoomListCardNights} ${this.qwRoomListCardNights > 1 ? 'nights' : 'night'}`}/>
+                  qwPriceCaption={`Total for ${this.qwRoomListCardNights} ${this.qwRoomListCardNights > 1 ? 'nights' : 'night'}`}/>)
             }
           </div>
 
@@ -75,13 +82,36 @@ export class QwRoomListCard {
               qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>
           </div>}
 
-          <div class="qw-room-list-card__cta">
+          {this.qwRoomListCardBasketRoom && <div class="qw-room-list-card__basket-actions">
+            <QwSelect
+              QwSelectLabel="Room qty."
+              QwSelectDisabled={this.qwRoomListCardIsLoadingBasket}
+              QwSelectOnChange={(e) => this.qwRoomListCardOnChangeRoom({quantity: e.target.value, room: this.qwRoomListCardBasketRoom})}>
+              {Array.from(Array(this.qwRoomListCardBasketRoom.occupancies[0].availableQuantity).keys()).map(o => {
+                const value = o + 1;
+                return (
+                  <option
+                    value={value}
+                    // @ts-ignore
+                    selected={this.qwRoomListCardBasketRoom.occupancies[0].selectedQuantity === value ? 'selected' : ''}>
+                    {value}
+                  </option>
+                );
+              })}
+            </QwSelect>
+            <QwButton
+              QwButtonLabel="Remove"
+              QwButtonOnClick={() => this.qwRoomListCardOnChangeRoom({quantity: '0', room: this.qwRoomListCardBasketRoom})}
+              QwButtonDisabled={this.qwRoomListCardIsLoadingBasket}/>
+          </div>}
+
+          {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
             <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
             {this.qwRoomListCardPrice
               ? <QwButton QwButtonLabel="Book now" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
               : <QwButton QwButtonLabel="Change dates" QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
-          </div>
+          </div>}
         </qw-card>
       </Host>
     );

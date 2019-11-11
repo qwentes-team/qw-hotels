@@ -3,19 +3,15 @@ import {
   BasketIsLoading$,
   BasketModel,
   BasketQuery,
-  BasketService, RateHelper, RateModel, RateService, RoomBasketModel, RoomLoaded$, RoomModel, RoomService, SessionHelper,
+  BasketService, RateHelper, RateModel, RateService, RoomLoaded$, RoomModel, RoomService, SessionHelper,
   SessionLoaded$, SessionModel,
   SessionService,
 } from 'booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwSelect} from '../shared/qw-select/qw-select';
 import {zip} from 'rxjs';
+import {QwChangeRoomEvent} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
-
-interface QwBasketSummaryChangeRoomEvent {
-  quantity: string;
-  room: RoomBasketModel;
-}
 
 @Component({
   tag: 'qw-basket-summary',
@@ -53,7 +49,7 @@ export class QwBasketSummary {
     });
   }
 
-  setRoomInBasket = (e: QwBasketSummaryChangeRoomEvent) => {
+  setRoomInBasket = (e: QwChangeRoomEvent) => {
     BasketService.setRoomInBasket({
       roomId: e.room.roomId,
       rateId: e.room.occupancies[0].rateId,
@@ -118,7 +114,7 @@ export class QwBasketSummary {
                 }</div>
                 <div class="qw-basket-summary__room-price">{basketRoom.occupancies[0].price.original.text}</div>
                 <div class="qw-basket-summary__room-delete">
-                  <QwButton QwButtonLabel="Remove" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom})}/>
+                  <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom})}/>
                 </div>
               </div>
             );

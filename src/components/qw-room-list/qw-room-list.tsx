@@ -30,6 +30,7 @@ export class QwRoomList {
   @Prop() qwRoomListType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomListFilterRoomsWith: string;
   @Prop() qwRoomListShowPrices: boolean = true;
+  @Prop() qwRoomListShowCta: boolean = true;
   @Prop() qwRoomListHeaderMessage: string;
   @State() rooms: RoomModel[] = [];
   @State() isBasketLoading: boolean;
@@ -62,6 +63,9 @@ export class QwRoomList {
         this.session = session;
         this.symbol = MONEY_SYMBOLS[session.display.currency] || session.display.currency;
         this.nights = SessionHelper.getNumberOfNights(session);
+        if (!this.qwRoomListShowPrices) {
+          return zip(of({}), RoomService.getRooms(session.sessionId));
+        }
         return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
       }),
     ).subscribe(([newRoomPrices]) => {
@@ -199,6 +203,7 @@ export class QwRoomList {
               qwRoomListCardPrices={this.roomPrices[r.roomId]}
               qwRoomListCardShowPrices={this.qwRoomListShowPrices}
               qwRoomListCardNights={this.nights}
+              qwRoomListCardShowCta={this.qwRoomListShowCta}
               qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
               qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
               qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}/>

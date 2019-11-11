@@ -10,12 +10,14 @@ import {
   PricesForStayPeriod,
   Rate,
   RateModel,
+  RoomBasketModel,
   RoomModel,
   SessionGuests,
   SessionStayPeriod,
 } from 'booking-state-manager';
 import {
   QwCalendarGuestInlineInputType,
+  QwChangeRoomEvent,
   QwRoomListCardButtonType,
   QwRoomListType,
 } from './index';
@@ -79,6 +81,7 @@ export namespace Components {
     'qwPriceCrossedPrice': string;
     'qwPriceMainPrice': string;
   }
+  interface QwRoomBasket {}
   interface QwRoomDetail {
     'qwRoomDetailId': string;
   }
@@ -96,19 +99,23 @@ export namespace Components {
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
     'qwRoomListHeaderMessage': string;
+    'qwRoomListShowCta': boolean;
     'qwRoomListShowPrices': boolean;
     'qwRoomListType': QwRoomListType;
   }
   interface QwRoomListCard {
     'qwRoomListCardAveragePrice': string;
+    'qwRoomListCardBasketRoom': RoomBasketModel;
     'qwRoomListCardCrossedOutPrice': string;
     'qwRoomListCardDescription': string;
     'qwRoomListCardGuests': string;
     'qwRoomListCardId': RoomModel['roomId'];
     'qwRoomListCardImage': string;
     'qwRoomListCardIsLoading': boolean;
+    'qwRoomListCardIsLoadingBasket': boolean;
     'qwRoomListCardIsLoadingPrice': boolean;
     'qwRoomListCardNights': number;
+    'qwRoomListCardOnChangeRoom': (e: QwChangeRoomEvent) => void;
     'qwRoomListCardOnClickBook': () => void;
     'qwRoomListCardOnClickChangeDate': () => void;
     'qwRoomListCardOnClickView': () => void;
@@ -117,6 +124,8 @@ export namespace Components {
     'qwRoomListCardRangeDate': Date[];
     'qwRoomListCardRangeDateSession': Date[];
     'qwRoomListCardRates': Rate[];
+    'qwRoomListCardShowCta': boolean;
+    'qwRoomListCardShowPrice': boolean;
     'qwRoomListCardShowPrices': boolean;
     'qwRoomListCardSquareMeter': string;
     'qwRoomListCardTitle': string;
@@ -209,6 +218,12 @@ declare global {
     new (): HTMLQwPriceElement;
   };
 
+  interface HTMLQwRoomBasketElement extends Components.QwRoomBasket, HTMLStencilElement {}
+  var HTMLQwRoomBasketElement: {
+    prototype: HTMLQwRoomBasketElement;
+    new (): HTMLQwRoomBasketElement;
+  };
+
   interface HTMLQwRoomDetailElement extends Components.QwRoomDetail, HTMLStencilElement {}
   var HTMLQwRoomDetailElement: {
     prototype: HTMLQwRoomDetailElement;
@@ -257,6 +272,7 @@ declare global {
     'qw-input': HTMLQwInputElement;
     'qw-loading': HTMLQwLoadingElement;
     'qw-price': HTMLQwPriceElement;
+    'qw-room-basket': HTMLQwRoomBasketElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-detail-card': HTMLQwRoomDetailCardElement;
     'qw-room-list': HTMLQwRoomListElement;
@@ -319,6 +335,7 @@ declare namespace LocalJSX {
     'qwPriceCrossedPrice'?: string;
     'qwPriceMainPrice'?: string;
   }
+  interface QwRoomBasket {}
   interface QwRoomDetail {
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<void>) => void;
     'qwRoomDetailId'?: string;
@@ -339,19 +356,23 @@ declare namespace LocalJSX {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
     'qwRoomListFilterRoomsWith'?: string;
     'qwRoomListHeaderMessage'?: string;
+    'qwRoomListShowCta'?: boolean;
     'qwRoomListShowPrices'?: boolean;
     'qwRoomListType'?: QwRoomListType;
   }
   interface QwRoomListCard {
     'qwRoomListCardAveragePrice'?: string;
+    'qwRoomListCardBasketRoom'?: RoomBasketModel;
     'qwRoomListCardCrossedOutPrice'?: string;
     'qwRoomListCardDescription'?: string;
     'qwRoomListCardGuests'?: string;
     'qwRoomListCardId'?: RoomModel['roomId'];
     'qwRoomListCardImage'?: string;
     'qwRoomListCardIsLoading'?: boolean;
+    'qwRoomListCardIsLoadingBasket'?: boolean;
     'qwRoomListCardIsLoadingPrice'?: boolean;
     'qwRoomListCardNights'?: number;
+    'qwRoomListCardOnChangeRoom'?: (e: QwChangeRoomEvent) => void;
     'qwRoomListCardOnClickBook'?: () => void;
     'qwRoomListCardOnClickChangeDate'?: () => void;
     'qwRoomListCardOnClickView'?: () => void;
@@ -360,6 +381,8 @@ declare namespace LocalJSX {
     'qwRoomListCardRangeDate'?: Date[];
     'qwRoomListCardRangeDateSession'?: Date[];
     'qwRoomListCardRates'?: Rate[];
+    'qwRoomListCardShowCta'?: boolean;
+    'qwRoomListCardShowPrice'?: boolean;
     'qwRoomListCardShowPrices'?: boolean;
     'qwRoomListCardSquareMeter'?: string;
     'qwRoomListCardTitle'?: string;
@@ -390,6 +413,7 @@ declare namespace LocalJSX {
     'qw-input': QwInput;
     'qw-loading': QwLoading;
     'qw-price': QwPrice;
+    'qw-room-basket': QwRoomBasket;
     'qw-room-detail': QwRoomDetail;
     'qw-room-detail-card': QwRoomDetailCard;
     'qw-room-list': QwRoomList;
@@ -417,6 +441,7 @@ declare module "@stencil/core" {
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
+      'qw-room-basket': LocalJSX.QwRoomBasket & JSXBase.HTMLAttributes<HTMLQwRoomBasketElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-detail-card': LocalJSX.QwRoomDetailCard & JSXBase.HTMLAttributes<HTMLQwRoomDetailCardElement>;
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
