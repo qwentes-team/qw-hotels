@@ -1,5 +1,6 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
+  BasketHelper,
   BasketQuery,
   BasketService, Rate,
   RateModel,
@@ -14,6 +15,11 @@ import {switchMap, filter} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 import {createRateFromRoomBasketOccupancy} from 'booking-state-manager/dist/feature/rate/model/rate';
 
+export interface QwRoomDetailAddToBasketEmitter {
+  numberOfGuests: number;
+  numberOfAccommodation: number;
+}
+
 @Component({
   tag: 'qw-room-detail',
   styleUrl: 'qw-room-detail.css',
@@ -26,12 +32,14 @@ export class QwRoomDetail {
   @State() numberOfNights: number;
   @State() rates: {[rateId: string]: RateModel} = {};
   @State() basketIsLoading: boolean;
-  @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<void>;
+  @State() numberOfGuests: number;
+  @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<QwRoomDetailAddToBasketEmitter>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
       switchMap(session => {
+        this.numberOfGuests = SessionHelper.getTotalGuests(session);
         if (!Object.keys(this.rates).length) {
           this.getRates(session.sessionId);
         }
@@ -73,9 +81,12 @@ export class QwRoomDetail {
       rateId: e.detail.rateId,
       occupancyId: RoomHelper.getDefaultOccupancy(this.room).occupancyId,
       quantity: e.detail.quantity,
-    }).subscribe(() => {
+    }).subscribe((basket) => {
       this.basketIsLoading = false;
-      this.qwRoomDetailAddToBasketSuccess.emit();
+      this.qwRoomDetailAddToBasketSuccess.emit({
+        numberOfGuests: this.numberOfGuests,
+        numberOfAccommodation: BasketHelper.getNumberOfAccommodation(basket),
+      });
     });
   }
 

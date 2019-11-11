@@ -67,10 +67,6 @@ export class QwBasketSummary {
     return this.rooms[roomId] && this.rooms[roomId].type.text;
   }
 
-  public getRoomName(roomId) {
-    return this.rooms[roomId] && this.rooms[roomId].name;
-  }
-
   render() {
     return (
       <Host>
@@ -90,7 +86,7 @@ export class QwBasketSummary {
               <div class="qw-basket-summary__room">
                 <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
                 <div class="qw-basket-summary__room-name">
-                  <div class="qw-basket-summary__room-title">{this.getRoomName(basketRoom.roomId)}</div>
+                  <div class="qw-basket-summary__room-title">{basketRoom.name}</div>
                   <div class="qw-basket-summary__room-guests">{this.getRoomType(basketRoom.roomId)}</div>
                 </div>
                 <div class="qw-basket-summary__room-rate">{this.getRateName(basketRoom.occupancies[0].rateId)}</div>

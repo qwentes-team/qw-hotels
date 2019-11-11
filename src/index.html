@@ -8,7 +8,11 @@
   <script>
     window.QW_HOTEL_ENV = {
       ENDPOINT: 'http://api.d-edge.matteo.qwentes.lan',
-    }
+    };
+    
+    document.addEventListener('qwRoomDetailAddToBasketSuccess', (e) => {
+      console.log(e);
+    });
   </script>
   
   <link rel="stylesheet" href="/build/qw-hotels.css">
@@ -17,22 +21,22 @@
 </head>
 <body>
 <!--  <qw-basket qw-basket-show-empty-button="true"></qw-basket>-->
-<!--  <qw-basket-summary></qw-basket-summary>-->
+  <qw-basket-summary></qw-basket-summary>
 <!--  <qw-room-basket></qw-room-basket>-->
 
 <!--  <qw-calendar></qw-calendar>-->
-<!--  <qw-room-detail qw-room-detail-id="97816">-->
-<!--    <div slot="qwRoomDetailLoading">loading</div>-->
-<!--  </qw-room-detail>-->
+  <qw-room-detail qw-room-detail-id="97815">
+    <div slot="qwRoomDetailLoading">loading</div>
+  </qw-room-detail>
 <!--  <qw-room-detail qw-room-detail-id="98868">-->
 <!--    <div slot="qwRoomDetailLoading">loading</div>-->
 <!--  </qw-room-detail>-->
   <!--  <qw-calendar-guest-inline qw-calendar-guest-inline-show-check-button="false"></qw-calendar-guest-inline>-->
 <!--  <qw-guest qw-guest-center="true"></qw-guest>-->
 <!--  <hr>-->
-  <qw-room-list>
-    <div slot="qwRoomListLoading">loading</div>
-  </qw-room-list>
+<!--  <qw-room-list>-->
+<!--    <div slot="qwRoomListLoading">loading</div>-->
+<!--  </qw-room-list>-->
 <!--  <qw-room-list-->
 <!--    qw-room-list-type="grid"-->
 <!--    qw-room-list-show-prices="false"-->

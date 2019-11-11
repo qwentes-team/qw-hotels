@@ -25,6 +25,9 @@ import {
   QwCounterEmitter,
 } from './components/shared/qw-counter/qw-counter';
 import {
+  QwRoomDetailAddToBasketEmitter,
+} from './components/qw-room-detail/qw-room-detail';
+import {
   QwRoomRateAddToBasketEmitter,
 } from './components/qw-room-rate/qw-room-rate';
 import {
@@ -337,7 +340,7 @@ declare namespace LocalJSX {
   }
   interface QwRoomBasket {}
   interface QwRoomDetail {
-    'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<void>) => void;
+    'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
     'qwRoomDetailId'?: string;
   }
   interface QwRoomDetailCard {
