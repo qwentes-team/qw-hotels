@@ -51,7 +51,7 @@ export class QwRoomBasket {
 
   render() {
     return (
-      <Host>
+      <Host class={`${!Object.keys(this.rooms).length ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
         <div style={Object.keys(this.rooms).length && { 'display': 'none' }}>
           <slot name="qwRoomBasketLoading"/>
         </div>

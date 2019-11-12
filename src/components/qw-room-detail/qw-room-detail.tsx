@@ -92,7 +92,7 @@ export class QwRoomDetail {
 
   render() {
     return (
-      <Host>
+      <Host class={`${!this.room ? 'qw-room-detail--loading' : 'qw-room-detail--loaded'}`}>
         <div style={this.room && {'display': 'none'}}>
           <slot name="qwRoomDetailLoading"/>
         </div>

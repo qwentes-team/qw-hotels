@@ -174,7 +174,10 @@ export class QwRoomList {
 
   public render() {
     return (
-      <Host class={this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}>
+      <Host class={`
+        ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}
+        ${!this.rooms.length ? 'qw-room-list--loading' : 'qw-room-list--loaded'}
+      `}>
         <div style={this.rooms.length && { 'display': 'none' }}>
           <slot name="qwRoomListLoading"/>
         </div>
