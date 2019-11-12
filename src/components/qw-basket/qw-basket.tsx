@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Prop} from '@stencil/core';
+import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$, BasketQuery, BasketService,
   MoneyPrice, SessionLoaded$, SessionService,
@@ -13,8 +13,10 @@ import {switchMap} from 'rxjs/operators';
 })
 export class QwBasket {
   @Prop() qwBasketShowEmptyButton: boolean = false;
+  @Prop() qwBasketShowBookNowButton: boolean = false;
   @State() totalPrice: MoneyPrice;
   @State() isLoading: boolean;
+  @Event() qwBasketBookNow: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -28,6 +30,10 @@ export class QwBasket {
     BasketService.deleteBasket().subscribe();
   }
 
+  bookNow = () => {
+    this.qwBasketBookNow.emit();
+  };
+
   public render() {
     return (
       <Host>
@@ -35,9 +41,14 @@ export class QwBasket {
           <div class={this.isLoading && 'qw-basket__price__amount--disabled'}>
             {this.totalPrice && this.totalPrice.text}
           </div>
-          {this.isLoading && <qw-loading qw-loading-size="18"/>}
         </div>
-        {this.qwBasketShowEmptyButton && <QwButton QwButtonLabel="Empty basket" QwButtonOnClick={this.deleteBasket}/>}
+        {this.qwBasketShowEmptyButton && <QwButton
+          QwButtonLabel="Empty basket"
+          QwButtonOnClick={this.deleteBasket}/>}
+        {this.qwBasketShowBookNowButton && <QwButton
+          QwButtonLabel="Book Now"
+          QwButtonDisabled={!this.totalPrice || this.totalPrice && this.totalPrice.value.amount === 0}
+          QwButtonOnClick={this.bookNow}/>}
       </Host>
     );
   }

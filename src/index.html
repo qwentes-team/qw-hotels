@@ -10,7 +10,7 @@
       ENDPOINT: 'http://api.d-edge.matteo.qwentes.lan',
     };
     
-    document.addEventListener('qwRoomDetailAddToBasketSuccess', (e) => {
+    document.addEventListener('qwBasketBookNow', (e) => {
       console.log(e);
     });
   </script>
@@ -20,7 +20,7 @@
   <script nomodule src="/build/qw-hotels.js"></script>
 </head>
 <body>
-  <qw-basket qw-basket-show-empty-button="true"></qw-basket>
+  <qw-basket qw-basket-show-empty-button="true" qw-basket-show-book-now-button="true"></qw-basket>
   <qw-room-basket>
     <div slot="qwRoomBasketLoading">loading</div>
   </qw-room-basket>

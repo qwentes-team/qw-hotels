@@ -39,6 +39,7 @@ import {
 
 export namespace Components {
   interface QwBasket {
+    'qwBasketShowBookNowButton': boolean;
     'qwBasketShowEmptyButton': boolean;
   }
   interface QwBasketSummary {}
@@ -287,6 +288,8 @@ declare global {
 
 declare namespace LocalJSX {
   interface QwBasket {
+    'onQwBasketBookNow'?: (event: CustomEvent<void>) => void;
+    'qwBasketShowBookNowButton'?: boolean;
     'qwBasketShowEmptyButton'?: boolean;
   }
   interface QwBasketSummary {}
