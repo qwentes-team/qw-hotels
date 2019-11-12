@@ -15,9 +15,10 @@
 
 ## Events
 
-| Event             | Description | Type                |
-| ----------------- | ----------- | ------------------- |
-| `qwBasketBookNow` |             | `CustomEvent<void>` |
+| Event                | Description | Type                |
+| -------------------- | ----------- | ------------------- |
+| `qwBasketBookNow`    |             | `CustomEvent<void>` |
+| `qwBasketClickPrice` |             | `CustomEvent<void>` |
 
 
 ----------------------------------------------

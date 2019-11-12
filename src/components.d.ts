@@ -289,6 +289,7 @@ declare global {
 declare namespace LocalJSX {
   interface QwBasket {
     'onQwBasketBookNow'?: (event: CustomEvent<void>) => void;
+    'onQwBasketClickPrice'?: (event: CustomEvent<void>) => void;
     'qwBasketShowBookNowButton'?: boolean;
     'qwBasketShowEmptyButton'?: boolean;
   }

@@ -17,6 +17,7 @@ export class QwBasket {
   @State() totalPrice: MoneyPrice;
   @State() isLoading: boolean;
   @Event() qwBasketBookNow: EventEmitter<void>;
+  @Event() qwBasketClickPrice: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -34,20 +35,28 @@ export class QwBasket {
     this.qwBasketBookNow.emit();
   };
 
+  private clickPrice() {
+    this.qwBasketClickPrice.emit();
+  }
+
+  private isTotalPriceZero() {
+    return this.totalPrice && this.totalPrice.value.amount === 0
+  }
+
   public render() {
     return (
       <Host>
-        <div class="qw-basket__price">
-          <div class={this.isLoading && 'qw-basket__price__amount--disabled'}>
+        {!this.isTotalPriceZero() && <div class="qw-basket__price" onClick={() => this.clickPrice()}>
+          <div class={`qw-basket__price-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
             {this.totalPrice && this.totalPrice.text}
           </div>
-        </div>
+        </div>}
         {this.qwBasketShowEmptyButton && <QwButton
           QwButtonLabel="Empty basket"
           QwButtonOnClick={this.deleteBasket}/>}
         {this.qwBasketShowBookNowButton && <QwButton
           QwButtonLabel="Book Now"
-          QwButtonDisabled={!this.totalPrice || this.totalPrice && this.totalPrice.value.amount === 0}
+          QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero()}
           QwButtonOnClick={this.bookNow}/>}
       </Host>
     );
