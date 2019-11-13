@@ -97,6 +97,7 @@ export class QwRoomDetail {
           <slot name="qwRoomDetailLoading"/>
         </div>
         {this.room && <qw-room-detail-card
+          qwRoomDetailCardRoomId={this.room.roomId}
           qwRoomDetailCardTitle={this.room.name}
           qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}
           qwRoomDetailCardSquareMeter={this.room.surfaceArea.text}

@@ -85,6 +85,10 @@ export namespace Components {
     'qwPriceCrossedPrice': string;
     'qwPriceMainPrice': string;
   }
+  interface QwRoomBaseInfo {
+    'qwRoomBaseInfoIsStateFull': boolean;
+    'qwRoomBaseInfoRoomId': string;
+  }
   interface QwRoomBasket {}
   interface QwRoomDetail {
     'qwRoomDetailId': string;
@@ -97,6 +101,7 @@ export namespace Components {
     'qwRoomDetailCardNumberOfNights': number;
     'qwRoomDetailCardRates': Rate[];
     'qwRoomDetailCardRatesModel': {[rateId: string]: RateModel};
+    'qwRoomDetailCardRoomId': RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
   }
@@ -223,6 +228,12 @@ declare global {
     new (): HTMLQwPriceElement;
   };
 
+  interface HTMLQwRoomBaseInfoElement extends Components.QwRoomBaseInfo, HTMLStencilElement {}
+  var HTMLQwRoomBaseInfoElement: {
+    prototype: HTMLQwRoomBaseInfoElement;
+    new (): HTMLQwRoomBaseInfoElement;
+  };
+
   interface HTMLQwRoomBasketElement extends Components.QwRoomBasket, HTMLStencilElement {}
   var HTMLQwRoomBasketElement: {
     prototype: HTMLQwRoomBasketElement;
@@ -277,6 +288,7 @@ declare global {
     'qw-input': HTMLQwInputElement;
     'qw-loading': HTMLQwLoadingElement;
     'qw-price': HTMLQwPriceElement;
+    'qw-room-base-info': HTMLQwRoomBaseInfoElement;
     'qw-room-basket': HTMLQwRoomBasketElement;
     'qw-room-detail': HTMLQwRoomDetailElement;
     'qw-room-detail-card': HTMLQwRoomDetailCardElement;
@@ -343,6 +355,10 @@ declare namespace LocalJSX {
     'qwPriceCrossedPrice'?: string;
     'qwPriceMainPrice'?: string;
   }
+  interface QwRoomBaseInfo {
+    'qwRoomBaseInfoIsStateFull'?: boolean;
+    'qwRoomBaseInfoRoomId'?: string;
+  }
   interface QwRoomBasket {}
   interface QwRoomDetail {
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
@@ -357,6 +373,7 @@ declare namespace LocalJSX {
     'qwRoomDetailCardNumberOfNights'?: number;
     'qwRoomDetailCardRates'?: Rate[];
     'qwRoomDetailCardRatesModel'?: {[rateId: string]: RateModel};
+    'qwRoomDetailCardRoomId'?: RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
   }
@@ -423,6 +440,7 @@ declare namespace LocalJSX {
     'qw-input': QwInput;
     'qw-loading': QwLoading;
     'qw-price': QwPrice;
+    'qw-room-base-info': QwRoomBaseInfo;
     'qw-room-basket': QwRoomBasket;
     'qw-room-detail': QwRoomDetail;
     'qw-room-detail-card': QwRoomDetailCard;
@@ -451,6 +469,7 @@ declare module "@stencil/core" {
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
+      'qw-room-base-info': LocalJSX.QwRoomBaseInfo & JSXBase.HTMLAttributes<HTMLQwRoomBaseInfoElement>;
       'qw-room-basket': LocalJSX.QwRoomBasket & JSXBase.HTMLAttributes<HTMLQwRoomBasketElement>;
       'qw-room-detail': LocalJSX.QwRoomDetail & JSXBase.HTMLAttributes<HTMLQwRoomDetailElement>;
       'qw-room-detail-card': LocalJSX.QwRoomDetailCard & JSXBase.HTMLAttributes<HTMLQwRoomDetailCardElement>;

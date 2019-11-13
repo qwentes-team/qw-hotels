@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
-import {Rate, RateHelper, RateModel} from 'booking-state-manager';
+import {Rate, RateHelper, RateModel, RoomModel} from 'booking-state-manager';
 import {QwRoomRateAddToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
 
@@ -9,6 +9,7 @@ import {QwImage} from '../../shared/qw-image/qw-image';
   shadow: false,
 })
 export class QwRoomDetailCard {
+  @Prop() qwRoomDetailCardRoomId: RoomModel['roomId'];
   @Prop() qwRoomDetailCardTitle: string;
   @Prop() qwRoomDetailCardImage: string;
   @Prop() qwRoomDetailCardRates: Rate[];
@@ -75,11 +76,7 @@ export class QwRoomDetailCard {
           </div>
 
           <div class="qw-room-detail-card__services">
-            <ul>
-              <li>Maximum occupancy: {this.qwRoomDetailCardGuests}</li>
-              <li>{this.qwRoomDetailCardBed}</li>
-              <li>Average size of {this.qwRoomDetailCardSquareMeter}</li>
-            </ul>
+            <qw-room-base-info qw-room-base-info-room-id={this.qwRoomDetailCardRoomId.toString()}/>
           </div>
         </qw-card>
       </Host>
