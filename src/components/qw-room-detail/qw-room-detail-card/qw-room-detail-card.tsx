@@ -60,7 +60,9 @@ export class QwRoomDetailCard {
 
           <div class="qw-room-detail-card__title">
             <h4>{this.qwRoomDetailCardTitle}</h4>
-            <div class="qw-room-detail-card__nights">Prices for {this.qwRoomDetailCardNumberOfNights} nights</div>
+            <div class="qw-room-detail-card__nights">
+              Prices for {this.qwRoomDetailCardNumberOfNights} {this.qwRoomDetailCardNumberOfNights > 1 ? 'nights' : 'night'}
+            </div>
           </div>
 
           <div class="qw-room-detail-card__rates">

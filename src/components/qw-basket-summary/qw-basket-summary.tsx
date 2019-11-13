@@ -1,11 +1,8 @@
 import {Component, Host, h, State} from '@stencil/core';
 import {
-  BasketIsLoading$,
-  BasketModel,
-  BasketQuery,
-  BasketService, RateHelper, RateModel, RateService, RoomLoaded$, RoomModel, RoomService, SessionHelper,
-  SessionLoaded$, SessionModel,
-  SessionService,
+  BasketIsLoading$, BasketModel, BasketQuery, BasketService,
+  RateHelper, RateModel, RateService, RoomLoaded$, RoomModel, RoomService,
+  SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from 'booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwSelect} from '../shared/qw-select/qw-select';
@@ -108,7 +105,9 @@ export class QwBasketSummary {
                     })}
                   </QwSelect>
                 }</div>
-                <div class="qw-basket-summary__room-price">{basketRoom.occupancies[0].price.original.text}</div>
+                <div class="qw-basket-summary__room-price">
+                  {RateHelper.multiplyMoney(basketRoom.occupancies[0].price.converted, basketRoom.occupancies[0].selectedQuantity)}
+                </div>
                 <div class="qw-basket-summary__room-delete">
                   <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom})}/>
                 </div>

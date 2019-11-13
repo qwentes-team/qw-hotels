@@ -37,7 +37,7 @@ export class QwRoomRate {
       <Host class={this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}>
         <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateName}</div>
-          <div class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity} available</div>
+          <div class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available</div>
         </div>
         <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price.totalPrice.converted.text}
