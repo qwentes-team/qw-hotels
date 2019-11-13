@@ -7,7 +7,7 @@
 
   <script>
     window.QW_HOTEL_ENV = {
-      ENDPOINT: 'http://api.d-edge.matteo.qwentes.lan',
+      ENDPOINT: 'http://hotel-gabriel.qwentes.lan/hub-api',
     };
     
     document.addEventListener('qwBasketClickPrice', (e) => {
@@ -20,7 +20,9 @@
   <script nomodule src="/build/qw-hotels.js"></script>
 </head>
 <body>
-<!--  <qw-room-basket>-->
+      <qw-basket-room-counter></qw-basket-room-counter>
+      
+      <!--  <qw-room-basket>-->
 <!--    <div slot="qwRoomBasketLoading">loading</div>-->
 <!--  </qw-room-basket>-->
 <!--<qw-room-base-info qw-room-base-info-room-id="98868"></qw-room-base-info>-->

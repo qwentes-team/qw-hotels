@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "booking-state-manager": "file:../d-edge/booking-state-manager/booking-state-manager-0.0.11.tgz",
+    "booking-state-manager": "file:../booking-state-manager/booking-state-manager-0.0.11.tgz",
     "flatpickr": "^4.6.3",
     "rxjs": "^6.5.3"
   }
