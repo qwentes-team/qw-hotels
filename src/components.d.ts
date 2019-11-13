@@ -135,6 +135,7 @@ export namespace Components {
     'qwRoomListCardTitle': string;
   }
   interface QwRoomRate {
+    'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateName': string;
     'qwRoomRateRate': Rate;
@@ -396,6 +397,8 @@ declare namespace LocalJSX {
   }
   interface QwRoomRate {
     'onQwRoomRateAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'onQwRoomRateCounterChanged'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateName'?: string;
     'qwRoomRateRate'?: Rate;

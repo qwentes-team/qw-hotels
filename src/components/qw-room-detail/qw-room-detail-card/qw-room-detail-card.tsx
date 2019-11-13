@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, Listen, EventEmitter, Event} from '@stencil/core';
+import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
 import {Rate, RateHelper, RateModel} from 'booking-state-manager';
 import {QwRoomRateAddToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
@@ -18,6 +18,7 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardNumberOfNights: number;
   @Prop() qwRoomDetailCardIsLoading: boolean;
   @Prop() qwRoomDetailCardRatesModel: {[rateId: string]: RateModel} = {};
+  @State() qwRoomDetailCardActiveRate: Rate['rateId'];
   @Event() qwRoomDetailCardAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
   @Listen('qwRoomRateAddToBasket')
@@ -25,9 +26,27 @@ export class QwRoomDetailCard {
     this.qwRoomDetailCardAddToBasket.emit(e.detail);
   }
 
+  @Listen('qwRoomRateCounterChanged')
+  public rateChanged(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
+    this.qwRoomDetailCardActiveRate = e.detail.quantity && e.detail.rateId;
+  }
+
   public getRateName(rateId: Rate['rateId']) {
     const rateIdPart = RateHelper.getIdPartOfRateId(rateId);
     return this.qwRoomDetailCardRatesModel[rateIdPart] && this.qwRoomDetailCardRatesModel[rateIdPart].name;
+  }
+
+  private isRateDisabled(rateId) {
+    if (!this.qwRoomDetailCardActiveRate) {
+      return false;
+    }
+
+    return this.qwRoomDetailCardActiveRate !== rateId;
+  }
+
+  @Watch('qwRoomDetailCardRates')
+  ratesWatcher() {
+    this.qwRoomDetailCardActiveRate = undefined;
   }
 
   render() {
@@ -48,6 +67,7 @@ export class QwRoomDetailCard {
               && this.qwRoomDetailCardRates.map(rate => {
                 return rate && <qw-room-rate
                   qwRoomRateRate={rate}
+                  qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
                   qwRoomRateName={this.getRateName(rate.rateId)}/>;
               })

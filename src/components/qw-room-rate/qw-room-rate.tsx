@@ -17,12 +17,15 @@ export class QwRoomRate {
   @Prop() qwRoomRateRate: Rate;
   @Prop() qwRoomRateName: string;
   @Prop() qwRoomRateIsLoading: boolean;
+  @Prop() qwRoomRateIsDisabled: boolean;
   @State() quantity: number = 0;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
+  @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
     this.quantity = event.detail.value;
+    this.qwRoomRateCounterChanged.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
   }
 
   addToBasket = () => {
@@ -31,7 +34,7 @@ export class QwRoomRate {
 
   render() {
     return (
-      <Host>
+      <Host class={this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}>
         <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateName}</div>
           <div class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity} available</div>
