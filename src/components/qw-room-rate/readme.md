@@ -7,18 +7,20 @@
 
 ## Properties
 
-| Property              | Attribute                 | Description | Type      | Default     |
-| --------------------- | ------------------------- | ----------- | --------- | ----------- |
-| `qwRoomRateIsLoading` | `qw-room-rate-is-loading` |             | `boolean` | `undefined` |
-| `qwRoomRateName`      | `qw-room-rate-name`       |             | `string`  | `undefined` |
-| `qwRoomRateRate`      | --                        |             | `Rate`    | `undefined` |
+| Property               | Attribute                  | Description | Type      | Default     |
+| ---------------------- | -------------------------- | ----------- | --------- | ----------- |
+| `qwRoomRateIsDisabled` | `qw-room-rate-is-disabled` |             | `boolean` | `undefined` |
+| `qwRoomRateIsLoading`  | `qw-room-rate-is-loading`  |             | `boolean` | `undefined` |
+| `qwRoomRateName`       | `qw-room-rate-name`        |             | `string`  | `undefined` |
+| `qwRoomRateRate`       | --                         |             | `Rate`    | `undefined` |
 
 
 ## Events
 
-| Event                   | Description | Type                                        |
-| ----------------------- | ----------- | ------------------------------------------- |
-| `qwRoomRateAddToBasket` |             | `CustomEvent<QwRoomRateAddToBasketEmitter>` |
+| Event                      | Description | Type                                        |
+| -------------------------- | ----------- | ------------------------------------------- |
+| `qwRoomRateAddToBasket`    |             | `CustomEvent<QwRoomRateAddToBasketEmitter>` |
+| `qwRoomRateCounterChanged` |             | `CustomEvent<QwRoomRateAddToBasketEmitter>` |
 
 
 ## Dependencies
