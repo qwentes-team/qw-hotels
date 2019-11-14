@@ -1,7 +1,7 @@
 import {Component, Host, h, Prop, EventEmitter, Event, State, Listen} from '@stencil/core';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
-import {Rate} from 'booking-state-manager';
+import {Rate, RateHelper} from 'booking-state-manager';
 
 export interface QwRoomRateAddToBasketEmitter {
   quantity: number;
@@ -19,6 +19,7 @@ export class QwRoomRate {
   @Prop() qwRoomRateIsLoading: boolean;
   @Prop() qwRoomRateIsDisabled: boolean;
   @State() quantity: number = 0;
+  @State() showConditions: boolean;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
   @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
@@ -52,6 +53,14 @@ export class QwRoomRate {
           QwButtonLabel="Add to cart"
           QwButtonDisabled={!this.quantity || this.quantity === this.qwRoomRateRate.selectedQuantity || this.qwRoomRateIsLoading}
           QwButtonOnClick={() => this.addToBasket()}/>
+
+          <div class="qw-room-rate__conditions">
+            <div class="qw-room-rate__conditions-trigger" onClick={() => this.showConditions = !this.showConditions}>Booking conditions</div>
+            {this.showConditions && <div class="qw-room-rate__conditions-content">
+              City taxes not included.<br/>
+              {this.qwRoomRateRate.taxes.onSite.amount.text && RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
+            </div>}
+          </div>
       </Host>
     );
   }

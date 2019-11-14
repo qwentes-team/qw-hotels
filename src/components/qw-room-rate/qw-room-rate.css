@@ -1,6 +1,33 @@
 qw-room-rate {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: var(--qw-hotel-gap-sm);
+}
+
+qw-room-rate .qw-room-rate__title {
+  width: 35%;
+}
+
+qw-room-rate .qw-room-rate__price {
+  width: 15%;
+}
+
+qw-room-rate label {
+  width: 20%;
+  text-align: center;
+}
+
+qw-room-rate .qw-button {
+  width: 25%;
+}
+
+qw-room-rate .qw-room-rate__conditions {
+  width: 100%;
+}
+
+qw-room-rate .qw-room-rate__conditions-trigger {
+  font-size: 70%;
 }
