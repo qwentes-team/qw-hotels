@@ -55,7 +55,9 @@ export class QwRoomRate {
           QwButtonOnClick={() => this.addToBasket()}/>
 
           <div class="qw-room-rate__conditions">
-            <div class="qw-room-rate__conditions-trigger" onClick={() => this.showConditions = !this.showConditions}>Booking conditions</div>
+            <div class="qw-room-rate__conditions-trigger" onClick={() => this.showConditions = !this.showConditions}>
+              {this.showConditions ? '-' : '+'} Booking conditions
+            </div>
             {this.showConditions && <div class="qw-room-rate__conditions-content">
               City taxes not included.<br/>
               {this.qwRoomRateRate.taxes.onSite.amount.text && RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
