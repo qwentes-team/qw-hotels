@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property                      | Attribute                         | Description | Type  | Default     |
+| ----------------------------- | --------------------------------- | ----------- | ----- | ----------- |
+| `qwRoomBasketShowDescription` | `qw-room-basket-show-description` |             | `any` | `undefined` |
+
+
 ## Dependencies
 
 ### Depends on

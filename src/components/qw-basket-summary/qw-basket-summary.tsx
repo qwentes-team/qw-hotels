@@ -107,7 +107,7 @@ export class QwBasketSummary {
                 }</div>
                 <div class="qw-basket-summary__room-price">
                   {this.getTotalPrice(basketRoom.occupancies[0])}
-                  {this.getTotalTaxes(basketRoom.occupancies[0]) && <div class="qw-basket-summary__room-taxes">
+                  {!!basketRoom.occupancies[0].taxes.excluded.details.length && <div class="qw-basket-summary__room-taxes">
                     {this.getTotalTaxes(basketRoom.occupancies[0])} ({basketRoom.occupancies[0].taxes.excluded.details[0].name})
                   </div>}
                 </div>

@@ -1,7 +1,13 @@
 import {Component, Host, h, Prop} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
+import {
+  MoneyPrice,
+  Rate,
+  RoomBasketModel,
+  RoomDefaultLabel,
+  RoomModel,
+} from '@qwentes/booking-state-manager';
 import {QwChangeRoomEvent} from '../../../index';
 import {QwSelect} from '../../shared/qw-select/qw-select';
 
@@ -16,6 +22,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardPrice: string;
   @Prop() qwRoomListCardCrossedOutPrice: string;
   @Prop() qwRoomListCardAveragePrice: string;
+  @Prop() qwRoomListCardTaxes: string;
   @Prop() qwRoomListCardSquareMeter: string;
   @Prop() qwRoomListCardGuests: string;
   @Prop() qwRoomListCardImage: string;
@@ -31,6 +38,8 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardShowPrices: boolean = true;
   @Prop() qwRoomListCardShowCta: boolean = true;
   @Prop() qwRoomListCardShowPrice: boolean = true;
+  @Prop() qwRoomListCardShowDescription: boolean = true;
+  @Prop() qwRoomListCardShowPriceAndTaxes: boolean;
   @Prop() qwRoomListCardBasketRoom: RoomBasketModel;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
@@ -66,9 +75,17 @@ export class QwRoomListCard {
             }
           </div>
 
-          <div class="qw-room-list-card__descriptions">
+          {this.qwRoomListCardShowPriceAndTaxes && <div class="qw-room-list-card__prices-with-taxes">
+            <div class="qw-room-list-card__prices-with-taxes--caption">To pay:</div>
+            <div class="qw-room-list-card__prices-with-taxes--amount">
+              {this.qwRoomListCardPrice}
+              <div class="qw-room-list-card__room-taxes">{this.qwRoomListCardTaxes}</div>
+            </div>
+          </div>}
+
+          {this.qwRoomListCardShowDescription && <div class="qw-room-list-card__descriptions">
             <p>{this.qwRoomListCardDescription}</p>
-          </div>
+          </div>}
 
           {this.qwRoomListCardShowPrices && <div class="qw-room-list-card__prices">
             <div class="qw-room-list-card__prices-average">

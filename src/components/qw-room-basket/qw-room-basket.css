@@ -1,3 +1,7 @@
-:host {
-  display: block;
+qw-room-basket {
+  display: flex;
+}
+
+qw-room-basket qw-room-list-card qw-card {
+  grid-template-columns: 30% 70%;
 }

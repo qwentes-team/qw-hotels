@@ -1,13 +1,9 @@
-import {Component, Host, h, State} from '@stencil/core';
+import {Component, Host, h, State, Prop} from '@stencil/core';
 import {QwChangeRoomEvent} from '../../index';
 import {
-  BasketIsLoading$, BasketModel,
-  BasketQuery,
-  BasketService, RoomHelper,
-  RoomLoaded$, RoomModel,
-  RoomService, SessionHelper,
-  SessionLoaded$,
-  SessionService,
+  BasketIsLoading$, BasketModel, BasketQuery, BasketService,
+  RateHelper, RoomBasketOccupancy, RoomHelper, RoomLoaded$, RoomModel, RoomService,
+  SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {zip} from 'rxjs';
@@ -18,6 +14,7 @@ import {zip} from 'rxjs';
   shadow: false
 })
 export class QwRoomBasket {
+  @Prop() qwRoomBasketShowDescription;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
   @State() rooms: {[roomId: string]: RoomModel} = {};
@@ -49,6 +46,14 @@ export class QwRoomBasket {
     }).subscribe();
   };
 
+  private getTotalPrice(basketRoomOccupancy: RoomBasketOccupancy) {
+    return RateHelper.multiplyMoney(basketRoomOccupancy.price.converted, basketRoomOccupancy.selectedQuantity)
+  }
+
+  private getTotalTaxes(basketRoomOccupancy: RoomBasketOccupancy) {
+    return RateHelper.multiplyMoney(basketRoomOccupancy.taxes.excluded.amount, basketRoomOccupancy.selectedQuantity)
+  }
+
   render() {
     return (
       <Host class={`${!Object.keys(this.rooms).length ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
@@ -65,16 +70,18 @@ export class QwRoomBasket {
               qwRoomListCardGuests={RoomHelper.getDefaultOccupancy(currentRoom).definition.text}
               qwRoomListCardImage={RoomHelper.getCoverImage(currentRoom).url}
               qwRoomListCardIsLoadingBasket={this.basketIsLoading}
-              qwRoomListCardDescription={RoomHelper.getSummary(currentRoom).text}
+              qwRoomListCardShowDescription={false}
               qwRoomListCardNights={this.nights}
               qwRoomListCardShowPrices={false}
               qwRoomListCardShowPrice={false}
+              qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[0])}
+              qwRoomListCardTaxes={`${this.getTotalTaxes(basketRoom.occupancies[0])} (${basketRoom.occupancies[0].taxes.excluded.details[0].name})`}
               qwRoomListCardShowCta={false}
+              qwRoomListCardShowPriceAndTaxes={true}
               qwRoomListCardBasketRoom={basketRoom}
               qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}/>
         })}
       </Host>
     );
   }
-
 }

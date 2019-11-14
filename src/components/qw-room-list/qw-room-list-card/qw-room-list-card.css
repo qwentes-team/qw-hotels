@@ -80,3 +80,11 @@ qw-room-list-card .qw-room-list-card__cta {
   display: flex;
   justify-content: space-evenly;
 }
+qw-room-list-card .qw-room-list-card__prices-with-taxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+qw-room-list-card .qw-room-list-card__room-taxes {
+  font-size: var(--qw-hotel-small-font-size);
+}

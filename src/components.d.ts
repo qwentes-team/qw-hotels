@@ -88,7 +88,9 @@ export namespace Components {
     'qwRoomBaseInfoIsStateFull': boolean;
     'qwRoomBaseInfoRoomId': string;
   }
-  interface QwRoomBasket {}
+  interface QwRoomBasket {
+    'qwRoomBasketShowDescription': any;
+  }
   interface QwRoomDetail {
     'qwRoomDetailId': string;
   }
@@ -133,9 +135,12 @@ export namespace Components {
     'qwRoomListCardRangeDateSession': Date[];
     'qwRoomListCardRates': Rate[];
     'qwRoomListCardShowCta': boolean;
+    'qwRoomListCardShowDescription': boolean;
     'qwRoomListCardShowPrice': boolean;
+    'qwRoomListCardShowPriceAndTaxes': boolean;
     'qwRoomListCardShowPrices': boolean;
     'qwRoomListCardSquareMeter': string;
+    'qwRoomListCardTaxes': string;
     'qwRoomListCardTitle': string;
   }
   interface QwRoomRate {
@@ -368,7 +373,9 @@ declare namespace LocalJSX {
     'qwRoomBaseInfoIsStateFull'?: boolean;
     'qwRoomBaseInfoRoomId'?: string;
   }
-  interface QwRoomBasket {}
+  interface QwRoomBasket {
+    'qwRoomBasketShowDescription'?: any;
+  }
   interface QwRoomDetail {
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
     'qwRoomDetailId'?: string;
@@ -416,9 +423,12 @@ declare namespace LocalJSX {
     'qwRoomListCardRangeDateSession'?: Date[];
     'qwRoomListCardRates'?: Rate[];
     'qwRoomListCardShowCta'?: boolean;
+    'qwRoomListCardShowDescription'?: boolean;
     'qwRoomListCardShowPrice'?: boolean;
+    'qwRoomListCardShowPriceAndTaxes'?: boolean;
     'qwRoomListCardShowPrices'?: boolean;
     'qwRoomListCardSquareMeter'?: string;
+    'qwRoomListCardTaxes'?: string;
     'qwRoomListCardTitle'?: string;
   }
   interface QwRoomRate {
