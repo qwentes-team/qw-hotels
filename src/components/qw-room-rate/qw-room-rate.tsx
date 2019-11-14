@@ -42,8 +42,9 @@ export class QwRoomRate {
         </div>
         <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price.totalPrice.converted.text}
-          <div class="qw-room-rate__taxes">
-            {this.qwRoomRateRate.taxes.excluded.amount.text} ({this.qwRoomRateRate.taxes.excluded.details[0].name})</div>
+          {this.qwRoomRateRate.taxes.excluded.amount.text && <div class="qw-room-rate__taxes">
+            {this.qwRoomRateRate.taxes.excluded.amount.text} ({this.qwRoomRateRate.taxes.excluded.details[0].name})
+          </div>}
         </div>
 
         <qw-counter
