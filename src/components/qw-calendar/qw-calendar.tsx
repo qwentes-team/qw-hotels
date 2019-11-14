@@ -5,7 +5,7 @@ import {
   SessionModel,
   SessionService,
   SessionStayPeriod
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 
 @Component({
   tag: 'qw-calendar',

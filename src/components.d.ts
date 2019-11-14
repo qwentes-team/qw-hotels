@@ -7,6 +7,7 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  MoneyPrice,
   PricesForStayPeriod,
   Rate,
   RateModel,
@@ -14,7 +15,7 @@ import {
   RoomModel,
   SessionGuests,
   SessionStayPeriod,
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 import {
   QwCalendarGuestInlineInputType,
   QwChangeRoomEvent,
@@ -30,9 +31,6 @@ import {
 import {
   QwRoomRateAddToBasketEmitter,
 } from './components/qw-room-rate/qw-room-rate';
-import {
-  MoneyPrice,
-} from 'booking-state-manager/src/core/money/money';
 import {
   QwRoomRateAddToBasketEmitter as QwRoomRateAddToBasketEmitter1,
 } from './components/qw-room-rate/qw-room-rate';
@@ -314,7 +312,9 @@ declare namespace LocalJSX {
     'qwBasketShowBookNowButton'?: boolean;
     'qwBasketShowEmptyButton'?: boolean;
   }
-  interface QwBasketRoomCounter {}
+  interface QwBasketRoomCounter {
+    'onQwBasketRoomCounterNumber'?: (event: CustomEvent<number>) => void;
+  }
   interface QwBasketSummary {}
   interface QwCalendar {
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;

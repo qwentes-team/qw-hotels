@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, State} from '@stencil/core';
-import {RoomHelper, RoomLoaded$, RoomModel, RoomService, SessionLoaded$, SessionService} from 'booking-state-manager';
+import {RoomHelper, RoomLoaded$, RoomModel, RoomService, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/internal/operators/switchMap';
 
 @Component({
@@ -30,7 +30,7 @@ export class QwRoomBaseInfo {
       <Host>
         {this.room && <ul>
           <li>{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
-          {this.room.surfaceArea.text && <li>Average size of {this.room.surfaceArea.text}</li>}
+          {this.room.surfaceArea.text && <li>{this.room.surfaceArea.text}</li>}
           <li>{this.room.bedding.beds[0].count} x {this.room.bedding.beds[0].type.text}</li>
         </ul>}
       </Host>

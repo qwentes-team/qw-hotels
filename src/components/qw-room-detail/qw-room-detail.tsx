@@ -2,7 +2,7 @@ import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@ste
 import {
   BasketHelper,
   BasketQuery,
-  BasketService, Rate,
+  BasketService, createRateFromRoomBasketOccupancy, Rate,
   RateModel,
   RateService, RoomBasketModel,
   RoomHelper, RoomLoaded$,
@@ -10,10 +10,9 @@ import {
   RoomService, SessionHelper,
   SessionLoaded$, SessionModel,
   SessionService,
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 import {switchMap, filter} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
-import {createRateFromRoomBasketOccupancy} from 'booking-state-manager/dist/feature/rate/model/rate';
 
 export interface QwRoomDetailAddToBasketEmitter {
   numberOfGuests: number;

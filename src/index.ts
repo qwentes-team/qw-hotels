@@ -1,4 +1,4 @@
-import {RoomBasketModel} from 'booking-state-manager';
+import {RoomBasketModel} from '@qwentes/booking-state-manager';
 
 export * from './components';
 

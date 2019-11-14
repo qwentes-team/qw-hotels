@@ -1,6 +1,6 @@
 import {Component, Host, h, Prop, Watch, State, Event, EventEmitter, Listen} from '@stencil/core';
 import flatpickr from 'flatpickr';
-import {SessionStayPeriod} from 'booking-state-manager';
+import {SessionStayPeriod} from '@qwentes/booking-state-manager';
 
 const CALENDAR_ID = 'flatpickr-element';
 

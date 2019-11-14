@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop} from '@stencil/core';
-import {RoomDefaultLabel} from 'booking-state-manager';
+import {RoomDefaultLabel} from '@qwentes/booking-state-manager';
 
 @Component({
   tag: 'qw-price',

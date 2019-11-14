@@ -1,9 +1,9 @@
 import {Component, Host, h, State} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel, BasketQuery, BasketService,
-  RateHelper, RateModel, RateService,
+  RateHelper, RateModel, RateService, RoomBasketOccupancy,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwSelect} from '../shared/qw-select/qw-select';
 import {QwChangeRoomEvent} from '../../index';
@@ -25,16 +25,14 @@ export class QwBasketSummary {
     SessionLoaded$.pipe(switchMap((session) => {
       this.session = session;
 
-      if (Object.keys(this.rates).length) {
+      if (!Object.keys(this.rates).length) {
         this.getRates(session.sessionId);
       }
 
       return BasketService.getBasket(session);
     })).subscribe();
 
-    BasketQuery.select().subscribe(basket => {
-      this.basket = basket;
-    });
+    BasketQuery.select().subscribe(basket => this.basket = basket);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
   }
 
@@ -42,6 +40,14 @@ export class QwBasketSummary {
     RateService.getRates(sessionId).subscribe(res => {
       this.rates = res.reduce((acc, r) => ({...acc, [r.rateId]: r}), {});
     });
+  }
+
+  private getTotalPrice(basketRoomOccupancy: RoomBasketOccupancy) {
+    return RateHelper.multiplyMoney(basketRoomOccupancy.price.converted, basketRoomOccupancy.selectedQuantity)
+  }
+
+  private getTotalTaxes(basketRoomOccupancy: RoomBasketOccupancy) {
+    return RateHelper.multiplyMoney(basketRoomOccupancy.taxes.excluded.amount, basketRoomOccupancy.selectedQuantity)
   }
 
   setRoomInBasket = (e: QwChangeRoomEvent) => {
@@ -100,7 +106,10 @@ export class QwBasketSummary {
                   </QwSelect>
                 }</div>
                 <div class="qw-basket-summary__room-price">
-                  {RateHelper.multiplyMoney(basketRoom.occupancies[0].price.converted, basketRoom.occupancies[0].selectedQuantity)}
+                  {this.getTotalPrice(basketRoom.occupancies[0])}
+                  {this.getTotalTaxes(basketRoom.occupancies[0]) && <div class="qw-basket-summary__room-taxes">
+                    {this.getTotalTaxes(basketRoom.occupancies[0])} ({basketRoom.occupancies[0].taxes.excluded.details[0].name})
+                  </div>}
                 </div>
                 <div class="qw-basket-summary__room-delete">
                   <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom})}/>

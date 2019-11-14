@@ -1,8 +1,7 @@
 import {Component, Host, h, Prop} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from 'booking-state-manager';
-import {MoneyPrice} from 'booking-state-manager/src/core/money/money';
+import {MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
 import {QwChangeRoomEvent} from '../../../index';
 import {QwSelect} from '../../shared/qw-select/qw-select';
 
@@ -108,7 +107,7 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
             <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
             {this.qwRoomListCardPrice
-              ? <QwButton QwButtonLabel="Book now" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
+              ? <QwButton QwButtonLabel="View rates" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
               : <QwButton QwButtonLabel="Change dates" QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
           </div>}

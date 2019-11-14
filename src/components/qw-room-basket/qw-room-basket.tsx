@@ -8,7 +8,7 @@ import {
   RoomService, SessionHelper,
   SessionLoaded$,
   SessionService,
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {zip} from 'rxjs';
 

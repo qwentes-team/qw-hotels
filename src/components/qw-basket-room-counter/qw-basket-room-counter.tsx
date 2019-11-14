@@ -1,5 +1,5 @@
 import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
-import {BasketHelper, BasketQuery, BasketService, SessionLoaded$, SessionService} from 'booking-state-manager';
+import {BasketHelper, BasketQuery, BasketService, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 
 @Component({

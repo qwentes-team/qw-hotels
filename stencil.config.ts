@@ -4,14 +4,15 @@ export const config: Config = {
   namespace: 'qw-hotels',
   commonjs: {
     namedExports: {
-      'booking-state-manager': [
+      '@qwentes/booking-state-manager': [
         'SessionService', 'SessionLoaded$', 'SessionQuery', 'SessionIsLoading$', 'SessionHelper',
         'RoomService', 'RoomHelper', 'RoomQuery', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel',
         'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
-        'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'RateHelper', 'RateService',
+        'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'RateHelper', 'RateService', 'createRateFromRoomBasketOccupancy',
       ]
     }
   },
+  // todo fare bundles in prod
   bundles: [
     { components: ['qw-room-list'] },
     { components: ['qw-calendar'] },

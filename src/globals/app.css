@@ -17,6 +17,7 @@
   --qw-hotel-background: var(--qw-hotel-neutral-light);
   
   --qw-hotel-opacity: .5;
+  --qw-hotel-small-font-size: 70%;
 }
 
 * {

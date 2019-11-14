@@ -2,7 +2,7 @@ import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/cor
 import {
   BasketHelper, BasketIsLoading$, BasketQuery, BasketService,
   MoneyPrice, SessionHelper, SessionLoaded$, SessionService,
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {switchMap} from 'rxjs/operators';
 
@@ -67,7 +67,7 @@ export class QwBasket {
           QwButtonLabel="Empty basket"
           QwButtonOnClick={this.deleteBasket}/>}
         {this.qwBasketShowBookNowButton && <QwButton
-          QwButtonLabel="Book Now"
+          QwButtonLabel="Checkout"
           QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero() || !this.isAccommodationSatisfy()}
           QwButtonOnClick={this.bookNow}/>}
       </Host>

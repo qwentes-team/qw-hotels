@@ -12,7 +12,11 @@ qw-room-rate .qw-room-rate__title {
 }
 
 qw-room-rate .qw-room-rate__price {
-  width: 15%;
+  width: 18%;
+}
+
+qw-room-rate .qw-room-rate__taxes {
+  font-size: var(--qw-hotel-small-font-size);
 }
 
 qw-room-rate label {
@@ -29,5 +33,5 @@ qw-room-rate .qw-room-rate__conditions {
 }
 
 qw-room-rate .qw-room-rate__conditions-trigger {
-  font-size: 70%;
+  font-size: var(--qw-hotel-small-font-size);
 }

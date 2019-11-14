@@ -2,7 +2,7 @@ import {Component, h, Host, Prop, State} from '@stencil/core';
 import {
   DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel,
   SessionLoaded$, SessionModel, SessionService,
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 
 @Component({
   tag: 'qw-week-calendar',

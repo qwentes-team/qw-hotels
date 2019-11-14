@@ -1,5 +1,5 @@
 import {Component, Host, h, State, Event, EventEmitter, Prop} from '@stencil/core';
-import {SessionLoaded$, SessionModel, SessionService, SessionHelper, SessionIsLoading$} from 'booking-state-manager';
+import {SessionLoaded$, SessionModel, SessionService, SessionHelper, SessionIsLoading$} from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCalendarGuestInlineInputType} from '../../index';
 

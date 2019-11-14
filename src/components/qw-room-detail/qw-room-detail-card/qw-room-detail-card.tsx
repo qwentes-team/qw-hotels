@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
-import {Rate, RateHelper, RateModel, RoomModel} from 'booking-state-manager';
+import {Rate, RateHelper, RateModel, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
 
@@ -60,12 +60,13 @@ export class QwRoomDetailCard {
 
           <div class="qw-room-detail-card__title">
             <h4>{this.qwRoomDetailCardTitle}</h4>
-            <div class="qw-room-detail-card__nights">
-              Prices for {this.qwRoomDetailCardNumberOfNights} {this.qwRoomDetailCardNumberOfNights > 1 ? 'nights' : 'night'}
-            </div>
+            <qw-room-base-info qw-room-base-info-room-id={this.qwRoomDetailCardRoomId.toString()}/>
           </div>
 
           <div class="qw-room-detail-card__rates">
+            {this.qwRoomDetailCardRates.length && <div class="qw-room-detail-card__nights">
+              Prices for {this.qwRoomDetailCardNumberOfNights} {this.qwRoomDetailCardNumberOfNights > 1 ? 'nights' : 'night'}
+            </div>}
             {this.qwRoomDetailCardRates.length
               && this.qwRoomDetailCardRates.map(rate => {
                 return rate && <qw-room-rate
@@ -78,7 +79,7 @@ export class QwRoomDetailCard {
           </div>
 
           <div class="qw-room-detail-card__services">
-            <qw-room-base-info qw-room-base-info-room-id={this.qwRoomDetailCardRoomId.toString()}/>
+            {/* todo */}
           </div>
         </qw-card>
       </Host>

@@ -18,3 +18,7 @@ qw-basket-summary .qw-basket-summary__room {
 qw-basket-summary .qw-basket-summary__room > div {
   width: 16%;
 }
+
+qw-basket-summary .qw-basket-summary__room-taxes {
+  font-size: var(--qw-hotel-small-font-size);
+}

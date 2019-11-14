@@ -1,7 +1,7 @@
 import {Component, Host, h, Prop, EventEmitter, Event, State, Listen} from '@stencil/core';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
-import {Rate, RateHelper} from 'booking-state-manager';
+import {Rate, RateHelper} from '@qwentes/booking-state-manager';
 
 export interface QwRoomRateAddToBasketEmitter {
   quantity: number;
@@ -42,6 +42,8 @@ export class QwRoomRate {
         </div>
         <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price.totalPrice.converted.text}
+          <div class="qw-room-rate__taxes">
+            {this.qwRoomRateRate.taxes.excluded.amount.text} ({this.qwRoomRateRate.taxes.excluded.details[0].name})</div>
         </div>
 
         <qw-counter

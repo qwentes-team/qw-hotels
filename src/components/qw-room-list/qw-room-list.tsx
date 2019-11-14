@@ -15,7 +15,7 @@ import {
   SessionModel,
   SessionService,
   SessionStayPeriod,
-} from 'booking-state-manager';
+} from '@qwentes/booking-state-manager';
 import {filter, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
