@@ -80,12 +80,12 @@ export class QwRoomBasket {
             <QwButton QwButtonLabel="Back to room list" QwButtonOnClick={() => this.backToRoomList()}/>
             </div>
           : this.basket.rooms.map(basketRoom => {
-            const currentRoom = this.rooms[basketRoom.roomId];
+            const currentRoom = this.rooms[basketRoom.roomId]; // todo vedere se si può togliere avendo le immagini
             return currentRoom && <qw-room-list-card
               class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
               qwRoomListCardId={basketRoom.roomId}
               qwRoomListCardTitle={basketRoom.name}
-              qwRoomListCardSquareMeter={currentRoom.surfaceArea.text}
+              qwRoomListCardSquareMeter={basketRoom.surfaceArea.text}
               qwRoomListCardGuests={basketRoom.defaultOccupancy.definition.text}
               qwRoomListCardImage={RoomHelper.getCoverImage(currentRoom).url}
               qwRoomListCardIsLoadingBasket={this.basketIsLoading}
