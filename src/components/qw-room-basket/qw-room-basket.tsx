@@ -75,7 +75,7 @@ export class QwRoomBasket {
         </div>
         {this.dataAreLoaded() ?
         !this.basket.rooms.length
-          ? <div class="qw-room-list-card__no-rooms">
+          ? <div class="qw-room-basket__no-rooms">
             {this.qwRoomBasketBackToRoomListMessage || 'Your cart is empty.'}
             <QwButton QwButtonLabel="Back to room list" QwButtonOnClick={() => this.backToRoomList()}/>
             </div>
