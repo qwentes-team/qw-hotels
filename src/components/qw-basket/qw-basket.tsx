@@ -1,6 +1,6 @@
 import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
 import {
-  BasketHelper, BasketIsLoading$, BasketQuery, BasketService,
+  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$,
   MoneyPrice, SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
@@ -28,7 +28,7 @@ export class QwBasket {
       return BasketService.getBasket(session)
     })).subscribe();
 
-    BasketQuery.select().subscribe(basket => {
+    BasketWithPrice$.subscribe(basket => {
       this.totalPrice = BasketHelper.getTotalOriginalPrice(basket);
       this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
     });

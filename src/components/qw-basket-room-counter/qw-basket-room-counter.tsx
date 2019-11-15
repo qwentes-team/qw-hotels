@@ -1,5 +1,5 @@
 import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
-import {BasketHelper, BasketQuery, BasketService, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
+import {BasketHelper, BasketService, BasketWithPrice$, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 
 @Component({
@@ -15,7 +15,7 @@ export class QwBasketRoomCounter {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap(BasketService.getBasket)).subscribe();
 
-    BasketQuery.select().subscribe(basket => {
+    BasketWithPrice$.subscribe(basket => {
       this.roomNumber = BasketHelper.getNumberOfRooms(basket);
       this.qwBasketRoomCounterNumber.emit(this.roomNumber);
     });
@@ -24,7 +24,7 @@ export class QwBasketRoomCounter {
   render() {
     return (
       <Host>
-        {this.roomNumber}
+        {this.roomNumber || 0}
       </Host>
     );
   }

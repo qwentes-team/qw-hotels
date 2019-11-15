@@ -1,6 +1,6 @@
 import {Component, Host, h, State} from '@stencil/core';
 import {
-  BasketIsLoading$, BasketModel, BasketQuery, BasketService,
+  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
   RateHelper, RateModel, RateService, RoomBasketOccupancy,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
@@ -32,7 +32,7 @@ export class QwBasketSummary {
       return BasketService.getBasket(session);
     })).subscribe();
 
-    BasketQuery.select().subscribe(basket => this.basket = basket);
+    BasketWithPrice$.subscribe(basket => this.basket = basket);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
   }
 

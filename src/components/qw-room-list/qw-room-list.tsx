@@ -1,6 +1,6 @@
 import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
 import {
-  BasketQuery,
+  BasketWithPrice$,
   DateFormat,
   DateUtil,
   MONEY_SYMBOLS,
@@ -16,7 +16,7 @@ import {
   SessionService,
   SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
-import {filter, switchMap} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
 import {QwRoomListCardButtonType, QwRoomListType} from '../../index';
@@ -78,7 +78,7 @@ export class QwRoomList {
     });
 
     RoomLoaded$.subscribe(res => this.rooms = !this.qwRoomListFilterRoomsWith ? res : this.getFilteredRooms(res));
-    BasketQuery.select().pipe(filter(basket => !basket.loading)).subscribe(basket => {
+    BasketWithPrice$.subscribe(basket => {
       this.basketRoomTotals = basket.rooms.reduce((acc, room) => {
         return {...acc, [room.roomId]: room.occupancies[0].price.converted.text};
       }, {});

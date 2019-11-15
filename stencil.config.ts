@@ -5,9 +5,9 @@ export const config: Config = {
   commonjs: {
     namedExports: {
       '@qwentes/booking-state-manager': [
-        'SessionService', 'SessionLoaded$', 'SessionQuery', 'SessionIsLoading$', 'SessionHelper',
-        'RoomService', 'RoomHelper', 'RoomQuery', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel',
-        'BasketQuery', 'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
+        'SessionService', 'SessionHelper', 'SessionLoaded$', 'SessionIsLoading$',
+        'RoomService', 'RoomHelper', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel',
+        'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
         'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'RateHelper', 'RateService', 'createRateFromRoomBasketOccupancy',
       ]
     }

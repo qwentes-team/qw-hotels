@@ -1,17 +1,10 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper,
-  BasketQuery,
-  BasketService, createRateFromRoomBasketOccupancy, Rate,
-  RateModel,
-  RateService, RoomBasketModel,
-  RoomHelper, RoomLoaded$,
-  RoomModel,
-  RoomService, SessionHelper,
-  SessionLoaded$, SessionModel,
-  SessionService,
+  BasketHelper, BasketService, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
+  RateModel, RateService, RoomBasketModel, RoomHelper, RoomLoaded$, RoomModel, RoomService,
+  SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
-import {switchMap, filter} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 
 export interface QwRoomDetailAddToBasketEmitter {
@@ -52,7 +45,7 @@ export class QwRoomDetail {
       .pipe(
         switchMap(rooms => {
           this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
-          return BasketQuery.select().pipe(filter(basket => !basket.loading));
+          return BasketWithPrice$;
         }),
       )
       .subscribe(basket => {
