@@ -1,7 +1,7 @@
 import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
 import {QwChangeRoomEvent} from '../../index';
 import {
-  BasketIsLoading$, BasketModel, BasketQuery, BasketService,
+  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
   RateHelper, RoomBasketOccupancy, RoomHelper, RoomLoaded$, RoomModel, RoomService,
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
@@ -35,9 +35,13 @@ export class QwRoomBasket {
       return zip(BasketService.getBasket(session), RoomService.getRooms(session.sessionId));
     })).subscribe();
 
-    BasketQuery.select().subscribe(basket => this.basket = basket);
+    BasketWithPrice$.subscribe(basket => this.basket = basket);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
     RoomLoaded$.subscribe(res => this.rooms = res.reduce((acc, r) => ({...acc, [r.roomId]: r}), {}));
+  }
+
+  private dataAreLoaded() {
+    return this.basket && Object.keys(this.rooms).length;
   }
 
   setRoomInBasket = (e: QwChangeRoomEvent) => {
@@ -57,17 +61,19 @@ export class QwRoomBasket {
     return RateHelper.multiplyMoney(basketRoomOccupancy.price.converted, basketRoomOccupancy.selectedQuantity)
   }
 
-  private getTotalTaxes(basketRoomOccupancy: RoomBasketOccupancy) {
-    return RateHelper.multiplyMoney(basketRoomOccupancy.taxes.excluded.amount, basketRoomOccupancy.selectedQuantity)
+  private getTaxes(basketRoomOccupancy: RoomBasketOccupancy) {
+    const tax = RateHelper.multiplyMoney(basketRoomOccupancy.taxes.excluded.amount, basketRoomOccupancy.selectedQuantity);
+    const vat = basketRoomOccupancy.taxes.excluded.details[0].name;
+    return `${tax} (${vat})`;
   }
 
   render() {
     return (
-      <Host class={`${!Object.keys(this.rooms).length ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
-        <div style={Object.keys(this.rooms).length && { 'display': 'none' }}>
+      <Host class={`${!this.dataAreLoaded() ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
+        <div style={this.dataAreLoaded() && { 'display': 'none' }}>
           <slot name="qwRoomBasketLoading"/>
         </div>
-        {Object.keys(this.rooms).length ?
+        {this.dataAreLoaded() ?
         !this.basket.rooms.length
           ? <div class="qw-room-list-card__no-rooms">
             {this.qwRoomBasketBackToRoomListMessage || 'Your cart is empty.'}
@@ -88,7 +94,7 @@ export class QwRoomBasket {
               qwRoomListCardShowPrices={false}
               qwRoomListCardShowPrice={false}
               qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[0])}
-              qwRoomListCardTaxes={`${this.getTotalTaxes(basketRoom.occupancies[0])} (${basketRoom.occupancies[0].taxes.excluded.details[0].name})`}
+              qwRoomListCardTaxes={this.getTaxes(basketRoom.occupancies[0])}
               qwRoomListCardShowCta={false}
               qwRoomListCardShowPriceAndTaxes={true}
               qwRoomListCardBasketRoom={basketRoom}
