@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Prop} from '@stencil/core';
+import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
 import {QwChangeRoomEvent} from '../../index';
 import {
   BasketIsLoading$, BasketModel, BasketQuery, BasketService,
@@ -7,6 +7,7 @@ import {
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {zip} from 'rxjs';
+import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
   tag: 'qw-room-basket',
@@ -15,10 +16,12 @@ import {zip} from 'rxjs';
 })
 export class QwRoomBasket {
   @Prop() qwRoomBasketShowDescription;
+  @Prop() qwRoomBasketBackToRoomListMessage: string;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
   @State() rooms: {[roomId: string]: RoomModel} = {};
   @State() nights: number;
+  @Event() qwRoomBasketBackToRoomList: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -46,6 +49,10 @@ export class QwRoomBasket {
     }).subscribe();
   };
 
+  backToRoomList = () => {
+    this.qwRoomBasketBackToRoomList.emit();
+  };
+
   private getTotalPrice(basketRoomOccupancy: RoomBasketOccupancy) {
     return RateHelper.multiplyMoney(basketRoomOccupancy.price.converted, basketRoomOccupancy.selectedQuantity)
   }
@@ -60,9 +67,15 @@ export class QwRoomBasket {
         <div style={Object.keys(this.rooms).length && { 'display': 'none' }}>
           <slot name="qwRoomBasketLoading"/>
         </div>
-        {this.basket && Object.keys(this.rooms) && this.basket.rooms.map(basketRoom => {
-          const currentRoom = this.rooms[basketRoom.roomId];
-          return currentRoom && <qw-room-list-card
+        {Object.keys(this.rooms).length ?
+        !this.basket.rooms.length
+          ? <div class="qw-room-list-card__no-rooms">
+            {this.qwRoomBasketBackToRoomListMessage || 'Your cart is empty.'}
+            <QwButton QwButtonLabel="Back to room list" QwButtonOnClick={() => this.backToRoomList()}/>
+            </div>
+          : this.basket.rooms.map(basketRoom => {
+            const currentRoom = this.rooms[basketRoom.roomId];
+            return currentRoom && <qw-room-list-card
               class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
               qwRoomListCardId={basketRoom.roomId}
               qwRoomListCardTitle={currentRoom.name}
@@ -80,7 +93,7 @@ export class QwRoomBasket {
               qwRoomListCardShowPriceAndTaxes={true}
               qwRoomListCardBasketRoom={basketRoom}
               qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}/>
-        })}
+        }) : undefined}
       </Host>
     );
   }

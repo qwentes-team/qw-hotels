@@ -89,6 +89,7 @@ export namespace Components {
     'qwRoomBaseInfoRoomId': string;
   }
   interface QwRoomBasket {
+    'qwRoomBasketBackToRoomListMessage': string;
     'qwRoomBasketShowDescription': any;
   }
   interface QwRoomDetail {
@@ -374,6 +375,8 @@ declare namespace LocalJSX {
     'qwRoomBaseInfoRoomId'?: string;
   }
   interface QwRoomBasket {
+    'onQwRoomBasketBackToRoomList'?: (event: CustomEvent<void>) => void;
+    'qwRoomBasketBackToRoomListMessage'?: string;
     'qwRoomBasketShowDescription'?: any;
   }
   interface QwRoomDetail {

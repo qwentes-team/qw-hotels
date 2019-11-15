@@ -7,9 +7,17 @@
 
 ## Properties
 
-| Property                      | Attribute                         | Description | Type  | Default     |
-| ----------------------------- | --------------------------------- | ----------- | ----- | ----------- |
-| `qwRoomBasketShowDescription` | `qw-room-basket-show-description` |             | `any` | `undefined` |
+| Property                            | Attribute                                  | Description | Type     | Default     |
+| ----------------------------------- | ------------------------------------------ | ----------- | -------- | ----------- |
+| `qwRoomBasketBackToRoomListMessage` | `qw-room-basket-back-to-room-list-message` |             | `string` | `undefined` |
+| `qwRoomBasketShowDescription`       | `qw-room-basket-show-description`          |             | `any`    | `undefined` |
+
+
+## Events
+
+| Event                        | Description | Type                |
+| ---------------------------- | ----------- | ------------------- |
+| `qwRoomBasketBackToRoomList` |             | `CustomEvent<void>` |
 
 
 ## Dependencies
