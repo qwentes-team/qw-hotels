@@ -42,7 +42,7 @@ export class QwRoomList {
   @State() roomPrices: PricesForStayPeriod = {};
   @State() isPriceLoading: boolean;
   @State() nights: number;
-  @State() basketRoomTotals: {[roomId: string]: string};
+  @State() basketRoomTotals: {[roomId: string]: string} = {};
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
 
   private startDate: Date;

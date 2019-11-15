@@ -19,13 +19,17 @@ export interface QwRoomDetailAddToBasketEmitter {
 })
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
+  @Prop() qwRoomDetailAlertMessage: string;
   @State() room: RoomModel;
   @State() basketRoomRate: Rate;
   @State() numberOfNights: number;
   @State() rates: {[rateId: string]: RateModel} = {};
   @State() basketIsLoading: boolean;
   @State() numberOfGuests: number;
+  @State() numberOfAccommodation: number;
   @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<QwRoomDetailAddToBasketEmitter>;
+  @Event() qwRoomDetailAddAnotherRoom: EventEmitter<void>;
+  @Event() qwRoomDetailProceed: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -75,13 +79,23 @@ export class QwRoomDetail {
       quantity: e.detail.quantity,
     }).subscribe((basket) => {
       this.basketIsLoading = false;
+      this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
       this.qwRoomDetailAddToBasketSuccess.emit({
         numberOfGuests: this.numberOfGuests,
-        numberOfAccommodation: BasketHelper.getNumberOfAccommodation(basket),
+        numberOfAccommodation: this.numberOfAccommodation,
       });
     });
   }
 
+  @Listen('qwRoomDetailCardAddAnotherRoom')
+  public addAnotherRoom() {
+    this.qwRoomDetailAddAnotherRoom.emit();
+  }
+
+  @Listen('qwRoomDetailCardProceed')
+  public proceed() {
+    this.qwRoomDetailProceed.emit();
+  }
   render() {
     return (
       <Host class={`${!this.room ? 'qw-room-detail--loading' : 'qw-room-detail--loaded'}`}>
@@ -98,6 +112,8 @@ export class QwRoomDetail {
           qwRoomDetailCardRatesModel={this.rates}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
           qwRoomDetailCardIsLoading={this.basketIsLoading}
+          qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
+          qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
           qwRoomDetailCardRates={this.room.rates || [this.basketRoomRate] || []}/>}
       </Host>
     );

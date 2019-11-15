@@ -2,6 +2,7 @@ import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} fro
 import {Rate, RateHelper, RateModel, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
+import {QwButton} from '../../shared/qw-button/qw-button';
 
 @Component({
   tag: 'qw-room-detail-card',
@@ -19,8 +20,13 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardNumberOfNights: number;
   @Prop() qwRoomDetailCardIsLoading: boolean;
   @Prop() qwRoomDetailCardRatesModel: {[rateId: string]: RateModel} = {};
+  @Prop() qwRoomDetailCardNumberOfGuests: number;
+  @Prop() qwRoomDetailCardNumberOfAccommodation: number;
+  @Prop() qwRoomDetailCardAlertMessage: string;
   @State() qwRoomDetailCardActiveRate: Rate['rateId'];
   @Event() qwRoomDetailCardAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
+  @Event() qwRoomDetailCardAddAnotherRoom: EventEmitter<void>;
+  @Event() qwRoomDetailCardProceed: EventEmitter<void>;
 
   @Listen('qwRoomRateAddToBasket')
   public addToBasket(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
@@ -45,12 +51,17 @@ export class QwRoomDetailCard {
     return this.qwRoomDetailCardActiveRate !== rateId;
   }
 
+  private showAlertForAccommodation() {
+    return this.qwRoomDetailCardNumberOfGuests > this.qwRoomDetailCardNumberOfAccommodation;
+  }
+
   @Watch('qwRoomDetailCardRates')
   ratesWatcher() {
     this.qwRoomDetailCardActiveRate = undefined;
   }
 
   render() {
+    console.log(this.qwRoomDetailCardNumberOfAccommodation);
     return (
       <Host>
         <qw-card>
@@ -67,15 +78,25 @@ export class QwRoomDetailCard {
             {this.qwRoomDetailCardRates.length && <div class="qw-room-detail-card__nights">
               Prices for {this.qwRoomDetailCardNumberOfNights} {this.qwRoomDetailCardNumberOfNights > 1 ? 'nights' : 'night'}
             </div>}
-            {this.qwRoomDetailCardRates.length
-              && this.qwRoomDetailCardRates.map(rate => {
+            {this.qwRoomDetailCardRates.length &&
+            <div>
+              {this.qwRoomDetailCardRates.map(rate => {
                 return rate && <qw-room-rate
                   qwRoomRateRate={rate}
                   qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
                   qwRoomRateName={this.getRateName(rate.rateId)}/>;
-              })
-            }
+              })}
+              <div>{this.qwRoomDetailCardNumberOfAccommodation
+                ? this.showAlertForAccommodation()
+                  ? <div class="qw-room-detail-card__alert-message">
+                    <QwButton QwButtonLabel="Add another room" QwButtonOnClick={() => this.qwRoomDetailCardAddAnotherRoom.emit()}/>
+                    <div>{this.qwRoomDetailCardAlertMessage || 'No sufficent rooms for your guests'}</div>
+                  </div>
+                  : <QwButton QwButtonLabel="Proceed to checkout" QwButtonOnClick={() => this.qwRoomDetailCardProceed.emit()}/>
+                : ''
+              }</div>
+            </div>}
           </div>
 
           <div class="qw-room-detail-card__services">

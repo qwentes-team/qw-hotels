@@ -52,3 +52,9 @@ qw-room-detail-card .qw-room-detail-card__rates,
 qw-room-detail-card .qw-room-detail-card__services {
   grid-column: 2 / 2;
 }
+
+qw-room-detail-card .qw-room-detail-card__alert-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

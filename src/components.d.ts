@@ -93,13 +93,17 @@ export namespace Components {
     'qwRoomBasketShowDescription': any;
   }
   interface QwRoomDetail {
+    'qwRoomDetailAlertMessage': string;
     'qwRoomDetailId': string;
   }
   interface QwRoomDetailCard {
+    'qwRoomDetailCardAlertMessage': string;
     'qwRoomDetailCardBed': string;
     'qwRoomDetailCardGuests': string;
     'qwRoomDetailCardImage': string;
     'qwRoomDetailCardIsLoading': boolean;
+    'qwRoomDetailCardNumberOfAccommodation': number;
+    'qwRoomDetailCardNumberOfGuests': number;
     'qwRoomDetailCardNumberOfNights': number;
     'qwRoomDetailCardRates': Rate[];
     'qwRoomDetailCardRatesModel': {[rateId: string]: RateModel};
@@ -380,15 +384,23 @@ declare namespace LocalJSX {
     'qwRoomBasketShowDescription'?: any;
   }
   interface QwRoomDetail {
+    'onQwRoomDetailAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
+    'onQwRoomDetailProceed'?: (event: CustomEvent<void>) => void;
+    'qwRoomDetailAlertMessage'?: string;
     'qwRoomDetailId'?: string;
   }
   interface QwRoomDetailCard {
+    'onQwRoomDetailCardAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailCardAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'onQwRoomDetailCardProceed'?: (event: CustomEvent<void>) => void;
+    'qwRoomDetailCardAlertMessage'?: string;
     'qwRoomDetailCardBed'?: string;
     'qwRoomDetailCardGuests'?: string;
     'qwRoomDetailCardImage'?: string;
     'qwRoomDetailCardIsLoading'?: boolean;
+    'qwRoomDetailCardNumberOfAccommodation'?: number;
+    'qwRoomDetailCardNumberOfGuests'?: number;
     'qwRoomDetailCardNumberOfNights'?: number;
     'qwRoomDetailCardRates'?: Rate[];
     'qwRoomDetailCardRatesModel'?: {[rateId: string]: RateModel};

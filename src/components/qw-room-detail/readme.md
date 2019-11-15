@@ -7,16 +7,19 @@
 
 ## Properties
 
-| Property         | Attribute           | Description | Type     | Default     |
-| ---------------- | ------------------- | ----------- | -------- | ----------- |
-| `qwRoomDetailId` | `qw-room-detail-id` |             | `string` | `undefined` |
+| Property                   | Attribute                      | Description | Type     | Default     |
+| -------------------------- | ------------------------------ | ----------- | -------- | ----------- |
+| `qwRoomDetailAlertMessage` | `qw-room-detail-alert-message` |             | `string` | `undefined` |
+| `qwRoomDetailId`           | `qw-room-detail-id`            |             | `string` | `undefined` |
 
 
 ## Events
 
 | Event                            | Description | Type                                          |
 | -------------------------------- | ----------- | --------------------------------------------- |
+| `qwRoomDetailAddAnotherRoom`     |             | `CustomEvent<void>`                           |
 | `qwRoomDetailAddToBasketSuccess` |             | `CustomEvent<QwRoomDetailAddToBasketEmitter>` |
+| `qwRoomDetailProceed`            |             | `CustomEvent<void>`                           |
 
 
 ## Dependencies
