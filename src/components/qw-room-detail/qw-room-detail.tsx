@@ -114,6 +114,7 @@ export class QwRoomDetail {
           qwRoomDetailCardIsLoading={this.basketIsLoading}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
+          qwRoomDetailCardAlertMessage={this.qwRoomDetailAlertMessage}
           qwRoomDetailCardRates={this.room.rates || [this.basketRoomRate] || []}/>}
       </Host>
     );
