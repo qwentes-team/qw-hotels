@@ -84,9 +84,9 @@ export class QwRoomBasket {
             return currentRoom && <qw-room-list-card
               class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
               qwRoomListCardId={basketRoom.roomId}
-              qwRoomListCardTitle={currentRoom.name}
+              qwRoomListCardTitle={basketRoom.name}
               qwRoomListCardSquareMeter={currentRoom.surfaceArea.text}
-              qwRoomListCardGuests={RoomHelper.getDefaultOccupancy(currentRoom).definition.text}
+              qwRoomListCardGuests={basketRoom.defaultOccupancy.definition.text}
               qwRoomListCardImage={RoomHelper.getCoverImage(currentRoom).url}
               qwRoomListCardIsLoadingBasket={this.basketIsLoading}
               qwRoomListCardShowDescription={false}

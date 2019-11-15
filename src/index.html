@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Qw Hotels</title>
-
+  
   <script>
     // todo trovare un modo per fare un env
     window.QW_HOTEL_ENV = {
       ENDPOINT: 'http://hotel-gabriel.matteo.qwentes.lan/hub-api',
     };
-
+    
     document.addEventListener('qwRoomBasketBackToRoomList', (e) => {
       console.log(e);
     });
@@ -30,17 +30,15 @@
 </head>
 <body>
 <qw-basket-room-counter></qw-basket-room-counter>
-<!--  <qw-room-basket>-->
-<!--    <div slot="qwRoomBasketLoading">loading</div>-->
-<!--  </qw-room-basket>-->
+  <qw-room-basket></qw-room-basket>
 <!--<qw-room-base-info qw-room-base-info-room-id="98868"></qw-room-base-info>-->
-  <qw-basket
-    qw-basket-show-empty-button="true"
-    qw-basket-show-book-now-button="true"></qw-basket>
+<!--<qw-basket-->
+<!--  qw-basket-show-empty-button="true"-->
+<!--  qw-basket-show-book-now-button="true"></qw-basket>-->
 <qw-basket-summary></qw-basket-summary>
-  <qw-room-detail qw-room-detail-id="97815">
-    <div slot="qwRoomDetailLoading">loading</div>
-  </qw-room-detail>
+<qw-room-detail qw-room-detail-id="97816">
+  <div slot="qwRoomDetailLoading">loading</div>
+</qw-room-detail>
 <!--  <qw-room-list>-->
 <!--    <div slot="qwRoomListLoading">loading</div>-->
 <!--  </qw-room-list>-->

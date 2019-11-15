@@ -124,7 +124,7 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
             <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
             {this.qwRoomListCardPrice
-              ? <QwButton QwButtonLabel="View rates" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
+              ? <QwButton QwButtonLabel="View all rates" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
               : <QwButton QwButtonLabel="Change dates" QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
           </div>}
