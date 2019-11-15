@@ -48,7 +48,7 @@ export class QwBasket {
   }
 
   private isTotalPriceZero() {
-    return this.totalPrice && this.totalPrice.value.amount === 0
+    return !this.totalPrice || this.totalPrice.value.amount === 0
   }
 
   private isAccommodationSatisfy() {
