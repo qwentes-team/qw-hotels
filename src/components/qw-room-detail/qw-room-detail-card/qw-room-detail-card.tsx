@@ -61,7 +61,6 @@ export class QwRoomDetailCard {
   }
 
   render() {
-    console.log(this.qwRoomDetailCardNumberOfAccommodation);
     return (
       <Host>
         <qw-card>
@@ -87,7 +86,7 @@ export class QwRoomDetailCard {
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
                   qwRoomRateName={this.getRateName(rate.rateId)}/>;
               })}
-              <div>{this.qwRoomDetailCardNumberOfAccommodation
+              <div class="qw-room-detail-card__alert">{this.qwRoomDetailCardNumberOfAccommodation
                 ? this.showAlertForAccommodation()
                   ? <div class="qw-room-detail-card__alert-message">
                     <QwButton QwButtonLabel="Add another room" QwButtonOnClick={() => this.qwRoomDetailCardAddAnotherRoom.emit()}/>
