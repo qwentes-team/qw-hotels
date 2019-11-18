@@ -28,7 +28,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@qwentes/booking-state-manager": "0.0.9",
+    "@qwentes/booking-state-manager": "0.0.10",
     "flatpickr": "^4.6.3",
     "rxjs": "^6.5.3"
   }

@@ -12,7 +12,9 @@
 | `qwRoomRateIsDisabled` | `qw-room-rate-is-disabled` |             | `boolean` | `undefined` |
 | `qwRoomRateIsLoading`  | `qw-room-rate-is-loading`  |             | `boolean` | `undefined` |
 | `qwRoomRateName`       | `qw-room-rate-name`        |             | `string`  | `undefined` |
+| `qwRoomRateQualifier`  | `qw-room-rate-qualifier`   |             | `string`  | `undefined` |
 | `qwRoomRateRate`       | --                         |             | `Rate`    | `undefined` |
+| `qwRoomRateSummary`    | `qw-room-rate-summary`     |             | `string`  | `undefined` |
 
 
 ## Events

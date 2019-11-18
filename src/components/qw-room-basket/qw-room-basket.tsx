@@ -1,12 +1,11 @@
 import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
 import {QwChangeRoomEvent} from '../../index';
 import {
-  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
-  RateHelper, RoomBasketOccupancy, RoomHelper, RoomLoaded$, RoomModel, RoomService,
+  BasketHelper, BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
+  RateHelper, RoomBasketOccupancy, RoomModel,
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {zip} from 'rxjs';
 import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
@@ -27,21 +26,11 @@ export class QwRoomBasket {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap((session) => {
       this.nights = SessionHelper.getNumberOfNights(session);
-
-      if (Object.keys(this.rooms).length) {
-        return BasketService.getBasket(session);
-      }
-
-      return zip(BasketService.getBasket(session), RoomService.getRooms(session.sessionId));
+      return BasketService.getBasket(session);
     })).subscribe();
 
     BasketWithPrice$.subscribe(basket => this.basket = basket);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
-    RoomLoaded$.subscribe(res => this.rooms = res.reduce((acc, r) => ({...acc, [r.roomId]: r}), {}));
-  }
-
-  private dataAreLoaded() {
-    return this.basket && Object.keys(this.rooms).length;
   }
 
   setRoomInBasket = (e: QwChangeRoomEvent) => {
@@ -63,37 +52,36 @@ export class QwRoomBasket {
 
   render() {
     return (
-      <Host class={`${!this.dataAreLoaded() ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
-        <div style={this.dataAreLoaded() && { 'display': 'none' }}>
+      <Host class={`${!this.basket ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
+        <div style={this.basket && { 'display': 'none' }}>
           <slot name="qwRoomBasketLoading"/>
         </div>
-        {this.dataAreLoaded() ?
-        !this.basket.rooms.length
-          ? <div class="qw-room-basket__no-rooms">
-            {this.qwRoomBasketBackToRoomListMessage || 'Your cart is empty.'}
-            <QwButton QwButtonLabel="Back to room list" QwButtonOnClick={() => this.backToRoomList()}/>
-            </div>
-          : this.basket.rooms.map(basketRoom => {
-            const currentRoom = this.rooms[basketRoom.roomId]; // todo vedere se si può togliere avendo le immagini
-            return currentRoom && <qw-room-list-card
-              class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
-              qwRoomListCardId={basketRoom.roomId}
-              qwRoomListCardTitle={basketRoom.name}
-              qwRoomListCardSquareMeter={basketRoom.surfaceArea.text}
-              qwRoomListCardGuests={basketRoom.defaultOccupancy.definition.text}
-              qwRoomListCardImage={RoomHelper.getCoverImage(currentRoom).url}
-              qwRoomListCardIsLoadingBasket={this.basketIsLoading}
-              qwRoomListCardShowDescription={false}
-              qwRoomListCardNights={this.nights}
-              qwRoomListCardShowPrices={false}
-              qwRoomListCardShowPrice={false}
-              qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[0])}
-              qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[0].taxes, basketRoom.occupancies[0].selectedQuantity)}
-              qwRoomListCardShowCta={false}
-              qwRoomListCardShowPriceAndTaxes={true}
-              qwRoomListCardBasketRoom={basketRoom}
-              qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}/>
-        }) : undefined}
+        {this.basket ?
+          !this.basket.rooms.length
+            ? <div class="qw-room-basket__no-rooms">
+              {this.qwRoomBasketBackToRoomListMessage || 'Your cart is empty.'}
+              <QwButton QwButtonLabel="Back to room list" QwButtonOnClick={() => this.backToRoomList()}/>
+              </div>
+            : this.basket.rooms.map(basketRoom => {
+              return <qw-room-list-card
+                class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
+                qwRoomListCardId={basketRoom.roomId}
+                qwRoomListCardTitle={basketRoom.name}
+                qwRoomListCardSquareMeter={basketRoom.surfaceArea.text}
+                qwRoomListCardGuests={basketRoom.defaultOccupancy.definition.text}
+                qwRoomListCardImage={BasketHelper.getRoomCoverImage(basketRoom).url}
+                qwRoomListCardIsLoadingBasket={this.basketIsLoading}
+                qwRoomListCardShowDescription={false}
+                qwRoomListCardNights={this.nights}
+                qwRoomListCardShowPrices={false}
+                qwRoomListCardShowPrice={false}
+                qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[0])}
+                qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[0].taxes, basketRoom.occupancies[0].selectedQuantity)}
+                qwRoomListCardShowCta={false}
+                qwRoomListCardShowPriceAndTaxes={true}
+                qwRoomListCardBasketRoom={basketRoom}
+                qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}/>
+          }) : undefined}
       </Host>
     );
   }

@@ -11,6 +11,7 @@
 | --------------------------- | -------------------------------- | ----------- | --------- | ------- |
 | `qwBasketShowBookNowButton` | `qw-basket-show-book-now-button` |             | `boolean` | `false` |
 | `qwBasketShowEmptyButton`   | `qw-basket-show-empty-button`    |             | `boolean` | `false` |
+| `qwBasketShowTaxes`         | `qw-basket-show-taxes`           |             | `boolean` | `false` |
 
 
 ## Events
