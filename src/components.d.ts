@@ -152,7 +152,9 @@ export namespace Components {
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateName': string;
+    'qwRoomRateQualifier': string;
     'qwRoomRateRate': Rate;
+    'qwRoomRateSummary': string;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
@@ -452,7 +454,9 @@ declare namespace LocalJSX {
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateName'?: string;
+    'qwRoomRateQualifier'?: string;
     'qwRoomRateRate'?: Rate;
+    'qwRoomRateSummary'?: string;
   }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];

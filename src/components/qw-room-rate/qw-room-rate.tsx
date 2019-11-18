@@ -18,6 +18,8 @@ export class QwRoomRate {
   @Prop() qwRoomRateName: string;
   @Prop() qwRoomRateIsLoading: boolean;
   @Prop() qwRoomRateIsDisabled: boolean;
+  @Prop() qwRoomRateQualifier: string;
+  @Prop() qwRoomRateSummary: string;
   @State() quantity: number = 0;
   @State() showConditions: boolean;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
@@ -62,8 +64,10 @@ export class QwRoomRate {
               {this.showConditions ? '-' : '+'} Booking conditions
             </div>
             {this.showConditions && <div class="qw-room-rate__conditions-content">
-              City taxes not included.<br/>
-              {this.qwRoomRateRate.taxes.onSite.amount.text && RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
+              <li>City taxes not included.</li>
+              <li>{this.qwRoomRateRate.taxes.onSite.amount.text && RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}</li>
+              <li>{this.qwRoomRateQualifier}</li>
+              {this.qwRoomRateSummary && <li>{this.qwRoomRateSummary}</li>}
             </div>}
           </div>
       </Host>
