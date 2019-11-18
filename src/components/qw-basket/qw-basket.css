@@ -5,7 +5,7 @@ qw-basket {
 
 .qw-basket__price {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .qw-basket__price qw-loading {

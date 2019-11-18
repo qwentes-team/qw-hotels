@@ -14,7 +14,9 @@ import {switchMap} from 'rxjs/operators';
 export class QwBasket {
   @Prop() qwBasketShowEmptyButton: boolean = false;
   @Prop() qwBasketShowBookNowButton: boolean = false;
+  @Prop() qwBasketShowTaxes: boolean = false;
   @State() totalPrice: MoneyPrice;
+  @State() taxesMessage: string;
   @State() isLoading: boolean;
   @State() numberOfGuests: number;
   @State() numberOfAccommodation: number;
@@ -30,6 +32,7 @@ export class QwBasket {
 
     BasketWithPrice$.subscribe(basket => {
       this.totalPrice = BasketHelper.getTotalOriginalPrice(basket);
+      this.taxesMessage = BasketHelper.getTaxesFormatted(basket);
       this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
     });
     BasketIsLoading$.subscribe(isLoading => this.isLoading = isLoading);
@@ -59,6 +62,9 @@ export class QwBasket {
     return (
       <Host>
         {!this.isTotalPriceZero() && <div class="qw-basket__price" onClick={() => this.clickPrice()}>
+          {this.qwBasketShowTaxes && <div class={`qw-basket__tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
+            {this.taxesMessage}
+          </div>}
           <div class={`qw-basket__price-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
             {this.totalPrice && this.totalPrice.text}
           </div>
