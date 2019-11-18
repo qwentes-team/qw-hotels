@@ -1,7 +1,7 @@
 import {Component, Host, h, State} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
-  RateHelper, RateModel, RateService, RoomBasketOccupancy,
+  RateHelper, RoomBasketOccupancy,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
@@ -17,18 +17,12 @@ import {QwButton} from '../shared/qw-button/qw-button';
 export class QwBasketSummary {
   @State() basket: BasketModel;
   @State() session: SessionModel;
-  @State() rates: {[rateId: string]: RateModel} = {};
   @State() basketIsLoading: boolean;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap((session) => {
       this.session = session;
-
-      if (!Object.keys(this.rates).length) {
-        this.getRates(session.sessionId);
-      }
-
       return BasketService.getBasket(session);
     })).subscribe();
 
@@ -36,18 +30,8 @@ export class QwBasketSummary {
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
   }
 
-  private getRates(sessionId: SessionModel['sessionId']) {
-    RateService.getRates(sessionId).subscribe(res => {
-      this.rates = res.reduce((acc, r) => ({...acc, [r.rateId]: r}), {});
-    });
-  }
-
   private getTotalPrice(basketRoomOccupancy: RoomBasketOccupancy) {
     return RateHelper.multiplyMoney(basketRoomOccupancy.price.converted, basketRoomOccupancy.selectedQuantity)
-  }
-
-  private getTotalTaxes(basketRoomOccupancy: RoomBasketOccupancy) {
-    return RateHelper.multiplyMoney(basketRoomOccupancy.taxes.excluded.amount, basketRoomOccupancy.selectedQuantity)
   }
 
   setRoomInBasket = (e: QwChangeRoomEvent) => {
@@ -58,11 +42,6 @@ export class QwBasketSummary {
       quantity: parseInt(e.quantity),
     }).subscribe();
   };
-
-  public getRateName(rateId) {
-    const rateIdPart = RateHelper.getIdPartOfRateId(rateId);
-    return this.rates[rateIdPart] && this.rates[rateIdPart].name;
-  }
 
   render() {
     return (
@@ -86,7 +65,7 @@ export class QwBasketSummary {
                   <div class="qw-basket-summary__room-title">{basketRoom.name}</div>
                   <div class="qw-basket-summary__room-guests">{basketRoom.type}</div>
                 </div>
-                <div class="qw-basket-summary__room-rate">{this.getRateName(basketRoom.occupancies[0].rateId)}</div>
+                <div class="qw-basket-summary__room-rate">{basketRoom.occupancies[0].rateInformation.name}</div>
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
                 <div class="qw-basket-summary__room-quantity">{
                   <QwSelect
@@ -107,9 +86,9 @@ export class QwBasketSummary {
                 }</div>
                 <div class="qw-basket-summary__room-price">
                   {this.getTotalPrice(basketRoom.occupancies[0])}
-                  {!!basketRoom.occupancies[0].taxes.excluded.details.length && <div class="qw-basket-summary__room-taxes">
-                    {this.getTotalTaxes(basketRoom.occupancies[0])} ({basketRoom.occupancies[0].taxes.excluded.details[0].name})
-                  </div>}
+                  <div class="qw-basket-summary__room-taxes">
+                    {RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[0].taxes, basketRoom.occupancies[0].selectedQuantity)}
+                  </div>
                 </div>
                 <div class="qw-basket-summary__room-delete">
                   <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom})}/>

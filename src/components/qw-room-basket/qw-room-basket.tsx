@@ -61,12 +61,6 @@ export class QwRoomBasket {
     return RateHelper.multiplyMoney(basketRoomOccupancy.price.converted, basketRoomOccupancy.selectedQuantity)
   }
 
-  private getTaxes(basketRoomOccupancy: RoomBasketOccupancy) {
-    const tax = RateHelper.multiplyMoney(basketRoomOccupancy.taxes.excluded.amount, basketRoomOccupancy.selectedQuantity);
-    const vat = basketRoomOccupancy.taxes.excluded.details[0].name;
-    return `${tax} (${vat})`;
-  }
-
   render() {
     return (
       <Host class={`${!this.dataAreLoaded() ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
@@ -94,7 +88,7 @@ export class QwRoomBasket {
               qwRoomListCardShowPrices={false}
               qwRoomListCardShowPrice={false}
               qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[0])}
-              qwRoomListCardTaxes={this.getTaxes(basketRoom.occupancies[0])}
+              qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[0].taxes, basketRoom.occupancies[0].selectedQuantity)}
               qwRoomListCardShowCta={false}
               qwRoomListCardShowPriceAndTaxes={true}
               qwRoomListCardBasketRoom={basketRoom}
