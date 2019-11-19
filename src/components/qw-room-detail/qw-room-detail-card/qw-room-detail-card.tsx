@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
-import {Rate, RateHelper, RateModel, RoomModel, RoomSummaryType} from '@qwentes/booking-state-manager';
+import {Rate, RoomModel, RoomSummaryType} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
@@ -19,7 +19,6 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardBed: string;
   @Prop() qwRoomDetailCardNumberOfNights: number;
   @Prop() qwRoomDetailCardIsLoading: boolean;
-  @Prop() qwRoomDetailCardRatesModel: {[rateId: string]: RateModel} = {};
   @Prop() qwRoomDetailCardNumberOfGuests: number;
   @Prop() qwRoomDetailCardNumberOfAccommodation: number;
   @Prop() qwRoomDetailCardAlertMessage: string;
@@ -38,20 +37,8 @@ export class QwRoomDetailCard {
     this.qwRoomDetailCardActiveRate = e.detail.quantity && e.detail.rateId;
   }
 
-  public getRateName(rateId: Rate['rateId']) {
-    const rateIdPart = RateHelper.getIdPartOfRateId(rateId);
-    return this.qwRoomDetailCardRatesModel[rateIdPart] && this.qwRoomDetailCardRatesModel[rateIdPart].name;
-  }
-
-  public getRateQualifier(rateId: Rate['rateId']) {
-    const rateIdPart = RateHelper.getIdPartOfRateId(rateId);
-    return this.qwRoomDetailCardRatesModel[rateIdPart] && this.qwRoomDetailCardRatesModel[rateIdPart].information.qualifier.text;
-  }
-
-  public getRateSummary(rateId: Rate['rateId']) {
-    const rateIdPart = RateHelper.getIdPartOfRateId(rateId);
-    const summaries = this.qwRoomDetailCardRatesModel[rateIdPart] && this.qwRoomDetailCardRatesModel[rateIdPart].information.summary;
-    const summary = summaries.find(summary => summary.value === RoomSummaryType.PlainText);
+  public getRateSummary(rate: Rate) {
+    const summary = rate.description.summary.find(summary => summary.value === RoomSummaryType.PlainText);
     return summary && summary.text;
   }
 
@@ -96,9 +83,9 @@ export class QwRoomDetailCard {
                   qwRoomRateRate={rate}
                   qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
-                  qwRoomRateName={this.getRateName(rate.rateId)}
-                  qwRoomRateQualifier={this.getRateQualifier(rate.rateId)}
-                  qwRoomRateSummary={this.getRateSummary(rate.rateId)}/>;
+                  qwRoomRateName={rate.description.name}
+                  qwRoomRateQualifier={rate.description.qualifier.text}
+                  qwRoomRateSummary={this.getRateSummary(rate)}/>;
               })}
               <div class="qw-room-detail-card__alert">{this.qwRoomDetailCardNumberOfAccommodation
                 ? this.showAlertForAccommodation()

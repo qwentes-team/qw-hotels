@@ -10,7 +10,6 @@ import {
   MoneyPrice,
   PricesForStayPeriod,
   Rate,
-  RateModel,
   RoomBasketModel,
   RoomModel,
   SessionGuests,
@@ -66,6 +65,7 @@ export namespace Components {
     'qwCounterValue': number;
   }
   interface QwError {}
+  interface QwExtra {}
   interface QwGuest {
     'qwGuestCenter': boolean;
     'qwGuestSyncOnChange': boolean;
@@ -107,7 +107,6 @@ export namespace Components {
     'qwRoomDetailCardNumberOfGuests': number;
     'qwRoomDetailCardNumberOfNights': number;
     'qwRoomDetailCardRates': Rate[];
-    'qwRoomDetailCardRatesModel': {[rateId: string]: RateModel};
     'qwRoomDetailCardRoomId': RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
@@ -222,6 +221,12 @@ declare global {
     new (): HTMLQwErrorElement;
   };
 
+  interface HTMLQwExtraElement extends Components.QwExtra, HTMLStencilElement {}
+  var HTMLQwExtraElement: {
+    prototype: HTMLQwExtraElement;
+    new (): HTMLQwExtraElement;
+  };
+
   interface HTMLQwGuestElement extends Components.QwGuest, HTMLStencilElement {}
   var HTMLQwGuestElement: {
     prototype: HTMLQwGuestElement;
@@ -303,6 +308,7 @@ declare global {
     'qw-card': HTMLQwCardElement;
     'qw-counter': HTMLQwCounterElement;
     'qw-error': HTMLQwErrorElement;
+    'qw-extra': HTMLQwExtraElement;
     'qw-guest': HTMLQwGuestElement;
     'qw-input': HTMLQwInputElement;
     'qw-loading': HTMLQwLoadingElement;
@@ -358,6 +364,7 @@ declare namespace LocalJSX {
     'qwCounterValue'?: number;
   }
   interface QwError {}
+  interface QwExtra {}
   interface QwGuest {
     'onQwGuestChange'?: (event: CustomEvent<SessionGuests>) => void;
     'qwGuestCenter'?: boolean;
@@ -407,7 +414,6 @@ declare namespace LocalJSX {
     'qwRoomDetailCardNumberOfGuests'?: number;
     'qwRoomDetailCardNumberOfNights'?: number;
     'qwRoomDetailCardRates'?: Rate[];
-    'qwRoomDetailCardRatesModel'?: {[rateId: string]: RateModel};
     'qwRoomDetailCardRoomId'?: RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
@@ -477,6 +483,7 @@ declare namespace LocalJSX {
     'qw-card': QwCard;
     'qw-counter': QwCounter;
     'qw-error': QwError;
+    'qw-extra': QwExtra;
     'qw-guest': QwGuest;
     'qw-input': QwInput;
     'qw-loading': QwLoading;
@@ -507,6 +514,7 @@ declare module "@stencil/core" {
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
       'qw-counter': LocalJSX.QwCounter & JSXBase.HTMLAttributes<HTMLQwCounterElement>;
       'qw-error': LocalJSX.QwError & JSXBase.HTMLAttributes<HTMLQwErrorElement>;
+      'qw-extra': LocalJSX.QwExtra & JSXBase.HTMLAttributes<HTMLQwExtraElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;

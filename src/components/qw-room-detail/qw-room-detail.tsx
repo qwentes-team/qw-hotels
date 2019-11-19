@@ -1,8 +1,8 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
   BasketHelper, BasketService, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
-  RateModel, RateService, RoomBasketModel, RoomHelper, RoomLoaded$, RoomModel, RoomService,
-  SessionHelper, SessionLoaded$, SessionModel, SessionService,
+  RoomBasketModel, RoomHelper, RoomLoaded$, RoomModel, RoomService,
+  SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
@@ -23,7 +23,6 @@ export class QwRoomDetail {
   @State() room: RoomModel;
   @State() basketRoomRate: Rate;
   @State() numberOfNights: number;
-  @State() rates: {[rateId: string]: RateModel} = {};
   @State() basketIsLoading: boolean;
   @State() numberOfGuests: number;
   @State() numberOfAccommodation: number;
@@ -36,10 +35,6 @@ export class QwRoomDetail {
     SessionLoaded$.pipe(
       switchMap(session => {
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
-        if (!Object.keys(this.rates).length) {
-          this.getRates(session.sessionId);
-        }
-
         this.numberOfNights = SessionHelper.getNumberOfNights(session);
         return RoomService.getRooms(session.sessionId);
       }),
@@ -56,13 +51,6 @@ export class QwRoomDetail {
         const basketRoom = this.getBasketRoom(basket.rooms);
         this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[0]);
       });
-  }
-
-  // todo ottimizzare getRates
-  private getRates(sessionId: SessionModel['sessionId']) {
-    RateService.getRates(sessionId).subscribe(res => {
-      this.rates = res.reduce((acc, r) => ({...acc, [r.rateId]: r}), {});
-    });
   }
 
   private getBasketRoom(rooms: RoomBasketModel[]) {
@@ -109,7 +97,6 @@ export class QwRoomDetail {
           qwRoomDetailCardSquareMeter={this.room.surfaceArea.text}
           qwRoomDetailCardGuests={RoomHelper.getDefaultOccupancy(this.room).definition.text}
           qwRoomDetailCardBed={this.room.bedding.beds[0].type.text}
-          qwRoomDetailCardRatesModel={this.rates}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
           qwRoomDetailCardIsLoading={this.basketIsLoading}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
