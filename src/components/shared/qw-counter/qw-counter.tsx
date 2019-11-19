@@ -7,7 +7,7 @@ enum QwCounterAction {
 }
 
 export interface QwCounterEmitter {
-  name: string,
+  name: string | number,
   value: number,
 }
 
@@ -17,7 +17,7 @@ export interface QwCounterEmitter {
   shadow: false
 })
 export class QwCounter {
-  @Prop() qwCounterName: string;
+  @Prop() qwCounterName: string | number;
   @Prop() qwCounterValue: number = 0;
   @Prop() qwCounterMaxValue: number;
   @Event() qwCounterChangeValue: EventEmitter<QwCounterEmitter>;

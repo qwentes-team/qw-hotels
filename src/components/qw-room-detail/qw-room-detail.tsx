@@ -84,6 +84,7 @@ export class QwRoomDetail {
   public proceed() {
     this.qwRoomDetailProceed.emit();
   }
+
   render() {
     return (
       <Host class={`${!this.room ? 'qw-room-detail--loading' : 'qw-room-detail--loaded'}`}>

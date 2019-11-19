@@ -1,3 +1,22 @@
 qw-extra {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+qw-extra .qw-extra__card-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+qw-extra qw-extra-card {
+  width: 32%;
+  margin-right: 1%;
+}
+
+qw-extra .qw-button {
+  width: 30%;
 }
