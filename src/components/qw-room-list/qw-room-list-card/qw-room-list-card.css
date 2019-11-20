@@ -87,6 +87,9 @@ qw-room-list-card .qw-room-list-card__prices-with-taxes {
   justify-content: space-between;
   align-items: center;
 }
+qw-room-list-card .qw-room-list-card__basket-actions-counter-label {
+  font-size: 70%;
+}
 qw-room-list-card .qw-room-list-card__room-taxes {
   font-size: var(--qw-hotel-small-font-size);
 }

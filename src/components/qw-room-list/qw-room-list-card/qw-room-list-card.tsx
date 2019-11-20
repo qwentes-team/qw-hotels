@@ -1,20 +1,14 @@
-import {Component, Host, h, Prop} from '@stencil/core';
+import {Component, Host, h, Prop, Listen} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {
-  MoneyPrice,
-  Rate,
-  RoomBasketModel,
-  RoomDefaultLabel,
-  RoomModel,
-} from '@qwentes/booking-state-manager';
+import {MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
 import {QwChangeRoomEvent} from '../../../index';
-import {QwSelect} from '../../shared/qw-select/qw-select';
+import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 
 @Component({
   tag: 'qw-room-list-card',
   styleUrl: 'qw-room-list-card.css',
-  shadow: false
+  shadow: false,
 })
 export class QwRoomListCard {
   @Prop() qwRoomListCardId: RoomModel['roomId'];
@@ -48,7 +42,12 @@ export class QwRoomListCard {
 
   private getMessageError() {
     // todo differenziare i due errori
-    return 'This room is not available fot the dates selected, or the rate is not available with the one in your basket.'
+    return 'This room is not available fot the dates selected, or the rate is not available with the one in your basket.';
+  }
+
+  @Listen('qwCounterChangeValue')
+  public counterChanged(event: CustomEvent<QwCounterEmitter>) {
+    this.qwRoomListCardOnChangeRoom({quantity: event.detail.value.toString(), room: this.qwRoomListCardBasketRoom});
   }
 
   render() {
@@ -99,22 +98,14 @@ export class QwRoomListCard {
           </div>}
 
           {this.qwRoomListCardBasketRoom && <div class="qw-room-list-card__basket-actions">
-            <QwSelect
-              QwSelectLabel="Room qty."
-              QwSelectDisabled={this.qwRoomListCardIsLoadingBasket}
-              QwSelectOnChange={(e) => this.qwRoomListCardOnChangeRoom({quantity: e.target.value, room: this.qwRoomListCardBasketRoom})}>
-              {Array.from(Array(this.qwRoomListCardBasketRoom.occupancies[0].availableQuantity).keys()).map(o => {
-                const value = o + 1;
-                return (
-                  <option
-                    value={value}
-                    // @ts-ignore
-                    selected={this.qwRoomListCardBasketRoom.occupancies[0].selectedQuantity === value ? 'selected' : ''}>
-                    {value}
-                  </option>
-                );
-              })}
-            </QwSelect>
+            <div class="qw-room-list-card__basket-actions-counter">
+              <div class="qw-room-list-card__basket-actions-counter-label">Room qty.</div>
+              <qw-counter
+                qwCounterValue={this.qwRoomListCardBasketRoom.occupancies[0].selectedQuantity}
+                qwCounterName={this.qwRoomListCardId}
+                qwCounterMaxValue={this.qwRoomListCardBasketRoom.occupancies[0].availableQuantity}
+              />
+            </div>
             <QwButton
               QwButtonLabel="Remove"
               QwButtonOnClick={() => this.qwRoomListCardOnChangeRoom({quantity: '0', room: this.qwRoomListCardBasketRoom})}
