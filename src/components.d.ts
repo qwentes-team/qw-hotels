@@ -75,6 +75,7 @@ export namespace Components {
     'qwExtraCardCover': RoomImageMetadata;
     'qwExtraCardId': number;
     'qwExtraCardName': string;
+    'qwExtraCardSelectedQuantity': number;
     'qwExtraCardUnitPrice': string;
   }
   interface QwGuest {
@@ -389,6 +390,7 @@ declare namespace LocalJSX {
     'qwExtraCardCover'?: RoomImageMetadata;
     'qwExtraCardId'?: number;
     'qwExtraCardName'?: string;
+    'qwExtraCardSelectedQuantity'?: number;
     'qwExtraCardUnitPrice'?: string;
   }
   interface QwGuest {

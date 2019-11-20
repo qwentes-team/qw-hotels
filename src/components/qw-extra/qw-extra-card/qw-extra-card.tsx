@@ -18,6 +18,7 @@ export class QwExtraCard {
   @Prop() qwExtraCardCover: RoomImageMetadata;
   @Prop() qwExtraCardUnitPrice: string;
   @Prop() qwExtraCardAvailability: number;
+  @Prop() qwExtraCardSelectedQuantity: number;
   @Event() qwExtraCounterChanged: EventEmitter<QwExtraEmitter>;
 
   @Listen('qwCounterChangeValue')
@@ -44,6 +45,7 @@ export class QwExtraCard {
             <div class="qw-extra-card__quantity-label">Quantity</div>
             <div class="qw-extra-card__quantity-content">
               <qw-counter
+                qwCounterValue={this.qwExtraCardSelectedQuantity}
                 qwCounterName={this.qwExtraCardId}
                 qwCounterMaxValue={this.qwExtraCardAvailability}/>
             </div>

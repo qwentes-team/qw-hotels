@@ -9,7 +9,7 @@ export const config: Config = {
         'RoomService', 'RoomHelper', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel', 'RoomSummaryType',
         'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
         'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'RateHelper', 'createRateFromRoomBasketOccupancy',
-        'ExtraService', 'ExtraLoaded$', 'ExtraHelper'
+        'ExtraService', 'ExtraLoaded$', 'ExtraHelper', 'ExtraIsLoading$',
       ]
     }
   },

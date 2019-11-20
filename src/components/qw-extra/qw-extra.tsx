@@ -1,13 +1,8 @@
 import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
-  BasketModel,
-  BasketService, BasketWithPrice$,
-  ExtraHelper,
-  ExtraLoaded$,
-  ExtraModel,
-  ExtraService,
-  SessionLoaded$,
-  SessionService,
+  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
+  ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraModel, ExtraService,
+  SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwExtraEmitter} from './qw-extra-card/qw-extra-card';
@@ -21,6 +16,8 @@ import {zip} from 'rxjs';
 export class QwExtra {
   @State() extra: ExtraModel[];
   @State() basket: BasketModel;
+  @State() basketIsLoading: boolean;
+  @State() extraIsLoading: boolean;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -29,11 +26,9 @@ export class QwExtra {
     ).subscribe();
 
     ExtraLoaded$.subscribe(extra => this.extra = extra);
-    BasketWithPrice$.subscribe(basket => {
-      this.basket = basket;
-      console.log(basket);
-    });
-    // todo fare loading
+    BasketWithPrice$.subscribe(basket => this.basket = basket);
+    BasketIsLoading$.subscribe(loading => this.basketIsLoading = loading);
+    ExtraIsLoading$.subscribe(loading => this.extraIsLoading = loading);
   }
 
   @Listen('qwExtraCounterChanged')
@@ -44,6 +39,14 @@ export class QwExtra {
     }).subscribe();
   }
 
+  private isInitData() {
+    return this.extra && !!this.extra.length && this.basket;
+  }
+
+  private isLoadingData() {
+    return this.basketIsLoading || this.extraIsLoading;
+  }
+
   render() {
     return (
       <Host>
@@ -51,22 +54,17 @@ export class QwExtra {
           <slot name="qwExtraLoading"/>
         </div>
         <div class="qw-extra__card-wrapper">
-          {this.extra && !!this.extra.length && this.extra.map(extra => {
+          {this.isInitData() && this.extra.map(extra => {
+            const basketExtra = this.basket.hotelExtras.find(basketEx => basketEx.extraId === extra.extraId);
             return <qw-extra-card
+              class={this.isLoadingData() ? 'qw-extra-card--disabled' : ''}
               qwExtraCardId={extra.extraId}
               qwExtraCardName={extra.name}
               qwExtraCardCover={ExtraHelper.getCoverImage(extra)}
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
-              qwExtraCardAvailability={extra.items.find(item => item.isDefault).quantity.value}/>
+              qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
+              qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value: 0}/>
           })}
-          <qw-extra-card
-            qwExtraCardId={12345}
-            qwExtraCardName="Champagne"
-            qwExtraCardCover={{
-              name: 'test',
-              url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/champagner-royalty-free-image-910994628-1545247117.jpg?crop=1xw:0.75019xh;center,top&resize=480:*'
-            }}
-            qwExtraCardUnitPrice="30 $"/>
         </div>
       </Host>
     );
