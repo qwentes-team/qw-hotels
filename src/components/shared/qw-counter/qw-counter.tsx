@@ -20,6 +20,7 @@ export class QwCounter {
   @Prop() qwCounterName: string | number;
   @Prop() qwCounterValue: number = 0;
   @Prop() qwCounterMaxValue: number;
+  @Prop() qwCounterDisabled: boolean;
   @Event() qwCounterChangeValue: EventEmitter<QwCounterEmitter>;
 
   private click(action: QwCounterAction) {
@@ -29,7 +30,7 @@ export class QwCounter {
 
   render() {
     return (
-      <Host>
+      <Host class={this.qwCounterDisabled ? 'qw-counter--disabled' : ''}>
         <QwButton
           QwButtonDisabled={this.qwCounterValue === 0}
           QwButtonLabel={QwCounterAction.Minus}

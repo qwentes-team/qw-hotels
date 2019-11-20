@@ -1,13 +1,13 @@
-import {Component, Host, h, State} from '@stencil/core';
+import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
   RateHelper, RoomBasketOccupancy,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwSelect} from '../shared/qw-select/qw-select';
 import {QwChangeRoomEvent} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
+import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 
 @Component({
   tag: 'qw-basket-summary',
@@ -43,6 +43,12 @@ export class QwBasketSummary {
     }).subscribe();
   };
 
+  @Listen('qwCounterChangeValue')
+  public counterChanged(event: CustomEvent<QwCounterEmitter>) {
+    const basketRoom = this.basket.rooms.find(r => r.roomId === event.detail.name);
+    this.setRoomInBasket({quantity: event.detail.value.toString(), room: basketRoom});
+  }
+
   render() {
     return (
       <Host>
@@ -67,23 +73,13 @@ export class QwBasketSummary {
                 </div>
                 <div class="qw-basket-summary__room-rate">{basketRoom.occupancies[0].rateInformation.name}</div>
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
-                <div class="qw-basket-summary__room-quantity">{
-                  <QwSelect
-                    QwSelectDisabled={this.basketIsLoading}
-                    QwSelectOnChange={(e) => this.setRoomInBasket({quantity: e.target.value, room: basketRoom})}>
-                    {Array.from(Array(basketRoom.occupancies[0].availableQuantity).keys()).map(o => {
-                      const value = o + 1;
-                      return (
-                        <option
-                          value={value}
-                          // @ts-ignore
-                          selected={basketRoom.occupancies[0].selectedQuantity === value ? 'selected' : ''}>
-                          {value}
-                        </option>
-                      );
-                    })}
-                  </QwSelect>
-                }</div>
+                <div class="qw-basket-summary__room-quantity">
+                  <qw-counter
+                    qwCounterDisabled={this.basketIsLoading}
+                    qwCounterValue={basketRoom.occupancies[0].selectedQuantity}
+                    qwCounterName={basketRoom.roomId}
+                    qwCounterMaxValue={basketRoom.occupancies[0].availableQuantity}/>
+                </div>
                 <div class="qw-basket-summary__room-price">
                   {this.getTotalPrice(basketRoom.occupancies[0])}
                   <div class="qw-basket-summary__room-taxes">

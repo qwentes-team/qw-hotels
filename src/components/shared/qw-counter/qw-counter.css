@@ -5,6 +5,11 @@ qw-counter {
   align-items: center;
 }
 
+qw-counter.qw-counter--disabled {
+  opacity: var(--qw-hotel-opacity);
+  pointer-events: none !important;
+}
+
 qw-counter .qw-counter__value {
   display: flex;
   justify-content: center;

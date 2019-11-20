@@ -64,6 +64,7 @@ export namespace Components {
   }
   interface QwCard {}
   interface QwCounter {
+    'qwCounterDisabled': boolean;
     'qwCounterMaxValue': number;
     'qwCounterName': string | number;
     'qwCounterValue': number;
@@ -386,6 +387,7 @@ declare namespace LocalJSX {
   interface QwCard {}
   interface QwCounter {
     'onQwCounterChangeValue'?: (event: CustomEvent<QwCounterEmitter>) => void;
+    'qwCounterDisabled'?: boolean;
     'qwCounterMaxValue'?: number;
     'qwCounterName'?: string | number;
     'qwCounterValue'?: number;
