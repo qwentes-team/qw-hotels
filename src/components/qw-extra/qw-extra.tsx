@@ -49,7 +49,7 @@ export class QwExtra {
 
   render() {
     return (
-      <Host>
+      <Host class={`${!this.extra ? 'qw-extra--loading' : 'qw-extra--loaded'}`}>
         <div style={this.extra && {'display': 'none'}}>
           <slot name="qwExtraLoading"/>
         </div>

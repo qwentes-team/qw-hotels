@@ -38,7 +38,7 @@ export class QwExtraBasket {
 
   render() {
     return (
-      <Host>
+      <Host class={`${!this.basket ? 'qw-extra-basket--loading' : 'qw-extra-basket--loaded'}`}>
         {this.basket && this.basket.hotelExtras.map(basketExtra => {
           const price = basketExtra.price.converted.text
             ? RateHelper.multiplyMoney(basketExtra.price.converted, basketExtra.selectedQuantity.value)
