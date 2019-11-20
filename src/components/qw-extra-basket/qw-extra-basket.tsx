@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen} from '@stencil/core';
+import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel,
   BasketService,
@@ -12,9 +12,10 @@ import {QwExtraEmitter} from '../qw-extra/qw-extra-card/qw-extra-card';
 @Component({
   tag: 'qw-extra-basket',
   styleUrl: 'qw-extra-basket.css',
-  shadow: false
+  shadow: false,
 })
 export class QwExtraBasket {
+  @Prop() qwExtraNoExtraMessage: string;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
 
@@ -32,26 +33,29 @@ export class QwExtraBasket {
   public extraChanged(e: CustomEvent<QwExtraEmitter>) {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
-      extraId: e.detail.extraId
+      extraId: e.detail.extraId,
     }).subscribe();
   }
 
   render() {
     return (
       <Host class={`${!this.basket ? 'qw-extra-basket--loading' : 'qw-extra-basket--loaded'}`}>
-        {this.basket && this.basket.hotelExtras.map(basketExtra => {
-          const price = basketExtra.price.converted.text
-            ? RateHelper.multiplyMoney(basketExtra.price.converted, basketExtra.selectedQuantity.value)
-            : basketExtra.gratuitousnessType.text;
-          return <qw-extra-card
-            class={this.basketIsLoading ? 'qw-extra-card--disabled' : ''}
-            qwExtraCardId={basketExtra.extraId}
-            qwExtraCardName={basketExtra.name}
-            qwExtraCardCover={ExtraHelper.getCoverImage(basketExtra)}
-            qwExtraCardUnitPrice={price}
-            qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
-            qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>
-        })}
+        {this.basket ?
+          !this.basket.hotelExtras.length
+            ? <div class="qw-extra-basket__no-extra">{this.qwExtraNoExtraMessage || 'No extra in your basket.'}</div>
+            : this.basket.hotelExtras.map(basketExtra => {
+              const price = basketExtra.price.converted.text
+                ? RateHelper.multiplyMoney(basketExtra.price.converted, basketExtra.selectedQuantity.value)
+                : basketExtra.gratuitousnessType.text;
+              return <qw-extra-card
+                class={this.basketIsLoading ? 'qw-extra-card--disabled' : ''}
+                qwExtraCardId={basketExtra.extraId}
+                qwExtraCardName={basketExtra.name}
+                qwExtraCardCover={ExtraHelper.getCoverImage(basketExtra)}
+                qwExtraCardUnitPrice={price}
+                qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
+                qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
+            }) : undefined}
       </Host>
     );
   }

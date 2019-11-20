@@ -71,7 +71,9 @@ export namespace Components {
   }
   interface QwError {}
   interface QwExtra {}
-  interface QwExtraBasket {}
+  interface QwExtraBasket {
+    'qwExtraNoExtraMessage': string;
+  }
   interface QwExtraCard {
     'qwExtraCardAvailability': number;
     'qwExtraCardCover': RoomImageMetadata;
@@ -394,7 +396,9 @@ declare namespace LocalJSX {
   }
   interface QwError {}
   interface QwExtra {}
-  interface QwExtraBasket {}
+  interface QwExtraBasket {
+    'qwExtraNoExtraMessage'?: string;
+  }
   interface QwExtraCard {
     'onQwExtraCounterChanged'?: (event: CustomEvent<QwExtraEmitter>) => void;
     'qwExtraCardAvailability'?: number;
