@@ -5,16 +5,15 @@ qw-extra-basket {
 }
 
 qw-extra-basket qw-extra-card {
-  display: flex;
-  flex-direction: row;
+  display: grid;
   width: 100%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: var(--qw-hotel-gap-sm);
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 50% 50%;
 }
 
 qw-extra-basket qw-extra-card .qw-extra-card__image {
-  width: 30%;
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
   padding-right: var(--qw-hotel-gap-sm);
 }
 
