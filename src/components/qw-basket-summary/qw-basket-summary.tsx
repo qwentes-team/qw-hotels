@@ -5,9 +5,14 @@ import {
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwChangeRoomEvent} from '../../index';
+import {QwChangeExtraEvent, QwChangeRoomEvent} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
+
+enum QwCounterEventNameType {
+  RoomId = 'roomId',
+  ExtraId = 'extraId',
+}
 
 @Component({
   tag: 'qw-basket-summary',
@@ -43,10 +48,26 @@ export class QwBasketSummary {
     }).subscribe();
   };
 
+  setExtraInBasket = (e: QwChangeExtraEvent) => {
+    BasketService.setExtraInBasket({
+      extraId: e.extraId,
+      quantity: parseInt(e.quantity),
+    }).subscribe();
+  };
+
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
-    const basketRoom = this.basket.rooms.find(r => r.roomId === event.detail.name);
-    this.setRoomInBasket({quantity: event.detail.value.toString(), room: basketRoom});
+    const {name, value} = event.detail;
+    const nameSplitted = (name as string).split(':');
+    const type = nameSplitted[0];
+    const id = parseInt(nameSplitted[1]);
+
+    if (type === QwCounterEventNameType.RoomId) {
+      const basketRoom = this.basket.rooms.find(r => r.roomId === id);
+      this.setRoomInBasket({quantity: value.toString(), room: basketRoom});
+    } else {
+      this.setExtraInBasket({quantity: value.toString(), extraId: id});
+    }
   }
 
   render() {
@@ -77,7 +98,7 @@ export class QwBasketSummary {
                   <qw-counter
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={basketRoom.occupancies[0].selectedQuantity}
-                    qwCounterName={basketRoom.roomId}
+                    qwCounterName={`roomId:${basketRoom.roomId}`}
                     qwCounterMaxValue={basketRoom.occupancies[0].availableQuantity}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
@@ -91,8 +112,32 @@ export class QwBasketSummary {
                 </div>
               </div>
             );
-          })
-          }
+          })}
+          {this.basket && this.basket.hotelExtras.map(extra => {
+            return (
+              <div class="qw-basket-summary__room qw-basket-summary__extra">
+                <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
+                <div class="qw-basket-summary__room-name">
+                  <div class="qw-basket-summary__room-title">{extra.name}</div>
+                </div>
+                <div class="qw-basket-summary__room-rate"/>
+                <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
+                <div class="qw-basket-summary__room-quantity">
+                  <qw-counter
+                    qwCounterDisabled={this.basketIsLoading}
+                    qwCounterValue={extra.selectedQuantity.value}
+                    qwCounterName={`extraId:${extra.extraId}`}
+                    qwCounterMaxValue={extra.availableQuantity}/>
+                </div>
+                <div class="qw-basket-summary__room-price">
+                  {RateHelper.multiplyMoney(extra.price.converted, extra.selectedQuantity.value)}
+                </div>
+                <div class="qw-basket-summary__room-delete">
+                  <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId})}/>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Host>
     );

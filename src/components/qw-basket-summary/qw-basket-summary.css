@@ -15,6 +15,10 @@ qw-basket-summary .qw-basket-summary__room {
   align-items: center;
 }
 
+qw-basket-summary .qw-basket-summary__extra {
+  background: var(--qw-hotel-background);
+}
+
 qw-basket-summary .qw-basket-summary__room > div {
   width: 16%;
 }

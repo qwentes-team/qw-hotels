@@ -1,4 +1,4 @@
-import {RoomBasketModel} from '@qwentes/booking-state-manager';
+import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
 
 export * from './components';
 
@@ -23,3 +23,7 @@ export interface QwChangeRoomEvent {
   room: RoomBasketModel;
 }
 
+export interface QwChangeExtraEvent {
+  quantity: string;
+  extraId: ExtraModel['extraId'];
+}

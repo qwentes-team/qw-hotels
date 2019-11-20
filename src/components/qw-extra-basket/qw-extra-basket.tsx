@@ -47,7 +47,7 @@ export class QwExtraBasket {
             class={this.basketIsLoading ? 'qw-extra-card--disabled' : ''}
             qwExtraCardId={basketExtra.extraId}
             qwExtraCardName={basketExtra.name}
-            qwExtraCardCover={ExtraHelper.getCoverImage(basketExtra)} // todo aggiornare servizi
+            qwExtraCardCover={ExtraHelper.getCoverImage(basketExtra)}
             qwExtraCardUnitPrice={price}
             qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
             qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>
