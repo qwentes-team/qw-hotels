@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property            | Attribute              | Description | Type     | Default     |
-| ------------------- | ---------------------- | ----------- | -------- | ----------- |
-| `qwCounterMaxValue` | `qw-counter-max-value` |             | `number` | `undefined` |
-| `qwCounterName`     | `qw-counter-name`      |             | `string` | `undefined` |
-| `qwCounterValue`    | `qw-counter-value`     |             | `number` | `0`         |
+| Property            | Attribute              | Description | Type               | Default     |
+| ------------------- | ---------------------- | ----------- | ------------------ | ----------- |
+| `qwCounterDisabled` | `qw-counter-disabled`  |             | `boolean`          | `undefined` |
+| `qwCounterMaxValue` | `qw-counter-max-value` |             | `number`           | `undefined` |
+| `qwCounterName`     | `qw-counter-name`      |             | `number \| string` | `undefined` |
+| `qwCounterValue`    | `qw-counter-value`     |             | `number`           | `0`         |
 
 
 ## Events
@@ -25,13 +26,19 @@
 
 ### Used by
 
+ - [qw-basket-summary](../../qw-basket-summary)
+ - [qw-extra-card](../../qw-extra/qw-extra-card)
  - [qw-guest](../../qw-guest)
+ - [qw-room-list-card](../../qw-room-list/qw-room-list-card)
  - [qw-room-rate](../../qw-room-rate)
 
 ### Graph
 ```mermaid
 graph TD;
+  qw-basket-summary --> qw-counter
+  qw-extra-card --> qw-counter
   qw-guest --> qw-counter
+  qw-room-list-card --> qw-counter
   qw-room-rate --> qw-counter
   style qw-counter fill:#f9f,stroke:#333,stroke-width:4px
 ```

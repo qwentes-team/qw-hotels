@@ -1,4 +1,4 @@
-# qw-basket-summary
+# qw-extra-basket
 
 
 
@@ -9,13 +9,14 @@
 
 ### Depends on
 
-- [qw-counter](../shared/qw-counter)
+- [qw-extra-card](../qw-extra/qw-extra-card)
 
 ### Graph
 ```mermaid
 graph TD;
-  qw-basket-summary --> qw-counter
-  style qw-basket-summary fill:#f9f,stroke:#333,stroke-width:4px
+  qw-extra-basket --> qw-extra-card
+  qw-extra-card --> qw-counter
+  style qw-extra-basket fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

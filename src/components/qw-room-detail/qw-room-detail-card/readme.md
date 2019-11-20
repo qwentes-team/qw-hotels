@@ -7,21 +7,20 @@
 
 ## Properties
 
-| Property                                | Attribute                                     | Description | Type                               | Default     |
-| --------------------------------------- | --------------------------------------------- | ----------- | ---------------------------------- | ----------- |
-| `qwRoomDetailCardAlertMessage`          | `qw-room-detail-card-alert-message`           |             | `string`                           | `undefined` |
-| `qwRoomDetailCardBed`                   | `qw-room-detail-card-bed`                     |             | `string`                           | `undefined` |
-| `qwRoomDetailCardGuests`                | `qw-room-detail-card-guests`                  |             | `string`                           | `undefined` |
-| `qwRoomDetailCardImage`                 | `qw-room-detail-card-image`                   |             | `string`                           | `undefined` |
-| `qwRoomDetailCardIsLoading`             | `qw-room-detail-card-is-loading`              |             | `boolean`                          | `undefined` |
-| `qwRoomDetailCardNumberOfAccommodation` | `qw-room-detail-card-number-of-accommodation` |             | `number`                           | `undefined` |
-| `qwRoomDetailCardNumberOfGuests`        | `qw-room-detail-card-number-of-guests`        |             | `number`                           | `undefined` |
-| `qwRoomDetailCardNumberOfNights`        | `qw-room-detail-card-number-of-nights`        |             | `number`                           | `undefined` |
-| `qwRoomDetailCardRates`                 | --                                            |             | `Rate[]`                           | `undefined` |
-| `qwRoomDetailCardRatesModel`            | --                                            |             | `{ [rateId: string]: RateModel; }` | `{}`        |
-| `qwRoomDetailCardRoomId`                | `qw-room-detail-card-room-id`                 |             | `number`                           | `undefined` |
-| `qwRoomDetailCardSquareMeter`           | `qw-room-detail-card-square-meter`            |             | `string`                           | `undefined` |
-| `qwRoomDetailCardTitle`                 | `qw-room-detail-card-title`                   |             | `string`                           | `undefined` |
+| Property                                | Attribute                                     | Description | Type      | Default     |
+| --------------------------------------- | --------------------------------------------- | ----------- | --------- | ----------- |
+| `qwRoomDetailCardAlertMessage`          | `qw-room-detail-card-alert-message`           |             | `string`  | `undefined` |
+| `qwRoomDetailCardBed`                   | `qw-room-detail-card-bed`                     |             | `string`  | `undefined` |
+| `qwRoomDetailCardGuests`                | `qw-room-detail-card-guests`                  |             | `string`  | `undefined` |
+| `qwRoomDetailCardImage`                 | `qw-room-detail-card-image`                   |             | `string`  | `undefined` |
+| `qwRoomDetailCardIsLoading`             | `qw-room-detail-card-is-loading`              |             | `boolean` | `undefined` |
+| `qwRoomDetailCardNumberOfAccommodation` | `qw-room-detail-card-number-of-accommodation` |             | `number`  | `undefined` |
+| `qwRoomDetailCardNumberOfGuests`        | `qw-room-detail-card-number-of-guests`        |             | `number`  | `undefined` |
+| `qwRoomDetailCardNumberOfNights`        | `qw-room-detail-card-number-of-nights`        |             | `number`  | `undefined` |
+| `qwRoomDetailCardRates`                 | --                                            |             | `Rate[]`  | `undefined` |
+| `qwRoomDetailCardRoomId`                | `qw-room-detail-card-room-id`                 |             | `number`  | `undefined` |
+| `qwRoomDetailCardSquareMeter`           | `qw-room-detail-card-square-meter`            |             | `string`  | `undefined` |
+| `qwRoomDetailCardTitle`                 | `qw-room-detail-card-title`                   |             | `string`  | `undefined` |
 
 
 ## Events

@@ -130,7 +130,11 @@ export class QwBasketSummary {
                     qwCounterMaxValue={extra.availableQuantity}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
-                  {RateHelper.multiplyMoney(extra.price.converted, extra.selectedQuantity.value)}
+                  {
+                    extra.price.converted.text
+                      ? RateHelper.multiplyMoney(extra.price.converted, extra.selectedQuantity.value)
+                      : extra.gratuitousnessType.text
+                  }
                 </div>
                 <div class="qw-basket-summary__room-delete">
                   <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId})}/>

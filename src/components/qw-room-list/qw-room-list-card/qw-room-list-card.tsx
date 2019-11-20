@@ -74,14 +74,6 @@ export class QwRoomListCard {
             }
           </div>
 
-          {this.qwRoomListCardShowPriceAndTaxes && <div class="qw-room-list-card__prices-with-taxes">
-            <div class="qw-room-list-card__prices-with-taxes--caption">To pay:</div>
-            <div class="qw-room-list-card__prices-with-taxes--amount">
-              {this.qwRoomListCardPrice}
-              <div class="qw-room-list-card__room-taxes">{this.qwRoomListCardTaxes}</div>
-            </div>
-          </div>}
-
           {this.qwRoomListCardShowDescription && <div class="qw-room-list-card__descriptions">
             <p>{this.qwRoomListCardDescription}</p>
           </div>}
@@ -106,10 +98,13 @@ export class QwRoomListCard {
                 qwCounterMaxValue={this.qwRoomListCardBasketRoom.occupancies[0].availableQuantity}
               />
             </div>
-            <QwButton
-              QwButtonLabel="Remove"
-              QwButtonOnClick={() => this.qwRoomListCardOnChangeRoom({quantity: '0', room: this.qwRoomListCardBasketRoom})}
-              QwButtonDisabled={this.qwRoomListCardIsLoadingBasket}/>
+
+            {this.qwRoomListCardShowPriceAndTaxes && <div class="qw-room-list-card__prices-with-taxes">
+              <div class="qw-room-list-card__prices-with-taxes--amount">
+                {this.qwRoomListCardPrice}
+                <div class="qw-room-list-card__room-taxes">{this.qwRoomListCardTaxes}</div>
+              </div>
+            </div>}
           </div>}
 
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">

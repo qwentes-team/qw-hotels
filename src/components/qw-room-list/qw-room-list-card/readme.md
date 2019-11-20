@@ -52,6 +52,7 @@
 - [qw-error](../../shared/qw-error)
 - [qw-price](../../qw-price)
 - [qw-week-calendar](../../qw-week-calendar)
+- [qw-counter](../../shared/qw-counter)
 
 ### Graph
 ```mermaid
@@ -60,6 +61,7 @@ graph TD;
   qw-room-list-card --> qw-error
   qw-room-list-card --> qw-price
   qw-room-list-card --> qw-week-calendar
+  qw-room-list-card --> qw-counter
   qw-price --> qw-loading
   qw-room-basket --> qw-room-list-card
   qw-room-list --> qw-room-list-card
