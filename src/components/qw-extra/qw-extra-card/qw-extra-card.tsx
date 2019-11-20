@@ -33,21 +33,23 @@ export class QwExtraCard {
         <div class="qw-extra-card__image">
           <img src={this.qwExtraCardCover.url} alt={this.qwExtraCardName}/>
         </div>
-        <div class="qw-extra-card__title">
-          <h4>{this.qwExtraCardName}</h4>
-        </div>
-        <div class="qw-extra-card__footer">
-          <div class="qw-extra-card__price">
-            <div class="qw-extra-card__price-label">Per person / day</div>
-            <div class="qw-extra-card__price-content">{this.qwExtraCardUnitPrice}</div>
+        <div class="qw-extra-card__content">
+          <div class="qw-extra-card__title">
+            <h4>{this.qwExtraCardName}</h4>
           </div>
-          <div class="qw-extra-card__quantity">
-            <div class="qw-extra-card__quantity-label">Quantity</div>
-            <div class="qw-extra-card__quantity-content">
-              <qw-counter
-                qwCounterValue={this.qwExtraCardSelectedQuantity}
-                qwCounterName={this.qwExtraCardId}
-                qwCounterMaxValue={this.qwExtraCardAvailability}/>
+          <div class="qw-extra-card__footer">
+            <div class="qw-extra-card__price">
+              <div class="qw-extra-card__price-label">Per person / day</div>
+              <div class="qw-extra-card__price-content">{this.qwExtraCardUnitPrice}</div>
+            </div>
+            <div class="qw-extra-card__quantity">
+              <div class="qw-extra-card__quantity-label">Quantity</div>
+              <div class="qw-extra-card__quantity-content">
+                <qw-counter
+                  qwCounterValue={this.qwExtraCardSelectedQuantity}
+                  qwCounterName={this.qwExtraCardId}
+                  qwCounterMaxValue={this.qwExtraCardAvailability}/>
+              </div>
             </div>
           </div>
         </div>

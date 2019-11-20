@@ -1,0 +1,27 @@
+qw-extra-basket {
+  display: flex;
+  flex-direction: column;
+  background: var(--qw-hotel-background);
+}
+
+qw-extra-basket qw-extra-card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: var(--qw-hotel-gap-sm);
+}
+
+qw-extra-basket qw-extra-card .qw-extra-card__image {
+  width: 30%;
+  padding-right: var(--qw-hotel-gap-sm);
+}
+
+qw-extra-basket qw-extra-card .qw-extra-card__content {
+  width: 70%;
+}
+
+qw-extra-basket qw-extra-card .qw-extra-card__footer .qw-extra-card__quantity {
+  order: -1;
+}

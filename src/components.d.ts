@@ -70,6 +70,7 @@ export namespace Components {
   }
   interface QwError {}
   interface QwExtra {}
+  interface QwExtraBasket {}
   interface QwExtraCard {
     'qwExtraCardAvailability': number;
     'qwExtraCardCover': RoomImageMetadata;
@@ -239,6 +240,12 @@ declare global {
     new (): HTMLQwExtraElement;
   };
 
+  interface HTMLQwExtraBasketElement extends Components.QwExtraBasket, HTMLStencilElement {}
+  var HTMLQwExtraBasketElement: {
+    prototype: HTMLQwExtraBasketElement;
+    new (): HTMLQwExtraBasketElement;
+  };
+
   interface HTMLQwExtraCardElement extends Components.QwExtraCard, HTMLStencilElement {}
   var HTMLQwExtraCardElement: {
     prototype: HTMLQwExtraCardElement;
@@ -327,6 +334,7 @@ declare global {
     'qw-counter': HTMLQwCounterElement;
     'qw-error': HTMLQwErrorElement;
     'qw-extra': HTMLQwExtraElement;
+    'qw-extra-basket': HTMLQwExtraBasketElement;
     'qw-extra-card': HTMLQwExtraCardElement;
     'qw-guest': HTMLQwGuestElement;
     'qw-input': HTMLQwInputElement;
@@ -384,6 +392,7 @@ declare namespace LocalJSX {
   }
   interface QwError {}
   interface QwExtra {}
+  interface QwExtraBasket {}
   interface QwExtraCard {
     'onQwExtraCounterChanged'?: (event: CustomEvent<QwExtraEmitter>) => void;
     'qwExtraCardAvailability'?: number;
@@ -512,6 +521,7 @@ declare namespace LocalJSX {
     'qw-counter': QwCounter;
     'qw-error': QwError;
     'qw-extra': QwExtra;
+    'qw-extra-basket': QwExtraBasket;
     'qw-extra-card': QwExtraCard;
     'qw-guest': QwGuest;
     'qw-input': QwInput;
@@ -544,6 +554,7 @@ declare module "@stencil/core" {
       'qw-counter': LocalJSX.QwCounter & JSXBase.HTMLAttributes<HTMLQwCounterElement>;
       'qw-error': LocalJSX.QwError & JSXBase.HTMLAttributes<HTMLQwErrorElement>;
       'qw-extra': LocalJSX.QwExtra & JSXBase.HTMLAttributes<HTMLQwExtraElement>;
+      'qw-extra-basket': LocalJSX.QwExtraBasket & JSXBase.HTMLAttributes<HTMLQwExtraBasketElement>;
       'qw-extra-card': LocalJSX.QwExtraCard & JSXBase.HTMLAttributes<HTMLQwExtraCardElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;

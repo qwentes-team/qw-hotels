@@ -72,6 +72,8 @@ qw-room-list-card .qw-room-list-card__prices {
 qw-room-list-card .qw-room-list-card__basket-actions {
   grid-row: 4 / 5;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 qw-room-list-card .qw-room-list-card__cta {
   grid-row: 5 / 6;
