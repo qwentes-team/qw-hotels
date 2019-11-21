@@ -10,6 +10,7 @@ export const config: Config = {
         'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
         'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'RateHelper', 'createRateFromRoomBasketOccupancy',
         'ExtraService', 'ExtraLoaded$', 'ExtraHelper', 'ExtraIsLoading$',
+        'QuoteService', 'QuoteHelper',
       ]
     }
   },
@@ -23,14 +24,20 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader'
+      esmLoaderPath: '../loader',
+      copy: [
+        { src: 'globals/img', dest: 'img' }
+      ]
     },
     {
       type: 'docs-readme'
     },
     {
       type: 'www',
-      serviceWorker: null // disable service workers
+      serviceWorker: null, // disable service workers
+      copy: [
+        { src: 'globals/img', dest: 'img' }
+      ]
     }
   ],
   globalStyle: 'src/globals/app.css'

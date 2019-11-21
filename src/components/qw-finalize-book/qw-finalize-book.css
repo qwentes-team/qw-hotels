@@ -1,0 +1,40 @@
+qw-finalize-book {
+  display: flex;
+  flex-direction: column;
+}
+
+qw-finalize-book .qw-finalize-book__special-requests__title {
+  display: flex;
+}
+
+qw-finalize-book .qw-finalize-book__special-requests__title h4 {
+  margin-right: var(--qw-hotel-gap-md);
+}
+
+qw-finalize-book .qw-finalize-book__special-requests__caption {
+  font-size: 70%;
+  margin-bottom: var(--qw-hotel-gap-md);
+}
+
+qw-finalize-book .qw-finalize-book__booking-conditions {
+  background: var(--qw-hotel-background);
+  padding: var(--qw-hotel-gap-sm);
+}
+
+qw-finalize-book .qw-finalize-book__booking-conditions > div {
+  margin: var(--qw-hotel-gap-sm) 0;
+}
+
+qw-finalize-book .qw-finalize-book__confirmation-checkbox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+qw-finalize-book .qw-finalize-book__confirmation-checkbox qw-input {
+  width: 50px;
+}
+
+qw-finalize-book .qw-finalize-book__pay {
+  margin-top: var(--qw-hotel-gap-md);
+}

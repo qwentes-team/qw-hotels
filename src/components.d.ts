@@ -29,6 +29,9 @@ import {
   QwExtraEmitter,
 } from './components/qw-extra/qw-extra-card/qw-extra-card';
 import {
+  QwInputEmitter,
+} from './components/shared/qw-input/qw-input';
+import {
   QwRoomDetailAddToBasketEmitter,
 } from './components/qw-room-detail/qw-room-detail';
 import {
@@ -37,6 +40,9 @@ import {
 import {
   QwRoomRateAddToBasketEmitter as QwRoomRateAddToBasketEmitter1,
 } from './components/qw-room-rate/qw-room-rate';
+import {
+  QwInputEmitter as QwInputEmitter1,
+} from './components/shared/qw-input/qw-input';
 
 export namespace Components {
   interface QwBasket {
@@ -82,11 +88,13 @@ export namespace Components {
     'qwExtraCardSelectedQuantity': number;
     'qwExtraCardUnitPrice': string;
   }
+  interface QwFinalizeBook {}
   interface QwGuest {
     'qwGuestCenter': boolean;
     'qwGuestSyncOnChange': boolean;
   }
   interface QwInput {
+    'qwInputCaption': string;
     'qwInputIsReadonly': boolean;
     'qwInputLabel': string;
     'qwInputName': string;
@@ -172,6 +180,10 @@ export namespace Components {
     'qwRoomRateRate': Rate;
     'qwRoomRateSummary': string;
   }
+  interface QwTextarea {
+    'qwTextareaName': string;
+    'qwTextareaValue': string;
+  }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate': Date[];
@@ -255,6 +267,12 @@ declare global {
     new (): HTMLQwExtraCardElement;
   };
 
+  interface HTMLQwFinalizeBookElement extends Components.QwFinalizeBook, HTMLStencilElement {}
+  var HTMLQwFinalizeBookElement: {
+    prototype: HTMLQwFinalizeBookElement;
+    new (): HTMLQwFinalizeBookElement;
+  };
+
   interface HTMLQwGuestElement extends Components.QwGuest, HTMLStencilElement {}
   var HTMLQwGuestElement: {
     prototype: HTMLQwGuestElement;
@@ -321,6 +339,12 @@ declare global {
     new (): HTMLQwRoomRateElement;
   };
 
+  interface HTMLQwTextareaElement extends Components.QwTextarea, HTMLStencilElement {}
+  var HTMLQwTextareaElement: {
+    prototype: HTMLQwTextareaElement;
+    new (): HTMLQwTextareaElement;
+  };
+
   interface HTMLQwWeekCalendarElement extends Components.QwWeekCalendar, HTMLStencilElement {}
   var HTMLQwWeekCalendarElement: {
     prototype: HTMLQwWeekCalendarElement;
@@ -339,6 +363,7 @@ declare global {
     'qw-extra': HTMLQwExtraElement;
     'qw-extra-basket': HTMLQwExtraBasketElement;
     'qw-extra-card': HTMLQwExtraCardElement;
+    'qw-finalize-book': HTMLQwFinalizeBookElement;
     'qw-guest': HTMLQwGuestElement;
     'qw-input': HTMLQwInputElement;
     'qw-loading': HTMLQwLoadingElement;
@@ -350,6 +375,7 @@ declare global {
     'qw-room-list': HTMLQwRoomListElement;
     'qw-room-list-card': HTMLQwRoomListCardElement;
     'qw-room-rate': HTMLQwRoomRateElement;
+    'qw-textarea': HTMLQwTextareaElement;
     'qw-week-calendar': HTMLQwWeekCalendarElement;
   }
 }
@@ -408,12 +434,15 @@ declare namespace LocalJSX {
     'qwExtraCardSelectedQuantity'?: number;
     'qwExtraCardUnitPrice'?: string;
   }
+  interface QwFinalizeBook {}
   interface QwGuest {
     'onQwGuestChange'?: (event: CustomEvent<SessionGuests>) => void;
     'qwGuestCenter'?: boolean;
     'qwGuestSyncOnChange'?: boolean;
   }
   interface QwInput {
+    'onQwInputChanged'?: (event: CustomEvent<QwInputEmitter>) => void;
+    'qwInputCaption'?: string;
     'qwInputIsReadonly'?: boolean;
     'qwInputLabel'?: string;
     'qwInputName'?: string;
@@ -509,6 +538,11 @@ declare namespace LocalJSX {
     'qwRoomRateRate'?: Rate;
     'qwRoomRateSummary'?: string;
   }
+  interface QwTextarea {
+    'onQwTextareaChanged'?: (event: CustomEvent<QwInputEmitter>) => void;
+    'qwTextareaName'?: string;
+    'qwTextareaValue'?: string;
+  }
   interface QwWeekCalendar {
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate'?: Date[];
@@ -529,6 +563,7 @@ declare namespace LocalJSX {
     'qw-extra': QwExtra;
     'qw-extra-basket': QwExtraBasket;
     'qw-extra-card': QwExtraCard;
+    'qw-finalize-book': QwFinalizeBook;
     'qw-guest': QwGuest;
     'qw-input': QwInput;
     'qw-loading': QwLoading;
@@ -540,6 +575,7 @@ declare namespace LocalJSX {
     'qw-room-list': QwRoomList;
     'qw-room-list-card': QwRoomListCard;
     'qw-room-rate': QwRoomRate;
+    'qw-textarea': QwTextarea;
     'qw-week-calendar': QwWeekCalendar;
   }
 }
@@ -562,6 +598,7 @@ declare module "@stencil/core" {
       'qw-extra': LocalJSX.QwExtra & JSXBase.HTMLAttributes<HTMLQwExtraElement>;
       'qw-extra-basket': LocalJSX.QwExtraBasket & JSXBase.HTMLAttributes<HTMLQwExtraBasketElement>;
       'qw-extra-card': LocalJSX.QwExtraCard & JSXBase.HTMLAttributes<HTMLQwExtraCardElement>;
+      'qw-finalize-book': LocalJSX.QwFinalizeBook & JSXBase.HTMLAttributes<HTMLQwFinalizeBookElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
@@ -573,6 +610,7 @@ declare module "@stencil/core" {
       'qw-room-list': LocalJSX.QwRoomList & JSXBase.HTMLAttributes<HTMLQwRoomListElement>;
       'qw-room-list-card': LocalJSX.QwRoomListCard & JSXBase.HTMLAttributes<HTMLQwRoomListCardElement>;
       'qw-room-rate': LocalJSX.QwRoomRate & JSXBase.HTMLAttributes<HTMLQwRoomRateElement>;
+      'qw-textarea': LocalJSX.QwTextarea & JSXBase.HTMLAttributes<HTMLQwTextareaElement>;
       'qw-week-calendar': LocalJSX.QwWeekCalendar & JSXBase.HTMLAttributes<HTMLQwWeekCalendarElement>;
     }
   }

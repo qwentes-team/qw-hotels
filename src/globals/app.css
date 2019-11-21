@@ -1,5 +1,6 @@
 @import "../components/shared/shared.css";
 @import "./flatpickr.min.css";
+@import "./../../node_modules/intl-tel-input/build/css/intlTelInput.min.css";
 
 :root {
   --qw-hotel-primary-color: #4C5BF4;

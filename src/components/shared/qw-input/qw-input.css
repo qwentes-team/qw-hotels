@@ -8,7 +8,7 @@ qw-input .qw-input__label {
   margin-bottom: var(--qw-hotel-gap-sm);
 }
 
-qw-input input {
+qw-input input, qw-textarea textarea {
   appearance: none;
   display: flex;
   align-items: center;
@@ -19,6 +19,24 @@ qw-input input {
   outline: 1px solid var(--qw-hotel-neutral-light);
 }
 
-qw-input input:focus {
+qw-input .iti.iti--allow-dropdown {
+  width: 100%;
+}
+
+qw-input input:focus, qw-textarea textarea {
   outline-offset: 0;
+}
+
+qw-input .qw-input__caption {
+  font-size: 70%;
+  margin-top: calc(var(--qw-hotel-gap-sm) / 2);
+}
+
+qw-input input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+}
+
+qw-input input[type="checkbox"]:checked {
+  background: red;
 }

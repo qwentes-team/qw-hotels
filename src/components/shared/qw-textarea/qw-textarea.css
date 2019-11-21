@@ -1,0 +1,7 @@
+qw-textarea {
+  display: flex;
+}
+
+qw-textarea textarea {
+  min-height: 200px;
+}
