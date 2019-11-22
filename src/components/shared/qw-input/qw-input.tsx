@@ -90,6 +90,7 @@ export class QwInput {
   render() {
     return (
       <Host class={`
+        ${this.qwInputName ? 'qw-input__' + this.qwInputName : ''}
         ${this.qwInputIsMandatory ? 'qw-input--mandatory' : ''}
         ${this.qwInputHasError ? 'qw-input--error' : ''}
       `}>

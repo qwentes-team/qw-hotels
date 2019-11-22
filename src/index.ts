@@ -27,3 +27,15 @@ export interface QwChangeExtraEvent {
   quantity: string;
   extraId: ExtraModel['extraId'];
 }
+
+export enum GuestDetailFormProperty {
+  FirstName = 'firstName',
+  LastName = 'lastName',
+  EmailAddress = 'emailAddress',
+  PhoneNumber = 'phoneNumber',
+  PhoneCountryCode = 'phoneCountryCode',
+  Phone = 'phone',
+  ConfirmConditions = 'confirmConditions',
+  Title = 'title',
+  CountryCode = 'countryCode',
+}

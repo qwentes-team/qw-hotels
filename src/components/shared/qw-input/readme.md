@@ -31,12 +31,14 @@
 ### Used by
 
  - [qw-book](../../qw-book)
+ - [qw-book-guest-detail](../../qw-book/qw-book-guest-detail)
  - [qw-calendar-guest-inline](../../qw-calendar-guest-inline)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-book --> qw-input
+  qw-book-guest-detail --> qw-input
   qw-calendar-guest-inline --> qw-input
   style qw-input fill:#f9f,stroke:#333,stroke-width:4px
 ```

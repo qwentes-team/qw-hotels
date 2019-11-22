@@ -16,16 +16,19 @@
 
 ### Depends on
 
-- [qw-input](../shared/qw-input)
+- [qw-book-guest-detail](qw-book-guest-detail)
 - [qw-extra](../qw-extra)
 - [qw-textarea](../shared/qw-textarea)
+- [qw-input](../shared/qw-input)
 
 ### Graph
 ```mermaid
 graph TD;
-  qw-book --> qw-input
+  qw-book --> qw-book-guest-detail
   qw-book --> qw-extra
   qw-book --> qw-textarea
+  qw-book --> qw-input
+  qw-book-guest-detail --> qw-input
   qw-extra --> qw-extra-card
   qw-extra-card --> qw-counter
   style qw-book fill:#f9f,stroke:#333,stroke-width:4px

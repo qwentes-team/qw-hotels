@@ -25,9 +25,6 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: '../loader',
-      copy: [
-        { src: 'globals/img', dest: 'img' }
-      ]
     },
     {
       type: 'docs-readme'
@@ -40,5 +37,6 @@ export const config: Config = {
       ]
     }
   ],
-  globalStyle: 'src/globals/app.css'
+  globalStyle: 'src/globals/app.css',
+  globalScript: 'src/globals/app.ts'
 };

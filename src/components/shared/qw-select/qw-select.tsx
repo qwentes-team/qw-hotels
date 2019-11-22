@@ -1,6 +1,7 @@
 import {FunctionalComponent, h } from '@stencil/core';
 
 interface QwSelectProps {
+  QwSelectName?: string;
   QwSelectLabel?: string;
   QwSelectDisabled?: boolean;
   QwSelectIsMandatory?: boolean;
@@ -11,6 +12,7 @@ interface QwSelectProps {
 export const QwSelect: FunctionalComponent<QwSelectProps> = (props, children) => {
   return (
     <label class={`
+      ${props.QwSelectName ? 'qw-select__' + props.QwSelectName : ''}
       ${props.QwSelectIsMandatory ? 'qw-select--mandatory' : ''}
       ${props.QwSelectHasError ? 'qw-select--error' : ''}
     `}>

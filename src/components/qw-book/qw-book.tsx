@@ -4,22 +4,10 @@ import {
   QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwSelect} from '../shared/qw-select/qw-select';
-import countries from './countries';
 import {QwInputEmitter} from '../shared/qw-input/qw-input';
 import {QwButton} from '../shared/qw-button/qw-button';
-
-enum GuestDetailFormProperty {
-  FirstName = 'firstName',
-  LastName = 'lastName',
-  EmailAddress = 'emailAddress',
-  PhoneNumber = 'phoneNumber',
-  PhoneCountryCode = 'phoneCountryCode',
-  Phone = 'phone',
-  ConfirmConditions = 'confirmConditions',
-  Title = 'title',
-  CountryCode = 'countryCode',
-}
+import {GuestDetailFormProperty} from '../../index';
+import {emailIsValid} from '../../globals/app';
 
 @Component({
   tag: 'qw-book',
@@ -34,7 +22,6 @@ export class QwBook {
   @State() formQuote: QuoteCreateBody;
 
   private sessionId: SessionModel['sessionId'];
-  private countries: Array<{name: string, code: string}> = countries;
   private quoteErrorMessage = 'The basket rooms could not welcome all guests';
   private mandatoriesCustomerFields = [
     GuestDetailFormProperty.FirstName,
@@ -44,7 +31,6 @@ export class QwBook {
   ];
 
   public componentDidLoad() {
-    this.initFormQuote();
     SessionService.getSession().subscribe();
     SessionLoaded$
       .pipe(switchMap(session => {
@@ -58,48 +44,17 @@ export class QwBook {
     return !Object.keys(this.quote).length;
   }
 
-  private initFormQuote() {
-    this.formQuote = {
-      customerDetails: {firstName: undefined, lastName: undefined, countryCode: undefined, emailAddress: undefined},
-    };
+  @Listen('qwBookGuestDetailChangeForm')
+  public qwBookGuestDetailChangeForm(e: CustomEvent<QuoteCreateBody>) {
+    this.formQuote = e.detail;
   }
-
-  private guestDetailTitleSelectChanged(e) {
-    this.updateFormQuoteCustomerDetail(GuestDetailFormProperty.Title, e.target.value);
-  };
-
-  private guestDetailCountrySelectChanged(e) {
-    this.updateFormQuoteCustomerDetail(GuestDetailFormProperty.CountryCode, e.target.value);
-  };
 
   @Listen('qwInputChanged')
   public guestDetailInputChanged(e: CustomEvent<QwInputEmitter>) {
-    this.setNewPropertyInFormFromQwInput(e.detail);
-  }
-
-  private setNewPropertyInFormFromQwInput(emitter: QwInputEmitter) {
-    const {name, value, phoneCountryCode} = emitter;
-
-    if (this.isPhoneFormName(name)) {
-      this.updateFormQuoteCustomerDetail(GuestDetailFormProperty.PhoneCountryCode, `+${phoneCountryCode}`);
-      this.updateFormQuoteCustomerDetail(GuestDetailFormProperty.PhoneNumber, value.toString());
-      return;
-    }
-
+    const {name, value} = e.detail;
     if (this.isConfirmConditionsFormName(name)) {
       this.isConfirmedConditions = Boolean(value);
-      return;
     }
-
-    this.updateFormQuoteCustomerDetail(name, value);
-  }
-
-  private updateFormQuoteCustomerDetail(key, value) {
-    this.formQuote = {
-      ...this.formQuote,
-      customerDetails: {...this.formQuote.customerDetails, [key]: value},
-    };
-    console.log(this.formQuote);
   }
 
   public isFormValid() {
@@ -107,7 +62,9 @@ export class QwBook {
       return;
     }
 
-    return this.isConfirmedConditions && this.hasAllMandatoryPropertiesSet() && this.emailIsValid(this.formQuote.customerDetails.emailAddress);
+    return this.isConfirmedConditions
+      && this.hasAllMandatoryPropertiesSet()
+      && emailIsValid(this.formQuote.customerDetails.emailAddress);
   }
 
   private hasAllMandatoryPropertiesSet() {
@@ -124,10 +81,6 @@ export class QwBook {
     this.formQuote.specialRequest = e.detail.value.toString();
   }
 
-  private isPhoneFormName(name: QwInputEmitter['name']) {
-    return name === GuestDetailFormProperty.Phone;
-  }
-
   private isConfirmConditionsFormName(name: QwInputEmitter['name']) {
     return name === GuestDetailFormProperty.ConfirmConditions;
   }
@@ -138,17 +91,9 @@ export class QwBook {
     });
   };
 
-  public emailIsValid(email: string) {
-    if (!email) {
-      return true;
-    }
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
-
   render() {
     return (
-      <Host>
+      <Host class={`${!this.quote ? 'qw-book--loading' : 'qw-book--loaded'}`}>
         <div style={this.quote && {'display': 'none'}}>
           <slot name="qwBookLoading"/>
         </div>
@@ -158,45 +103,13 @@ export class QwBook {
               {this.qwBookErrorQuoteMessage || this.quoteErrorMessage}
             </div>
             : <div class="qw-book__wrapper">
-              <div class="qw-guest-detail">
-                <QwSelect QwSelectLabel="Title" QwSelectOnChange={(e) => this.guestDetailTitleSelectChanged(e)}>
-                  <option value="">--</option>
-                  {this.quote && this.quote.guestTitles.map(title => <option value={title.value}>{title.text}</option>)}
-                </QwSelect>
-                <qw-input
-                  qwInputName={GuestDetailFormProperty.FirstName}
-                  qwInputIsMandatory={true}
-                  qwInputLabel="First Name *"/>
-                <qw-input
-                  qwInputName={GuestDetailFormProperty.LastName}
-                  qwInputIsMandatory={true}
-                  qwInputLabel="Last Name *"/>
-                <QwSelect
-                  QwSelectLabel="Country of residence *"
-                  QwSelectIsMandatory={true}
-                  QwSelectOnChange={(e) => this.guestDetailCountrySelectChanged(e)}>
-                  <option value="">--</option>
-                  {this.countries.map(country => <option value={country.code}>{country.name}</option>)}
-                </QwSelect>
-                <h4>Contacts</h4>
-                <qw-input
-                  qwInputName={GuestDetailFormProperty.EmailAddress}
-                  qwInputLabel="Email *"
-                  qwInputType="email"
-                  qwInputIsMandatory={true}
-                  qwInputHasError={!this.emailIsValid(this.formQuote.customerDetails.emailAddress)}
-                  qwInputCaption="This is the email we will send your confirmation to"/>
-                <qw-input
-                  qwInputName={GuestDetailFormProperty.Phone}
-                  qwInputLabel="Phone number"
-                  qwInputType="tel"
-                  qwInputCaption="We will use this for urgent communications"/>
-              </div>
+              <qw-book-guest-detail qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
 
               <div class="qw-book__extra">
                 <h3>Extras</h3>
                 <qw-extra/>
               </div>
+
               <div class="qw-book__other-info">
                 <h3>Other info</h3>
                 <div class="qw-book__special-requests">
@@ -240,6 +153,7 @@ export class QwBook {
                   </div>
                 </div>
               </div>
+
               {this.formQuote && !this.isFormValid() && <div class="qw-book__form-error">
                 <div class="qw-book__form-error-message">Please fill the mandatory fields to complete the process. You are
                   missing:
@@ -248,11 +162,12 @@ export class QwBook {
                   {!this.formQuote.customerDetails.firstName && <li>First Name</li>}
                   {!this.formQuote.customerDetails.lastName && <li>Last Name</li>}
                   {!this.formQuote.customerDetails.emailAddress && <li>Email address</li>}
-                  {!this.emailIsValid(this.formQuote.customerDetails.emailAddress) && <li>Email address is invalid</li>}
+                  {!emailIsValid(this.formQuote.customerDetails.emailAddress) && <li>Email address is invalid</li>}
                   {!this.formQuote.customerDetails.countryCode && <li>Country of residence</li>}
                   {!this.isConfirmedConditions && <li>Terms & conditions</li>}
                 </ul>
               </div>}
+
               <div class="qw-book__pay">
                 <QwButton
                   QwButtonLabel="Pay now"

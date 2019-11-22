@@ -7,8 +7,12 @@
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
+  RoomMetadata,
+} from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
+import {
   MoneyPrice,
   PricesForStayPeriod,
+  QuoteCreateBody,
   Rate,
   RoomBasketModel,
   RoomImageMetadata,
@@ -54,6 +58,9 @@ export namespace Components {
   interface QwBasketSummary {}
   interface QwBook {
     'qwBookErrorQuoteMessage': string;
+  }
+  interface QwBookGuestDetail {
+    'qwBookGuestDetailTitleOptions': Array<RoomMetadata<string>>;
   }
   interface QwCalendar {
     'qwCalendarDesktopLimit': number;
@@ -223,6 +230,12 @@ declare global {
     new (): HTMLQwBookElement;
   };
 
+  interface HTMLQwBookGuestDetailElement extends Components.QwBookGuestDetail, HTMLStencilElement {}
+  var HTMLQwBookGuestDetailElement: {
+    prototype: HTMLQwBookGuestDetailElement;
+    new (): HTMLQwBookGuestDetailElement;
+  };
+
   interface HTMLQwCalendarElement extends Components.QwCalendar, HTMLStencilElement {}
   var HTMLQwCalendarElement: {
     prototype: HTMLQwCalendarElement;
@@ -359,6 +372,7 @@ declare global {
     'qw-basket-room-counter': HTMLQwBasketRoomCounterElement;
     'qw-basket-summary': HTMLQwBasketSummaryElement;
     'qw-book': HTMLQwBookElement;
+    'qw-book-guest-detail': HTMLQwBookGuestDetailElement;
     'qw-calendar': HTMLQwCalendarElement;
     'qw-calendar-guest-inline': HTMLQwCalendarGuestInlineElement;
     'qw-calendar-picker': HTMLQwCalendarPickerElement;
@@ -398,6 +412,10 @@ declare namespace LocalJSX {
   interface QwBasketSummary {}
   interface QwBook {
     'qwBookErrorQuoteMessage'?: string;
+  }
+  interface QwBookGuestDetail {
+    'onQwBookGuestDetailChangeForm'?: (event: CustomEvent<QuoteCreateBody>) => void;
+    'qwBookGuestDetailTitleOptions'?: Array<RoomMetadata<string>>;
   }
   interface QwCalendar {
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
@@ -563,6 +581,7 @@ declare namespace LocalJSX {
     'qw-basket-room-counter': QwBasketRoomCounter;
     'qw-basket-summary': QwBasketSummary;
     'qw-book': QwBook;
+    'qw-book-guest-detail': QwBookGuestDetail;
     'qw-calendar': QwCalendar;
     'qw-calendar-guest-inline': QwCalendarGuestInline;
     'qw-calendar-picker': QwCalendarPicker;
@@ -598,6 +617,7 @@ declare module "@stencil/core" {
       'qw-basket-room-counter': LocalJSX.QwBasketRoomCounter & JSXBase.HTMLAttributes<HTMLQwBasketRoomCounterElement>;
       'qw-basket-summary': LocalJSX.QwBasketSummary & JSXBase.HTMLAttributes<HTMLQwBasketSummaryElement>;
       'qw-book': LocalJSX.QwBook & JSXBase.HTMLAttributes<HTMLQwBookElement>;
+      'qw-book-guest-detail': LocalJSX.QwBookGuestDetail & JSXBase.HTMLAttributes<HTMLQwBookGuestDetailElement>;
       'qw-calendar': LocalJSX.QwCalendar & JSXBase.HTMLAttributes<HTMLQwCalendarElement>;
       'qw-calendar-guest-inline': LocalJSX.QwCalendarGuestInline & JSXBase.HTMLAttributes<HTMLQwCalendarGuestInlineElement>;
       'qw-calendar-picker': LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
