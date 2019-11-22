@@ -22,12 +22,12 @@ enum GuestDetailFormProperty {
 }
 
 @Component({
-  tag: 'qw-finalize-book',
-  styleUrl: 'qw-finalize-book.css',
+  tag: 'qw-book',
+  styleUrl: 'qw-book.css',
   shadow: false,
 })
-export class QwFinalizeBook {
-  @Prop() qwFinalizeBookErrorQuoteMessage: string;
+export class QwBook {
+  @Prop() qwBookErrorQuoteMessage: string;
   @State() quote: QuoteModel;
   @State() openSpecialRequests: boolean;
   @State() isConfirmedConditions: boolean;
@@ -150,14 +150,14 @@ export class QwFinalizeBook {
     return (
       <Host>
         <div style={this.quote && {'display': 'none'}}>
-          <slot name="qwFinalizeBookLoading"/>
+          <slot name="qwBookLoading"/>
         </div>
         {this.quote
           ? this.quoteHasError()
-            ? <div class="qw-finalize-book__error-quote">
-              {this.qwFinalizeBookErrorQuoteMessage || this.quoteErrorMessage}
+            ? <div class="qw-book__error-quote">
+              {this.qwBookErrorQuoteMessage || this.quoteErrorMessage}
             </div>
-            : <div class="qw-finalize-book__wrapper">
+            : <div class="qw-book__wrapper">
               <div class="qw-guest-detail">
                 <QwSelect QwSelectLabel="Title" QwSelectOnChange={(e) => this.guestDetailTitleSelectChanged(e)}>
                   <option value="">--</option>
@@ -193,55 +193,55 @@ export class QwFinalizeBook {
                   qwInputCaption="We will use this for urgent communications"/>
               </div>
 
-              <div class="qw-finalize-book__extra">
+              <div class="qw-book__extra">
                 <h3>Extras</h3>
                 <qw-extra/>
               </div>
-              <div class="qw-finalize-book__other-info">
+              <div class="qw-book__other-info">
                 <h3>Other info</h3>
-                <div class="qw-finalize-book__special-requests">
-                  <div class="qw-finalize-book__special-requests__title">
+                <div class="qw-book__special-requests">
+                  <div class="qw-book__special-requests__title">
                     <h4>Special requests</h4>
                     <QwButton QwButtonLabel="" QwButtonOnClick={() => this.openSpecialRequests = !this.openSpecialRequests}/>
                   </div>
-                  <div class="qw-finalize-book__special-requests__caption">
+                  <div class="qw-book__special-requests__caption">
                     Tell us if you need any special services or special requests
                   </div>
-                  {this.openSpecialRequests && <div class="qw-finalize-book__special-requests__content">
+                  {this.openSpecialRequests && <div class="qw-book__special-requests__content">
                     <qw-textarea qwTextareaName="specialRequest"/>
                   </div>}
                 </div>
                 {this.quote
-                && <div class="qw-finalize-book__booking-conditions">
+                && <div class="qw-book__booking-conditions">
                   <h4>Booking Conditions</h4>
-                  <div class="qw-finalize-book__booking-conditions__cancellation">
+                  <div class="qw-book__booking-conditions__cancellation">
                     <h5>Cancellation Policy</h5>
                     <li>{QuoteHelper.getDefaultCancelConditionMessage(this.quote)}</li>
                   </div>
-                  <div class="qw-finalize-book__booking-conditions__deposit">
+                  <div class="qw-book__booking-conditions__deposit">
                     <h5>Deposit</h5>
                     <li>{this.quote.depositConditions.text}</li>
                   </div>
-                  {this.quote.taxes.excludedTaxes.totalAmount.text && <div class="qw-finalize-book__booking-conditions__excluded-taxes">
+                  {this.quote.taxes.excludedTaxes.totalAmount.text && <div class="qw-book__booking-conditions__excluded-taxes">
                     <h5>Taxes excluded in the room price</h5>
                     <li>{`${this.quote.taxes.excludedTaxes.computations[0].summary} (${this.quote.taxes.excludedTaxes.totalAmount.text})`}</li>
                   </div>}
-                  {this.quote.taxes.onSiteTaxes.totalAmount.text && <div class="qw-finalize-book__booking-conditions__on-site-taxes">
+                  {this.quote.taxes.onSiteTaxes.totalAmount.text && <div class="qw-book__booking-conditions__on-site-taxes">
                     <h5>Taxes added to the price of the room</h5>
                     {this.quote.taxes.onSiteTaxes.totalAmount.text &&
                     <li>{`${this.quote.taxes.onSiteTaxes.computations[0].summary} (${this.quote.taxes.onSiteTaxes.totalAmount.text})`}</li>}
                   </div>}
                 </div>}
-                <div class="qw-finalize-book__confirmation">
+                <div class="qw-book__confirmation">
                   <h4>Confirmation</h4>
-                  <div class="qw-finalize-book__confirmation-checkbox">
+                  <div class="qw-book__confirmation-checkbox">
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
-                    <div>I have read and agree with the terms & conditions and booking conditions for my stay.</div>
+                    <div>I have read and agree with the terms & conditions and booking conditions for my stay *</div>
                   </div>
                 </div>
               </div>
-              {this.formQuote && !this.isFormValid() && <div class="qw-finalize-book__form-error">
-                <div class="qw-finalize-book__form-error-message">Please fill the mandatory fields to complete the process. You are
+              {this.formQuote && !this.isFormValid() && <div class="qw-book__form-error">
+                <div class="qw-book__form-error-message">Please fill the mandatory fields to complete the process. You are
                   missing:
                 </div>
                 <ul>
@@ -253,7 +253,7 @@ export class QwFinalizeBook {
                   {!this.isConfirmedConditions && <li>Terms & conditions</li>}
                 </ul>
               </div>}
-              <div class="qw-finalize-book__pay">
+              <div class="qw-book__pay">
                 <QwButton
                   QwButtonLabel="Pay now"
                   QwButtonDisabled={!this.isFormValid()}

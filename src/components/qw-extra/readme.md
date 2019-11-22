@@ -7,6 +7,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [qw-book](../qw-book)
+
 ### Depends on
 
 - [qw-extra-card](qw-extra-card)
@@ -16,6 +20,7 @@
 graph TD;
   qw-extra --> qw-extra-card
   qw-extra-card --> qw-counter
+  qw-book --> qw-extra
   style qw-extra fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

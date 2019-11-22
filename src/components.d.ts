@@ -52,6 +52,9 @@ export namespace Components {
   }
   interface QwBasketRoomCounter {}
   interface QwBasketSummary {}
+  interface QwBook {
+    'qwBookErrorQuoteMessage': string;
+  }
   interface QwCalendar {
     'qwCalendarDesktopLimit': number;
     'qwCalendarNumberOfMonths': number;
@@ -87,9 +90,6 @@ export namespace Components {
     'qwExtraCardName': string;
     'qwExtraCardSelectedQuantity': number;
     'qwExtraCardUnitPrice': string;
-  }
-  interface QwFinalizeBook {
-    'qwFinalizeBookErrorQuoteMessage': string;
   }
   interface QwGuest {
     'qwGuestCenter': boolean;
@@ -217,6 +217,12 @@ declare global {
     new (): HTMLQwBasketSummaryElement;
   };
 
+  interface HTMLQwBookElement extends Components.QwBook, HTMLStencilElement {}
+  var HTMLQwBookElement: {
+    prototype: HTMLQwBookElement;
+    new (): HTMLQwBookElement;
+  };
+
   interface HTMLQwCalendarElement extends Components.QwCalendar, HTMLStencilElement {}
   var HTMLQwCalendarElement: {
     prototype: HTMLQwCalendarElement;
@@ -269,12 +275,6 @@ declare global {
   var HTMLQwExtraCardElement: {
     prototype: HTMLQwExtraCardElement;
     new (): HTMLQwExtraCardElement;
-  };
-
-  interface HTMLQwFinalizeBookElement extends Components.QwFinalizeBook, HTMLStencilElement {}
-  var HTMLQwFinalizeBookElement: {
-    prototype: HTMLQwFinalizeBookElement;
-    new (): HTMLQwFinalizeBookElement;
   };
 
   interface HTMLQwGuestElement extends Components.QwGuest, HTMLStencilElement {}
@@ -358,6 +358,7 @@ declare global {
     'qw-basket': HTMLQwBasketElement;
     'qw-basket-room-counter': HTMLQwBasketRoomCounterElement;
     'qw-basket-summary': HTMLQwBasketSummaryElement;
+    'qw-book': HTMLQwBookElement;
     'qw-calendar': HTMLQwCalendarElement;
     'qw-calendar-guest-inline': HTMLQwCalendarGuestInlineElement;
     'qw-calendar-picker': HTMLQwCalendarPickerElement;
@@ -367,7 +368,6 @@ declare global {
     'qw-extra': HTMLQwExtraElement;
     'qw-extra-basket': HTMLQwExtraBasketElement;
     'qw-extra-card': HTMLQwExtraCardElement;
-    'qw-finalize-book': HTMLQwFinalizeBookElement;
     'qw-guest': HTMLQwGuestElement;
     'qw-input': HTMLQwInputElement;
     'qw-loading': HTMLQwLoadingElement;
@@ -396,6 +396,9 @@ declare namespace LocalJSX {
     'onQwBasketRoomCounterNumber'?: (event: CustomEvent<number>) => void;
   }
   interface QwBasketSummary {}
+  interface QwBook {
+    'qwBookErrorQuoteMessage'?: string;
+  }
   interface QwCalendar {
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarDesktopLimit'?: number;
@@ -437,9 +440,6 @@ declare namespace LocalJSX {
     'qwExtraCardName'?: string;
     'qwExtraCardSelectedQuantity'?: number;
     'qwExtraCardUnitPrice'?: string;
-  }
-  interface QwFinalizeBook {
-    'qwFinalizeBookErrorQuoteMessage'?: string;
   }
   interface QwGuest {
     'onQwGuestChange'?: (event: CustomEvent<SessionGuests>) => void;
@@ -562,6 +562,7 @@ declare namespace LocalJSX {
     'qw-basket': QwBasket;
     'qw-basket-room-counter': QwBasketRoomCounter;
     'qw-basket-summary': QwBasketSummary;
+    'qw-book': QwBook;
     'qw-calendar': QwCalendar;
     'qw-calendar-guest-inline': QwCalendarGuestInline;
     'qw-calendar-picker': QwCalendarPicker;
@@ -571,7 +572,6 @@ declare namespace LocalJSX {
     'qw-extra': QwExtra;
     'qw-extra-basket': QwExtraBasket;
     'qw-extra-card': QwExtraCard;
-    'qw-finalize-book': QwFinalizeBook;
     'qw-guest': QwGuest;
     'qw-input': QwInput;
     'qw-loading': QwLoading;
@@ -597,6 +597,7 @@ declare module "@stencil/core" {
       'qw-basket': LocalJSX.QwBasket & JSXBase.HTMLAttributes<HTMLQwBasketElement>;
       'qw-basket-room-counter': LocalJSX.QwBasketRoomCounter & JSXBase.HTMLAttributes<HTMLQwBasketRoomCounterElement>;
       'qw-basket-summary': LocalJSX.QwBasketSummary & JSXBase.HTMLAttributes<HTMLQwBasketSummaryElement>;
+      'qw-book': LocalJSX.QwBook & JSXBase.HTMLAttributes<HTMLQwBookElement>;
       'qw-calendar': LocalJSX.QwCalendar & JSXBase.HTMLAttributes<HTMLQwCalendarElement>;
       'qw-calendar-guest-inline': LocalJSX.QwCalendarGuestInline & JSXBase.HTMLAttributes<HTMLQwCalendarGuestInlineElement>;
       'qw-calendar-picker': LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
@@ -606,7 +607,6 @@ declare module "@stencil/core" {
       'qw-extra': LocalJSX.QwExtra & JSXBase.HTMLAttributes<HTMLQwExtraElement>;
       'qw-extra-basket': LocalJSX.QwExtraBasket & JSXBase.HTMLAttributes<HTMLQwExtraBasketElement>;
       'qw-extra-card': LocalJSX.QwExtraCard & JSXBase.HTMLAttributes<HTMLQwExtraCardElement>;
-      'qw-finalize-book': LocalJSX.QwFinalizeBook & JSXBase.HTMLAttributes<HTMLQwFinalizeBookElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
