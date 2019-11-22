@@ -31,6 +31,7 @@ export class QwBook {
   ];
 
   public componentDidLoad() {
+    this.formQuote = QuoteHelper.initObjectForCreateBody();
     SessionService.getSession().subscribe();
     SessionLoaded$
       .pipe(switchMap(session => {

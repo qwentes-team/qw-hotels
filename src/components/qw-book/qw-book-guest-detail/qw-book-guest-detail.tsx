@@ -1,9 +1,9 @@
 import {Component, Host, h, Prop, EventEmitter, Event, State, Listen} from '@stencil/core';
 import {QwSelect} from '../../shared/qw-select/qw-select';
 import {RoomMetadata} from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
-import {QuoteCreateBody} from '@qwentes/booking-state-manager';
+import {QuoteCreateBody, QuoteHelper} from '@qwentes/booking-state-manager';
 import {GuestDetailFormProperty} from '../../../index';
-import countries from './../countries';
+import countries from './countries';
 import {QwInputEmitter} from '../../shared/qw-input/qw-input';
 import {emailIsValid} from '../../../globals/app';
 
@@ -20,7 +20,7 @@ export class QwBookGuestDetail {
   private countries: Array<{name: string, code: string}> = countries;
 
   componentDidLoad() {
-    this.initForm();
+    this.guestDetailForm = QuoteHelper.initObjectForCreateBody();
   }
 
   private emitForm() {
@@ -57,12 +57,6 @@ export class QwBookGuestDetail {
 
   private isPhoneFormName(name: QwInputEmitter['name']) {
     return name === GuestDetailFormProperty.Phone;
-  }
-
-  private initForm() {
-    this.guestDetailForm = {
-      customerDetails: {firstName: undefined, lastName: undefined, countryCode: undefined, emailAddress: undefined},
-    };
   }
 
   private updateFormQuoteCustomerDetail(key, value) {
