@@ -3,38 +3,56 @@ qw-finalize-book {
   flex-direction: column;
 }
 
-qw-finalize-book .qw-finalize-book__special-requests__title {
+.qw-finalize-book__wrapper, .qw-finalize-book__error-quote {
+  padding: var(--qw-hotel-gap-sm);
+}
+
+.qw-finalize-book__error-quote {
+  border: 1px solid var(--qw-hotel-accent-color);
+}
+
+.qw-finalize-book__special-requests__title {
   display: flex;
 }
 
-qw-finalize-book .qw-finalize-book__special-requests__title h4 {
+.qw-finalize-book__special-requests__title h4 {
   margin-right: var(--qw-hotel-gap-md);
 }
 
-qw-finalize-book .qw-finalize-book__special-requests__caption {
+.qw-finalize-book__special-requests__caption {
   font-size: 70%;
   margin-bottom: var(--qw-hotel-gap-md);
 }
 
-qw-finalize-book .qw-finalize-book__booking-conditions {
+.qw-finalize-book__booking-conditions {
   background: var(--qw-hotel-background);
   padding: var(--qw-hotel-gap-sm);
 }
 
-qw-finalize-book .qw-finalize-book__booking-conditions > div {
+.qw-finalize-book__booking-conditions > div {
   margin: var(--qw-hotel-gap-sm) 0;
 }
 
-qw-finalize-book .qw-finalize-book__confirmation-checkbox {
+.qw-finalize-book__confirmation-checkbox {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-qw-finalize-book .qw-finalize-book__confirmation-checkbox qw-input {
+.qw-finalize-book__confirmation-checkbox qw-input {
   width: 50px;
 }
 
-qw-finalize-book .qw-finalize-book__pay {
+.qw-finalize-book__form-error {
+  margin-top: var(--qw-hotel-gap-md);
+  padding: var(--qw-hotel-gap-sm);
+  border: 1px solid var(--qw-hotel-accent-color);
+}
+
+.qw-finalize-book__form-error > ul {
+  padding-inline-start: var(--qw-hotel-gap-lg);
+}
+
+.qw-finalize-book__pay {
   margin-top: var(--qw-hotel-gap-md);
 }

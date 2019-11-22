@@ -88,13 +88,17 @@ export namespace Components {
     'qwExtraCardSelectedQuantity': number;
     'qwExtraCardUnitPrice': string;
   }
-  interface QwFinalizeBook {}
+  interface QwFinalizeBook {
+    'qwFinalizeBookErrorQuoteMessage': string;
+  }
   interface QwGuest {
     'qwGuestCenter': boolean;
     'qwGuestSyncOnChange': boolean;
   }
   interface QwInput {
     'qwInputCaption': string;
+    'qwInputHasError': boolean;
+    'qwInputIsMandatory': boolean;
     'qwInputIsReadonly': boolean;
     'qwInputLabel': string;
     'qwInputName': string;
@@ -434,7 +438,9 @@ declare namespace LocalJSX {
     'qwExtraCardSelectedQuantity'?: number;
     'qwExtraCardUnitPrice'?: string;
   }
-  interface QwFinalizeBook {}
+  interface QwFinalizeBook {
+    'qwFinalizeBookErrorQuoteMessage'?: string;
+  }
   interface QwGuest {
     'onQwGuestChange'?: (event: CustomEvent<SessionGuests>) => void;
     'qwGuestCenter'?: boolean;
@@ -443,6 +449,8 @@ declare namespace LocalJSX {
   interface QwInput {
     'onQwInputChanged'?: (event: CustomEvent<QwInputEmitter>) => void;
     'qwInputCaption'?: string;
+    'qwInputHasError'?: boolean;
+    'qwInputIsMandatory'?: boolean;
     'qwInputIsReadonly'?: boolean;
     'qwInputLabel'?: string;
     'qwInputName'?: string;

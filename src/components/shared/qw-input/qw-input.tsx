@@ -22,6 +22,8 @@ export class QwInput {
   @Prop() qwInputLabel: string;
   @Prop() qwInputCaption: string;
   @Prop() qwInputIsReadonly: boolean;
+  @Prop() qwInputIsMandatory: boolean;
+  @Prop() qwInputHasError: boolean;
   @Event() qwInputChanged: EventEmitter<QwInputEmitter>;
 
   public qwInputPhone;
@@ -87,7 +89,10 @@ export class QwInput {
 
   render() {
     return (
-      <Host>
+      <Host class={`
+        ${this.qwInputIsMandatory ? 'qw-input--mandatory' : ''}
+        ${this.qwInputHasError ? 'qw-input--error' : ''}
+      `}>
         <label>
           <div class="qw-input__label">{this.qwInputLabel}</div>
           <input

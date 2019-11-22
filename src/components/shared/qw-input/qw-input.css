@@ -38,5 +38,5 @@ qw-input input[type="checkbox"] {
 }
 
 qw-input input[type="checkbox"]:checked {
-  background: red;
+  background: var(--qw-hotel-accent-color);
 }
