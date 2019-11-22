@@ -17,7 +17,6 @@ import {emailIsValid} from '../../globals/app';
 export class QwBook {
   @Prop() qwBookErrorQuoteMessage: string;
   @State() quote: QuoteModel;
-  @State() openSpecialRequests: boolean;
   @State() isConfirmedConditions: boolean;
   @State() formQuote: QuoteCreateBody;
 
@@ -116,14 +115,14 @@ export class QwBook {
                 <div class="qw-book__special-requests">
                   <div class="qw-book__special-requests__title">
                     <h4>Special requests</h4>
-                    <QwButton QwButtonLabel="" QwButtonOnClick={() => this.openSpecialRequests = !this.openSpecialRequests}/>
+                    <QwButton QwButtonLabel=""/>
                   </div>
                   <div class="qw-book__special-requests__caption">
                     Tell us if you need any special services or special requests
                   </div>
-                  {this.openSpecialRequests && <div class="qw-book__special-requests__content">
+                  <div class="qw-book__special-requests__content">
                     <qw-textarea qwTextareaName="specialRequest"/>
-                  </div>}
+                  </div>
                 </div>
                 {this.quote
                 && <div class="qw-book__booking-conditions">
