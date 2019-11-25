@@ -7,7 +7,7 @@ interface QwImageProps {
 
 export const QwImage: FunctionalComponent<QwImageProps> = (props) => {
   const normalizedProps = props || {} as QwImageProps; // if props are empty, return null
-  const fallBackUrl = 'img/no-image.png'; // todo to change
+  const fallBackUrl = 'img/no-image.png';
   return <div class={`
     qw-image
     ${!normalizedProps.imageUrl ? 'qw-image__no-image' : ''}
