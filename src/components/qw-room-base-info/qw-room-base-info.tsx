@@ -31,7 +31,7 @@ export class QwRoomBaseInfo {
         {this.room && <ul>
           <li>{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
           {this.room.surfaceArea.text && <li>{this.room.surfaceArea.text}</li>}
-          <li>{this.room.bedding.beds[0].count} x {this.room.bedding.beds[0].type.text}</li>
+          <li>{RoomHelper.getRoomBedsFormatted(this.room)}</li>
         </ul>}
       </Host>
     );

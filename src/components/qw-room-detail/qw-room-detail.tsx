@@ -97,7 +97,7 @@ export class QwRoomDetail {
           qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}
           qwRoomDetailCardSquareMeter={this.room.surfaceArea.text}
           qwRoomDetailCardGuests={RoomHelper.getDefaultOccupancy(this.room).definition.text}
-          qwRoomDetailCardBed={this.room.bedding.beds[0].type.text}
+          qwRoomDetailCardBed={RoomHelper.getRoomBedsFormatted(this.room)}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
           qwRoomDetailCardIsLoading={this.basketIsLoading}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
