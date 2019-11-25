@@ -65,7 +65,7 @@ export class QwRoomRate {
             </div>
             {this.showConditions && <div class="qw-room-rate__conditions-content">
               <li>City taxes not included.</li>
-              <li>{this.qwRoomRateRate.taxes.onSite.amount.text && RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}</li>
+              {this.qwRoomRateRate.taxes.onSite.amount.text && <li>{RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}</li>}
               <li>{this.qwRoomRateQualifier}</li>
               {this.qwRoomRateSummary && <li>{this.qwRoomRateSummary}</li>}
               <li>{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>

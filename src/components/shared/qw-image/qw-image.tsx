@@ -7,6 +7,11 @@ interface QwImageProps {
 
 export const QwImage: FunctionalComponent<QwImageProps> = (props) => {
   const normalizedProps = props || {} as QwImageProps; // if props are empty, return null
-  const fallBackUrl = 'https://via.placeholder.com/400'; // todo to change
-  return <img class="qw-image" src={normalizedProps.imageUrl || fallBackUrl} alt={normalizedProps.alt}/>;
+  const fallBackUrl = 'img/no-image.png'; // todo to change
+  return <div class={`
+    qw-image
+    ${!normalizedProps.imageUrl ? 'qw-image__no-image' : ''}
+  `}>
+    <img src={normalizedProps.imageUrl || fallBackUrl} alt={normalizedProps.alt}/>
+  </div>
 };
