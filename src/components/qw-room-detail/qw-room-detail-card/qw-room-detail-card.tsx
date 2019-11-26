@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
-import {Rate, RoomModel, RoomSummaryType} from '@qwentes/booking-state-manager';
+import {Rate, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
@@ -37,11 +37,6 @@ export class QwRoomDetailCard {
   @Listen('qwRoomRateCounterChanged')
   public rateChanged(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
     this.qwRoomDetailCardActiveRate = e.detail.quantity && e.detail.rateId;
-  }
-
-  public getRateSummary(rate: Rate) {
-    const summary = rate.description.summary.find(summary => summary.value === RoomSummaryType.PlainText);
-    return summary && summary.text;
   }
 
   private isRateDisabled(rateId) {
@@ -85,9 +80,6 @@ export class QwRoomDetailCard {
                   qwRoomRateRate={rate}
                   qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
-                  qwRoomRateName={rate.description.name}
-                  qwRoomRateQualifier={rate.description.qualifier}
-                  qwRoomRateSummary={this.getRateSummary(rate)}
                   qwRoomRateShowConditions={this.qwRoomDetailCardRates.length === 1}/>;
               })}
               <div class="qw-room-detail-card__alert">{this.qwRoomDetailCardNumberOfAccommodation

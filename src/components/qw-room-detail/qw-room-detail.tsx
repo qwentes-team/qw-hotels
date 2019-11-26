@@ -50,7 +50,7 @@ export class QwRoomDetail {
         }),
       )
       .subscribe(basket => {
-        const basketRoom = this.getBasketRoom(basket.rooms);
+        const basketRoom = basket.rooms && this.getBasketRoom(basket.rooms);
         this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[0]);
       });
   }

@@ -79,6 +79,7 @@ export class QwRoomBasket {
                 qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[0].taxes, basketRoom.occupancies[0].selectedQuantity)}
                 qwRoomListCardShowCta={false}
                 qwRoomListCardShowPriceAndTaxes={true}
+                qwRoomListCardShowActions={true}
                 qwRoomListCardBasketRoom={basketRoom}
                 qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}/>
           }) : undefined}

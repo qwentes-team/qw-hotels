@@ -34,7 +34,9 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardShowPrice: boolean = true;
   @Prop() qwRoomListCardShowDescription: boolean = true;
   @Prop() qwRoomListCardShowPriceAndTaxes: boolean;
+  @Prop() qwRoomListCardShowActions: boolean;
   @Prop() qwRoomListCardBasketRoom: RoomBasketModel;
+  @Prop() qwRoomListCardBasketIsEmpty: boolean;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
@@ -47,7 +49,12 @@ export class QwRoomListCard {
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
-    this.qwRoomListCardOnChangeRoom({quantity: event.detail.value.toString(), room: this.qwRoomListCardBasketRoom});
+    // todo differenziare i counter event emitter -> uno usato nella room-list e uno usato nella room-basket
+    this.qwRoomListCardOnChangeRoom({
+      quantity: event.detail.value.toString(),
+      room: this.qwRoomListCardBasketRoom,
+      roomId: this.qwRoomListCardId,
+    });
   }
 
   render() {
@@ -79,17 +86,25 @@ export class QwRoomListCard {
           </div>}
 
           {this.qwRoomListCardShowPrices && <div class="qw-room-list-card__prices">
-            <div class="qw-room-list-card__prices-average">
-              Best prices - Average per night: {this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}
-            </div>
-            <qw-week-calendar
-              qwWeekCalendarRangeDate={this.qwRoomListCardRangeDate}
-              qwWeekCalendarRangeDateSession={this.qwRoomListCardRangeDateSession}
-              qwWeekCalendarPricesByRoom={this.qwRoomListCardPrices}
-              qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>
+            {this.qwRoomListCardBasketIsEmpty && <div class="qw-room-list-card__prices-container">
+              <div class="qw-room-list-card__prices-average">
+                Best prices - Average per night: {this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}
+              </div>
+              <qw-week-calendar
+                qwWeekCalendarRangeDate={this.qwRoomListCardRangeDate}
+                qwWeekCalendarRangeDateSession={this.qwRoomListCardRangeDateSession}
+                qwWeekCalendarPricesByRoom={this.qwRoomListCardPrices}
+                qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>
+            </div>}
+
+            {!this.qwRoomListCardBasketIsEmpty && this.qwRoomListCardRates && this.qwRoomListCardRates.length === 1 &&
+              <qw-room-rate
+                qwRoomRateRate={this.qwRoomListCardRates[0]}
+                qwRoomRateIsLoading={this.qwRoomListCardIsLoading}/>
+            }
           </div>}
 
-          {this.qwRoomListCardBasketRoom && <div class="qw-room-list-card__basket-actions">
+          {this.qwRoomListCardBasketRoom && this.qwRoomListCardShowActions && <div class="qw-room-list-card__basket-actions">
             <div class="qw-room-list-card__basket-actions-counter">
               <div class="qw-room-list-card__basket-actions-counter-label">Room qty.</div>
               <qw-counter

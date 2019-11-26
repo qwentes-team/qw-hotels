@@ -1,7 +1,7 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
-import {Rate, RateHelper, RateInformation, RateQualifierType, RoomMetadata} from '@qwentes/booking-state-manager';
+import {Rate, RateHelper, RateInformation, RateQualifierType, RoomSummaryType} from '@qwentes/booking-state-manager';
 
 export interface QwRoomRateAddToBasketEmitter {
   quantity: number;
@@ -15,11 +15,8 @@ export interface QwRoomRateAddToBasketEmitter {
 })
 export class QwRoomRate {
   @Prop() qwRoomRateRate: Rate;
-  @Prop() qwRoomRateName: string;
   @Prop() qwRoomRateIsLoading: boolean;
   @Prop() qwRoomRateIsDisabled: boolean;
-  @Prop() qwRoomRateQualifier: RoomMetadata<RateQualifierType>;
-  @Prop() qwRoomRateSummary: string;
   @Prop() qwRoomRateShowConditions: boolean;
   @State() quantity: number = 0;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
@@ -39,43 +36,48 @@ export class QwRoomRate {
     return qualifier.value === RateQualifierType.BreakfastIncluded;
   }
 
+  public getRateSummary() {
+    const summary = this.qwRoomRateRate.description.summary.find(summary => summary.value === RoomSummaryType.PlainText);
+    return summary && summary.text;
+  }
+
   render() {
     return (
       <Host class={this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}>
-        <div class="qw-room-rate__title">
-          <div class="qw-room-rate__title-name">{this.qwRoomRateName}</div>
+        {this.qwRoomRateRate && <div class="qw-room-rate__title">
+          <div class="qw-room-rate__title-name">{this.qwRoomRateRate.description.name}</div>
           <div
             class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
           </div>
           <div class="qw-room-rate__occupancy">{this.qwRoomRateRate.occupancy && this.qwRoomRateRate.occupancy.definition.text}</div>
-        </div>
-        <div class="qw-room-rate__price">
-          {this.qwRoomRateRate.price.totalPrice.converted.text}
+        </div>}
+        {this.qwRoomRateRate && <div class="qw-room-rate__price">
+          {this.qwRoomRateRate.price ? this.qwRoomRateRate.price.totalPrice.converted.text : '--'}
           <div class="qw-room-rate__taxes">
-            {RateHelper.getTaxesMessageFormatted(this.qwRoomRateRate.taxes, 1)}
+            {this.qwRoomRateRate.taxes && RateHelper.getTaxesMessageFormatted(this.qwRoomRateRate.taxes, 1)}
           </div>
-        </div>
+        </div>}
 
-        <qw-counter
-          qwCounterName={this.qwRoomRateName}
+        {this.qwRoomRateRate && <qw-counter
+          qwCounterName={this.qwRoomRateRate.description.name}
           qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-          qwCounterMaxValue={this.qwRoomRateRate.availableQuantity}/>
+          qwCounterMaxValue={this.qwRoomRateRate.availableQuantity}/>}
 
-        <QwButton
+        {this.qwRoomRateRate && <QwButton
           QwButtonLabel="Add to cart"
           QwButtonDisabled={!this.quantity || this.quantity === this.qwRoomRateRate.selectedQuantity || this.qwRoomRateIsLoading}
-          QwButtonOnClick={() => this.addToBasket()}/>
+          QwButtonOnClick={() => this.addToBasket()}/>}
 
-        <div class="qw-room-rate__conditions">
+        {this.qwRoomRateRate && <div class="qw-room-rate__conditions">
           {this.qwRoomRateRate.taxes.onSite.amount.text && <li class="qw-room-rate--stay-tax">
             {RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
           </li>}
-          <li class={this.hasBreakfast(this.qwRoomRateQualifier) ? 'qw-room-rate--has-breakfast' : 'qw-room-rate--has-not-breakfast'}>
-            {this.qwRoomRateQualifier.text}
+          <li class={this.hasBreakfast(this.qwRoomRateRate.description.qualifier) ? 'qw-room-rate--has-breakfast' : 'qw-room-rate--has-not-breakfast'}>
+            {this.qwRoomRateRate.description.qualifier.text}
           </li>
           <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
 
-          {this.qwRoomRateSummary && <div class="qw-room-rate__other-conditions">
+          {this.getRateSummary() && <div class="qw-room-rate__other-conditions">
             <div
               class="qw-room-rate__conditions-trigger"
               onClick={() => this.qwRoomRateShowConditions = !this.qwRoomRateShowConditions}>
@@ -83,10 +85,10 @@ export class QwRoomRate {
             </div>
 
             {this.qwRoomRateShowConditions && <div class="qw-room-rate__conditions-content">
-              {<li>{this.qwRoomRateSummary}</li>}
+              {<li>{this.getRateSummary()}</li>}
             </div>}
           </div>}
-        </div>
+        </div>}
       </Host>
     );
   }

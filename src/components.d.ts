@@ -14,10 +14,8 @@ import {
   PricesForStayPeriod,
   QuoteCreateBody,
   Rate,
-  RateQualifierType,
   RoomBasketModel,
   RoomImageMetadata,
-  RoomMetadata as RoomMetadata1,
   RoomModel,
   SessionGuests,
   SessionStayPeriod,
@@ -161,6 +159,7 @@ export namespace Components {
   }
   interface QwRoomListCard {
     'qwRoomListCardAveragePrice': string;
+    'qwRoomListCardBasketIsEmpty': boolean;
     'qwRoomListCardBasketRoom': RoomBasketModel;
     'qwRoomListCardCrossedOutPrice': string;
     'qwRoomListCardDescription': string;
@@ -180,6 +179,7 @@ export namespace Components {
     'qwRoomListCardRangeDate': Date[];
     'qwRoomListCardRangeDateSession': Date[];
     'qwRoomListCardRates': Rate[];
+    'qwRoomListCardShowActions': boolean;
     'qwRoomListCardShowCta': boolean;
     'qwRoomListCardShowDescription': boolean;
     'qwRoomListCardShowPrice': boolean;
@@ -192,11 +192,8 @@ export namespace Components {
   interface QwRoomRate {
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
-    'qwRoomRateName': string;
-    'qwRoomRateQualifier': RoomMetadata<RateQualifierType>;
     'qwRoomRateRate': Rate;
     'qwRoomRateShowConditions': boolean;
-    'qwRoomRateSummary': string;
   }
   interface QwTextarea {
     'qwTextareaName': string;
@@ -537,6 +534,7 @@ declare namespace LocalJSX {
   }
   interface QwRoomListCard {
     'qwRoomListCardAveragePrice'?: string;
+    'qwRoomListCardBasketIsEmpty'?: boolean;
     'qwRoomListCardBasketRoom'?: RoomBasketModel;
     'qwRoomListCardCrossedOutPrice'?: string;
     'qwRoomListCardDescription'?: string;
@@ -556,6 +554,7 @@ declare namespace LocalJSX {
     'qwRoomListCardRangeDate'?: Date[];
     'qwRoomListCardRangeDateSession'?: Date[];
     'qwRoomListCardRates'?: Rate[];
+    'qwRoomListCardShowActions'?: boolean;
     'qwRoomListCardShowCta'?: boolean;
     'qwRoomListCardShowDescription'?: boolean;
     'qwRoomListCardShowPrice'?: boolean;
@@ -570,11 +569,8 @@ declare namespace LocalJSX {
     'onQwRoomRateCounterChanged'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
-    'qwRoomRateName'?: string;
-    'qwRoomRateQualifier'?: RoomMetadata<RateQualifierType>;
     'qwRoomRateRate'?: Rate;
     'qwRoomRateShowConditions'?: boolean;
-    'qwRoomRateSummary'?: string;
   }
   interface QwTextarea {
     'onQwTextareaChanged'?: (event: CustomEvent<QwInputEmitter>) => void;
