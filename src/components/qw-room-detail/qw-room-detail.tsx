@@ -20,6 +20,8 @@ export interface QwRoomDetailAddToBasketEmitter {
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
   @Prop() qwRoomDetailAlertMessage: string;
+  @Prop() qwRoomDetailAddAnotherRoomButtonMessage: string;
+  @Prop() qwRoomDetailProceedToCheckoutButtonMessage: string;
   @State() room: RoomModel;
   @State() basketRoomRate: Rate;
   @State() numberOfNights: number;

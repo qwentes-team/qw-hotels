@@ -47,6 +47,10 @@ qw-room-detail-card .qw-room-detail-card__image img {
   width: 100%;
 }
 
+qw-room-detail-card qw-room-rate {
+  margin: var(--qw-hotel-gap-sm) 0;
+}
+
 qw-room-detail-card .qw-room-detail-card__title,
 qw-room-detail-card .qw-room-detail-card__rates,
 qw-room-detail-card .qw-room-detail-card__services {

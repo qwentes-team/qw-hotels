@@ -1,7 +1,7 @@
-import {Component, Host, h, Prop, EventEmitter, Event, State, Listen} from '@stencil/core';
+import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
-import {Rate, RateHelper} from '@qwentes/booking-state-manager';
+import {Rate, RateHelper, RateInformation, RateQualifierType, RoomMetadata} from '@qwentes/booking-state-manager';
 
 export interface QwRoomRateAddToBasketEmitter {
   quantity: number;
@@ -18,10 +18,10 @@ export class QwRoomRate {
   @Prop() qwRoomRateName: string;
   @Prop() qwRoomRateIsLoading: boolean;
   @Prop() qwRoomRateIsDisabled: boolean;
-  @Prop() qwRoomRateQualifier: string;
+  @Prop() qwRoomRateQualifier: RoomMetadata<RateQualifierType>;
   @Prop() qwRoomRateSummary: string;
+  @Prop() qwRoomRateShowConditions: boolean;
   @State() quantity: number = 0;
-  @State() showConditions: boolean;
   @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
   @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateAddToBasketEmitter>;
 
@@ -35,13 +35,19 @@ export class QwRoomRate {
     this.qwRoomRateAddToBasket.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
   };
 
+  public hasBreakfast(qualifier: RateInformation['qualifier']) {
+    return qualifier.value === RateQualifierType.BreakfastIncluded;
+  }
+
   render() {
     return (
       <Host class={this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}>
         <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateName}</div>
-          <div class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available</div>
-          <div class="qw-room-rate__occupancy">{this.qwRoomRateRate.occupancy.definition.text}</div>
+          <div
+            class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
+          </div>
+          <div class="qw-room-rate__occupancy">{this.qwRoomRateRate.occupancy && this.qwRoomRateRate.occupancy.definition.text}</div>
         </div>
         <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price.totalPrice.converted.text}
@@ -60,18 +66,27 @@ export class QwRoomRate {
           QwButtonDisabled={!this.quantity || this.quantity === this.qwRoomRateRate.selectedQuantity || this.qwRoomRateIsLoading}
           QwButtonOnClick={() => this.addToBasket()}/>
 
-          <div class="qw-room-rate__conditions">
-            <div class="qw-room-rate__conditions-trigger" onClick={() => this.showConditions = !this.showConditions}>
-              {this.showConditions ? '-' : '+'} Booking conditions
+        <div class="qw-room-rate__conditions">
+          {this.qwRoomRateRate.taxes.onSite.amount.text && <li class="qw-room-rate--stay-tax">
+            {RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
+          </li>}
+          <li class={this.hasBreakfast(this.qwRoomRateQualifier) ? 'qw-room-rate--has-breakfast' : 'qw-room-rate--has-not-breakfast'}>
+            {this.qwRoomRateQualifier.text}
+          </li>
+          <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
+
+          {this.qwRoomRateSummary && <div class="qw-room-rate__other-conditions">
+            <div
+              class="qw-room-rate__conditions-trigger"
+              onClick={() => this.qwRoomRateShowConditions = !this.qwRoomRateShowConditions}>
+              {this.qwRoomRateShowConditions ? '-' : '+'} View more
             </div>
-            {this.showConditions && <div class="qw-room-rate__conditions-content">
-              <li>City taxes not included.</li>
-              {this.qwRoomRateRate.taxes.onSite.amount.text && <li>{RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}</li>}
-              <li>{this.qwRoomRateQualifier}</li>
-              {this.qwRoomRateSummary && <li>{this.qwRoomRateSummary}</li>}
-              <li>{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
+
+            {this.qwRoomRateShowConditions && <div class="qw-room-rate__conditions-content">
+              {<li>{this.qwRoomRateSummary}</li>}
             </div>}
-          </div>
+          </div>}
+        </div>
       </Host>
     );
   }

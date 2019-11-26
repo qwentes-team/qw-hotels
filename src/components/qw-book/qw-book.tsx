@@ -126,7 +126,7 @@ export class QwBook {
                 </div>
                 {this.quote
                 && <div class="qw-book__booking-conditions">
-                  <h4>Booking Conditions</h4>
+                  <h4>Booking & Sales Conditions</h4>
                   <div class="qw-book__booking-conditions__cancellation">
                     <h5>Cancellation Policy</h5>
                     <li>{QuoteHelper.getDefaultCancelConditionMessage(this.quote)}</li>

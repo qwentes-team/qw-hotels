@@ -22,6 +22,8 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardNumberOfGuests: number;
   @Prop() qwRoomDetailCardNumberOfAccommodation: number;
   @Prop() qwRoomDetailCardAlertMessage: string;
+  @Prop() qwRoomDetailAddAnotherRoomButtonMessage: string;
+  @Prop() qwRoomDetailProceedToCheckoutButtonMessage: string;
   @State() qwRoomDetailCardActiveRate: Rate['rateId'];
   @Event() qwRoomDetailCardAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
   @Event() qwRoomDetailCardAddAnotherRoom: EventEmitter<void>;
@@ -84,16 +86,21 @@ export class QwRoomDetailCard {
                   qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
                   qwRoomRateName={rate.description.name}
-                  qwRoomRateQualifier={rate.description.qualifier.text}
-                  qwRoomRateSummary={this.getRateSummary(rate)}/>;
+                  qwRoomRateQualifier={rate.description.qualifier}
+                  qwRoomRateSummary={this.getRateSummary(rate)}
+                  qwRoomRateShowConditions={this.qwRoomDetailCardRates.length === 1}/>;
               })}
               <div class="qw-room-detail-card__alert">{this.qwRoomDetailCardNumberOfAccommodation
                 ? this.showAlertForAccommodation()
                   ? <div class="qw-room-detail-card__alert-message">
-                    <QwButton QwButtonLabel="Add another room" QwButtonOnClick={() => this.qwRoomDetailCardAddAnotherRoom.emit()}/>
+                    <QwButton
+                      QwButtonLabel={this.qwRoomDetailAddAnotherRoomButtonMessage || 'Add another room'}
+                      QwButtonOnClick={() => this.qwRoomDetailCardAddAnotherRoom.emit()}/>
                     <div>{this.qwRoomDetailCardAlertMessage || 'No sufficent rooms for your guests'}</div>
                   </div>
-                  : <QwButton QwButtonLabel="Proceed to checkout" QwButtonOnClick={() => this.qwRoomDetailCardProceed.emit()}/>
+                  : <QwButton
+                      QwButtonLabel={this.qwRoomDetailProceedToCheckoutButtonMessage || 'Proceed to checkout'}
+                      QwButtonOnClick={() => this.qwRoomDetailCardProceed.emit()}/>
                 : ''
               }</div>
             </div>}

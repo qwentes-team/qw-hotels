@@ -30,8 +30,5 @@ qw-room-rate .qw-button {
 
 qw-room-rate .qw-room-rate__conditions {
   width: 100%;
-}
-
-qw-room-rate .qw-room-rate__conditions-trigger {
   font-size: var(--qw-hotel-small-font-size);
 }

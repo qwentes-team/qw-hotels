@@ -14,8 +14,10 @@ import {
   PricesForStayPeriod,
   QuoteCreateBody,
   Rate,
+  RateQualifierType,
   RoomBasketModel,
   RoomImageMetadata,
+  RoomMetadata as RoomMetadata1,
   RoomModel,
   SessionGuests,
   SessionStayPeriod,
@@ -129,10 +131,13 @@ export namespace Components {
     'qwRoomBasketShowDescription': any;
   }
   interface QwRoomDetail {
+    'qwRoomDetailAddAnotherRoomButtonMessage': string;
     'qwRoomDetailAlertMessage': string;
     'qwRoomDetailId': string;
+    'qwRoomDetailProceedToCheckoutButtonMessage': string;
   }
   interface QwRoomDetailCard {
+    'qwRoomDetailAddAnotherRoomButtonMessage': string;
     'qwRoomDetailCardAlertMessage': string;
     'qwRoomDetailCardBed': string;
     'qwRoomDetailCardGuests': string;
@@ -145,6 +150,7 @@ export namespace Components {
     'qwRoomDetailCardRoomId': RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
+    'qwRoomDetailProceedToCheckoutButtonMessage': string;
   }
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
@@ -187,8 +193,9 @@ export namespace Components {
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateName': string;
-    'qwRoomRateQualifier': string;
+    'qwRoomRateQualifier': RoomMetadata<RateQualifierType>;
     'qwRoomRateRate': Rate;
+    'qwRoomRateShowConditions': boolean;
     'qwRoomRateSummary': string;
   }
   interface QwTextarea {
@@ -496,13 +503,16 @@ declare namespace LocalJSX {
     'onQwRoomDetailAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
     'onQwRoomDetailProceed'?: (event: CustomEvent<void>) => void;
+    'qwRoomDetailAddAnotherRoomButtonMessage'?: string;
     'qwRoomDetailAlertMessage'?: string;
     'qwRoomDetailId'?: string;
+    'qwRoomDetailProceedToCheckoutButtonMessage'?: string;
   }
   interface QwRoomDetailCard {
     'onQwRoomDetailCardAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailCardAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
     'onQwRoomDetailCardProceed'?: (event: CustomEvent<void>) => void;
+    'qwRoomDetailAddAnotherRoomButtonMessage'?: string;
     'qwRoomDetailCardAlertMessage'?: string;
     'qwRoomDetailCardBed'?: string;
     'qwRoomDetailCardGuests'?: string;
@@ -515,6 +525,7 @@ declare namespace LocalJSX {
     'qwRoomDetailCardRoomId'?: RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
+    'qwRoomDetailProceedToCheckoutButtonMessage'?: string;
   }
   interface QwRoomList {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
@@ -560,8 +571,9 @@ declare namespace LocalJSX {
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateName'?: string;
-    'qwRoomRateQualifier'?: string;
+    'qwRoomRateQualifier'?: RoomMetadata<RateQualifierType>;
     'qwRoomRateRate'?: Rate;
+    'qwRoomRateShowConditions'?: boolean;
     'qwRoomRateSummary'?: string;
   }
   interface QwTextarea {
