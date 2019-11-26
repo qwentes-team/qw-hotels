@@ -41,6 +41,7 @@ export class QwRoomRate {
         <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateName}</div>
           <div class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available</div>
+          <div class="qw-room-rate__occupancy">{this.qwRoomRateRate.occupancy.definition.text}</div>
         </div>
         <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price.totalPrice.converted.text}
