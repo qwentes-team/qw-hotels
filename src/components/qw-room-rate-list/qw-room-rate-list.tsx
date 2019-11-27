@@ -88,6 +88,15 @@ export class QwRoomRateList {
     return !this.roomRates || this.basketIsLoading || this.sessionIsLoading || this.roomIsLoading;
   }
 
+  private getRate(rate: Rate) {
+    return <qw-room-rate
+      qwRoomRateRoomId={parseInt(this.qwRoomRateListId)}
+      qwRoomRateRate={rate}
+      qwRoomRateRoomBasketOccupancyText={this.basketRoomOccupancyText}
+      qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
+      qwRoomRateIsLoading={this.isLoadingData()}/>
+  }
+
   @Listen('qwCounterChangeValue')
   public counterFilterRatesChanged(event: CustomEvent<QwCounterEmitter>) {
     if (event.detail.name === 'qwRoomRateListCounter') {
@@ -111,19 +120,8 @@ export class QwRoomRateList {
         </div>
         <div class="qw-room-rate-list__wrapper">
           {this.basketRoomRate
-            ? <qw-room-rate
-              qwRoomRateRoomId={parseInt(this.qwRoomRateListId)}
-              qwRoomRateRate={this.basketRoomRate}
-              qwRoomRateRoomBasketOccupancyText={this.basketRoomOccupancyText}
-              qwRoomRateIsDisabled={this.isRateDisabled(this.basketRoomRate.rateId)}
-              qwRoomRateIsLoading={this.isLoadingData()}/>
-            : this.room && this.roomRates.map(rate => {
-            return rate && <qw-room-rate
-              qwRoomRateRoomId={parseInt(this.qwRoomRateListId)}
-              qwRoomRateRate={rate}
-              qwRoomRateRoomBasketOccupancyText={this.basketRoomOccupancyText}
-              qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
-              qwRoomRateIsLoading={this.isLoadingData()}/>})
+            ? this.getRate(this.basketRoomRate)
+            : this.room && this.roomRates.map(rate => rate && this.getRate(rate))
           }
         </div>
       </Host>
