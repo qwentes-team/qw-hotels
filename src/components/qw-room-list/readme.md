@@ -33,11 +33,13 @@
 ```mermaid
 graph TD;
   qw-room-list --> qw-room-list-card
+  qw-room-list-card --> qw-room-rate
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-error
   qw-room-list-card --> qw-price
   qw-room-list-card --> qw-week-calendar
   qw-room-list-card --> qw-counter
+  qw-room-rate --> qw-counter
   qw-price --> qw-loading
   style qw-room-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

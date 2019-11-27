@@ -10,6 +10,7 @@
 | Property            | Attribute              | Description | Type               | Default     |
 | ------------------- | ---------------------- | ----------- | ------------------ | ----------- |
 | `qwCounterDisabled` | `qw-counter-disabled`  |             | `boolean`          | `undefined` |
+| `qwCounterId`       | `qw-counter-id`        |             | `string`           | `undefined` |
 | `qwCounterMaxValue` | `qw-counter-max-value` |             | `number`           | `undefined` |
 | `qwCounterName`     | `qw-counter-name`      |             | `number \| string` | `undefined` |
 | `qwCounterValue`    | `qw-counter-value`     |             | `number`           | `0`         |
