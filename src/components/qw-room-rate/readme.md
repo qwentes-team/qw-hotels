@@ -31,6 +31,7 @@
 
  - [qw-room-detail-card](../qw-room-detail/qw-room-detail-card)
  - [qw-room-list-card](../qw-room-list/qw-room-list-card)
+ - [qw-room-rate-list](../qw-room-rate-list)
 
 ### Depends on
 
@@ -42,6 +43,7 @@ graph TD;
   qw-room-rate --> qw-counter
   qw-room-detail-card --> qw-room-rate
   qw-room-list-card --> qw-room-rate
+  qw-room-rate-list --> qw-room-rate
   style qw-room-rate fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

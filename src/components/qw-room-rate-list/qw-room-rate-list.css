@@ -1,0 +1,29 @@
+qw-room-rate-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.qw-room-rate-list__header {
+  padding: var(--qw-hotel-gap-md) 0;
+  display: flex;
+}
+
+.qw-room-rate-list__header span:first-of-type {
+  padding-right: var(--qw-hotel-gap-sm);
+}
+
+.qw-room-rate-list__header span:last-of-type {
+  padding-left: var(--qw-hotel-gap-sm);
+}
+
+.qw-room-rate-list__wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.qw-room-rate-list__wrapper qw-room-rate {
+  width: 32%;
+}

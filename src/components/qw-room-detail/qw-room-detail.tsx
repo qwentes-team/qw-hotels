@@ -1,8 +1,8 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
-  RoomBasketModel, RoomHelper, RoomLoaded$, RoomModel, RoomOccupancy, RoomService,
-  SessionHelper, SessionLoaded$, SessionService,
+  RoomBasketModel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomOccupancy, RoomService,
+  SessionHelper, SessionIsLoading$, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddedToBasketEmitter} from '../qw-room-rate/qw-room-rate';
@@ -27,6 +27,8 @@ export class QwRoomDetail {
   @State() basketRoomOccupancyText: RoomOccupancy['definition']['text'];
   @State() numberOfNights: number;
   @State() basketIsLoading: boolean;
+  @State() sessionIsLoading: boolean;
+  @State() roomIsLoading: boolean;
   @State() numberOfGuests: number;
   @State() numberOfAccommodation: number;
   @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<QwRoomDetailAddToBasketEmitter>;
@@ -58,6 +60,8 @@ export class QwRoomDetail {
       });
 
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
+    SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);
+    RoomIsLoading$.subscribe(isLoading => this.roomIsLoading = isLoading);
   }
 
   private getBasketRoom(rooms: RoomBasketModel[]) {
@@ -83,6 +87,10 @@ export class QwRoomDetail {
     this.qwRoomDetailProceed.emit();
   }
 
+  private isLoadingData() {
+    return this.basketIsLoading || this.sessionIsLoading || this.roomIsLoading;
+  }
+
   render() {
     return (
       <Host class={`${!this.room ? 'qw-room-detail--loading' : 'qw-room-detail--loaded'}`}>
@@ -97,7 +105,7 @@ export class QwRoomDetail {
           qwRoomDetailCardGuests={RoomHelper.getDefaultOccupancy(this.room).definition.text}
           qwRoomDetailCardBed={RoomHelper.getRoomBedsFormatted(this.room)}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
-          qwRoomDetailCardIsLoading={this.basketIsLoading}
+          qwRoomDetailCardIsLoading={this.isLoadingData()}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
           qwRoomDetailCardAlertMessage={this.qwRoomDetailAlertMessage}

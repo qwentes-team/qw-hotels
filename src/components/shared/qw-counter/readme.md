@@ -12,6 +12,7 @@
 | `qwCounterDisabled` | `qw-counter-disabled`  |             | `boolean`          | `undefined` |
 | `qwCounterId`       | `qw-counter-id`        |             | `string`           | `undefined` |
 | `qwCounterMaxValue` | `qw-counter-max-value` |             | `number`           | `undefined` |
+| `qwCounterMinValue` | `qw-counter-min-value` |             | `number`           | `undefined` |
 | `qwCounterName`     | `qw-counter-name`      |             | `number \| string` | `undefined` |
 | `qwCounterValue`    | `qw-counter-value`     |             | `number`           | `0`         |
 
@@ -32,6 +33,7 @@
  - [qw-guest](../../qw-guest)
  - [qw-room-list-card](../../qw-room-list/qw-room-list-card)
  - [qw-room-rate](../../qw-room-rate)
+ - [qw-room-rate-list](../../qw-room-rate-list)
 
 ### Graph
 ```mermaid
@@ -41,6 +43,7 @@ graph TD;
   qw-guest --> qw-counter
   qw-room-list-card --> qw-counter
   qw-room-rate --> qw-counter
+  qw-room-rate-list --> qw-counter
   style qw-counter fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
