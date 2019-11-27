@@ -1,11 +1,11 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketService, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
-  RoomBasketModel, RoomHelper, RoomLoaded$, RoomModel, RoomService,
+  BasketHelper, BasketIsLoading$, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
+  RoomBasketModel, RoomHelper, RoomLoaded$, RoomModel, RoomOccupancy, RoomService,
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwRoomRateAddToBasketEmitter} from '../qw-room-rate/qw-room-rate';
+import {QwRoomRateAddedToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 
 export interface QwRoomDetailAddToBasketEmitter {
   numberOfGuests: number;
@@ -24,6 +24,7 @@ export class QwRoomDetail {
   @Prop() qwRoomDetailProceedToCheckoutButtonMessage: string;
   @State() room: RoomModel;
   @State() basketRoomRate: Rate;
+  @State() basketRoomOccupancyText: RoomOccupancy['definition']['text'];
   @State() numberOfNights: number;
   @State() basketIsLoading: boolean;
   @State() numberOfGuests: number;
@@ -51,29 +52,24 @@ export class QwRoomDetail {
       )
       .subscribe(basket => {
         const basketRoom = basket.rooms && this.getBasketRoom(basket.rooms);
-        this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[0]);
+        this.basketRoomOccupancyText = basketRoom && basketRoom.defaultOccupancy.definition.text;
+        const occupancyId = basketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
+        this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
       });
+
+    BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
   }
 
   private getBasketRoom(rooms: RoomBasketModel[]) {
-    return rooms.find(r => r.roomId === this.room.roomId);
+    return this.room && rooms.find(r => r.roomId === this.room.roomId);
   }
 
-  @Listen('qwRoomDetailCardAddToBasket')
-  public addToBasket(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
-    this.basketIsLoading = true;
-    BasketService.setRoomInBasket({
-      roomId: this.room.roomId,
-      rateId: e.detail.rateId,
-      occupancyId: RoomHelper.getDefaultOccupancy(this.room).occupancyId,
-      quantity: e.detail.quantity,
-    }).subscribe((basket) => {
-      this.basketIsLoading = false;
-      this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
-      this.qwRoomDetailAddToBasketSuccess.emit({
-        numberOfGuests: this.numberOfGuests,
-        numberOfAccommodation: this.numberOfAccommodation,
-      });
+  @Listen('qwRoomDetailCardAddedToBasket')
+  public addedToBasket(e: CustomEvent<QwRoomRateAddedToBasketEmitter>) {
+    this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(e.detail.basket);
+    this.qwRoomDetailAddToBasketSuccess.emit({
+      numberOfGuests: this.numberOfGuests,
+      numberOfAccommodation: this.numberOfAccommodation,
     });
   }
 
@@ -105,7 +101,8 @@ export class QwRoomDetail {
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
           qwRoomDetailCardAlertMessage={this.qwRoomDetailAlertMessage}
-          qwRoomDetailCardRates={this.room.rates || [this.basketRoomRate] || []}/>}
+          qwRoomDetailCardBasketRoomOccupancyText={this.basketRoomOccupancyText}
+          qwRoomDetailCardRates={this.basketRoomRate ? [this.basketRoomRate] : this.room.rates}/>}
       </Host>
     );
   }

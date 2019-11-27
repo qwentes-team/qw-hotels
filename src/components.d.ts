@@ -8,6 +8,7 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   RoomMetadata,
+  RoomOccupancy as RoomOccupancy1,
 } from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
 import {
   MoneyPrice,
@@ -17,6 +18,7 @@ import {
   RoomBasketModel,
   RoomImageMetadata,
   RoomModel,
+  RoomOccupancy,
   SessionGuests,
   SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
@@ -39,10 +41,11 @@ import {
   QwRoomDetailAddToBasketEmitter,
 } from './components/qw-room-detail/qw-room-detail';
 import {
-  QwRoomRateAddToBasketEmitter,
+  QwRoomRateAddedToBasketEmitter,
 } from './components/qw-room-rate/qw-room-rate';
 import {
-  QwRoomRateAddToBasketEmitter as QwRoomRateAddToBasketEmitter1,
+  QwRoomRateAddedToBasketEmitter as QwRoomRateAddedToBasketEmitter1,
+  QwRoomRateCounterChangedEmitter,
 } from './components/qw-room-rate/qw-room-rate';
 import {
   QwInputEmitter as QwInputEmitter1,
@@ -138,6 +141,7 @@ export namespace Components {
   interface QwRoomDetailCard {
     'qwRoomDetailAddAnotherRoomButtonMessage': string;
     'qwRoomDetailCardAlertMessage': string;
+    'qwRoomDetailCardBasketRoomOccupancyText': RoomOccupancy['definition']['text'];
     'qwRoomDetailCardBed': string;
     'qwRoomDetailCardGuests': string;
     'qwRoomDetailCardImage': string;
@@ -162,6 +166,8 @@ export namespace Components {
     'qwRoomListCardAveragePrice': string;
     'qwRoomListCardBasketIsEmpty': boolean;
     'qwRoomListCardBasketRoom': RoomBasketModel;
+    'qwRoomListCardBasketRoomOccupancyId': number;
+    'qwRoomListCardBasketRoomOccupancyText': string;
     'qwRoomListCardCrossedOutPrice': string;
     'qwRoomListCardDescription': string;
     'qwRoomListCardGuests': string;
@@ -194,6 +200,8 @@ export namespace Components {
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateRate': Rate;
+    'qwRoomRateRoomBasketOccupancyText': RoomOccupancy['definition']['text'];
+    'qwRoomRateRoomId': RoomModel['roomId'];
     'qwRoomRateShowConditions': boolean;
   }
   interface QwTextarea {
@@ -509,10 +517,11 @@ declare namespace LocalJSX {
   }
   interface QwRoomDetailCard {
     'onQwRoomDetailCardAddAnotherRoom'?: (event: CustomEvent<void>) => void;
-    'onQwRoomDetailCardAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'onQwRoomDetailCardAddedToBasket'?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
     'onQwRoomDetailCardProceed'?: (event: CustomEvent<void>) => void;
     'qwRoomDetailAddAnotherRoomButtonMessage'?: string;
     'qwRoomDetailCardAlertMessage'?: string;
+    'qwRoomDetailCardBasketRoomOccupancyText'?: RoomOccupancy['definition']['text'];
     'qwRoomDetailCardBed'?: string;
     'qwRoomDetailCardGuests'?: string;
     'qwRoomDetailCardImage'?: string;
@@ -538,6 +547,8 @@ declare namespace LocalJSX {
     'qwRoomListCardAveragePrice'?: string;
     'qwRoomListCardBasketIsEmpty'?: boolean;
     'qwRoomListCardBasketRoom'?: RoomBasketModel;
+    'qwRoomListCardBasketRoomOccupancyId'?: number;
+    'qwRoomListCardBasketRoomOccupancyText'?: string;
     'qwRoomListCardCrossedOutPrice'?: string;
     'qwRoomListCardDescription'?: string;
     'qwRoomListCardGuests'?: string;
@@ -567,11 +578,13 @@ declare namespace LocalJSX {
     'qwRoomListCardTitle'?: string;
   }
   interface QwRoomRate {
-    'onQwRoomRateAddToBasket'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
-    'onQwRoomRateCounterChanged'?: (event: CustomEvent<QwRoomRateAddToBasketEmitter>) => void;
+    'onQwRoomRateAddedToBasket'?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
+    'onQwRoomRateCounterChanged'?: (event: CustomEvent<QwRoomRateCounterChangedEmitter>) => void;
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateRate'?: Rate;
+    'qwRoomRateRoomBasketOccupancyText'?: RoomOccupancy['definition']['text'];
+    'qwRoomRateRoomId'?: RoomModel['roomId'];
     'qwRoomRateShowConditions'?: boolean;
   }
   interface QwTextarea {

@@ -1,5 +1,6 @@
 import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
+  BasketHelper,
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
   RateHelper, RoomBasketOccupancy,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
@@ -40,11 +41,14 @@ export class QwBasketSummary {
   }
 
   setRoomInBasket = (e: QwChangeRoomEvent) => {
+    const occId = BasketHelper.getFirstOccupancyIdInBasketRoom(e.room);
+    const {rateId, occupancyId} = e.room.occupancies[occId];
+
     BasketService.setRoomInBasket({
-      roomId: e.room.roomId,
-      rateId: e.room.occupancies[0].rateId,
-      occupancyId: e.room.occupancies[0].occupancyId,
       quantity: parseInt(e.quantity),
+      roomId: e.room.roomId,
+      rateId,
+      occupancyId,
     }).subscribe();
   };
 
@@ -85,6 +89,13 @@ export class QwBasketSummary {
           </div>
 
           {this.basket && this.basket.rooms.map(basketRoom => {
+            const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
+            const basketOccupancy = basketRoom.occupancies[occupancyId];
+            const rateName = occupancyId && basketOccupancy.rateInformation.name;
+            const rateOccupancyText = occupancyId && basketOccupancy.definition.text;
+            const selectedQuantity = occupancyId && basketOccupancy.selectedQuantity;
+            const availableQuantity = occupancyId && basketOccupancy.availableQuantity;
+            const taxes = occupancyId && basketOccupancy.taxes;
             return (
               <div class="qw-basket-summary__room">
                 <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
@@ -92,20 +103,23 @@ export class QwBasketSummary {
                   <div class="qw-basket-summary__room-title">{basketRoom.name}</div>
                   <div class="qw-basket-summary__room-guests">{basketRoom.type}</div>
                 </div>
-                <div class="qw-basket-summary__room-rate">{basketRoom.occupancies[0].rateInformation.name}</div>
+                <div class="qw-basket-summary__room-rate">
+                  <div class="qw-basket-summary__room-rate-name">{rateName}</div>
+                  <div class="qw-basket-summary__room-rate-occupancy">{rateOccupancyText}</div>
+                </div>
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
                 <div class="qw-basket-summary__room-quantity">
                   <qw-counter
                     qwCounterId="qwBasketSummaryBasketRoomsCounter"
                     qwCounterDisabled={this.basketIsLoading}
-                    qwCounterValue={basketRoom.occupancies[0].selectedQuantity}
+                    qwCounterValue={selectedQuantity}
                     qwCounterName={`roomId:${basketRoom.roomId}`}
-                    qwCounterMaxValue={basketRoom.occupancies[0].availableQuantity}/>
+                    qwCounterMaxValue={availableQuantity}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
-                  {this.getTotalPrice(basketRoom.occupancies[0])}
+                  {this.getTotalPrice(basketOccupancy)}
                   <div class="qw-basket-summary__room-taxes">
-                    {RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[0].taxes, basketRoom.occupancies[0].selectedQuantity)}
+                    {RateHelper.getTaxesMessageFormatted(taxes, selectedQuantity)}
                   </div>
                 </div>
                 <div class="qw-basket-summary__room-delete">
@@ -132,11 +146,9 @@ export class QwBasketSummary {
                     qwCounterMaxValue={extra.availableQuantity}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
-                  {
-                    extra.price.converted.text
+                  {extra.price.converted.text
                       ? RateHelper.multiplyMoney(extra.price.converted, extra.selectedQuantity.value)
-                      : extra.gratuitousnessType.text
-                  }
+                      : extra.gratuitousnessType.text}
                 </div>
                 <div class="qw-basket-summary__room-delete">
                   <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId})}/>
@@ -148,5 +160,4 @@ export class QwBasketSummary {
       </Host>
     );
   }
-
 }

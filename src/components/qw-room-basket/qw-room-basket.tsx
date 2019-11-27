@@ -34,11 +34,14 @@ export class QwRoomBasket {
   }
 
   setRoomInBasket = (e: QwChangeRoomEvent) => {
+    const occId = BasketHelper.getFirstOccupancyIdInBasketRoom(e.room);
+    const {rateId, occupancyId} = e.room.occupancies[occId];
+
     BasketService.setRoomInBasket({
-      roomId: e.room.roomId,
-      rateId: e.room.occupancies[0].rateId,
-      occupancyId: e.room.occupancies[0].occupancyId,
       quantity: parseInt(e.quantity),
+      roomId: e.room.roomId,
+      rateId,
+      occupancyId,
     }).subscribe();
   };
 
@@ -63,6 +66,7 @@ export class QwRoomBasket {
               <QwButton QwButtonLabel="Back to room list" QwButtonOnClick={() => this.backToRoomList()}/>
               </div>
             : this.basket.rooms.map(basketRoom => {
+              const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
               return <qw-room-list-card
                 class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
                 qwRoomListCardId={basketRoom.roomId}
@@ -75,8 +79,8 @@ export class QwRoomBasket {
                 qwRoomListCardNights={this.nights}
                 qwRoomListCardShowPrices={false}
                 qwRoomListCardShowPrice={false}
-                qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[0])}
-                qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[0].taxes, basketRoom.occupancies[0].selectedQuantity)}
+                qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[occupancyId])}
+                qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[occupancyId].taxes, basketRoom.occupancies[occupancyId].selectedQuantity)}
                 qwRoomListCardShowCta={false}
                 qwRoomListCardShowPriceAndTaxes={true}
                 qwRoomListCardShowActions={true}

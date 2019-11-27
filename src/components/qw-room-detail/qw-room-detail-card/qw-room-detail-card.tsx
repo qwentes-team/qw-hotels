@@ -1,6 +1,6 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
-import {Rate, RoomModel} from '@qwentes/booking-state-manager';
-import {QwRoomRateAddToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
+import {Rate, RoomModel, RoomOccupancy} from '@qwentes/booking-state-manager';
+import {QwRoomRateAddedToBasketEmitter, QwRoomRateCounterChangedEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
 
@@ -13,7 +13,7 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardRoomId: RoomModel['roomId'];
   @Prop() qwRoomDetailCardTitle: string;
   @Prop() qwRoomDetailCardImage: string;
-  @Prop() qwRoomDetailCardRates: Rate[];
+  @Prop() qwRoomDetailCardRates: Rate[] = [];
   @Prop() qwRoomDetailCardSquareMeter: string;
   @Prop() qwRoomDetailCardGuests: string;
   @Prop() qwRoomDetailCardBed: string;
@@ -25,17 +25,18 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailAddAnotherRoomButtonMessage: string;
   @Prop() qwRoomDetailProceedToCheckoutButtonMessage: string;
   @State() qwRoomDetailCardActiveRate: Rate['rateId'];
-  @Event() qwRoomDetailCardAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
+  @Prop() qwRoomDetailCardBasketRoomOccupancyText: RoomOccupancy['definition']['text'];
+  @Event() qwRoomDetailCardAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomDetailCardAddAnotherRoom: EventEmitter<void>;
   @Event() qwRoomDetailCardProceed: EventEmitter<void>;
 
-  @Listen('qwRoomRateAddToBasket')
-  public addToBasket(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
-    this.qwRoomDetailCardAddToBasket.emit(e.detail);
+  @Listen('qwRoomRateAddedToBasket')
+  public addToBasket(e: CustomEvent<QwRoomRateAddedToBasketEmitter>) {
+    this.qwRoomDetailCardAddedToBasket.emit(e.detail);
   }
 
   @Listen('qwRoomRateCounterChanged')
-  public rateChanged(e: CustomEvent<QwRoomRateAddToBasketEmitter>) {
+  public rateChanged(e: CustomEvent<QwRoomRateCounterChangedEmitter>) {
     this.qwRoomDetailCardActiveRate = e.detail.quantity && e.detail.rateId;
   }
 
@@ -77,7 +78,9 @@ export class QwRoomDetailCard {
             <div>
               {this.qwRoomDetailCardRates.map(rate => {
                 return rate && <qw-room-rate
+                  qwRoomRateRoomId={this.qwRoomDetailCardRoomId}
                   qwRoomRateRate={rate}
+                  qwRoomRateRoomBasketOccupancyText={this.qwRoomDetailCardBasketRoomOccupancyText}
                   qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
                   qwRoomRateIsLoading={this.qwRoomDetailCardIsLoading}
                   qwRoomRateShowConditions={this.qwRoomDetailCardRates.length === 1}/>;

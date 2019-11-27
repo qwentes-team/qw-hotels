@@ -1,7 +1,7 @@
 import {Component, Host, h, Prop, Listen} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
+import {BasketHelper, MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
 import {QwChangeRoomEvent} from '../../../index';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 
@@ -36,6 +36,8 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardShowPriceAndTaxes: boolean;
   @Prop() qwRoomListCardShowActions: boolean;
   @Prop() qwRoomListCardBasketRoom: RoomBasketModel;
+  @Prop() qwRoomListCardBasketRoomOccupancyText: string;
+  @Prop() qwRoomListCardBasketRoomOccupancyId: number;
   @Prop() qwRoomListCardBasketIsEmpty: boolean;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
@@ -49,12 +51,43 @@ export class QwRoomListCard {
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
-    // todo differenziare i counter event emitter -> uno usato nella room-list e uno usato nella room-basket
+    // todo fare enum per counterIds
+    if (event.detail.id === 'qwRoomRateCounter') {
+      return;
+    }
+
     this.qwRoomListCardOnChangeRoom({
       quantity: event.detail.value.toString(),
       room: this.qwRoomListCardBasketRoom,
-      roomId: this.qwRoomListCardId,
     });
+  }
+
+  public getActionsCounterValues() {
+    const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(this.qwRoomListCardBasketRoom);
+    return {
+      selectedQuantity: this.qwRoomListCardBasketRoom.occupancies[occupancyId].selectedQuantity,
+      availableQuantity: this.qwRoomListCardBasketRoom.occupancies[occupancyId].availableQuantity,
+    }
+  }
+
+  // todo usare sempre occupancy.definition
+  public getRateForBasketNotEmpty() {
+    const rate = this.qwRoomListCardRates.find(r => {
+      if (r.occupancy) {
+        return r.occupancy.occupancyId === this.qwRoomListCardBasketRoomOccupancyId ||
+          r.occupancy.definition.text === this.qwRoomListCardBasketRoomOccupancyText ||
+          r.occupancy.occupancyId === 0;
+      }
+      return true;
+    });
+
+    return rate ? <qw-room-rate
+      qwRoomRateRoomId={this.qwRoomListCardId}
+      qwRoomRateRate={rate}
+      qwRoomRateRoomBasketOccupancyText={rate.occupancy
+        ? rate.occupancy.definition.text
+        : this.qwRoomListCardBasketRoomOccupancyText}
+      qwRoomRateIsLoading={this.qwRoomListCardIsLoading}/> : '';
   }
 
   render() {
@@ -97,11 +130,7 @@ export class QwRoomListCard {
                 qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>
             </div>}
 
-            {!this.qwRoomListCardBasketIsEmpty && this.qwRoomListCardRates && this.qwRoomListCardRates.length === 1 &&
-              <qw-room-rate
-                qwRoomRateRate={this.qwRoomListCardRates[0]}
-                qwRoomRateIsLoading={this.qwRoomListCardIsLoading}/>
-            }
+            {!this.qwRoomListCardBasketIsEmpty && this.qwRoomListCardRates.length ? this.getRateForBasketNotEmpty() : ''}
           </div>}
 
           {this.qwRoomListCardBasketRoom && this.qwRoomListCardShowActions && <div class="qw-room-list-card__basket-actions">
@@ -109,10 +138,9 @@ export class QwRoomListCard {
               <div class="qw-room-list-card__basket-actions-counter-label">Room qty.</div>
               <qw-counter
                 qwCounterId="qwRoomListCardCounter"
-                qwCounterValue={this.qwRoomListCardBasketRoom.occupancies[0].selectedQuantity}
+                qwCounterValue={this.getActionsCounterValues().selectedQuantity}
                 qwCounterName={this.qwRoomListCardId}
-                qwCounterMaxValue={this.qwRoomListCardBasketRoom.occupancies[0].availableQuantity}
-              />
+                qwCounterMaxValue={this.getActionsCounterValues().availableQuantity}/>
             </div>
 
             {this.qwRoomListCardShowPriceAndTaxes && <div class="qw-room-list-card__prices-with-taxes">

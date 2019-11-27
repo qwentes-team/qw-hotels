@@ -1,9 +1,23 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
-import {Rate, RateHelper, RateInformation, RateQualifierType, RoomSummaryType} from '@qwentes/booking-state-manager';
+import {
+  BasketModel,
+  BasketService,
+  Rate,
+  RateHelper,
+  RateInformation,
+  RateQualifierType,
+  RoomModel,
+  RoomSummaryType,
+} from '@qwentes/booking-state-manager';
+import {RoomOccupancy} from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
 
-export interface QwRoomRateAddToBasketEmitter {
+export interface QwRoomRateAddedToBasketEmitter {
+  basket: BasketModel;
+}
+
+export interface QwRoomRateCounterChangedEmitter {
   quantity: number;
   rateId: string;
 }
@@ -18,9 +32,11 @@ export class QwRoomRate {
   @Prop() qwRoomRateIsLoading: boolean;
   @Prop() qwRoomRateIsDisabled: boolean;
   @Prop() qwRoomRateShowConditions: boolean;
+  @Prop() qwRoomRateRoomId: RoomModel['roomId'];
+  @Prop() qwRoomRateRoomBasketOccupancyText: RoomOccupancy['definition']['text'];
   @State() quantity: number = 0;
-  @Event() qwRoomRateAddToBasket: EventEmitter<QwRoomRateAddToBasketEmitter>;
-  @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateAddToBasketEmitter>;
+  @Event() qwRoomRateAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
+  @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateCounterChangedEmitter>;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
@@ -29,7 +45,20 @@ export class QwRoomRate {
   }
 
   addToBasket = () => {
-    this.qwRoomRateAddToBasket.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
+    const occupancyId = this.qwRoomRateRate.occupancyId !== undefined
+      ? this.qwRoomRateRate.occupancyId
+      : this.qwRoomRateRate.occupancy.occupancyId;
+
+    this.qwRoomRateIsLoading = true;
+    BasketService.setRoomInBasket({
+      roomId: this.qwRoomRateRoomId,
+      rateId: this.qwRoomRateRate.rateId,
+      occupancyId,
+      quantity: this.quantity,
+    }).subscribe((basket) => {
+      this.qwRoomRateIsLoading = false;
+      this.qwRoomRateAddedToBasket.emit({basket});
+    });
   };
 
   public hasBreakfast(qualifier: RateInformation['qualifier']) {
@@ -43,13 +72,20 @@ export class QwRoomRate {
 
   render() {
     return (
-      <Host class={this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}>
+      <Host class={`
+        ${this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}
+        ${this.qwRoomRateIsLoading ? 'qw-room-rate__is-loading' : ''}
+      `}>
         {this.qwRoomRateRate && <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateRate.description.name}</div>
           <div
             class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
           </div>
-          <div class="qw-room-rate__occupancy">{this.qwRoomRateRate.occupancy && this.qwRoomRateRate.occupancy.definition.text}</div>
+          <div class="qw-room-rate__occupancy">
+            {this.qwRoomRateRate.occupancy
+              ? this.qwRoomRateRate.occupancy.definition.text
+              : this.qwRoomRateRoomBasketOccupancyText}
+          </div>
         </div>}
         {this.qwRoomRateRate && <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price ? this.qwRoomRateRate.price.totalPrice.converted.text : '--'}
