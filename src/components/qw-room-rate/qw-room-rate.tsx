@@ -59,6 +59,7 @@ export class QwRoomRate {
         </div>}
 
         {this.qwRoomRateRate && <qw-counter
+          qwCounterId="qwRoomRateCounter"
           qwCounterName={this.qwRoomRateRate.description.name}
           qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
           qwCounterMaxValue={this.qwRoomRateRate.availableQuantity}/>}

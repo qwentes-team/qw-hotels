@@ -96,6 +96,7 @@ export class QwBasketSummary {
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
                 <div class="qw-basket-summary__room-quantity">
                   <qw-counter
+                    qwCounterId="qwBasketSummaryBasketRoomsCounter"
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={basketRoom.occupancies[0].selectedQuantity}
                     qwCounterName={`roomId:${basketRoom.roomId}`}
@@ -124,6 +125,7 @@ export class QwBasketSummary {
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
                 <div class="qw-basket-summary__room-quantity">
                   <qw-counter
+                    qwCounterId="qwBasketSummaryBasketExtrasCounter"
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={extra.selectedQuantity.value}
                     qwCounterName={`extraId:${extra.extraId}`}

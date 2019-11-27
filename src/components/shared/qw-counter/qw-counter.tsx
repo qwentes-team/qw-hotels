@@ -7,6 +7,7 @@ enum QwCounterAction {
 }
 
 export interface QwCounterEmitter {
+  id: string;
   name: string | number,
   value: number,
 }
@@ -17,6 +18,7 @@ export interface QwCounterEmitter {
   shadow: false
 })
 export class QwCounter {
+  @Prop() qwCounterId: string;
   @Prop() qwCounterName: string | number;
   @Prop() qwCounterValue: number = 0;
   @Prop() qwCounterMaxValue: number;
@@ -25,7 +27,11 @@ export class QwCounter {
 
   private click(action: QwCounterAction) {
     this.qwCounterValue = action === QwCounterAction.Plus ? this.qwCounterValue + 1 : this.qwCounterValue - 1;
-    this.qwCounterChangeValue.emit({name: this.qwCounterName, value: this.qwCounterValue});
+    this.qwCounterChangeValue.emit({
+      id: this.qwCounterId,
+      name: this.qwCounterName,
+      value: this.qwCounterValue,
+    });
   }
 
   render() {

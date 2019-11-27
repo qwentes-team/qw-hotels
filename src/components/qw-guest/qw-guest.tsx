@@ -57,7 +57,10 @@ export class QwGuest {
           return (
             <div class="qw-guest__counter-wrapper">
               <div class="qw-guest__counter-wrapper__label">{guestKey}</div>
-              <qw-counter qwCounterValue={this.guests[guestKey]} qwCounterName={guestKey}/>
+              <qw-counter
+                qwCounterId="qwGuestCounter"
+                qwCounterValue={this.guests[guestKey]}
+                qwCounterName={guestKey}/>
             </div>
           );
         })}

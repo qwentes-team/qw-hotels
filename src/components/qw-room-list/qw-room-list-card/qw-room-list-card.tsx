@@ -108,6 +108,7 @@ export class QwRoomListCard {
             <div class="qw-room-list-card__basket-actions-counter">
               <div class="qw-room-list-card__basket-actions-counter-label">Room qty.</div>
               <qw-counter
+                qwCounterId="qwRoomListCardCounter"
                 qwCounterValue={this.qwRoomListCardBasketRoom.occupancies[0].selectedQuantity}
                 qwCounterName={this.qwRoomListCardId}
                 qwCounterMaxValue={this.qwRoomListCardBasketRoom.occupancies[0].availableQuantity}

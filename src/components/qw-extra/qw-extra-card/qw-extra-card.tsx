@@ -45,6 +45,7 @@ export class QwExtraCard {
             <div class="qw-extra-card__quantity-label">Quantity</div>
             <div class="qw-extra-card__quantity-content">
               <qw-counter
+                qwCounterId="qwExtraCardCounter"
                 qwCounterValue={this.qwExtraCardSelectedQuantity}
                 qwCounterName={this.qwExtraCardId}
                 qwCounterMaxValue={this.qwExtraCardAvailability}/>
