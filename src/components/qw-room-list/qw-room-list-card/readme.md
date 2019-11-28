@@ -9,7 +9,7 @@
 
 | Property                                | Attribute                                      | Description | Type                                    | Default     |
 | --------------------------------------- | ---------------------------------------------- | ----------- | --------------------------------------- | ----------- |
-| `qwRoomListCardAddableLeftover`         | `qw-room-list-card-addable-leftover`           |             | `number`                                | `undefined` |
+| `qwRoomListCardAddableLeftover`         | `qw-room-list-card-addable-leftover`           |             | `number`                                | `0`         |
 | `qwRoomListCardAveragePrice`            | `qw-room-list-card-average-price`              |             | `string`                                | `undefined` |
 | `qwRoomListCardBasketIsEmpty`           | `qw-room-list-card-basket-is-empty`            |             | `boolean`                               | `undefined` |
 | `qwRoomListCardBasketRoom`              | --                                             |             | `RoomBasketModel`                       | `undefined` |
