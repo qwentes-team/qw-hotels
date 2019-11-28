@@ -111,6 +111,9 @@ export class QwRoomRateList {
   render() {
     return (
       <Host>
+        <div style={this.room && { 'display': 'none' }}>
+          <slot name="qwRoomRateListLoading"/>
+        </div>
         <div class="qw-room-rate-list__header">
           <span>Filtered rates for</span>
           <qw-counter
