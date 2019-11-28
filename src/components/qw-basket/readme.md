@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property                    | Attribute                        | Description | Type      | Default |
-| --------------------------- | -------------------------------- | ----------- | --------- | ------- |
-| `qwBasketShowBookNowButton` | `qw-basket-show-book-now-button` |             | `boolean` | `false` |
-| `qwBasketShowEmptyButton`   | `qw-basket-show-empty-button`    |             | `boolean` | `false` |
-| `qwBasketShowTaxes`         | `qw-basket-show-taxes`           |             | `boolean` | `false` |
+| Property                     | Attribute                         | Description | Type      | Default     |
+| ---------------------------- | --------------------------------- | ----------- | --------- | ----------- |
+| `qwBasketBookNowButtonLabel` | `qw-basket-book-now-button-label` |             | `string`  | `undefined` |
+| `qwBasketShowBookNowButton`  | `qw-basket-show-book-now-button`  |             | `boolean` | `false`     |
+| `qwBasketShowEmptyButton`    | `qw-basket-show-empty-button`     |             | `boolean` | `false`     |
+| `qwBasketShowTaxes`          | `qw-basket-show-taxes`            |             | `boolean` | `false`     |
 
 
 ## Events

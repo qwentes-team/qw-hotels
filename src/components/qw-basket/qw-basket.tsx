@@ -15,6 +15,7 @@ export class QwBasket {
   @Prop() qwBasketShowEmptyButton: boolean = false;
   @Prop() qwBasketShowBookNowButton: boolean = false;
   @Prop() qwBasketShowTaxes: boolean = false;
+  @Prop() qwBasketBookNowButtonLabel: string;
   @State() totalPrice: MoneyPrice;
   @State() taxesMessage: string;
   @State() isLoading: boolean;
@@ -73,7 +74,8 @@ export class QwBasket {
           QwButtonLabel="Empty basket"
           QwButtonOnClick={this.deleteBasket}/>}
         {this.qwBasketShowBookNowButton && <QwButton
-          QwButtonLabel="Checkout"
+          QwButtonClass="qw-button--checkout"
+          QwButtonLabel={this.qwBasketBookNowButtonLabel || 'Checkout'}
           QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero() || !this.isAccommodationSatisfy()}
           QwButtonOnClick={this.bookNow}/>}
       </Host>

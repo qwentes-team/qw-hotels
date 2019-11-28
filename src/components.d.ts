@@ -53,6 +53,7 @@ import {
 
 export namespace Components {
   interface QwBasket {
+    'qwBasketBookNowButtonLabel': string;
     'qwBasketShowBookNowButton': boolean;
     'qwBasketShowEmptyButton': boolean;
     'qwBasketShowTaxes': boolean;
@@ -427,6 +428,7 @@ declare namespace LocalJSX {
   interface QwBasket {
     'onQwBasketBookNow'?: (event: CustomEvent<void>) => void;
     'onQwBasketClickPrice'?: (event: CustomEvent<void>) => void;
+    'qwBasketBookNowButtonLabel'?: string;
     'qwBasketShowBookNowButton'?: boolean;
     'qwBasketShowEmptyButton'?: boolean;
     'qwBasketShowTaxes'?: boolean;
