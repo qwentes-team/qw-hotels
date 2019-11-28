@@ -7,6 +7,8 @@ import {
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwButton} from '../shared/qw-button/qw-button';
+import {zip} from 'rxjs/internal/observable/zip';
+import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   tag: 'qw-room-basket',
@@ -20,14 +22,19 @@ export class QwRoomBasket {
   @State() basketIsLoading: boolean;
   @State() rooms: {[roomId: string]: RoomModel} = {};
   @State() nights: number;
+  @State() addableLeftover: number;
   @Event() qwRoomBasketBackToRoomList: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap((session) => {
       this.nights = SessionHelper.getNumberOfNights(session);
-      return BasketService.getBasket(session);
-    })).subscribe();
+      return zip(of(session), BasketService.getBasket(session));
+    })).subscribe(([session, basket]) => {
+      const numberOfGuests = SessionHelper.getTotalGuests(session);
+      const numberOfRooms = BasketHelper.getNumberOfRooms(basket);
+      this.addableLeftover = numberOfGuests - numberOfRooms;
+    });
 
     BasketWithPrice$.subscribe(basket => this.basket = basket);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
@@ -85,6 +92,7 @@ export class QwRoomBasket {
                 qwRoomListCardShowPriceAndTaxes={true}
                 qwRoomListCardShowActions={true}
                 qwRoomListCardBasketRoom={basketRoom}
+                qwRoomListCardAddableLeftover={this.addableLeftover}
                 qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}/>
           }) : undefined}
       </Host>

@@ -74,6 +74,13 @@ export class QwBasketSummary {
     }
   }
 
+  private getMaxValue(availableQuantity: number, selectedQuantity: number) {
+    const numberOfGuests = SessionHelper.getTotalGuests(this.session);
+    const numberOfRooms = BasketHelper.getNumberOfRooms(this.basket);
+    const numberOfRoomsStillAddable = (numberOfGuests - numberOfRooms) + selectedQuantity;
+    return Math.min(availableQuantity, numberOfRoomsStillAddable);
+  }
+
   render() {
     return (
       <Host>
@@ -95,6 +102,7 @@ export class QwBasketSummary {
             const rateOccupancyText = occupancyId && basketOccupancy.definition.text;
             const selectedQuantity = occupancyId && basketOccupancy.selectedQuantity;
             const availableQuantity = occupancyId && basketOccupancy.availableQuantity;
+            const maxValueForCounter = this.getMaxValue(availableQuantity, selectedQuantity);
             const taxes = occupancyId && basketOccupancy.taxes;
             return (
               <div class="qw-basket-summary__room">
@@ -114,7 +122,7 @@ export class QwBasketSummary {
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={selectedQuantity}
                     qwCounterName={`roomId:${basketRoom.roomId}`}
-                    qwCounterMaxValue={availableQuantity}/>
+                    qwCounterMaxValue={maxValueForCounter}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
                   {this.getTotalPrice(basketOccupancy)}

@@ -39,6 +39,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardBasketRoomOccupancyText: string;
   @Prop() qwRoomListCardBasketRoomOccupancyId: number;
   @Prop() qwRoomListCardBasketIsEmpty: boolean;
+  @Prop() qwRoomListCardAddableLeftover: number;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
@@ -70,7 +71,7 @@ export class QwRoomListCard {
     }
   }
 
-  // todo usare sempre occupancy.definition
+  // todo usare sempre occupancy.definition - to refactor
   public getRateForBasketNotEmpty() {
     const rate = this.qwRoomListCardRates.find(r => {
       if (r.occupancy) {
@@ -88,6 +89,11 @@ export class QwRoomListCard {
         ? rate.occupancy.definition.text
         : this.qwRoomListCardBasketRoomOccupancyText}
       qwRoomRateIsLoading={this.qwRoomListCardIsLoading}/> : '';
+  }
+
+  private getMaxValue(availableQuantity: number, selectedQuantity: number) {
+    const leftover = this.qwRoomListCardAddableLeftover + selectedQuantity;
+    return Math.min(availableQuantity, leftover);
   }
 
   render() {
@@ -140,7 +146,7 @@ export class QwRoomListCard {
                 qwCounterId="qwRoomListCardCounter"
                 qwCounterValue={this.getActionsCounterValues().selectedQuantity}
                 qwCounterName={this.qwRoomListCardId}
-                qwCounterMaxValue={this.getActionsCounterValues().availableQuantity}/>
+                qwCounterMaxValue={this.getMaxValue(this.getActionsCounterValues().availableQuantity, this.getActionsCounterValues().selectedQuantity)}/>
             </div>
 
             {this.qwRoomListCardShowPriceAndTaxes && <div class="qw-room-list-card__prices-with-taxes">

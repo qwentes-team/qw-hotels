@@ -164,6 +164,7 @@ export namespace Components {
     'qwRoomListType': QwRoomListType;
   }
   interface QwRoomListCard {
+    'qwRoomListCardAddableLeftover': number;
     'qwRoomListCardAveragePrice': string;
     'qwRoomListCardBasketIsEmpty': boolean;
     'qwRoomListCardBasketRoom': RoomBasketModel;
@@ -556,6 +557,7 @@ declare namespace LocalJSX {
     'qwRoomListType'?: QwRoomListType;
   }
   interface QwRoomListCard {
+    'qwRoomListCardAddableLeftover'?: number;
     'qwRoomListCardAveragePrice'?: string;
     'qwRoomListCardBasketIsEmpty'?: boolean;
     'qwRoomListCardBasketRoom'?: RoomBasketModel;

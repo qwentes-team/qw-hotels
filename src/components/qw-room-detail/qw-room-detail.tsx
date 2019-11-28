@@ -110,7 +110,7 @@ export class QwRoomDetail {
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
           qwRoomDetailCardAlertMessage={this.qwRoomDetailAlertMessage}
           qwRoomDetailCardBasketRoomOccupancyText={this.basketRoomOccupancyText}
-          qwRoomDetailCardRates={this.basketRoomRate ? [this.basketRoomRate] : this.room.rates}/>}
+          qwRoomDetailCardRates={this.basketRoomRate ? [this.basketRoomRate] : (this.room.rates || [])}/>}
       </Host>
     );
   }

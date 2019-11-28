@@ -2,16 +2,14 @@ import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@ste
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 import {
-  BasketModel,
-  BasketService,
-  Rate,
-  RateHelper,
-  RateInformation,
-  RateQualifierType,
-  RoomModel,
-  RoomSummaryType,
+  BasketHelper,
+  BasketModel, BasketService,
+  Rate, RateHelper, RateInformation, RateQualifierType,
+  RoomModel, RoomSummaryType,
+  SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {RoomOccupancy} from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
+import {switchMap} from 'rxjs/operators';
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
@@ -35,6 +33,8 @@ export class QwRoomRate {
   @Prop() qwRoomRateRoomId: RoomModel['roomId'];
   @Prop() qwRoomRateRoomBasketOccupancyText: RoomOccupancy['definition']['text'];
   @State() quantity: number = 0;
+  @State() numberOfGuests: number;
+  @State() numberOfRooms: number;
   @Event() qwRoomRateAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateCounterChangedEmitter>;
 
@@ -42,6 +42,16 @@ export class QwRoomRate {
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
     this.quantity = event.detail.value;
     this.qwRoomRateCounterChanged.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
+  }
+
+  public componentDidLoad() {
+    SessionService.getSession().subscribe();
+    SessionLoaded$.pipe(
+      switchMap(session => {
+        this.numberOfGuests = SessionHelper.getTotalGuests(session);
+        return BasketService.getBasket(session);
+      })
+    ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
   }
 
   addToBasket = () => {
@@ -68,6 +78,11 @@ export class QwRoomRate {
   public getRateSummary() {
     const summary = this.qwRoomRateRate.description.summary.find(summary => summary.value === RoomSummaryType.PlainText);
     return summary && summary.text;
+  }
+
+  private getMaxValue(currentValue = 0) {
+    const numberOfRoomsStillAddable = (this.numberOfGuests - this.numberOfRooms) + currentValue;
+    return Math.min(this.qwRoomRateRate.availableQuantity, numberOfRoomsStillAddable);
   }
 
   render() {
@@ -98,9 +113,10 @@ export class QwRoomRate {
           qwCounterId="qwRoomRateCounter"
           qwCounterName={this.qwRoomRateRate.description.name}
           qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-          qwCounterMaxValue={this.qwRoomRateRate.availableQuantity}/>}
+          qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
 
         {this.qwRoomRateRate && <QwButton
+          QwButtonClass="qw-button--primary"
           QwButtonLabel="Add to cart"
           QwButtonDisabled={!this.quantity || this.quantity === this.qwRoomRateRate.selectedQuantity || this.qwRoomRateIsLoading}
           QwButtonOnClick={() => this.addToBasket()}/>}

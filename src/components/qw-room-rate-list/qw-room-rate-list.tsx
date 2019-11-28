@@ -28,6 +28,7 @@ export class QwRoomRateList {
   @State() roomIsLoading: boolean;
   @State() numberOfGuests: number;
   @State() maxNumberOfPeopleInRate: number;
+  @State() mixNumberOfPeopleInRate: number;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -41,8 +42,9 @@ export class QwRoomRateList {
     RoomLoaded$.pipe(
         switchMap(rooms => {
           this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomRateListId));
-          const listOfNumberOfPeople = this.room.rates.map(r => r.occupancy.definition.value.personCount);
+          const listOfNumberOfPeople = this.room.rates ? this.room.rates.map(r => r.occupancy.definition.value.personCount) : [];
           this.maxNumberOfPeopleInRate = Math.max(...listOfNumberOfPeople);
+          this.mixNumberOfPeopleInRate = Math.min(...listOfNumberOfPeople);
           const initialValueForFilterRates = this.getInitNumberOfRateByPeople();
           this.roomRates = this.filterRoomRatesByPeopleCount(initialValueForFilterRates);
           return BasketWithPrice$;
@@ -69,7 +71,9 @@ export class QwRoomRateList {
   }
 
   private filterRoomRatesByPeopleCount(peopleCount: number) {
-    return this.room.rates.filter(r => r.occupancy.definition.value.personCount <= peopleCount);
+    return this.room.rates
+      ? this.room.rates.filter(r => r.occupancy.definition.value.personCount <= peopleCount)
+      : [];
   }
 
   private isRateDisabled(rateId) {
@@ -115,13 +119,13 @@ export class QwRoomRateList {
             qwCounterValue={this.numberOfGuests}
             qwCounterName="qwRoomRateListCounter"
             qwCounterMaxValue={this.getMaxNumberOfRateByPeople()}
-            qwCounterMinValue={1}/>
+            qwCounterMinValue={this.mixNumberOfPeopleInRate}/>
           <span>guests</span>
         </div>
         <div class="qw-room-rate-list__wrapper">
           {this.basketRoomRate
             ? this.getRate(this.basketRoomRate)
-            : this.room && this.roomRates.map(rate => rate && this.getRate(rate))
+            : this.room && this.roomRates && this.roomRates.map(rate => rate && this.getRate(rate))
           }
         </div>
       </Host>
