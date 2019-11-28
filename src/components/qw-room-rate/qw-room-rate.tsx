@@ -33,8 +33,8 @@ export class QwRoomRate {
   @Prop() qwRoomRateRoomId: RoomModel['roomId'];
   @Prop() qwRoomRateRoomBasketOccupancyText: RoomOccupancy['definition']['text'];
   @State() quantity: number = 0;
-  @State() numberOfGuests: number;
-  @State() numberOfRooms: number;
+  @State() numberOfGuests: number = 0;
+  @State() numberOfRooms: number = 0;
   @Event() qwRoomRateAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateCounterChangedEmitter>;
 

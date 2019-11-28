@@ -39,12 +39,12 @@ export class QwCounter {
     return (
       <Host class={this.qwCounterDisabled ? 'qw-counter--disabled' : ''}>
         <QwButton
-          QwButtonDisabled={this.qwCounterMinValue ? this.qwCounterValue <= this.qwCounterMinValue : this.qwCounterValue === 0}
+          QwButtonDisabled={this.qwCounterMinValue !== undefined ? this.qwCounterValue <= this.qwCounterMinValue : this.qwCounterValue === 0}
           QwButtonLabel={QwCounterAction.Minus}
           QwButtonOnClick={() => this.click(QwCounterAction.Minus)}/>
         <div class="qw-counter__value">{this.qwCounterValue}</div>
         <QwButton
-          QwButtonDisabled={this.qwCounterMaxValue && this.qwCounterValue >= this.qwCounterMaxValue}
+          QwButtonDisabled={this.qwCounterMaxValue !== undefined && this.qwCounterValue >= this.qwCounterMaxValue}
           QwButtonLabel={QwCounterAction.Plus}
           QwButtonOnClick={() => this.click(QwCounterAction.Plus)}/>
       </Host>
