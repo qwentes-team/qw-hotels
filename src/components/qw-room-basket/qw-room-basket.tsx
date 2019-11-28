@@ -5,7 +5,6 @@ import {
   RateHelper, RoomBasketOccupancy, RoomModel,
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
-import {switchMap} from 'rxjs/operators';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {zip} from 'rxjs/internal/observable/zip';
 import {of} from 'rxjs/internal/observable/of';
@@ -23,20 +22,24 @@ export class QwRoomBasket {
   @State() rooms: {[roomId: string]: RoomModel} = {};
   @State() nights: number;
   @State() addableLeftover: number;
+  @State() numberOfGuests: number = 0;
+  @State() numberOfRooms: number = 0;
   @Event() qwRoomBasketBackToRoomList: EventEmitter<void>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
-    SessionLoaded$.pipe(switchMap((session) => {
+    SessionLoaded$.subscribe((session) => {
       this.nights = SessionHelper.getNumberOfNights(session);
-      return zip(of(session), BasketService.getBasket(session));
-    })).subscribe(([session, basket]) => {
-      const numberOfGuests = SessionHelper.getTotalGuests(session);
-      const numberOfRooms = BasketHelper.getNumberOfRooms(basket);
-      this.addableLeftover = numberOfGuests - numberOfRooms;
+      this.numberOfGuests = SessionHelper.getTotalGuests(session);
+      this.addableLeftover = this.numberOfGuests - this.numberOfRooms;
+      return zip(of(session), BasketWithPrice$);
     });
 
-    BasketWithPrice$.subscribe(basket => this.basket = basket);
+    BasketWithPrice$.subscribe(basket => {
+      this.basket = basket;
+      this.numberOfRooms = BasketHelper.getNumberOfRooms(basket);
+      this.addableLeftover = this.numberOfGuests - this.numberOfRooms;
+    });
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
   }
 

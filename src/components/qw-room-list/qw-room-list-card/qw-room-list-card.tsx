@@ -39,7 +39,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardBasketRoomOccupancyText: string;
   @Prop() qwRoomListCardBasketRoomOccupancyId: number;
   @Prop() qwRoomListCardBasketIsEmpty: boolean;
-  @Prop() qwRoomListCardAddableLeftover: number;
+  @Prop() qwRoomListCardAddableLeftover: number = 0;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
