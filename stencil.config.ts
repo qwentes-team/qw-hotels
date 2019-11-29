@@ -14,13 +14,7 @@ export const config: Config = {
       ]
     }
   },
-  // todo fare bundles in prod
-  bundles: [
-    { components: ['qw-room-list'] },
-    { components: ['qw-calendar'] },
-    { components: ['qw-basket'] },
-  ],
-  hashFileNames: true, // todo rimuovere in prod
+  hashFileNames: true,
   outputTargets: [
     {
       type: 'dist',
@@ -31,7 +25,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-      serviceWorker: null, // disable service workers
+      serviceWorker: null,
       copy: [
         { src: 'globals/img', dest: 'img' }
       ]
