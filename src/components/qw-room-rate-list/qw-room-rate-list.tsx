@@ -72,7 +72,7 @@ export class QwRoomRateList {
 
   private filterRoomRatesByPeopleCount(peopleCount: number) {
     return this.room.rates
-      ? this.room.rates.filter(r => r.occupancy.definition.value.personCount <= peopleCount)
+      ? this.room.rates.filter(r => r.occupancy.definition.value.personCount === peopleCount)
       : [];
   }
 
