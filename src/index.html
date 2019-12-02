@@ -12,12 +12,16 @@
       ENGINE_ID: 'J262', // 'J2VG'
     };
     //
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   const el = document.createElement('qw-language');
-    //   el.setAttribute('qw-language-languages', '["en-US", "fr-FR", "it-IT"]');
-    //   el.setAttribute('qw-language-preselected', 'fr-FR');
-    //   document.body.appendChild(el);
-    // });
+    document.addEventListener('DOMContentLoaded', () => {
+      const el = document.createElement('qw-language');
+      el.setAttribute('qw-language-languages', '["en-US", "fr-FR", "it-IT"]');
+      el.setAttribute('qw-language-preselected', 'fr-FR');
+      document.body.appendChild(el);
+    });
+
+    document.addEventListener('qwLanguageChanged', (e) => {
+      console.log(e);
+    })
   </script>
   
   <link rel="stylesheet" href="/build/qw-hotels.css">

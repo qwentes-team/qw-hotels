@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, State} from '@stencil/core';
+import {Component, Host, h, Prop, State, EventEmitter, Event} from '@stencil/core';
 import {QwSelect} from '../shared/qw-select/qw-select';
 import {
   SessionDisplay,
@@ -26,6 +26,7 @@ export class QwLanguage {
   @State() session: SessionModel;
   @State() isSessionLoading: boolean;
   @State() currentLanguage: SessionDisplay['culture'];
+  @Event() qwLanguageChanged: EventEmitter<SessionDisplay['culture']>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -55,7 +56,8 @@ export class QwLanguage {
   languageChanged = (e) => this.setLanguage(e.target.value);
 
   private setLanguage = (culture: SessionDisplay['culture']) => {
-    SessionService.updateDisplaySession({...this.session.display, culture}).subscribe();
+    SessionService.updateDisplaySession({...this.session.display, culture})
+      .subscribe(session => this.qwLanguageChanged.emit(session.display.culture));
   };
 
   private setCurrentLanguage(culture: SessionDisplay['culture']) {

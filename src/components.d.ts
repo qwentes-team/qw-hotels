@@ -19,6 +19,7 @@ import {
   RoomImageMetadata,
   RoomModel,
   RoomOccupancy,
+  SessionDisplay,
   SessionGuests,
   SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
@@ -528,6 +529,7 @@ declare namespace LocalJSX {
     'qwInputValue'?: string;
   }
   interface QwLanguage {
+    'onQwLanguageChanged'?: (event: CustomEvent<SessionDisplay['culture']>) => void;
     'qwLanguageLanguages'?: string;
     'qwLanguagePreselected'?: string;
   }

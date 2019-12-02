@@ -13,6 +13,13 @@
 | `qwLanguagePreselected` | `qw-language-preselected` |             | `string` | `undefined` |
 
 
+## Events
+
+| Event               | Description | Type                  |
+| ------------------- | ----------- | --------------------- |
+| `qwLanguageChanged` |             | `CustomEvent<string>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
