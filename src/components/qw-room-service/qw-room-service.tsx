@@ -25,7 +25,7 @@ export class QwRoomService {
   render() {
     return (
       <Host>
-        {this.room.services.map(service => {
+        {this.room && this.room.services.map(service => {
           return <ul>
             <div class="qw-room-service__category">{service.category.text}</div>
             {service.amenities.map(amenity => {
