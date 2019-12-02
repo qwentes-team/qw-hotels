@@ -101,7 +101,7 @@ export class QwRoomRate {
         {this.qwRoomRateRate && <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price ? this.qwRoomRateRate.price.totalPrice.converted.text : '--'}
           <div class="qw-room-rate__taxes">
-            {this.qwRoomRateRate.taxes && RateHelper.getTaxesMessageFormatted(this.qwRoomRateRate.taxes, 1)}
+            {this.qwRoomRateRate.taxes && RateHelper.getTaxesMessageFormatted(this.qwRoomRateRate.taxes)}
           </div>
         </div>}
 

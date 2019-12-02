@@ -90,7 +90,7 @@ export class QwRoomBasket {
                 qwRoomListCardShowPrices={false}
                 qwRoomListCardShowPrice={false}
                 qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[occupancyId])}
-                qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[occupancyId].taxes, basketRoom.occupancies[occupancyId].selectedQuantity)}
+                qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[occupancyId].taxes)}
                 qwRoomListCardShowCta={false}
                 qwRoomListCardShowPriceAndTaxes={true}
                 qwRoomListCardShowActions={true}

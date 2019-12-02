@@ -127,7 +127,7 @@ export class QwBasketSummary {
                 <div class="qw-basket-summary__room-price">
                   {this.getTotalPrice(basketOccupancy)}
                   <div class="qw-basket-summary__room-taxes">
-                    {RateHelper.getTaxesMessageFormatted(taxes, selectedQuantity)}
+                    {RateHelper.getTaxesMessageFormatted(taxes)}
                   </div>
                 </div>
                 <div class="qw-basket-summary__room-delete">
