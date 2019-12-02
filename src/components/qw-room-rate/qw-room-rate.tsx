@@ -8,7 +8,6 @@ import {
   RoomModel, RoomSummaryType,
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
-import {RoomOccupancy} from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
 import {switchMap} from 'rxjs/operators';
 
 export interface QwRoomRateAddedToBasketEmitter {
@@ -31,7 +30,6 @@ export class QwRoomRate {
   @Prop() qwRoomRateIsDisabled: boolean;
   @Prop() qwRoomRateShowConditions: boolean;
   @Prop() qwRoomRateRoomId: RoomModel['roomId'];
-  @Prop() qwRoomRateRoomBasketOccupancyText: RoomOccupancy['definition']['text'];
   @State() quantity: number = 0;
   @State() numberOfGuests: number = 0;
   @State() numberOfRooms: number = 0;
@@ -97,9 +95,7 @@ export class QwRoomRate {
             class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
           </div>
           <div class="qw-room-rate__occupancy">
-            {this.qwRoomRateRate.occupancy
-              ? this.qwRoomRateRate.occupancy.definition.text
-              : this.qwRoomRateRoomBasketOccupancyText}
+            x {this.qwRoomRateRate.occupancy.definition.value.personCount}
           </div>
         </div>}
         {this.qwRoomRateRate && <div class="qw-room-rate__price">

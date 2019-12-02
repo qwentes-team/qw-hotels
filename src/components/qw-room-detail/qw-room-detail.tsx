@@ -1,7 +1,7 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
-  RoomBasketModel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomOccupancy, RoomService,
+  RoomBasketModel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
   SessionHelper, SessionIsLoading$, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
@@ -24,7 +24,6 @@ export class QwRoomDetail {
   @Prop() qwRoomDetailProceedToCheckoutButtonMessage: string;
   @State() room: RoomModel;
   @State() basketRoomRate: Rate;
-  @State() basketRoomOccupancyText: RoomOccupancy['definition']['text'];
   @State() numberOfNights: number;
   @State() basketIsLoading: boolean;
   @State() sessionIsLoading: boolean;
@@ -54,7 +53,6 @@ export class QwRoomDetail {
       )
       .subscribe(basket => {
         const basketRoom = basket.rooms && this.getBasketRoom(basket.rooms);
-        this.basketRoomOccupancyText = basketRoom && basketRoom.defaultOccupancy.definition.text;
         const occupancyId = basketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
         this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
       });
@@ -109,7 +107,6 @@ export class QwRoomDetail {
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
           qwRoomDetailCardAlertMessage={this.qwRoomDetailAlertMessage}
-          qwRoomDetailCardBasketRoomOccupancyText={this.basketRoomOccupancyText}
           qwRoomDetailCardRates={this.basketRoomRate ? [this.basketRoomRate] : (this.room.rates || [])}/>}
       </Host>
     );

@@ -19,7 +19,6 @@ import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 export class QwRoomRateList {
   @Prop() qwRoomRateListId: string;
   @State() activeRate: Rate['rateId'];
-  @State() basketRoomOccupancyText: string;
   @State() room: RoomModel;
   @State() roomRates: Rate[];
   @State() basketRoomRate: Rate;
@@ -52,7 +51,6 @@ export class QwRoomRateList {
       )
       .subscribe(basket => {
         const basketRoom = basket.rooms && this.getBasketRoom(basket.rooms);
-        this.basketRoomOccupancyText = basketRoom && basketRoom.defaultOccupancy.definition.text;
         const occupancyId = basketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
         this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
       });
@@ -96,7 +94,6 @@ export class QwRoomRateList {
     return <qw-room-rate
       qwRoomRateRoomId={parseInt(this.qwRoomRateListId)}
       qwRoomRateRate={rate}
-      qwRoomRateRoomBasketOccupancyText={this.basketRoomOccupancyText}
       qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
       qwRoomRateIsLoading={this.isLoadingData()}/>
   }

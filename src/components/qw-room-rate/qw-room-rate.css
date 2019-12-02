@@ -7,15 +7,15 @@ qw-room-rate {
   margin-bottom: var(--qw-hotel-gap-sm);
 }
 
-qw-room-rate .qw-room-rate__title {
+.qw-room-rate__title {
   width: 35%;
 }
 
-qw-room-rate .qw-room-rate__price {
+.qw-room-rate__price {
   width: 18%;
 }
 
-qw-room-rate .qw-room-rate__taxes {
+.qw-room-rate__taxes {
   font-size: var(--qw-hotel-small-font-size);
 }
 
@@ -28,7 +28,21 @@ qw-room-rate .qw-button {
   width: 25%;
 }
 
-qw-room-rate .qw-room-rate__conditions {
+.qw-room-rate__conditions {
   width: 100%;
   font-size: var(--qw-hotel-small-font-size);
+}
+
+.qw-room-rate__occupancy {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.qw-room-rate__occupancy:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: url('img/person.svg') no-repeat center;
+  background-size: 17px 17px;
 }

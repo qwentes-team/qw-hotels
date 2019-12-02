@@ -17,13 +17,12 @@ import {
   SessionModel,
   SessionService,
   SessionStayPeriod,
+  RoomBasketModel
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
 import {QwChangeRoomEvent, QwRoomListCardButtonType, QwRoomListType} from '../../index';
-import {RoomBasketModel} from '@qwentes/booking-state-manager/src/feature/room/model/room-basket.model';
-import {RoomOccupancyDefinition} from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
 
 @Component({
   tag: 'qw-room-list',
@@ -49,7 +48,6 @@ export class QwRoomList {
   @State() basketIsEmpty: boolean;
   @State() basketRooms: RoomBasketModel[] = [];
   @State() basketRoomsOccupancyId: RoomBasketOccupancy['occupancyId'];
-  @State() basketRoomsOccupancyText: RoomOccupancyDefinition['text'];
   @State() basketRoom: RoomBasketModel;
   @State() basketRoomTotals: {[roomId: string]: string} = {};
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
@@ -92,7 +90,6 @@ export class QwRoomList {
       this.basketRooms = basket.rooms;
       const firstBasketRoom = !this.basketIsEmpty && basket.rooms[0];
       this.basketRoomsOccupancyId = parseInt(firstBasketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(firstBasketRoom));
-      this.basketRoomsOccupancyText = firstBasketRoom && basket.rooms[0].occupancies[this.basketRoomsOccupancyId].definition.text;
       this.basketRoomTotals = basket.rooms.reduce((acc, room) => {
         const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(room);
         return {...acc, [room.roomId]: room.occupancies[occupancyId].price.converted.text};
@@ -242,7 +239,6 @@ export class QwRoomList {
               qwRoomListCardImage={RoomHelper.getCoverImage(r).url}
               qwRoomListCardRates={this.mergeRatesAndBasketRoomRate(r.rates, r.roomId)}
               qwRoomListCardBasketRoom={this.getBasketRoom(r.roomId)}
-              qwRoomListCardBasketRoomOccupancyText={this.basketRoomsOccupancyText}
               qwRoomListCardBasketRoomOccupancyId={this.basketRoomsOccupancyId}
               qwRoomListCardIsLoading={this.isLoadingData()}
               qwRoomListCardIsLoadingPrice={this.isPriceLoading}

@@ -7,14 +7,13 @@
 
 ## Properties
 
-| Property                            | Attribute                                 | Description | Type      | Default     |
-| ----------------------------------- | ----------------------------------------- | ----------- | --------- | ----------- |
-| `qwRoomRateIsDisabled`              | `qw-room-rate-is-disabled`                |             | `boolean` | `undefined` |
-| `qwRoomRateIsLoading`               | `qw-room-rate-is-loading`                 |             | `boolean` | `undefined` |
-| `qwRoomRateRate`                    | --                                        |             | `Rate`    | `undefined` |
-| `qwRoomRateRoomBasketOccupancyText` | `qw-room-rate-room-basket-occupancy-text` |             | `string`  | `undefined` |
-| `qwRoomRateRoomId`                  | `qw-room-rate-room-id`                    |             | `number`  | `undefined` |
-| `qwRoomRateShowConditions`          | `qw-room-rate-show-conditions`            |             | `boolean` | `undefined` |
+| Property                   | Attribute                      | Description | Type      | Default     |
+| -------------------------- | ------------------------------ | ----------- | --------- | ----------- |
+| `qwRoomRateIsDisabled`     | `qw-room-rate-is-disabled`     |             | `boolean` | `undefined` |
+| `qwRoomRateIsLoading`      | `qw-room-rate-is-loading`      |             | `boolean` | `undefined` |
+| `qwRoomRateRate`           | --                             |             | `Rate`    | `undefined` |
+| `qwRoomRateRoomId`         | `qw-room-rate-room-id`         |             | `number`  | `undefined` |
+| `qwRoomRateShowConditions` | `qw-room-rate-show-conditions` |             | `boolean` | `undefined` |
 
 
 ## Events

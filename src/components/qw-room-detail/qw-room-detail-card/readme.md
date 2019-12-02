@@ -11,7 +11,6 @@
 | -------------------------------------------- | --------------------------------------------------- | ----------- | --------- | ----------- |
 | `qwRoomDetailAddAnotherRoomButtonMessage`    | `qw-room-detail-add-another-room-button-message`    |             | `string`  | `undefined` |
 | `qwRoomDetailCardAlertMessage`               | `qw-room-detail-card-alert-message`                 |             | `string`  | `undefined` |
-| `qwRoomDetailCardBasketRoomOccupancyText`    | `qw-room-detail-card-basket-room-occupancy-text`    |             | `string`  | `undefined` |
 | `qwRoomDetailCardBed`                        | `qw-room-detail-card-bed`                           |             | `string`  | `undefined` |
 | `qwRoomDetailCardGuests`                     | `qw-room-detail-card-guests`                        |             | `string`  | `undefined` |
 | `qwRoomDetailCardImage`                      | `qw-room-detail-card-image`                         |             | `string`  | `undefined` |

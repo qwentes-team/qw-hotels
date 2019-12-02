@@ -36,7 +36,6 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardShowPriceAndTaxes: boolean;
   @Prop() qwRoomListCardShowActions: boolean;
   @Prop() qwRoomListCardBasketRoom: RoomBasketModel;
-  @Prop() qwRoomListCardBasketRoomOccupancyText: string;
   @Prop() qwRoomListCardBasketRoomOccupancyId: number;
   @Prop() qwRoomListCardBasketIsEmpty: boolean;
   @Prop() qwRoomListCardAddableLeftover: number = 0;
@@ -75,9 +74,7 @@ export class QwRoomListCard {
   public getRateForBasketNotEmpty() {
     const rate = this.qwRoomListCardRates.find(r => {
       if (r.occupancy) {
-        return r.occupancy.occupancyId === this.qwRoomListCardBasketRoomOccupancyId ||
-          r.occupancy.definition.text === this.qwRoomListCardBasketRoomOccupancyText ||
-          r.occupancy.occupancyId === 0;
+        return r.occupancy.occupancyId === this.qwRoomListCardBasketRoomOccupancyId || r.occupancy.occupancyId === 0;
       }
       return true;
     });
@@ -85,9 +82,6 @@ export class QwRoomListCard {
     return rate ? <qw-room-rate
       qwRoomRateRoomId={this.qwRoomListCardId}
       qwRoomRateRate={rate}
-      qwRoomRateRoomBasketOccupancyText={rate.occupancy
-        ? rate.occupancy.definition.text
-        : this.qwRoomListCardBasketRoomOccupancyText}
       qwRoomRateIsLoading={this.qwRoomListCardIsLoading}/> : '';
   }
 

@@ -8,7 +8,6 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   RoomMetadata,
-  RoomOccupancy as RoomOccupancy1,
 } from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
 import {
   MoneyPrice,
@@ -18,7 +17,6 @@ import {
   RoomBasketModel,
   RoomImageMetadata,
   RoomModel,
-  RoomOccupancy,
   SessionDisplay,
   SessionGuests,
   SessionStayPeriod,
@@ -149,7 +147,6 @@ export namespace Components {
   interface QwRoomDetailCard {
     'qwRoomDetailAddAnotherRoomButtonMessage': string;
     'qwRoomDetailCardAlertMessage': string;
-    'qwRoomDetailCardBasketRoomOccupancyText': RoomOccupancy['definition']['text'];
     'qwRoomDetailCardBed': string;
     'qwRoomDetailCardGuests': string;
     'qwRoomDetailCardImage': string;
@@ -176,7 +173,6 @@ export namespace Components {
     'qwRoomListCardBasketIsEmpty': boolean;
     'qwRoomListCardBasketRoom': RoomBasketModel;
     'qwRoomListCardBasketRoomOccupancyId': number;
-    'qwRoomListCardBasketRoomOccupancyText': string;
     'qwRoomListCardCrossedOutPrice': string;
     'qwRoomListCardDescription': string;
     'qwRoomListCardGuests': string;
@@ -209,7 +205,6 @@ export namespace Components {
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateRate': Rate;
-    'qwRoomRateRoomBasketOccupancyText': RoomOccupancy['definition']['text'];
     'qwRoomRateRoomId': RoomModel['roomId'];
     'qwRoomRateShowConditions': boolean;
   }
@@ -565,7 +560,6 @@ declare namespace LocalJSX {
     'onQwRoomDetailCardProceed'?: (event: CustomEvent<void>) => void;
     'qwRoomDetailAddAnotherRoomButtonMessage'?: string;
     'qwRoomDetailCardAlertMessage'?: string;
-    'qwRoomDetailCardBasketRoomOccupancyText'?: RoomOccupancy['definition']['text'];
     'qwRoomDetailCardBed'?: string;
     'qwRoomDetailCardGuests'?: string;
     'qwRoomDetailCardImage'?: string;
@@ -593,7 +587,6 @@ declare namespace LocalJSX {
     'qwRoomListCardBasketIsEmpty'?: boolean;
     'qwRoomListCardBasketRoom'?: RoomBasketModel;
     'qwRoomListCardBasketRoomOccupancyId'?: number;
-    'qwRoomListCardBasketRoomOccupancyText'?: string;
     'qwRoomListCardCrossedOutPrice'?: string;
     'qwRoomListCardDescription'?: string;
     'qwRoomListCardGuests'?: string;
@@ -628,7 +621,6 @@ declare namespace LocalJSX {
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateRate'?: Rate;
-    'qwRoomRateRoomBasketOccupancyText'?: RoomOccupancy['definition']['text'];
     'qwRoomRateRoomId'?: RoomModel['roomId'];
     'qwRoomRateShowConditions'?: boolean;
   }
