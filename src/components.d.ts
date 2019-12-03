@@ -27,6 +27,7 @@ import {
   QwRoomListCardButtonType,
   QwRoomListOrderType,
   QwRoomListType,
+  QwWeekCalendarDirection,
 } from './index';
 import {
   QwCounterEmitter,
@@ -190,6 +191,7 @@ export namespace Components {
     'qwRoomListCardIsLoadingPrice': boolean;
     'qwRoomListCardNights': number;
     'qwRoomListCardOnChangeRoom': (e: QwChangeRoomEvent) => void;
+    'qwRoomListCardOnChangeWeekDates': (e: QwWeekCalendarDirection) => void;
     'qwRoomListCardOnClickBook': () => void;
     'qwRoomListCardOnClickChangeDate': () => void;
     'qwRoomListCardOnClickView': () => void;
@@ -628,6 +630,7 @@ declare namespace LocalJSX {
     'qwRoomListCardIsLoadingPrice'?: boolean;
     'qwRoomListCardNights'?: number;
     'qwRoomListCardOnChangeRoom'?: (e: QwChangeRoomEvent) => void;
+    'qwRoomListCardOnChangeWeekDates'?: (e: QwWeekCalendarDirection) => void;
     'qwRoomListCardOnClickBook'?: () => void;
     'qwRoomListCardOnClickChangeDate'?: () => void;
     'qwRoomListCardOnClickView'?: () => void;
@@ -667,6 +670,7 @@ declare namespace LocalJSX {
     'qwTextareaValue'?: string;
   }
   interface QwWeekCalendar {
+    'onQwWeekCalendarChangeDates'?: (event: CustomEvent<QwWeekCalendarDirection>) => void;
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate'?: Date[];
     'qwWeekCalendarRangeDateSession'?: Date[];

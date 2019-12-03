@@ -28,7 +28,7 @@ import {
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
-import {QwChangeRoomEvent, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType} from '../../index';
+import {QwChangeRoomEvent, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection} from '../../index';
 
 @Component({
   tag: 'qw-room-list',
@@ -77,6 +77,8 @@ export class QwRoomList {
         this.session = session;
         this.symbol = MONEY_SYMBOLS[session.display.currency] || session.display.currency;
         this.nights = SessionHelper.getNumberOfNights(session);
+        const sessionStayPeriod = session.context.stayPeriod;
+        this.rangeDateSession = DateUtil.getDatesRange(this.initNewDate(sessionStayPeriod.arrivalDate), this.initNewDate(sessionStayPeriod.departureDate), DateFormat.Date);
         return zip(of(session), BasketService.getBasket(session));
       }),
       switchMap(([session]) => {
@@ -85,14 +87,7 @@ export class QwRoomList {
         }
         return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
       })
-    ).subscribe(([newRoomPrices]) => {
-      const firstRoomId = Object.keys(newRoomPrices).length && Object.keys(newRoomPrices)[0];
-      const newDatesToStore = newRoomPrices[firstRoomId] ? Object.keys(newRoomPrices[firstRoomId]) : [];
-      const mergedDataStored = [...this.rangeDateStored, ...newDatesToStore];
-      this.rangeDateStored = [...new Set(mergedDataStored)].sort();
-      this.roomPrices = this.mergeActiveRoomPricesWitNewRoomPrices(newRoomPrices);
-      this.isPriceLoading = false;
-    });
+    ).subscribe(([newRoomPrices]) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
 
     RoomLoaded$.subscribe(res => {
       const roomsWithPrice = res.filter(room => {
@@ -127,6 +122,15 @@ export class QwRoomList {
     RoomIsLoading$.subscribe(isLoading => this.isRoomLoading = isLoading);
     SessionIsLoading$.subscribe(isLoading => this.isSessionLoading = isLoading);
     SessionIsLoading$.subscribe(isLoading => this.isBasketLoading = isLoading);
+  }
+
+  private getRoomsSearchForRangeSuccess(newRoomPrices) {
+    const firstRoomId = Object.keys(newRoomPrices).length && Object.keys(newRoomPrices)[0];
+    const newDatesToStore = newRoomPrices[firstRoomId] ? Object.keys(newRoomPrices[firstRoomId]) : [];
+    const mergedDataStored = [...this.rangeDateStored, ...newDatesToStore];
+    this.rangeDateStored = [...new Set(mergedDataStored)].sort();
+    this.roomPrices = this.mergeActiveRoomPricesWitNewRoomPrices(newRoomPrices);
+    this.isPriceLoading = false;
   }
 
   private getBasketRoom(roomId: RoomModel['roomId']) {
@@ -166,7 +170,6 @@ export class QwRoomList {
     this.endDate = DateUtil.addDaysToDate(6, this.initNewDate(this.startDate));
     this.rangeDate = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.Date);
     this.rangeDateString = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.String);
-    this.rangeDateSession = DateUtil.getDatesRange(this.initNewDate(sessionStayPeriod.arrivalDate), this.initNewDate(sessionStayPeriod.departureDate), DateFormat.Date);
 
     const newDateToRequest = this.rangeDateString.filter(d => !this.rangeDateStored.includes(d));
 
@@ -192,28 +195,23 @@ export class QwRoomList {
     const stayPeriod = this.session.context.stayPeriod;
     const arrivalDate = this.initNewDate(stayPeriod.arrivalDate);
     const departureDate = this.initNewDate(stayPeriod.departureDate);
-    const endDateSession = departureDate <= this.endDate ? departureDate : this.endDate;
 
-    const range = DateUtil.getDatesRange(arrivalDate, endDateSession, DateFormat.String);
+    const range = DateUtil.getDatesRange(arrivalDate, departureDate, DateFormat.String);
     const rangeWithoutDepartureDate = [...range];
     rangeWithoutDepartureDate.length = range.length - 1;
-
-    if (this.hasAtLeastOneDateNull(roomId, rangeWithoutDepartureDate)) {
-      return RoomDefaultLabel.NoPrice;
-    }
 
     return `${this.symbol} ${Math.round(this.calculateAverage(roomId, rangeWithoutDepartureDate)).toString()}`;
   }
 
-  private hasAtLeastOneDateNull(roomId: RoomModel['roomId'], rangeWithoutDepartureDate: string[]) {
-    return rangeWithoutDepartureDate.find(date => !!(this.roomPrices[roomId][date] === undefined));
-  }
-
   private calculateAverage(roomId: RoomModel['roomId'], rangeWithoutDepartureDate: string[]) {
-    return rangeWithoutDepartureDate.reduce((acc, date) => {
+    const rangeFiltered = rangeWithoutDepartureDate.reduce((acc, dateString) => {
+      return this.roomPrices[roomId][dateString] ? [...acc, dateString] : acc;
+    }, []);
+
+    return rangeFiltered.reduce((acc, date) => {
       const valueToAdd = this.roomPrices[roomId][date] ? this.roomPrices[roomId][date].value.amount : 0;
       return acc + valueToAdd;
-    }, 0) / rangeWithoutDepartureDate.length;
+    }, 0) / rangeFiltered.length;
   }
 
   clickButton = (type: QwRoomListCardButtonType, room: RoomModel) => {
@@ -240,6 +238,31 @@ export class QwRoomList {
     }).subscribe();
   };
 
+  weekDatesChanged = (e: QwWeekCalendarDirection) => {
+    this.isPriceLoading = true;
+    const newRange = e === QwWeekCalendarDirection.Right
+      ? this.getNextRangeOfDates(this.rangeDateString[this.rangeDateString.length - 1])
+      : this.getPrevRangeOfDates(this.rangeDateString[0]);
+
+    this.getRoomsSearchForRange(newRange)
+      .subscribe((newRoomPrices) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
+  };
+
+  private getNextRangeOfDates(date: string): SessionStayPeriod {
+    const firstDateMinusOne = this.initNewDate(date);
+    const firstDate = DateUtil.addDaysToDate(2, firstDateMinusOne);
+    const lastDate = DateUtil.addDaysToDate(8, firstDate);
+    return {arrivalDate: DateUtil.getDateStringFromDate(firstDate), departureDate: DateUtil.getDateStringFromDate(lastDate)};
+  }
+
+  private getPrevRangeOfDates(date: string) {
+    const today = this.initNewDate(new Date());
+    const lastDate = this.initNewDate(date);
+    const shouldBeFirstDate = DateUtil.addDaysToDate(-6, lastDate);
+    const firstDate = today >= shouldBeFirstDate ? today : shouldBeFirstDate;
+    return {arrivalDate: DateUtil.getDateStringFromDate(firstDate), departureDate: DateUtil.getDateStringFromDate(lastDate)};
+  }
+
   public render() {
     return (
       <Host class={`
@@ -261,7 +284,7 @@ export class QwRoomList {
               qwRoomListCardTitle={r.name}
               qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}
               qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
-              qwRoomListCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
+              qwRoomListCardAveragePrice={this.roomPrices ? this.getAveragePricePerNight(r.roomId) : ''}
               qwRoomListCardSquareMeter={r.surfaceArea.text}
               qwRoomListCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
               qwRoomListCardImage={RoomHelper.getCoverImage(r).url}
@@ -281,7 +304,8 @@ export class QwRoomList {
               qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
               qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
               qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
-              qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}/>
+              qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}
+              qwRoomListCardOnChangeWeekDates={(e) => this.weekDatesChanged(e)}/>
           </div>;
         })}
       </Host>

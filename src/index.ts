@@ -44,3 +44,8 @@ export enum GuestDetailFormProperty {
   Title = 'title',
   CountryCode = 'countryCode',
 }
+
+export enum QwWeekCalendarDirection {
+  Left = 'left',
+  Right = 'right',
+}

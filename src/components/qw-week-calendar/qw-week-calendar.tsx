@@ -1,8 +1,9 @@
-import {Component, h, Host, Prop, State} from '@stencil/core';
+import {Component, EventEmitter, h, Host, Prop, State, Event} from '@stencil/core';
 import {
   DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel,
   SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
+import {QwWeekCalendarDirection} from '../../index';
 
 @Component({
   tag: 'qw-week-calendar',
@@ -15,6 +16,7 @@ export class QwWeekCalendar {
   @Prop() qwWeekCalendarPricesByRoom: PricesForStayPeriod[RoomModel['roomId']] = {};
   @Prop() qwWeekCalendarSelectedRoomId: RoomModel['roomId'];
   @State() session: SessionModel; // todo passare lingua come prop e rimuovere session
+  @Event() qwWeekCalendarChangeDates: EventEmitter<QwWeekCalendarDirection>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
@@ -43,9 +45,14 @@ export class QwWeekCalendar {
     return this.qwWeekCalendarRangeDateSession[this.qwWeekCalendarRangeDateSession.length - 1].getTime() === date.getTime();
   }
 
+  public onChangeDates(direction: QwWeekCalendarDirection) {
+    this.qwWeekCalendarChangeDates.emit(direction);
+  }
+
   render() {
     return (
       <Host>
+        <div class="qw-week-calendar__icon" onClick={() => this.onChangeDates(QwWeekCalendarDirection.Left)}>L</div>
         {this.qwWeekCalendarRangeDate && this.qwWeekCalendarRangeDate.map(date => {
           return <div class={
             `qw-calendar-week__block ${this.isDateInSession(date) ? 'qw-calendar-week__block--selected' : ''}
@@ -58,6 +65,7 @@ export class QwWeekCalendar {
             </div>
           </div>;
         })}
+        <div class="qw-week-calendar__icon" onClick={() => this.onChangeDates(QwWeekCalendarDirection.Right)}>R</div>
       </Host>
     );
   }

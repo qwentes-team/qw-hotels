@@ -9,7 +9,7 @@
     // todo trovare un modo per fare un env
     window.QW_HOTEL_ENV = {
       ENDPOINT: 'http://hotel-gabriel.matteo.qwentes.lan/hub-api',
-      ENGINE_ID: 'J2VG', // 'J262'
+      ENGINE_ID: 'J262', // 'J2VG'
     };
   </script>
   
@@ -19,15 +19,12 @@
 </head>
 <body>
 
-<qw-calendar-shorthand></qw-calendar-shorthand>
+<!--<qw-calendar-shorthand></qw-calendar-shorthand>-->
 <qw-calendar></qw-calendar>
-
-<qw-room-detail qw-room-detail-id="100284"> <!-- 97816 -->
-  <div slot="qwRoomDetailLoading">Loading detail room...</div>
-</qw-room-detail>
-
-<qw-room-rate-list qw-room-rate-list-id="100284"></qw-room-rate-list>
-
+<!--<qw-room-detail qw-room-detail-id="100284"> &lt;!&ndash; 97816 &ndash;&gt;-->
+<!--  <div slot="qwRoomDetailLoading">Loading detail room...</div>-->
+<!--</qw-room-detail>-->
+<!--<qw-room-rate-list qw-room-rate-list-id="100284"></qw-room-rate-list>-->
 <!--<qw-language-->
 <!--  qw-language-languages='["en-US", "fr-FR", "it-IT"]'>-->
 <!--</qw-language>-->
@@ -40,16 +37,12 @@
 <!--  qw-basket-show-book-now-button="true"></qw-basket>-->
 
 <!--<qw-basket-summary></qw-basket-summary>-->
-
-
 <!--<qw-room-basket></qw-room-basket>-->
-
 <!--<qw-book-condition></qw-book-condition>-->
-
 <!--<qw-extra-basket></qw-extra-basket>-->
-  <!--<qw-room-list>
-    <div slot="qwRoomListLoading">loading</div>
-  </qw-room-list>-->
+<qw-room-list>
+  <div slot="qwRoomListLoading">loading</div>
+</qw-room-list>
 <!--<qw-book>-->
 <!--  <div slot="qwBookLoading">Loading form...</div>-->
 <!--</qw-book>-->

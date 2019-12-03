@@ -2,7 +2,7 @@ import {Component, Host, h, Prop, Listen} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {BasketHelper, MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
-import {QwChangeRoomEvent} from '../../../index';
+import {QwChangeRoomEvent, QwWeekCalendarDirection} from '../../../index';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 
 @Component({
@@ -43,6 +43,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
   @Prop() qwRoomListCardOnChangeRoom: (e: QwChangeRoomEvent) => void;
+  @Prop() qwRoomListCardOnChangeWeekDates: (e: QwWeekCalendarDirection) => void;
 
   private getMessageError() {
     // todo differenziare i due errori
@@ -60,6 +61,11 @@ export class QwRoomListCard {
       quantity: event.detail.value.toString(),
       room: this.qwRoomListCardBasketRoom,
     });
+  }
+
+  @Listen('qwWeekCalendarChangeDates')
+  public weekDatesChanged(event: CustomEvent<QwWeekCalendarDirection>) {
+    this.qwRoomListCardOnChangeWeekDates(event.detail);
   }
 
   public getActionsCounterValues() {
