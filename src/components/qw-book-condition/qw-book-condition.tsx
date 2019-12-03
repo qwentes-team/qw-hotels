@@ -1,6 +1,5 @@
 import {Component, Host, h, State} from '@stencil/core';
 import {
-  QuoteCreateBody,
   QuoteHelper,
   QuoteModel,
   QuoteService,
@@ -16,10 +15,8 @@ import {switchMap} from 'rxjs/operators';
 })
 export class QwBookCondition {
   @State() quote: QuoteModel;
-  @State() formQuote: QuoteCreateBody;
 
   public componentDidLoad() {
-    this.formQuote = QuoteHelper.initObjectForCreateBody();
     SessionService.getSession().subscribe();
     SessionLoaded$
       .pipe(switchMap(session => {
@@ -57,5 +54,4 @@ export class QwBookCondition {
       </Host>
     );
   }
-
 }

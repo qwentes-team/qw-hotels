@@ -19,6 +19,7 @@
 - [qw-book-guest-detail](qw-book-guest-detail)
 - [qw-extra](../qw-extra)
 - [qw-textarea](../shared/qw-textarea)
+- [qw-book-condition](../qw-book-condition)
 - [qw-input](../shared/qw-input)
 
 ### Graph
@@ -27,6 +28,7 @@ graph TD;
   qw-book --> qw-book-guest-detail
   qw-book --> qw-extra
   qw-book --> qw-textarea
+  qw-book --> qw-book-condition
   qw-book --> qw-input
   qw-book-guest-detail --> qw-input
   qw-extra --> qw-extra-card
