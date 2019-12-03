@@ -24,15 +24,6 @@ qw-book {
   margin-bottom: var(--qw-hotel-gap-md);
 }
 
-.qw-book__booking-conditions {
-  background: var(--qw-hotel-background);
-  padding: var(--qw-hotel-gap-sm);
-}
-
-.qw-book__booking-conditions > div {
-  margin: var(--qw-hotel-gap-sm) 0;
-}
-
 .qw-book__confirmation-checkbox {
   display: flex;
   justify-content: flex-start;
