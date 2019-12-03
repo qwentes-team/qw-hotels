@@ -1,5 +1,5 @@
 qw-book-condition {
-  background: var(--qw-hotel-background);
+  display: flex;
   padding: var(--qw-hotel-gap-sm);
 }
 

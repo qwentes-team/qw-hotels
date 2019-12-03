@@ -93,7 +93,6 @@ export class QwBook {
       });
     } else {
       this.showFormErrors = true;
-      console.log(this.showFormErrors);
     }
   };
 
@@ -132,8 +131,7 @@ export class QwBook {
                     <qw-textarea qwTextareaName="specialRequest"/>
                   </div>
                 </div>
-                {this.quote
-                && <qw-book-condition></qw-book-condition>}
+                {this.quote && <qw-book-condition/>}
                 <div class="qw-book__confirmation">
                   <h4>Confirmation</h4>
                   <div class="qw-book__confirmation-checkbox">
