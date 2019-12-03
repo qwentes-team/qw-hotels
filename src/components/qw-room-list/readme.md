@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property                    | Attribute                        | Description | Type                                           | Default                 |
-| --------------------------- | -------------------------------- | ----------- | ---------------------------------------------- | ----------------------- |
-| `qwRoomListFilterRoomsWith` | `qw-room-list-filter-rooms-with` |             | `string`                                       | `undefined`             |
-| `qwRoomListHeaderMessage`   | `qw-room-list-header-message`    |             | `string`                                       | `undefined`             |
-| `qwRoomListShowCta`         | `qw-room-list-show-cta`          |             | `boolean`                                      | `true`                  |
-| `qwRoomListShowPrices`      | `qw-room-list-show-prices`       |             | `boolean`                                      | `true`                  |
-| `qwRoomListType`            | `qw-room-list-type`              |             | `QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline` |
+| Property                    | Attribute                        | Description | Type                                                                        | Default                              |
+| --------------------------- | -------------------------------- | ----------- | --------------------------------------------------------------------------- | ------------------------------------ |
+| `qwRoomListFilterRoomsWith` | `qw-room-list-filter-rooms-with` |             | `string`                                                                    | `undefined`                          |
+| `qwRoomListHeaderMessage`   | `qw-room-list-header-message`    |             | `string`                                                                    | `undefined`                          |
+| `qwRoomListOrder`           | `qw-room-list-order`             |             | `QwRoomListOrderType.AscendingPrice \| QwRoomListOrderType.DescendingPrice` | `QwRoomListOrderType.AscendingPrice` |
+| `qwRoomListShowCta`         | `qw-room-list-show-cta`          |             | `boolean`                                                                   | `true`                               |
+| `qwRoomListShowPrices`      | `qw-room-list-show-prices`       |             | `boolean`                                                                   | `true`                               |
+| `qwRoomListType`            | `qw-room-list-type`              |             | `QwRoomListType.Grid \| QwRoomListType.Inline`                              | `QwRoomListType.Inline`              |
 
 
 ## Events
