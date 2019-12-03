@@ -2,27 +2,33 @@ import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/cor
 import {
   BasketHelper,
   BasketService,
-  BasketWithPrice$, createRateFromRoomBasketOccupancy,
+  BasketWithPrice$,
+  createRateFromRoomBasketOccupancy,
   DateFormat,
   DateUtil,
   MONEY_SYMBOLS,
-  PricesForStayPeriod, Rate, RoomBasketOccupancy, RoomDefaultLabel,
+  MoneyPrice,
+  PricesForStayPeriod,
+  Rate,
+  RoomBasketModel,
+  RoomBasketOccupancy,
+  RoomDefaultLabel,
   RoomHelper,
   RoomIsLoading$,
   RoomLoaded$,
   RoomModel,
-  RoomService, SessionHelper,
+  RoomService,
+  SessionHelper,
   SessionIsLoading$,
   SessionLoaded$,
   SessionModel,
   SessionService,
   SessionStayPeriod,
-  RoomBasketModel
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
-import {QwChangeRoomEvent, QwRoomListCardButtonType, QwRoomListType} from '../../index';
+import {QwChangeRoomEvent, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType} from '../../index';
 
 @Component({
   tag: 'qw-room-list',
@@ -35,6 +41,7 @@ export class QwRoomList {
   @Prop() qwRoomListShowPrices: boolean = true;
   @Prop() qwRoomListShowCta: boolean = true;
   @Prop() qwRoomListHeaderMessage: string;
+  @Prop() qwRoomListOrder: QwRoomListOrderType = QwRoomListOrderType.AscendingPrice;
   @State() rooms: RoomModel[] = [];
   @State() isBasketLoading: boolean;
   @State() isRoomLoading: boolean;
@@ -49,7 +56,7 @@ export class QwRoomList {
   @State() basketRooms: RoomBasketModel[] = [];
   @State() basketRoomsOccupancyId: RoomBasketOccupancy['occupancyId'];
   @State() basketRoom: RoomBasketModel;
-  @State() basketRoomTotals: {[roomId: string]: string} = {};
+  @State() basketRoomTotals: {[roomId: string]: MoneyPrice} = {};
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
 
   private startDate: Date;
@@ -70,11 +77,14 @@ export class QwRoomList {
         this.session = session;
         this.symbol = MONEY_SYMBOLS[session.display.currency] || session.display.currency;
         this.nights = SessionHelper.getNumberOfNights(session);
+        return zip(of(session), BasketService.getBasket(session));
+      }),
+      switchMap(([session]) => {
         if (!this.qwRoomListShowPrices) {
           return zip(of({}), RoomService.getRooms(session.sessionId));
         }
         return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
-      }),
+      })
     ).subscribe(([newRoomPrices]) => {
       const firstRoomId = Object.keys(newRoomPrices).length && Object.keys(newRoomPrices)[0];
       const newDatesToStore = newRoomPrices[firstRoomId] ? Object.keys(newRoomPrices[firstRoomId]) : [];
@@ -84,7 +94,27 @@ export class QwRoomList {
       this.isPriceLoading = false;
     });
 
-    RoomLoaded$.subscribe(res => this.rooms = !this.qwRoomListFilterRoomsWith ? res : this.getFilteredRooms(res));
+    RoomLoaded$.subscribe(res => {
+      const roomsWithPrice = res.filter(room => {
+        return RoomHelper.getCheapestPrice(room).value || this.basketRoomTotals[room.roomId];
+      });
+
+      const roomsWithoutPrice = res.filter(room => {
+        return !(RoomHelper.getCheapestPrice(room).value || this.basketRoomTotals[room.roomId]);
+      });
+
+      const sortedRooms = roomsWithPrice.sort((a, b) => {
+        const priceA = RoomHelper.getCheapestPrice(a).value || (this.basketRoomTotals[a.roomId] && this.basketRoomTotals[a.roomId].value);
+        const priceB = RoomHelper.getCheapestPrice(b).value || (this.basketRoomTotals[b.roomId] && this.basketRoomTotals[b.roomId].value);
+        return this.qwRoomListOrder === QwRoomListOrderType.AscendingPrice ? priceA.amount - priceB.amount : priceB.amount - priceA.amount;
+      });
+
+      const rooms = [...sortedRooms, ...roomsWithoutPrice];
+
+      console.log(rooms);
+
+      return this.rooms = !this.qwRoomListFilterRoomsWith ? rooms : this.getFilteredRooms(rooms);
+    });
     BasketWithPrice$.subscribe(basket => {
       this.basketIsEmpty = !basket.rooms.length;
       this.basketRooms = basket.rooms;
@@ -92,7 +122,7 @@ export class QwRoomList {
       this.basketRoomsOccupancyId = parseInt(firstBasketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(firstBasketRoom));
       this.basketRoomTotals = basket.rooms.reduce((acc, room) => {
         const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(room);
-        return {...acc, [room.roomId]: room.occupancies[occupancyId].price.converted.text};
+        return {...acc, [room.roomId]: room.occupancies[occupancyId].price.converted};
       }, {});
     });
 
@@ -231,7 +261,7 @@ export class QwRoomList {
               `}
               qwRoomListCardId={r.roomId}
               qwRoomListCardTitle={r.name}
-              qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || this.basketRoomTotals[r.roomId]}
+              qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}
               qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
               qwRoomListCardAveragePrice={!this.isPriceLoading ? this.getAveragePricePerNight(r.roomId) : ''}
               qwRoomListCardSquareMeter={r.surfaceArea.text}

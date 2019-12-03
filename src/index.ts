@@ -18,6 +18,11 @@ export enum QwRoomListType {
   Grid = 'grid',
 }
 
+export enum QwRoomListOrderType {
+  AscendingPrice = 'ascendingPrice',
+  DescendingPrice = 'descendingPrice',
+}
+
 export interface QwChangeRoomEvent {
   quantity: string;
   room: RoomBasketModel;

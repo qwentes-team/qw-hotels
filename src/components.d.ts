@@ -25,6 +25,7 @@ import {
   QwCalendarGuestInlineInputType,
   QwChangeRoomEvent,
   QwRoomListCardButtonType,
+  QwRoomListOrderType,
   QwRoomListType,
 } from './index';
 import {
@@ -163,6 +164,7 @@ export namespace Components {
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
     'qwRoomListHeaderMessage': string;
+    'qwRoomListOrder': QwRoomListOrderType;
     'qwRoomListShowCta': boolean;
     'qwRoomListShowPrices': boolean;
     'qwRoomListType': QwRoomListType;
@@ -577,6 +579,7 @@ declare namespace LocalJSX {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
     'qwRoomListFilterRoomsWith'?: string;
     'qwRoomListHeaderMessage'?: string;
+    'qwRoomListOrder'?: QwRoomListOrderType;
     'qwRoomListShowCta'?: boolean;
     'qwRoomListShowPrices'?: boolean;
     'qwRoomListType'?: QwRoomListType;
