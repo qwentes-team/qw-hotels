@@ -1,10 +1,11 @@
 import {Component, Host, h, Prop, State, Listen, Event, EventEmitter} from '@stencil/core';
 import {
+  SessionDisplay,
   SessionIsLoading$,
   SessionLoaded$,
   SessionModel,
   SessionService,
-  SessionStayPeriod
+  SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
 
 @Component({
@@ -20,6 +21,7 @@ export class QwCalendar {
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean;
+  @State() locale: SessionDisplay['culture'];
   @Event() qwCalendarChange: EventEmitter<SessionStayPeriod>;
 
   public componentDidLoad() {
@@ -27,6 +29,7 @@ export class QwCalendar {
     SessionLoaded$.subscribe((session) => {
       this.session = session;
       this.stayPeriod = {...session.context.stayPeriod};
+      this.locale = session.display.culture;
     });
     SessionIsLoading$.subscribe(isLoading => this.isSessionLoading = isLoading);
   }
@@ -62,6 +65,7 @@ export class QwCalendar {
           qwCalendarPickerResponsive={this.qwCalendarResponsive}
           qwCalendarPickerNumberOfMonths={this.qwCalendarNumberOfMonths}
           qwCalendarPickerDisabled={this.isSessionLoading}
+          qwCalendarPickerLocale={this.locale}
           qwCalendarPickerStayPeriod={this.stayPeriod}/>
       </Host>
     );

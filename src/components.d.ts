@@ -82,6 +82,7 @@ export namespace Components {
   interface QwCalendarPicker {
     'qwCalendarPickerDesktopLimit': number;
     'qwCalendarPickerDisabled': boolean;
+    'qwCalendarPickerLocale': SessionDisplay['culture'];
     'qwCalendarPickerNumberOfMonths': number;
     'qwCalendarPickerResponsive': boolean;
     'qwCalendarPickerStayPeriod': SessionStayPeriod;
@@ -494,6 +495,7 @@ declare namespace LocalJSX {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarPickerDesktopLimit'?: number;
     'qwCalendarPickerDisabled'?: boolean;
+    'qwCalendarPickerLocale'?: SessionDisplay['culture'];
     'qwCalendarPickerNumberOfMonths'?: number;
     'qwCalendarPickerResponsive'?: boolean;
     'qwCalendarPickerStayPeriod'?: SessionStayPeriod;

@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property                        | Attribute | Description | Type                     | Default |
-| ------------------------------- | --------- | ----------- | ------------------------ | ------- |
-| `qwBookGuestDetailTitleOptions` | --        |             | `RoomMetadata<string>[]` | `[]`    |
+| Property                        | Attribute                 | Description | Type                     | Default     |
+| ------------------------------- | ------------------------- | ----------- | ------------------------ | ----------- |
+| `qwBookFormShowError`           | `qw-book-form-show-error` |             | `boolean`                | `undefined` |
+| `qwBookGuestDetailTitleOptions` | --                        |             | `RoomMetadata<string>[]` | `[]`        |
 
 
 ## Events

@@ -1,6 +1,8 @@
 import {Component, Host, h, Prop, Watch, State, Event, EventEmitter, Listen} from '@stencil/core';
 import flatpickr from 'flatpickr';
-import {SessionStayPeriod} from '@qwentes/booking-state-manager';
+import * as English from 'flatpickr/dist/l10n/default.js';
+import * as French from 'flatpickr/dist/l10n/fr.js';
+import {SessionDisplay, SessionStayPeriod} from '@qwentes/booking-state-manager';
 
 const CALENDAR_ID = 'flatpickr-element';
 
@@ -15,6 +17,7 @@ export class QwCalendarPicker {
   @Prop() qwCalendarPickerResponsive: boolean;
   @Prop() qwCalendarPickerStayPeriod: SessionStayPeriod;
   @Prop() qwCalendarPickerDesktopLimit: number;
+  @Prop() qwCalendarPickerLocale: SessionDisplay['culture'];
   @State() disableStartDate: boolean = false;
   @State() calendarInstance: flatpickr.Instance;
   @Event() qwCalendarPickerChangeDates: EventEmitter<SessionStayPeriod>;
@@ -33,6 +36,7 @@ export class QwCalendarPicker {
       minDate: 'today',
       inline: true,
       showMonths: this.qwCalendarPickerNumberOfMonths,
+      locale: this.getLocaleForCalendar(),
       onChange: this.change,
     };
     this.calendarInstance = flatpickr(this.elementCalendarInstance, this.configCalendarInstance);
@@ -82,10 +86,24 @@ export class QwCalendarPicker {
     }
   }
 
+  private getLocaleForCalendar() {
+    if (this.qwCalendarPickerLocale === 'fr-FR') {
+      return French.default.fr;
+    }
+
+    return English.default;
+  }
+
   @Watch('qwCalendarPickerStayPeriod')
   watchStayPeriod(newValue: SessionStayPeriod) {
     this.updateConfigCalendar({defaultDate: [newValue.arrivalDate, newValue.departureDate]});
   }
+
+  @Watch('qwCalendarPickerLocale')
+  watchLocale() {
+    this.updateConfigCalendar({locale: this.getLocaleForCalendar()});
+  }
+
 
   @Listen('resize', { target: 'window' })
   handleScroll() {
