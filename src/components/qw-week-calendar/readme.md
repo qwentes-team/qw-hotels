@@ -9,10 +9,18 @@
 
 | Property                         | Attribute                           | Description | Type                                    | Default     |
 | -------------------------------- | ----------------------------------- | ----------- | --------------------------------------- | ----------- |
+| `qwWeekCalendarIsLoading`        | `qw-week-calendar-is-loading`       |             | `boolean`                               | `undefined` |
 | `qwWeekCalendarPricesByRoom`     | --                                  |             | `{ [dateString: string]: MoneyPrice; }` | `{}`        |
 | `qwWeekCalendarRangeDate`        | --                                  |             | `Date[]`                                | `undefined` |
 | `qwWeekCalendarRangeDateSession` | --                                  |             | `Date[]`                                | `undefined` |
 | `qwWeekCalendarSelectedRoomId`   | `qw-week-calendar-selected-room-id` |             | `number`                                | `undefined` |
+
+
+## Events
+
+| Event                       | Description | Type                                                                         |
+| --------------------------- | ----------- | ---------------------------------------------------------------------------- |
+| `qwWeekCalendarChangeDates` |             | `CustomEvent<QwWeekCalendarDirection.Left \| QwWeekCalendarDirection.Right>` |
 
 
 ## Dependencies
