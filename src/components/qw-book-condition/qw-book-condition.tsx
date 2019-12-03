@@ -29,7 +29,7 @@ export class QwBookCondition {
     return (
       <Host>
         <slot>
-          {this.quote
+          {this.quote && Object.keys(this.quote).length
           && <div class="qw-book__booking-conditions">
             <h4>Booking & Sales Conditions</h4>
             <div class="qw-book__booking-conditions__cancellation">
