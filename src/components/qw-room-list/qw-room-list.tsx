@@ -111,8 +111,6 @@ export class QwRoomList {
 
       const rooms = [...sortedRooms, ...roomsWithoutPrice];
 
-      console.log(rooms);
-
       return this.rooms = !this.qwRoomListFilterRoomsWith ? rooms : this.getFilteredRooms(rooms);
     });
     BasketWithPrice$.subscribe(basket => {

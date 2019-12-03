@@ -56,6 +56,7 @@ export namespace Components {
     'qwBasketBookNowButtonLabel': string;
     'qwBasketShowBookNowButton': boolean;
     'qwBasketShowEmptyButton': boolean;
+    'qwBasketShowOnSiteTaxes': boolean;
     'qwBasketShowPriceIfEmpty': boolean;
     'qwBasketShowTaxes': boolean;
   }
@@ -451,6 +452,7 @@ declare namespace LocalJSX {
     'qwBasketBookNowButtonLabel'?: string;
     'qwBasketShowBookNowButton'?: boolean;
     'qwBasketShowEmptyButton'?: boolean;
+    'qwBasketShowOnSiteTaxes'?: boolean;
     'qwBasketShowPriceIfEmpty'?: boolean;
     'qwBasketShowTaxes'?: boolean;
   }
