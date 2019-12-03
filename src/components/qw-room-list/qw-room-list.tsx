@@ -239,6 +239,13 @@ export class QwRoomList {
   };
 
   weekDatesChanged = (e: QwWeekCalendarDirection) => {
+    const dates = document.querySelectorAll('.qw-calendar-week__block-date');
+    const prices = document.querySelectorAll('.qw-calendar-week__block-price');
+    const selectedBlocks = document.querySelectorAll('.qw-calendar-week__block--selected');
+    dates.forEach(d => d.classList.remove('hide'));
+    prices.forEach(d => d.classList.remove('hide'));
+    selectedBlocks.forEach(d => d.classList.remove('hide'));
+
     this.isPriceLoading = true;
     const newRange = e === QwWeekCalendarDirection.Right
       ? this.getNextRangeOfDates(this.rangeDateString[this.rangeDateString.length - 1])

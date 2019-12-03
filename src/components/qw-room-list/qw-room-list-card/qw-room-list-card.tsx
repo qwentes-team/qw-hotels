@@ -133,6 +133,7 @@ export class QwRoomListCard {
                 qwWeekCalendarRangeDate={this.qwRoomListCardRangeDate}
                 qwWeekCalendarRangeDateSession={this.qwRoomListCardRangeDateSession}
                 qwWeekCalendarPricesByRoom={this.qwRoomListCardPrices}
+                qwWeekCalendarIsLoading={this.qwRoomListCardIsLoadingPrice}
                 qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>
             </div>}
 

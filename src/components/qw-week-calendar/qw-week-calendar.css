@@ -17,6 +17,7 @@ qw-week-calendar .qw-calendar-week__block {
 
 qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--selected {
   background: var(--qw-hotel-primary-color);
+  transition: background-color .3s ease;
 }
 
 qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--first {
@@ -26,6 +27,21 @@ qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--first {
 qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--last {
   border-radius: 0 50px 50px 0;
   background: var(--qw-hotel-secondary-color);
+}
+
+qw-week-calendar .qw-calendar-week__block-date,
+qw-week-calendar .qw-calendar-week__block-price {
+  opacity: 1;
+  transition: opacity .3s ease;
+}
+
+qw-week-calendar .qw-calendar-week__block.qw-calendar-week__block--selected.hide {
+  background: var(--qw-hotel-neutral-lightest);
+}
+
+qw-week-calendar .qw-calendar-week__block-date.hide,
+qw-week-calendar .qw-calendar-week__block-price.hide {
+  opacity: 0;
 }
 
 qw-week-calendar .qw-calendar-week__block-date {

@@ -4,6 +4,7 @@ import {
   SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {QwWeekCalendarDirection} from '../../index';
+import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
   tag: 'qw-week-calendar',
@@ -15,6 +16,7 @@ export class QwWeekCalendar {
   @Prop() qwWeekCalendarRangeDateSession: Date[];
   @Prop() qwWeekCalendarPricesByRoom: PricesForStayPeriod[RoomModel['roomId']] = {};
   @Prop() qwWeekCalendarSelectedRoomId: RoomModel['roomId'];
+  @Prop() qwWeekCalendarIsLoading: boolean;
   @State() session: SessionModel; // todo passare lingua come prop e rimuovere session
   @Event() qwWeekCalendarChangeDates: EventEmitter<QwWeekCalendarDirection>;
 
@@ -45,14 +47,30 @@ export class QwWeekCalendar {
     return this.qwWeekCalendarRangeDateSession[this.qwWeekCalendarRangeDateSession.length - 1].getTime() === date.getTime();
   }
 
+  private disableLeftButton() {
+    const today = DateUtil.removeTimeFromDate(new Date());
+    const firstDateInRange = DateUtil.removeTimeFromDate(this.qwWeekCalendarRangeDate[0]);
+    return today >= firstDateInRange;
+  }
+
   public onChangeDates(direction: QwWeekCalendarDirection) {
-    this.qwWeekCalendarChangeDates.emit(direction);
+    const dates = document.querySelectorAll('.qw-calendar-week__block-date');
+    const prices = document.querySelectorAll('.qw-calendar-week__block-price');
+    const selectedBlocks = document.querySelectorAll('.qw-calendar-week__block--selected');
+    dates.forEach(d => d.classList.add('hide'));
+    prices.forEach(d => d.classList.add('hide'));
+    selectedBlocks.forEach(d => d.classList.add('hide'));
+    setTimeout(() => this.qwWeekCalendarChangeDates.emit(direction), 300);
   }
 
   render() {
     return (
       <Host>
-        <div class="qw-week-calendar__icon" onClick={() => this.onChangeDates(QwWeekCalendarDirection.Left)}>L</div>
+        <QwButton
+          QwButtonLabel=""
+          QwButtonDisabled={this.qwWeekCalendarIsLoading || this.disableLeftButton()}
+          QwButtonClass="qw-week-calendar__icon"
+          QwButtonOnClick={() => this.onChangeDates(QwWeekCalendarDirection.Left)} />
         {this.qwWeekCalendarRangeDate && this.qwWeekCalendarRangeDate.map(date => {
           return <div class={
             `qw-calendar-week__block ${this.isDateInSession(date) ? 'qw-calendar-week__block--selected' : ''}
@@ -65,7 +83,11 @@ export class QwWeekCalendar {
             </div>
           </div>;
         })}
-        <div class="qw-week-calendar__icon" onClick={() => this.onChangeDates(QwWeekCalendarDirection.Right)}>R</div>
+        <QwButton
+          QwButtonLabel=""
+          QwButtonDisabled={this.qwWeekCalendarIsLoading}
+          QwButtonClass="qw-week-calendar__icon"
+          QwButtonOnClick={() => this.onChangeDates(QwWeekCalendarDirection.Right)} />
       </Host>
     );
   }
