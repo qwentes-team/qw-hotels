@@ -16,8 +16,10 @@ export class QwBasket {
   @Prop() qwBasketShowBookNowButton: boolean = false;
   @Prop() qwBasketShowPriceIfEmpty: boolean = false;
   @Prop() qwBasketShowTaxes: boolean = false;
+  @Prop() qwBasketShowOnSiteTaxes: boolean = false;
   @Prop() qwBasketBookNowButtonLabel: string;
   @State() totalPrice: MoneyPrice;
+  @State() onSiteTaxes: string;
   @State() taxesMessage: string;
   @State() isLoading: boolean;
   @State() numberOfGuests: number;
@@ -34,6 +36,7 @@ export class QwBasket {
 
     BasketWithPrice$.subscribe(basket => {
       this.totalPrice = BasketHelper.getTotalOriginalPrice(basket);
+      this.onSiteTaxes = basket.taxes.onSite.text;
       this.taxesMessage = BasketHelper.getTaxesFormatted(basket);
       this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
     });
@@ -66,6 +69,9 @@ export class QwBasket {
         {(!this.isTotalPriceZero() || this.qwBasketShowPriceIfEmpty) && <div class="qw-basket__price" onClick={() => this.clickPrice()}>
           {this.qwBasketShowTaxes && <div class={`qw-basket__tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
             {this.taxesMessage}
+          </div>}
+          {this.qwBasketShowOnSiteTaxes && <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
+            {this.onSiteTaxes}
           </div>}
           <div class={`qw-basket__price-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
             {this.totalPrice && this.totalPrice.text}
