@@ -9,7 +9,7 @@
     // todo trovare un modo per fare un env
     window.QW_HOTEL_ENV = {
       ENDPOINT: 'http://hotel-gabriel.matteo.qwentes.lan/hub-api',
-      ENGINE_ID: 'J262', // 'J2VG'
+      ENGINE_ID: 'J2VG', // 'J262'
     };
   </script>
   
@@ -18,10 +18,20 @@
   <script nomodule src="/build/qw-hotels.js"></script>
 </head>
 <body>
-<qw-language
-  qw-language-languages='["en-US", "fr-FR", "it-IT"]'>
-</qw-language>
-  <qw-calendar></qw-calendar>
+
+<qw-calendar-shorthand></qw-calendar-shorthand>
+<qw-calendar></qw-calendar>
+
+<qw-room-detail qw-room-detail-id="100284"> <!-- 97816 -->
+  <div slot="qwRoomDetailLoading">Loading detail room...</div>
+</qw-room-detail>
+
+<qw-room-rate-list qw-room-rate-list-id="100284"></qw-room-rate-list>
+
+<!--<qw-language-->
+<!--  qw-language-languages='["en-US", "fr-FR", "it-IT"]'>-->
+<!--</qw-language>-->
+<!--  <qw-calendar></qw-calendar>-->
 <!--<qw-room-service qw-room-service-room-id="97816"></qw-room-service>-->
 <!--<qw-basket-->
 <!--  qw-basket-show-empty-button="true"-->
@@ -31,9 +41,6 @@
 
 <!--<qw-basket-summary></qw-basket-summary>-->
 
-<!--<qw-room-detail qw-room-detail-id="97816"> &lt;!&ndash; 100284 &ndash;&gt;-->
-<!--  <div slot="qwRoomDetailLoading">Loading detail room...</div>-->
-<!--</qw-room-detail>-->
 
 <!--<qw-room-basket></qw-room-basket>-->
 
