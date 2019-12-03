@@ -11,6 +11,7 @@
 | -------------------------------- | ------------------------------------- | ----------- | ------------------- | ----------- |
 | `qwCalendarPickerDesktopLimit`   | `qw-calendar-picker-desktop-limit`    |             | `number`            | `undefined` |
 | `qwCalendarPickerDisabled`       | `qw-calendar-picker-disabled`         |             | `boolean`           | `undefined` |
+| `qwCalendarPickerLocale`         | `qw-calendar-picker-locale`           |             | `string`            | `undefined` |
 | `qwCalendarPickerNumberOfMonths` | `qw-calendar-picker-number-of-months` |             | `number`            | `undefined` |
 | `qwCalendarPickerResponsive`     | `qw-calendar-picker-responsive`       |             | `boolean`           | `undefined` |
 | `qwCalendarPickerStayPeriod`     | --                                    |             | `SessionStayPeriod` | `undefined` |
