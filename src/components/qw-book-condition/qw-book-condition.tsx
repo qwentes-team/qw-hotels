@@ -30,7 +30,7 @@ export class QwBookCondition {
       <Host>
         <slot>
           {this.quote && Object.keys(this.quote).length
-          && <div class="qw-book__booking-conditions">
+          ? <div class="qw-book__booking-conditions">
             <h4>Booking & Sales Conditions</h4>
             <div class="qw-book__booking-conditions__cancellation">
               <h5>Cancellation Policy</h5>
@@ -49,7 +49,7 @@ export class QwBookCondition {
               {this.quote.taxes.onSiteTaxes.totalAmount.text &&
               <li>{`${this.quote.taxes.onSiteTaxes.computations[0].summary} (${this.quote.taxes.onSiteTaxes.totalAmount.text})`}</li>}
             </div>}
-          </div>}
+          </div> : ''}
         </slot>
       </Host>
     );
