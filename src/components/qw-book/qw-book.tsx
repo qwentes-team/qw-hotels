@@ -19,6 +19,7 @@ export class QwBook {
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
   @State() formQuote: QuoteCreateBody;
+  @State() showFormErrors: boolean = false;
 
   private sessionId: SessionModel['sessionId'];
   private quoteErrorMessage = 'The basket rooms could not welcome all guests';
@@ -86,9 +87,14 @@ export class QwBook {
   }
 
   public payNow = () => {
-    QuoteService.createQuote(this.sessionId, this.formQuote).subscribe((res) => {
-      window.open(res.redirectionUrl, '_blank');
-    });
+    if (this.isFormValid()) {
+      QuoteService.createQuote(this.sessionId, this.formQuote).subscribe((res) => {
+        window.open(res.redirectionUrl, '_blank');
+      });
+    } else {
+      this.showFormErrors = true;
+      console.log(this.showFormErrors);
+    }
   };
 
   render() {
@@ -103,7 +109,9 @@ export class QwBook {
               {this.qwBookErrorQuoteMessage || this.quoteErrorMessage}
             </div>
             : <div class="qw-book__wrapper">
-              <qw-book-guest-detail qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
+              <qw-book-guest-detail
+                qwBookFormShowError={this.showFormErrors}
+                qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
 
               <div class="qw-book__extra">
                 <h3>Extras</h3>
@@ -135,24 +143,9 @@ export class QwBook {
                 </div>
               </div>
 
-              {this.formQuote && !this.isFormValid() && <div class="qw-book__form-error">
-                <div class="qw-book__form-error-message">Please fill the mandatory fields to complete the process. You are
-                  missing:
-                </div>
-                <ul>
-                  {!this.formQuote.customerDetails.firstName && <li>First Name</li>}
-                  {!this.formQuote.customerDetails.lastName && <li>Last Name</li>}
-                  {!this.formQuote.customerDetails.emailAddress && <li>Email address</li>}
-                  {!emailIsValid(this.formQuote.customerDetails.emailAddress) && <li>Email address is invalid</li>}
-                  {!this.formQuote.customerDetails.countryCode && <li>Country of residence</li>}
-                  {!this.isConfirmedConditions && <li>Terms & conditions</li>}
-                </ul>
-              </div>}
-
               <div class="qw-book__pay">
                 <QwButton
                   QwButtonLabel="Pay now"
-                  QwButtonDisabled={!this.isFormValid()}
                   QwButtonOnClick={() => this.payNow()}/>
               </div>
             </div>

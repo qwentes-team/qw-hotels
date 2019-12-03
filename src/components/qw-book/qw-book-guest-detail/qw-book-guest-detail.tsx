@@ -14,6 +14,7 @@ import {emailIsValid} from '../../../globals/app';
 })
 export class QwBookGuestDetail {
   @Prop() qwBookGuestDetailTitleOptions: Array<RoomMetadata<string>> = [];
+  @Prop() qwBookFormShowError: boolean;
   @State() guestDetailForm: QuoteCreateBody;
   @Event() qwBookGuestDetailChangeForm: EventEmitter<QuoteCreateBody>;
 
@@ -77,10 +78,12 @@ export class QwBookGuestDetail {
           {this.qwBookGuestDetailTitleOptions.map(title => <option value={title.value}>{title.text}</option>)}
         </QwSelect>
         <qw-input
+          qwInputHasError={this.qwBookFormShowError && !this.guestDetailForm.customerDetails.firstName}
           qwInputName={GuestDetailFormProperty.FirstName}
           qwInputIsMandatory={true}
           qwInputLabel="First Name *"/>
         <qw-input
+          qwInputHasError={this.qwBookFormShowError && !this.guestDetailForm.customerDetails.lastName}
           qwInputName={GuestDetailFormProperty.LastName}
           qwInputIsMandatory={true}
           qwInputLabel="Last Name *"/>
@@ -88,7 +91,8 @@ export class QwBookGuestDetail {
           QwSelectLabel="Country of residence *"
           QwSelectName={GuestDetailFormProperty.CountryCode}
           QwSelectIsMandatory={true}
-          QwSelectOnChange={(e) => this.guestDetailCountrySelectChanged(e)}>
+          QwSelectOnChange={(e) => this.guestDetailCountrySelectChanged(e)}
+          QwSelectHasError={this.qwBookFormShowError && !this.guestDetailForm.customerDetails.countryCode}>
           <option value="">--</option>
           {this.countries.map(country => <option value={country.code}>{country.name}</option>)}
         </QwSelect>
@@ -98,7 +102,11 @@ export class QwBookGuestDetail {
           qwInputLabel="Email *"
           qwInputType="email"
           qwInputIsMandatory={true}
-          qwInputHasError={!emailIsValid(this.guestDetailForm && this.guestDetailForm.customerDetails.emailAddress)}
+          qwInputHasError={
+            !emailIsValid(this.guestDetailForm && this.guestDetailForm.customerDetails.emailAddress) ||
+            this.guestDetailForm && !this.guestDetailForm.customerDetails.emailAddress &&
+            this.qwBookFormShowError
+          }
           qwInputCaption="This is the email we will send your confirmation to"/>
         <qw-input
           qwInputName={GuestDetailFormProperty.Phone}
