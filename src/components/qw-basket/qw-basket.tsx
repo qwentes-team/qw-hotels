@@ -82,7 +82,7 @@ export class QwBasket {
           QwButtonLabel={this.qwBasketBookNowButtonLabel || 'Checkout'}
           QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero() || !this.isAccommodationSatisfy()}
           QwButtonOnClick={this.bookNow}/>}
-        {(!this.isTotalPriceZero() || this.qwBasketShowOnSiteTaxes) && <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
+        {(!this.isTotalPriceZero() && this.qwBasketShowOnSiteTaxes) && <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
           {this.onSiteTaxes}
         </div>}
       </Host>
