@@ -100,12 +100,12 @@ export class QwRoomListCard {
     return (
       <Host>
         <qw-card>
-          <div class="qw-room-list-card__image">
+          <div class="qw-room-list-card__image" onClick={() => this.qwRoomListCardOnClickView()}>
             <QwImage imageUrl={this.qwRoomListCardImage} alt={this.qwRoomListCardTitle}/>
           </div>
 
           <div class={`qw-room-list-card__title ${!this.qwRoomListCardPrice ? 'qw-room-list-card--has-error' : ''}`}>
-            <div class="qw-room-list-card__title-content">
+            <div class="qw-room-list-card__title-content" onClick={() => this.qwRoomListCardOnClickView()}>
               <h4>{this.qwRoomListCardTitle}</h4>
               <h6 class="qw-room-list-card__caption">
                 {this.qwRoomListCardGuests}{this.qwRoomListCardSquareMeter && ` / ${this.qwRoomListCardSquareMeter}`}

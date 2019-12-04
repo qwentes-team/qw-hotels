@@ -39,8 +39,7 @@ qw-room-rate .qw-button {
   align-items: center;
 }
 
-.qw-room-rate__occupancy:before {
-  content: '';
+.qw-room-rate__occupancy span {
   width: 20px;
   height: 20px;
   background: url('img/person.svg') no-repeat center;

@@ -95,7 +95,7 @@ export class QwRoomRate {
             class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
           </div>
           <div class="qw-room-rate__occupancy">
-            x {this.qwRoomRateRate.occupancy.definition.value.personCount}
+            {Array.from(Array(this.qwRoomRateRate.occupancy.definition.value.personCount)).map(() => <span/>)}
           </div>
         </div>}
         {this.qwRoomRateRate && <div class="qw-room-rate__price">

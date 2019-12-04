@@ -70,9 +70,6 @@ export class QwBasket {
           {this.qwBasketShowTaxes && <div class={`qw-basket__tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
             {this.taxesMessage}
           </div>}
-          {this.qwBasketShowOnSiteTaxes && <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
-            {this.onSiteTaxes}
-          </div>}
           <div class={`qw-basket__price-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
             {this.totalPrice && this.totalPrice.text}
           </div>
@@ -85,6 +82,9 @@ export class QwBasket {
           QwButtonLabel={this.qwBasketBookNowButtonLabel || 'Checkout'}
           QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero() || !this.isAccommodationSatisfy()}
           QwButtonOnClick={this.bookNow}/>}
+        {(!this.isTotalPriceZero() || this.qwBasketShowOnSiteTaxes) && <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
+          {this.onSiteTaxes}
+        </div>}
       </Host>
     );
   }
