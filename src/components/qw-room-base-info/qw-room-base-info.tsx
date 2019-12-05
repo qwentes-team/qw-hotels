@@ -29,7 +29,10 @@ export class QwRoomBaseInfo {
     return (
       <Host>
         {this.room && <ul>
-          <li>{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
+          <li class="qw-room-base-info__person-icon">
+            {Array.from(Array(RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount)).map(() => <span/>)}
+          </li>
+          <li class="qw-room-base-info__person-text">{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
           {this.room.surfaceArea.text && <li>{this.room.surfaceArea.text}</li>}
           <li>{RoomHelper.getRoomBedsFormatted(this.room)}</li>
         </ul>}
