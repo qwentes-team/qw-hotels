@@ -31,6 +31,7 @@ export class QwRoomBaseInfo {
         {this.room && <ul>
           <li class="qw-room-base-info__person-icon">
             {Array.from(Array(RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount)).map(() => <span/>)}
+            {RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount === 1 ? 'person' : 'people'}
           </li>
           <li class="qw-room-base-info__person-text">{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
           {this.room.surfaceArea.text && <li>{this.room.surfaceArea.text}</li>}

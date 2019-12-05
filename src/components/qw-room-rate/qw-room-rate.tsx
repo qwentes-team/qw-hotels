@@ -91,9 +91,6 @@ export class QwRoomRate {
       `}>
         {this.qwRoomRateRate && <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateRate.description.name}</div>
-          <div
-            class="qw-room-rate__availability">{this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
-          </div>
           <div class="qw-room-rate__occupancy">
             {Array.from(Array(this.qwRoomRateRate.occupancy.definition.value.personCount)).map(() => <span/>)}
           </div>
@@ -105,11 +102,17 @@ export class QwRoomRate {
           </div>
         </div>}
 
-        {this.qwRoomRateRate && <qw-counter
-          qwCounterId="qwRoomRateCounter"
-          qwCounterName={this.qwRoomRateRate.description.name}
-          qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-          qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
+        <div class="qw-room-rate__counter">
+          <div class="qw-room-rate__counter-label">Number of rooms</div>
+          {this.qwRoomRateRate && <qw-counter
+            qwCounterId="qwRoomRateCounter"
+            qwCounterName={this.qwRoomRateRate.description.name}
+            qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
+            qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
+          <div class="qw-room-rate__counter-availability">
+            {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
+          </div>
+        </div>
 
         {this.qwRoomRateRate && <QwButton
           QwButtonClass="qw-button--primary"

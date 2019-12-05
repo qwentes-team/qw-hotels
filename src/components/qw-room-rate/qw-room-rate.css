@@ -45,3 +45,14 @@ qw-room-rate .qw-button {
   background: url('img/person.svg') no-repeat center;
   background-size: 17px 17px;
 }
+
+.qw-room-rate__counter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.qw-room-rate__counter-label, .qw-room-rate__counter-availability {
+  font-size: 70%;
+}
