@@ -1,9 +1,10 @@
 import {Component, Host, h, Prop, Listen} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
-import {BasketHelper, MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
+import {BasketHelper, BasketModel, MoneyPrice, Rate, RoomBasketModel, RoomDefaultLabel, RoomModel} from '@qwentes/booking-state-manager';
 import {QwChangeRoomEvent, QwWeekCalendarDirection} from '../../../index';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
+import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 
 @Component({
   tag: 'qw-room-list-card',
@@ -39,11 +40,15 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardBasketRoomOccupancyId: number;
   @Prop() qwRoomListCardBasketIsEmpty: boolean;
   @Prop() qwRoomListCardAddableLeftover: number = 0;
+  @Prop() qwRoomListCardNumberOfGuests: number;
+  @Prop() qwRoomListCardNumberOfAccommodation: number;
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
+  @Prop() qwRoomListCardOnProceedToCheckout: () => void;
   @Prop() qwRoomListCardOnChangeRoom: (e: QwChangeRoomEvent) => void;
   @Prop() qwRoomListCardOnChangeWeekDates: (e: QwWeekCalendarDirection) => void;
+  @Prop() qwRoomListCardOnAddedToBasket: (e: BasketModel) => void;
 
   private getMessageError() {
     // todo differenziare i due errori
@@ -66,6 +71,11 @@ export class QwRoomListCard {
   @Listen('qwWeekCalendarChangeDates')
   public weekDatesChanged(event: CustomEvent<QwWeekCalendarDirection>) {
     this.qwRoomListCardOnChangeWeekDates(event.detail);
+  }
+
+  @Listen('qwRoomRateAddedToBasket')
+  public qwRoomRateAddedToBasket(event: CustomEvent<QwRoomRateAddedToBasketEmitter>) {
+    this.qwRoomListCardOnAddedToBasket(event.detail.basket);
   }
 
   public getActionsCounterValues() {
@@ -95,6 +105,12 @@ export class QwRoomListCard {
     const leftover = this.qwRoomListCardAddableLeftover + selectedQuantity;
     return Math.min(availableQuantity, leftover);
   }
+
+  private showProceedButton() {
+    // debugger;
+    return this.qwRoomListCardNumberOfGuests <= this.qwRoomListCardNumberOfAccommodation;
+  }
+
 
   render() {
     return (
@@ -159,7 +175,10 @@ export class QwRoomListCard {
           </div>}
 
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
-            <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
+            {this.showProceedButton()
+              ? <QwButton QwButtonLabel="Proceed to checkout" QwButtonOnClick={() => this.qwRoomListCardOnProceedToCheckout()}/>
+              : <QwButton QwButtonLabel="View room" QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
+            }
             {this.qwRoomListCardPrice
               ? <QwButton QwButtonLabel="View all rates" QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
               : <QwButton QwButtonLabel="Change dates" QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>

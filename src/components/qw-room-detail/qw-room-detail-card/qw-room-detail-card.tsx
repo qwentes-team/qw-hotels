@@ -48,7 +48,6 @@ export class QwRoomDetailCard {
   }
 
   private showAlertForAccommodation() {
-    debugger;
     return this.qwRoomDetailCardNumberOfGuests > this.qwRoomDetailCardNumberOfAccommodation;
   }
 

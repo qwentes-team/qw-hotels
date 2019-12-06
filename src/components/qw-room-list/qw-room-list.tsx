@@ -1,6 +1,6 @@
 import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
 import {
-  BasketHelper,
+  BasketHelper, BasketModel,
   BasketService,
   BasketWithPrice$,
   createRateFromRoomBasketOccupancy,
@@ -57,6 +57,8 @@ export class QwRoomList {
   @State() basketRoomsOccupancyId: RoomBasketOccupancy['occupancyId'];
   @State() basketRoom: RoomBasketModel;
   @State() basketRoomTotals: {[roomId: string]: MoneyPrice} = {};
+  @State() numberOfGuests: number;
+  @State() numberOfAccommodation: number;
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
 
   private startDate: Date;
@@ -77,6 +79,7 @@ export class QwRoomList {
         this.session = session;
         this.symbol = MONEY_SYMBOLS[session.display.currency] || session.display.currency;
         this.nights = SessionHelper.getNumberOfNights(session);
+        this.numberOfGuests = SessionHelper.getTotalGuests(session);
         const sessionStayPeriod = session.context.stayPeriod;
         this.rangeDateSession = DateUtil.getDatesRange(this.initNewDate(sessionStayPeriod.arrivalDate), this.initNewDate(sessionStayPeriod.departureDate), DateFormat.Date);
         return zip(of(session), BasketService.getBasket(session));
@@ -270,6 +273,10 @@ export class QwRoomList {
     return {arrivalDate: DateUtil.getDateStringFromDate(firstDate), departureDate: DateUtil.getDateStringFromDate(lastDate)};
   }
 
+  onAddedToBasket = (e: BasketModel) => {
+    this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(e);
+  };
+
   public render() {
     return (
       <Host class={`
@@ -309,10 +316,14 @@ export class QwRoomList {
               qwRoomListCardShowCta={this.qwRoomListShowCta}
               qwRoomListCardBasketIsEmpty={this.basketIsEmpty}
               qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
+              qwRoomListCardNumberOfGuests={this.numberOfGuests}
+              qwRoomListCardNumberOfAccommodation={this.numberOfAccommodation}
               qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
               qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
               qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}
-              qwRoomListCardOnChangeWeekDates={(e) => this.weekDatesChanged(e)}/>
+              qwRoomListCardOnChangeWeekDates={(e) => this.weekDatesChanged(e)}
+              qwRoomListCardOnAddedToBasket={(e) => this.onAddedToBasket(e)}
+              qwRoomListCardOnProceedToCheckout={() => this.clickButton(QwRoomListCardButtonType.Checkout, r)}/>
           </div>;
         })}
       </Host>

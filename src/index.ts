@@ -11,6 +11,7 @@ export enum QwRoomListCardButtonType {
   BookNow = 'bookNow',
   ViewRoom = 'viewRoom',
   ChangeDate = 'changeDate',
+  Checkout = 'checkout',
 }
 
 export enum QwRoomListType {

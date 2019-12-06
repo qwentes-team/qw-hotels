@@ -10,6 +10,7 @@ import {
   RoomMetadata,
 } from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
 import {
+  BasketModel,
   MoneyPrice,
   PricesForStayPeriod,
   QuoteCreateBody,
@@ -190,11 +191,15 @@ export namespace Components {
     'qwRoomListCardIsLoadingBasket': boolean;
     'qwRoomListCardIsLoadingPrice': boolean;
     'qwRoomListCardNights': number;
+    'qwRoomListCardNumberOfAccommodation': number;
+    'qwRoomListCardNumberOfGuests': number;
+    'qwRoomListCardOnAddedToBasket': (e: BasketModel) => void;
     'qwRoomListCardOnChangeRoom': (e: QwChangeRoomEvent) => void;
     'qwRoomListCardOnChangeWeekDates': (e: QwWeekCalendarDirection) => void;
     'qwRoomListCardOnClickBook': () => void;
     'qwRoomListCardOnClickChangeDate': () => void;
     'qwRoomListCardOnClickView': () => void;
+    'qwRoomListCardOnProceedToCheckout': () => void;
     'qwRoomListCardPrice': string;
     'qwRoomListCardPrices': {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate': Date[];
@@ -630,11 +635,15 @@ declare namespace LocalJSX {
     'qwRoomListCardIsLoadingBasket'?: boolean;
     'qwRoomListCardIsLoadingPrice'?: boolean;
     'qwRoomListCardNights'?: number;
+    'qwRoomListCardNumberOfAccommodation'?: number;
+    'qwRoomListCardNumberOfGuests'?: number;
+    'qwRoomListCardOnAddedToBasket'?: (e: BasketModel) => void;
     'qwRoomListCardOnChangeRoom'?: (e: QwChangeRoomEvent) => void;
     'qwRoomListCardOnChangeWeekDates'?: (e: QwWeekCalendarDirection) => void;
     'qwRoomListCardOnClickBook'?: () => void;
     'qwRoomListCardOnClickChangeDate'?: () => void;
     'qwRoomListCardOnClickView'?: () => void;
+    'qwRoomListCardOnProceedToCheckout'?: () => void;
     'qwRoomListCardPrice'?: string;
     'qwRoomListCardPrices'?: {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate'?: Date[];
