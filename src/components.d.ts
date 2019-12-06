@@ -50,6 +50,9 @@ import {
   QwRoomRateCounterChangedEmitter,
 } from './components/qw-room-rate/qw-room-rate';
 import {
+  EventEmitter,
+} from '@stencil/core';
+import {
   QwInputEmitter as QwInputEmitter1,
 } from './components/shared/qw-input/qw-input';
 
@@ -223,7 +226,12 @@ export namespace Components {
     'qwRoomRateShowConditions': boolean;
   }
   interface QwRoomRateList {
+    'qwRoomRateListAddAnotherRoom': EventEmitter<void>;
+    'qwRoomRateListAddAnotherRoomButtonMessage': string;
+    'qwRoomRateListAlertMessage': string;
     'qwRoomRateListId': string;
+    'qwRoomRateListProceed': EventEmitter<void>;
+    'qwRoomRateListProceedToCheckoutButtonMessage': string;
   }
   interface QwRoomService {
     'qwRoomServiceRoomId': string;
@@ -669,7 +677,12 @@ declare namespace LocalJSX {
     'qwRoomRateShowConditions'?: boolean;
   }
   interface QwRoomRateList {
+    'qwRoomRateListAddAnotherRoom'?: EventEmitter<void>;
+    'qwRoomRateListAddAnotherRoomButtonMessage'?: string;
+    'qwRoomRateListAlertMessage'?: string;
     'qwRoomRateListId'?: string;
+    'qwRoomRateListProceed'?: EventEmitter<void>;
+    'qwRoomRateListProceedToCheckoutButtonMessage'?: string;
   }
   interface QwRoomService {
     'qwRoomServiceRoomId'?: string;

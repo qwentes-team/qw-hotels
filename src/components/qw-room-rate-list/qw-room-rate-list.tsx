@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, State, Listen} from '@stencil/core';
+import {Component, Host, h, Prop, State, Listen, EventEmitter} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$,
   BasketWithPrice$,
@@ -10,6 +10,8 @@ import {
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
+import {QwRoomRateAddedToBasketEmitter} from '../qw-room-rate/qw-room-rate';
+import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
   tag: 'qw-room-rate-list',
@@ -18,6 +20,11 @@ import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 })
 export class QwRoomRateList {
   @Prop() qwRoomRateListId: string;
+  @Prop() qwRoomRateListAddAnotherRoomButtonMessage: string;
+  @Prop() qwRoomRateListProceedToCheckoutButtonMessage: string;
+  @Prop() qwRoomRateListAlertMessage: string;
+  @Prop() qwRoomRateListAddAnotherRoom: EventEmitter<void>;
+  @Prop() qwRoomRateListProceed: EventEmitter<void>;
   @State() activeRate: Rate['rateId'];
   @State() room: RoomModel;
   @State() roomRates: Rate[];
@@ -26,6 +33,7 @@ export class QwRoomRateList {
   @State() sessionIsLoading: boolean;
   @State() roomIsLoading: boolean;
   @State() numberOfGuests: number;
+  @State() numberOfAccommodation: number;
   @State() maxNumberOfPeopleInRate: number;
   @State() mixNumberOfPeopleInRate: number;
 
@@ -105,6 +113,16 @@ export class QwRoomRateList {
     }
   }
 
+  @Listen('qwRoomRateAddedToBasket')
+  public qwRoomRateAddedToBasket(event: CustomEvent<QwRoomRateAddedToBasketEmitter>) {
+    this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(event.detail.basket);
+  }
+
+  private showAlertForAccommodation() {
+    return this.numberOfGuests > this.numberOfAccommodation;
+  }
+
+
   render() {
     return (
       <Host class={`${!this.room ? 'qw-room-rate-list--loading' : 'qw-room-rate-list--loaded'}`}>
@@ -128,6 +146,20 @@ export class QwRoomRateList {
             : this.room && this.roomRates && this.roomRates.map(rate => rate && this.getRate(rate))
           }
         </div>
+        <div class="qw-room-rate-list__alert">{this.numberOfAccommodation
+          ? this.showAlertForAccommodation()
+            ? <div class="qw-room-rate-list__alert-message">
+              <QwButton
+                QwButtonLabel={this.qwRoomRateListAddAnotherRoomButtonMessage || 'Add another room'}
+                QwButtonOnClick={() => this.qwRoomRateListAddAnotherRoom.emit()}/>
+              <div>{this.qwRoomRateListAlertMessage || 'No sufficent rooms for your guests'}</div>
+            </div>
+            : <QwButton
+              QwButtonClass="qw-room-rate-list__alert-proceed"
+              QwButtonLabel={this.qwRoomRateListProceedToCheckoutButtonMessage || 'Proceed to checkout'}
+              QwButtonOnClick={() => this.qwRoomRateListProceed.emit()}/>
+          : ''
+        }</div>
       </Host>
     );
   }

@@ -107,10 +107,8 @@ export class QwRoomListCard {
   }
 
   private showProceedButton() {
-    // debugger;
     return this.qwRoomListCardNumberOfGuests <= this.qwRoomListCardNumberOfAccommodation;
   }
-
 
   render() {
     return (
