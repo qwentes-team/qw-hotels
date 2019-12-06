@@ -116,7 +116,7 @@ export class QwRoomRate {
 
         {this.qwRoomRateRate && <QwButton
           QwButtonClass="qw-button--primary"
-          QwButtonLabel="Add rate"
+          QwButtonLabel="Add to cart"
           QwButtonDisabled={!this.quantity || this.quantity === this.qwRoomRateRate.selectedQuantity || this.qwRoomRateIsLoading}
           QwButtonOnClick={() => this.addToBasket()}/>}
 
