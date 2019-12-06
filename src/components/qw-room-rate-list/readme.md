@@ -7,9 +7,20 @@
 
 ## Properties
 
-| Property           | Attribute              | Description | Type     | Default     |
-| ------------------ | ---------------------- | ----------- | -------- | ----------- |
-| `qwRoomRateListId` | `qw-room-rate-list-id` |             | `string` | `undefined` |
+| Property                                       | Attribute                                              | Description | Type     | Default     |
+| ---------------------------------------------- | ------------------------------------------------------ | ----------- | -------- | ----------- |
+| `qwRoomRateListAddAnotherRoomButtonMessage`    | `qw-room-rate-list-add-another-room-button-message`    |             | `string` | `undefined` |
+| `qwRoomRateListAlertMessage`                   | `qw-room-rate-list-alert-message`                      |             | `string` | `undefined` |
+| `qwRoomRateListId`                             | `qw-room-rate-list-id`                                 |             | `string` | `undefined` |
+| `qwRoomRateListProceedToCheckoutButtonMessage` | `qw-room-rate-list-proceed-to-checkout-button-message` |             | `string` | `undefined` |
+
+
+## Events
+
+| Event                          | Description | Type                |
+| ------------------------------ | ----------- | ------------------- |
+| `qwRoomRateListAddAnotherRoom` |             | `CustomEvent<void>` |
+| `qwRoomRateListProceed`        |             | `CustomEvent<void>` |
 
 
 ## Dependencies

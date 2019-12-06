@@ -23,11 +23,15 @@
 | `qwRoomListCardIsLoadingBasket`       | `qw-room-list-card-is-loading-basket`        |             | `boolean`                               | `undefined` |
 | `qwRoomListCardIsLoadingPrice`        | `qw-room-list-card-is-loading-price`         |             | `boolean`                               | `undefined` |
 | `qwRoomListCardNights`                | `qw-room-list-card-nights`                   |             | `number`                                | `undefined` |
+| `qwRoomListCardNumberOfAccommodation` | `qw-room-list-card-number-of-accommodation`  |             | `number`                                | `undefined` |
+| `qwRoomListCardNumberOfGuests`        | `qw-room-list-card-number-of-guests`         |             | `number`                                | `undefined` |
+| `qwRoomListCardOnAddedToBasket`       | --                                           |             | `(e: BasketModel) => void`              | `undefined` |
 | `qwRoomListCardOnChangeRoom`          | --                                           |             | `(e: QwChangeRoomEvent) => void`        | `undefined` |
 | `qwRoomListCardOnChangeWeekDates`     | --                                           |             | `(e: QwWeekCalendarDirection) => void`  | `undefined` |
 | `qwRoomListCardOnClickBook`           | --                                           |             | `() => void`                            | `undefined` |
 | `qwRoomListCardOnClickChangeDate`     | --                                           |             | `() => void`                            | `undefined` |
 | `qwRoomListCardOnClickView`           | --                                           |             | `() => void`                            | `undefined` |
+| `qwRoomListCardOnProceedToCheckout`   | --                                           |             | `() => void`                            | `undefined` |
 | `qwRoomListCardPrice`                 | `qw-room-list-card-price`                    |             | `string`                                | `undefined` |
 | `qwRoomListCardPrices`                | --                                           |             | `{ [dateString: string]: MoneyPrice; }` | `undefined` |
 | `qwRoomListCardRangeDate`             | --                                           |             | `Date[]`                                | `undefined` |

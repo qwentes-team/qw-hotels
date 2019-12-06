@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, State, Listen, EventEmitter} from '@stencil/core';
+import {Component, Host, h, Prop, State, Listen, EventEmitter, Event} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$,
   BasketWithPrice$,
@@ -23,8 +23,8 @@ export class QwRoomRateList {
   @Prop() qwRoomRateListAddAnotherRoomButtonMessage: string;
   @Prop() qwRoomRateListProceedToCheckoutButtonMessage: string;
   @Prop() qwRoomRateListAlertMessage: string;
-  @Prop() qwRoomRateListAddAnotherRoom: EventEmitter<void>;
-  @Prop() qwRoomRateListProceed: EventEmitter<void>;
+  @Event() qwRoomRateListAddAnotherRoom: EventEmitter<void>;
+  @Event() qwRoomRateListProceed: EventEmitter<void>;
   @State() activeRate: Rate['rateId'];
   @State() room: RoomModel;
   @State() roomRates: Rate[];
@@ -122,6 +122,13 @@ export class QwRoomRateList {
     return this.numberOfGuests > this.numberOfAccommodation;
   }
 
+  onProceed = () => {
+    this.qwRoomRateListProceed.emit();
+  };
+
+  onAddAnotherRoom = () => {
+    this.qwRoomRateListAddAnotherRoom.emit();
+  };
 
   render() {
     return (
@@ -151,13 +158,13 @@ export class QwRoomRateList {
             ? <div class="qw-room-rate-list__alert-message">
               <QwButton
                 QwButtonLabel={this.qwRoomRateListAddAnotherRoomButtonMessage || 'Add another room'}
-                QwButtonOnClick={() => this.qwRoomRateListAddAnotherRoom.emit()}/>
+                QwButtonOnClick={() => this.onAddAnotherRoom()}/>
               <div>{this.qwRoomRateListAlertMessage || 'No sufficent rooms for your guests'}</div>
             </div>
             : <QwButton
               QwButtonClass="qw-room-rate-list__alert-proceed"
               QwButtonLabel={this.qwRoomRateListProceedToCheckoutButtonMessage || 'Proceed to checkout'}
-              QwButtonOnClick={() => this.qwRoomRateListProceed.emit()}/>
+              QwButtonOnClick={() => this.onProceed()}/>
           : ''
         }</div>
       </Host>
