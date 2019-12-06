@@ -88,8 +88,9 @@ export class QwBook {
 
   public payNow = () => {
     if (this.isFormValid()) {
+      let windowReference: any = window.open();
       QuoteService.createQuote(this.sessionId, this.formQuote).subscribe((res) => {
-        window.open(res.redirectionUrl, '_blank');
+        windowReference.location = res.redirectionUrl;
       });
     } else {
       this.showFormErrors = true;
