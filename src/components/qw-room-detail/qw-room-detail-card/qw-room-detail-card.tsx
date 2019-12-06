@@ -48,6 +48,7 @@ export class QwRoomDetailCard {
   }
 
   private showAlertForAccommodation() {
+    debugger;
     return this.qwRoomDetailCardNumberOfGuests > this.qwRoomDetailCardNumberOfAccommodation;
   }
 
@@ -92,6 +93,7 @@ export class QwRoomDetailCard {
                     <div>{this.qwRoomDetailCardAlertMessage || 'No sufficent rooms for your guests'}</div>
                   </div>
                   : <QwButton
+                      QwButtonClass="qw-room-detail-card__alert-proceed"
                       QwButtonLabel={this.qwRoomDetailProceedToCheckoutButtonMessage || 'Proceed to checkout'}
                       QwButtonOnClick={() => this.qwRoomDetailCardProceed.emit()}/>
                 : ''
