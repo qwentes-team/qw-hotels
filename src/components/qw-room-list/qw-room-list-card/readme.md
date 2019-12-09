@@ -22,6 +22,7 @@
 | `qwRoomListCardIsLoading`             | `qw-room-list-card-is-loading`               |             | `boolean`                               | `undefined` |
 | `qwRoomListCardIsLoadingBasket`       | `qw-room-list-card-is-loading-basket`        |             | `boolean`                               | `undefined` |
 | `qwRoomListCardIsLoadingPrice`        | `qw-room-list-card-is-loading-price`         |             | `boolean`                               | `undefined` |
+| `qwRoomListCardLanguage`              | `qw-room-list-card-language`                 |             | `string`                                | `undefined` |
 | `qwRoomListCardNights`                | `qw-room-list-card-nights`                   |             | `number`                                | `undefined` |
 | `qwRoomListCardNumberOfAccommodation` | `qw-room-list-card-number-of-accommodation`  |             | `number`                                | `undefined` |
 | `qwRoomListCardNumberOfGuests`        | `qw-room-list-card-number-of-guests`         |             | `number`                                | `undefined` |

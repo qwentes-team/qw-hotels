@@ -1,5 +1,12 @@
 import {Component, Host, h, State, Event, EventEmitter, Prop} from '@stencil/core';
-import {SessionLoaded$, SessionModel, SessionService, SessionHelper, SessionIsLoading$} from '@qwentes/booking-state-manager';
+import {
+  SessionLoaded$,
+  SessionModel,
+  SessionService,
+  SessionHelper,
+  SessionIsLoading$,
+  SessionDisplay,
+} from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCalendarGuestInlineInputType} from '../../index';
 
@@ -11,13 +18,17 @@ import {QwCalendarGuestInlineInputType} from '../../index';
 export class QwCalendarGuestInline {
   @Prop() qwCalendarGuestInlineShowCheckButton: boolean = true;
   @State() session: SessionModel;
+  @State() language: SessionDisplay['culture'];
   @State() isSessionLoading: boolean;
   @Event() qwCalendarGuestInlineCheckAvailability: EventEmitter<void>;
   @Event() qwCalendarGuestInlineClickInput: EventEmitter<QwCalendarGuestInlineInputType>;
 
   public componentDidLoad() {
     SessionService.getSession().subscribe();
-    SessionLoaded$.subscribe((session) => this.session = session);
+    SessionLoaded$.subscribe((session) => {
+      this.session = session;
+      this.language = session.display.culture;
+    });
     SessionIsLoading$.subscribe((isLoading) => this.isSessionLoading = isLoading);
   }
 
@@ -41,11 +52,11 @@ export class QwCalendarGuestInline {
           <qw-input
             onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Guest)}
             qwInputIsReadonly={true}
-            qwInputLabel="Guests"
+            qwInputLabel={this.language === 'fr-FR' ? 'Clientes' : 'Guests'}
             qwInputValue={(this.session && `${SessionHelper.getTotalGuests(this.session)} guests`) || 'Guests'}/>
         </div>
         {this.qwCalendarGuestInlineShowCheckButton && <QwButton
-          QwButtonLabel="Check Availability"
+          QwButtonLabel={this.language === 'fr-FR' ? 'Vérifier la disponibilité' : 'Check Availability'}
           QwButtonDisabled={this.isSessionLoading}
           QwButtonOnClick={() => this.onCheckAvailability()}/>}
       </Host>

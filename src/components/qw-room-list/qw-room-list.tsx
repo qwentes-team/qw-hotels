@@ -17,7 +17,7 @@ import {
   RoomIsLoading$,
   RoomLoaded$,
   RoomModel,
-  RoomService,
+  RoomService, SessionDisplay,
   SessionHelper,
   SessionIsLoading$,
   SessionLoaded$,
@@ -59,6 +59,7 @@ export class QwRoomList {
   @State() basketRoomTotals: {[roomId: string]: MoneyPrice} = {};
   @State() numberOfGuests: number;
   @State() numberOfAccommodation: number;
+  @State() language: SessionDisplay['culture'];
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
 
   private startDate: Date;
@@ -77,6 +78,7 @@ export class QwRoomList {
       switchMap(session => {
         this.isPriceLoading = true;
         this.session = session;
+        this.language = session.display.culture;
         this.symbol = MONEY_SYMBOLS[session.display.currency] || session.display.currency;
         this.nights = SessionHelper.getNumberOfNights(session);
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
@@ -318,6 +320,7 @@ export class QwRoomList {
               qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
               qwRoomListCardNumberOfGuests={this.numberOfGuests}
               qwRoomListCardNumberOfAccommodation={this.numberOfAccommodation}
+              qwRoomListCardLanguage={this.language}
               qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
               qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
               qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}

@@ -190,6 +190,7 @@ export namespace Components {
     'qwRoomListCardIsLoading': boolean;
     'qwRoomListCardIsLoadingBasket': boolean;
     'qwRoomListCardIsLoadingPrice': boolean;
+    'qwRoomListCardLanguage': SessionDisplay['culture'];
     'qwRoomListCardNights': number;
     'qwRoomListCardNumberOfAccommodation': number;
     'qwRoomListCardNumberOfGuests': number;
@@ -639,6 +640,7 @@ declare namespace LocalJSX {
     'qwRoomListCardIsLoading'?: boolean;
     'qwRoomListCardIsLoadingBasket'?: boolean;
     'qwRoomListCardIsLoadingPrice'?: boolean;
+    'qwRoomListCardLanguage'?: SessionDisplay['culture'];
     'qwRoomListCardNights'?: number;
     'qwRoomListCardNumberOfAccommodation'?: number;
     'qwRoomListCardNumberOfGuests'?: number;
