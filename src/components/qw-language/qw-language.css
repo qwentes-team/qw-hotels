@@ -1,3 +1,20 @@
 qw-language {
   display: flex;
 }
+
+select.en-US, .qw-select__qw-language option[value="en-US"] {
+  background: url("/img/flags/en-US.png") no-repeat right;
+  background-size: 20px;
+}
+select.fr-FR, .qw-select__qw-language option[value="fr-FR"] {
+  background: url("/img/flags/fr-FR.png") no-repeat right;
+  background-size: 20px;
+}
+
+qw-language select {
+  padding: 10px 30px 10px 0;
+  appearance: none;
+  outline: none;
+  border: none;
+  width: 30px;
+}
