@@ -216,6 +216,7 @@ export namespace Components {
     'qwRoomListCardTitle': string;
   }
   interface QwRoomRate {
+    'qwRoomRateDefaultToOne': boolean;
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateRate': Rate;
@@ -225,6 +226,7 @@ export namespace Components {
   interface QwRoomRateList {
     'qwRoomRateListAddAnotherRoomButtonMessage': string;
     'qwRoomRateListAlertMessage': string;
+    'qwRoomRateListDefaultToOne': boolean;
     'qwRoomRateListId': string;
     'qwRoomRateListProceedToCheckoutButtonMessage': string;
   }
@@ -665,6 +667,7 @@ declare namespace LocalJSX {
   interface QwRoomRate {
     'onQwRoomRateAddedToBasket'?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
     'onQwRoomRateCounterChanged'?: (event: CustomEvent<QwRoomRateCounterChangedEmitter>) => void;
+    'qwRoomRateDefaultToOne'?: boolean;
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateRate'?: Rate;
@@ -676,6 +679,7 @@ declare namespace LocalJSX {
     'onQwRoomRateListProceed'?: (event: CustomEvent<void>) => void;
     'qwRoomRateListAddAnotherRoomButtonMessage'?: string;
     'qwRoomRateListAlertMessage'?: string;
+    'qwRoomRateListDefaultToOne'?: boolean;
     'qwRoomRateListId'?: string;
     'qwRoomRateListProceedToCheckoutButtonMessage'?: string;
   }

@@ -9,6 +9,7 @@
 
 | Property                   | Attribute                      | Description | Type      | Default     |
 | -------------------------- | ------------------------------ | ----------- | --------- | ----------- |
+| `qwRoomRateDefaultToOne`   | `qw-room-rate-default-to-one`  |             | `boolean` | `false`     |
 | `qwRoomRateIsDisabled`     | `qw-room-rate-is-disabled`     |             | `boolean` | `undefined` |
 | `qwRoomRateIsLoading`      | `qw-room-rate-is-loading`      |             | `boolean` | `undefined` |
 | `qwRoomRateRate`           | --                             |             | `Rate`    | `undefined` |

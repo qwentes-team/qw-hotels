@@ -23,6 +23,7 @@ export class QwRoomRateList {
   @Prop() qwRoomRateListAddAnotherRoomButtonMessage: string;
   @Prop() qwRoomRateListProceedToCheckoutButtonMessage: string;
   @Prop() qwRoomRateListAlertMessage: string;
+  @Prop() qwRoomRateListDefaultToOne: boolean = false;
   @Event() qwRoomRateListAddAnotherRoom: EventEmitter<void>;
   @Event() qwRoomRateListProceed: EventEmitter<void>;
   @State() activeRate: Rate['rateId'];
@@ -102,6 +103,7 @@ export class QwRoomRateList {
     return <qw-room-rate
       qwRoomRateRoomId={parseInt(this.qwRoomRateListId)}
       qwRoomRateRate={rate}
+      qwRoomRateDefaultToOne={this.qwRoomRateListDefaultToOne}
       qwRoomRateIsDisabled={this.isRateDisabled(rate.rateId)}
       qwRoomRateIsLoading={this.isLoadingData()}/>
   }
@@ -136,18 +138,17 @@ export class QwRoomRateList {
         <div style={this.room && { 'display': 'none' }}>
           <slot name="qwRoomRateListLoading"/>
         </div>
-        <div class="qw-room-rate-list__header">
-          <span>Filtered rates for</span>
-          <qw-counter
-            qwCounterId="qwRoomRateListCounter"
-            qwCounterDisabled={this.isLoadingData() || !!this.basketRoomRate}
-            qwCounterValue={this.numberOfGuests}
-            qwCounterName="qwRoomRateListCounter"
-            qwCounterMaxValue={this.getMaxNumberOfRateByPeople()}
-            qwCounterMinValue={this.mixNumberOfPeopleInRate}/>
-          <span>guests</span>
-        </div>
         <div class="qw-room-rate-list__wrapper">
+          <div class="qw-room-rate-list__header">
+            <span>Number of guests</span>
+            <qw-counter
+              qwCounterId="qwRoomRateListCounter"
+              qwCounterDisabled={this.isLoadingData() || !!this.basketRoomRate}
+              qwCounterValue={this.numberOfGuests}
+              qwCounterName="qwRoomRateListCounter"
+              qwCounterMaxValue={this.getMaxNumberOfRateByPeople()}
+              qwCounterMinValue={this.mixNumberOfPeopleInRate}/>
+          </div>
           {this.basketRoomRate
             ? this.getRate(this.basketRoomRate)
             : this.room && this.roomRates && this.roomRates.map(rate => rate && this.getRate(rate))

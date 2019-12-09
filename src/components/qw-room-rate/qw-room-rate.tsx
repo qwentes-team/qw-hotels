@@ -29,6 +29,7 @@ export class QwRoomRate {
   @Prop() qwRoomRateIsLoading: boolean;
   @Prop() qwRoomRateIsDisabled: boolean;
   @Prop() qwRoomRateShowConditions: boolean;
+  @Prop() qwRoomRateDefaultToOne: boolean = false;
   @Prop() qwRoomRateRoomId: RoomModel['roomId'];
   @State() quantity: number = 0;
   @State() numberOfGuests: number = 0;
@@ -57,12 +58,14 @@ export class QwRoomRate {
       ? this.qwRoomRateRate.occupancyId
       : this.qwRoomRateRate.occupancy.occupancyId;
 
+    const quantity = this.qwRoomRateDefaultToOne ? 1 : this.quantity;
+
     this.qwRoomRateIsLoading = true;
     BasketService.setRoomInBasket({
       roomId: this.qwRoomRateRoomId,
       rateId: this.qwRoomRateRate.rateId,
       occupancyId,
-      quantity: this.quantity,
+      quantity,
     }).subscribe((basket) => {
       this.qwRoomRateIsLoading = false;
       this.qwRoomRateAddedToBasket.emit({basket});
@@ -81,6 +84,20 @@ export class QwRoomRate {
   private getMaxValue(currentValue = 0) {
     const numberOfRoomsStillAddable = (this.numberOfGuests - this.numberOfRooms) + currentValue;
     return Math.min(this.qwRoomRateRate.availableQuantity, numberOfRoomsStillAddable);
+  }
+
+  private isAddToCartDisabled() {
+    if (this.notAddedWithDefaultToOne()) {
+      return false;
+    }
+
+    return !this.quantity
+      || this.quantity === this.qwRoomRateRate.selectedQuantity
+      || this.qwRoomRateIsLoading;
+  }
+
+  private notAddedWithDefaultToOne() {
+    return this.qwRoomRateDefaultToOne && this.qwRoomRateRate.selectedQuantity !== 1;
   }
 
   render() {
@@ -102,7 +119,7 @@ export class QwRoomRate {
           </div>
         </div>}
 
-        <div class="qw-room-rate__counter">
+        {!this.qwRoomRateDefaultToOne && <div class="qw-room-rate__counter">
           <div class="qw-room-rate__counter-label">Number of rooms</div>
           {this.qwRoomRateRate && <qw-counter
             qwCounterId="qwRoomRateCounter"
@@ -112,12 +129,12 @@ export class QwRoomRate {
           <div class="qw-room-rate__counter-availability">
             {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
           </div>
-        </div>
+        </div>}
 
         {this.qwRoomRateRate && <QwButton
           QwButtonClass="qw-button--primary"
           QwButtonLabel="Add to cart"
-          QwButtonDisabled={!this.quantity || this.quantity === this.qwRoomRateRate.selectedQuantity || this.qwRoomRateIsLoading}
+          QwButtonDisabled={this.isAddToCartDisabled()}
           QwButtonOnClick={() => this.addToBasket()}/>}
 
         {this.qwRoomRateRate && <div class="qw-room-rate__conditions">
