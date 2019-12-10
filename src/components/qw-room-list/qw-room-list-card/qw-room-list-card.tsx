@@ -138,6 +138,7 @@ export class QwRoomListCard {
             {this.qwRoomListCardShowPrice && (!this.qwRoomListCardPrice
               ? <qw-error>{this.getMessageError()}</qw-error>
               : <qw-price
+                  onClick={() => this.qwRoomListCardOnClickBook()}
                   qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}
                   qwPriceMainPrice={this.qwRoomListCardPrice || RoomDefaultLabel.NoPrice}
                   qwPriceCaption={`Total for ${this.qwRoomListCardNights} ${this.qwRoomListCardNights > 1 ? 'nights' : 'night'}`}/>)

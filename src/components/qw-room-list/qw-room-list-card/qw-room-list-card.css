@@ -46,7 +46,8 @@ qw-room-list-card .qw-room-list-card__image img {
 }
 
 .qw-room-list-card__title-content,
-.qw-room-list-card__image {
+.qw-room-list-card__image,
+qw-room-list-card qw-price {
   cursor: pointer;
 }
 
