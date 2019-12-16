@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property                   | Attribute                     | Description | Type      | Default |
+| -------------------------- | ----------------------------- | ----------- | --------- | ------- |
+| `qwBookConditionStateless` | `qw-book-condition-stateless` |             | `boolean` | `false` |
+
+
 ## Dependencies
 
 ### Used by
