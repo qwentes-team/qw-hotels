@@ -11,8 +11,7 @@ export const config: Config = {
         'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'RateHelper', 'createRateFromRoomBasketOccupancy',
         'ExtraService', 'ExtraLoaded$', 'ExtraHelper', 'ExtraIsLoading$',
         'QuoteService', 'QuoteHelper', 'QuoteLoaded$', 'RateQualifierType',
-      ],
-      '@qwentes/booking-state-manager/dist/feature/quote/store': ['QuoteLoaded$'],
+      ]
     }
   },
   hashFileNames: true,
