@@ -67,7 +67,9 @@ export namespace Components {
   interface QwBook {
     'qwBookErrorQuoteMessage': string;
   }
-  interface QwBookCondition {}
+  interface QwBookCondition {
+    'qwBookConditionStateless': boolean;
+  }
   interface QwBookGuestDetail {
     'qwBookFormShowError': boolean;
     'qwBookGuestDetailTitleOptions': Array<RoomMetadata<string>>;
@@ -495,7 +497,9 @@ declare namespace LocalJSX {
   interface QwBook {
     'qwBookErrorQuoteMessage'?: string;
   }
-  interface QwBookCondition {}
+  interface QwBookCondition {
+    'qwBookConditionStateless'?: boolean;
+  }
   interface QwBookGuestDetail {
     'onQwBookGuestDetailChangeForm'?: (event: CustomEvent<QuoteCreateBody>) => void;
     'qwBookFormShowError'?: boolean;

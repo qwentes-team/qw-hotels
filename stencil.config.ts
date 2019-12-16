@@ -5,13 +5,14 @@ export const config: Config = {
   commonjs: {
     namedExports: {
       '@qwentes/booking-state-manager': [
-        'SessionService', 'SessionHelper', 'SessionLoaded$', 'SessionIsLoading$',
+        'SessionService', 'SessionHelper', 'SessionLoaded$', 'SessionIsLoading$', 'SessionHasRooms$',
         'RoomService', 'RoomHelper', 'RoomLoaded$', 'RoomIsLoading$', 'RoomDefaultLabel', 'RoomSummaryType',
         'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
         'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'RateHelper', 'createRateFromRoomBasketOccupancy',
         'ExtraService', 'ExtraLoaded$', 'ExtraHelper', 'ExtraIsLoading$',
-        'QuoteService', 'QuoteHelper', 'RateQualifierType',
-      ]
+        'QuoteService', 'QuoteHelper', 'QuoteLoaded$', 'RateQualifierType',
+      ],
+      '@qwentes/booking-state-manager/dist/feature/quote/store': ['QuoteLoaded$'],
     }
   },
   hashFileNames: true,

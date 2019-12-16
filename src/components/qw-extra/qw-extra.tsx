@@ -1,12 +1,12 @@
 import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
-  ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraModel, ExtraService,
+  ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraModel, ExtraService, SessionHasRooms$,
   SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwExtraEmitter} from './qw-extra-card/qw-extra-card';
-import {zip} from 'rxjs';
+import {of, zip} from 'rxjs';
 
 @Component({
   tag: 'qw-extra',
@@ -22,7 +22,12 @@ export class QwExtra {
   public componentDidLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
-      switchMap(session => zip(ExtraService.getExtra(session.sessionId), BasketService.getBasket(session))),
+      switchMap(session => zip(
+        of(session.sessionId),
+        SessionHasRooms$,
+        BasketService.getBasket(session),
+      )),
+      switchMap(([sessionId, hasRooms]) => hasRooms ? ExtraService.getExtra(sessionId) : of(null)),
     ).subscribe();
 
     ExtraLoaded$.subscribe(extra => this.extra = extra);
@@ -35,7 +40,7 @@ export class QwExtra {
   public extraChanged(e: CustomEvent<QwExtraEmitter>) {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
-      extraId: e.detail.extraId
+      extraId: e.detail.extraId,
     }).subscribe();
   }
 
@@ -63,7 +68,7 @@ export class QwExtra {
               qwExtraCardCover={ExtraHelper.getCoverImage(extra)}
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
               qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
-              qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value: 0}/>
+              qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
           })}
         </div>
       </Host>

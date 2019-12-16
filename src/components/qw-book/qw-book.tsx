@@ -1,13 +1,15 @@
 import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
 import {
   SessionLoaded$, SessionService, SessionModel,
-  QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper,
+  QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper, QuoteLoaded$,
+  BasketService, BasketHelper, SessionHelper, BasketWithPrice$,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwInputEmitter} from '../shared/qw-input/qw-input';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {GuestDetailFormProperty} from '../../index';
 import {emailIsValid} from '../../globals/app';
+import {of} from 'rxjs';
 
 @Component({
   tag: 'qw-book',
@@ -21,7 +23,7 @@ export class QwBook {
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
 
-  private sessionId: SessionModel['sessionId'];
+  private session: SessionModel;
   private quoteErrorMessage = 'The basket rooms could not welcome all guests';
   private mandatoriesCustomerFields = [
     GuestDetailFormProperty.FirstName,
@@ -32,13 +34,25 @@ export class QwBook {
 
   public componentDidLoad() {
     this.formQuote = QuoteHelper.initObjectForCreateBody();
+
     SessionService.getSession().subscribe();
     SessionLoaded$
       .pipe(switchMap(session => {
-        this.sessionId = session.sessionId;
-        return QuoteService.getQuote(session.sessionId);
-      }))
-      .subscribe((quote: QuoteModel) => this.quote = quote);
+        this.session = session;
+        return BasketService.getBasket(session);
+      })).subscribe();
+
+    BasketWithPrice$.pipe(switchMap(basket => {
+      const numberOfAccommodations = BasketHelper.getNumberOfAccommodation(basket);
+      const numberOfGuests = SessionHelper.getTotalGuests(this.session);
+      if (numberOfAccommodations >= numberOfGuests) {
+        return QuoteService.getQuote(this.session.sessionId);
+      }
+      this.quote = null;
+      return of(null);
+    })).subscribe();
+
+    QuoteLoaded$.subscribe(quote => this.quote = quote);
   }
 
   private quoteHasError() {
@@ -89,7 +103,7 @@ export class QwBook {
   public payNow = () => {
     if (this.isFormValid()) {
       let windowReference: any = window.open();
-      QuoteService.createQuote(this.sessionId, this.formQuote).subscribe((res) => {
+      QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
         windowReference.location = res.redirectionUrl;
       });
     } else {
@@ -132,7 +146,7 @@ export class QwBook {
                     <qw-textarea qwTextareaName="specialRequest"/>
                   </div>
                 </div>
-                {this.quote && <qw-book-condition/>}
+                {this.quote && <qw-book-condition qwBookConditionStateless={true}/>}
                 <div class="qw-book__confirmation">
                   <h4>Confirmation</h4>
                   <div class="qw-book__confirmation-checkbox">
