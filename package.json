@@ -17,8 +17,8 @@
   "scripts": {
     "build": "stencil build --docs && cp -r src/globals/img dist/img",
     "start": "stencil build --dev --watch --serve",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
+    "test": "stencil test --spec",
+    "test.watch": "stencil test --spec --watch",
     "generate": "stencil generate"
   },
   "devDependencies": {
