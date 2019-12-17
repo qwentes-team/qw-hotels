@@ -1,6 +1,7 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event} from '@stencil/core';
 import {ExtraModel, RoomImageMetadata} from '@qwentes/booking-state-manager';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
+import {QwCounterId} from '../../../index';
 
 export interface QwExtraEmitter {
   quantity: number;
@@ -45,7 +46,7 @@ export class QwExtraCard {
             <div class="qw-extra-card__quantity-label">Quantity</div>
             <div class="qw-extra-card__quantity-content">
               <qw-counter
-                qwCounterId="qwExtraCardCounter"
+                qwCounterId={QwCounterId.QwExtraCardCounter}
                 qwCounterValue={this.qwExtraCardSelectedQuantity}
                 qwCounterName={this.qwExtraCardId}
                 qwCounterMaxValue={this.qwExtraCardAvailability}/>

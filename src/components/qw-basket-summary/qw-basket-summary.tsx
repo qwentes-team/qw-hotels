@@ -6,7 +6,7 @@ import {
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwChangeExtraEvent, QwChangeRoomEvent} from '../../index';
+import {QwChangeExtraEvent, QwChangeRoomEvent, QwCounterId} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 
@@ -118,7 +118,7 @@ export class QwBasketSummary {
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
                 <div class="qw-basket-summary__room-quantity">
                   <qw-counter
-                    qwCounterId="qwBasketSummaryBasketRoomsCounter"
+                    qwCounterId={QwCounterId.QwBasketSummaryBasketRoomsCounter}
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={selectedQuantity}
                     qwCounterName={`roomId:${basketRoom.roomId}`}
@@ -147,7 +147,7 @@ export class QwBasketSummary {
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
                 <div class="qw-basket-summary__room-quantity">
                   <qw-counter
-                    qwCounterId="qwBasketSummaryBasketExtrasCounter"
+                    qwCounterId={QwCounterId.QwBasketSummaryBasketExtrasCounter}
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={extra.selectedQuantity.value}
                     qwCounterName={`extraId:${extra.extraId}`}

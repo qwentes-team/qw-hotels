@@ -50,3 +50,13 @@ export enum QwWeekCalendarDirection {
   Left = 'left',
   Right = 'right',
 }
+
+export enum QwCounterId {
+  QwRoomRateListCounter = 'qwRoomRateListCounter',
+  QwBasketSummaryBasketRoomsCounter = 'qwBasketSummaryBasketRoomsCounter',
+  QwBasketSummaryBasketExtrasCounter = 'qwBasketSummaryBasketExtrasCounter',
+  QwRoomRateCounter = 'qwRoomRateCounter',
+  QwExtraCardCounter = 'qwExtraCardCounter',
+  QwGuestCounter = 'qwGuestCounter',
+  QwRoomListCardCounter = 'qwRoomListCardCounter',
+}

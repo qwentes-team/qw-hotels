@@ -11,7 +11,7 @@ import {
   RoomModel,
   SessionDisplay,
 } from '@qwentes/booking-state-manager';
-import {QwChangeRoomEvent, QwWeekCalendarDirection} from '../../../index';
+import {QwChangeRoomEvent, QwCounterId, QwWeekCalendarDirection} from '../../../index';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 
@@ -67,8 +67,7 @@ export class QwRoomListCard {
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
-    // todo fare enum per counterIds
-    if (event.detail.id === 'qwRoomRateCounter') {
+    if (event.detail.id === QwCounterId.QwRoomRateCounter) {
       return;
     }
 
@@ -170,7 +169,7 @@ export class QwRoomListCard {
             <div class="qw-room-list-card__basket-actions-counter">
               <div class="qw-room-list-card__basket-actions-counter-label">Room qty.</div>
               <qw-counter
-                qwCounterId="qwRoomListCardCounter"
+                qwCounterId={QwCounterId.QwRoomListCardCounter}
                 qwCounterValue={this.getActionsCounterValues().selectedQuantity}
                 qwCounterName={this.qwRoomListCardId}
                 qwCounterMaxValue={this.getMaxValue(this.getActionsCounterValues().availableQuantity, this.getActionsCounterValues().selectedQuantity)}/>

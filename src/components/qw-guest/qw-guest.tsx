@@ -1,6 +1,7 @@
 import {Component, Host, h, State, Listen, Prop, Event, EventEmitter} from '@stencil/core';
 import {SessionGuests, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService} from '@qwentes/booking-state-manager';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
+import {QwCounterId} from '../../index';
 
 @Component({
   tag: 'qw-guest',
@@ -58,7 +59,7 @@ export class QwGuest {
             <div class="qw-guest__counter-wrapper">
               <div class="qw-guest__counter-wrapper__label">{guestKey}</div>
               <qw-counter
-                qwCounterId="qwGuestCounter"
+                qwCounterId={QwCounterId.QwGuestCounter}
                 qwCounterValue={this.guests[guestKey]}
                 qwCounterName={guestKey}/>
             </div>

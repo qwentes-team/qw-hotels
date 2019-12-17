@@ -12,6 +12,7 @@ import {switchMap} from 'rxjs/operators';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 import {QwRoomRateAddedToBasketEmitter} from '../qw-room-rate/qw-room-rate';
 import {QwButton} from '../shared/qw-button/qw-button';
+import {QwCounterId} from '../../index';
 
 @Component({
   tag: 'qw-room-rate-list',
@@ -110,7 +111,7 @@ export class QwRoomRateList {
 
   @Listen('qwCounterChangeValue')
   public counterFilterRatesChanged(event: CustomEvent<QwCounterEmitter>) {
-    if (event.detail.name === 'qwRoomRateListCounter') {
+    if (event.detail.id === QwCounterId.QwRoomRateListCounter) {
       this.roomRates = this.filterRoomRatesByPeopleCount(event.detail.value);
     }
   }
@@ -142,10 +143,10 @@ export class QwRoomRateList {
           <div class="qw-room-rate-list__header">
             <span>Number of guests</span>
             <qw-counter
-              qwCounterId="qwRoomRateListCounter"
+              qwCounterId={QwCounterId.QwRoomRateListCounter}
               qwCounterDisabled={this.isLoadingData() || !!this.basketRoomRate}
               qwCounterValue={this.numberOfGuests}
-              qwCounterName="qwRoomRateListCounter"
+              qwCounterName={QwCounterId.QwRoomRateListCounter}
               qwCounterMaxValue={this.getMaxNumberOfRateByPeople()}
               qwCounterMinValue={this.mixNumberOfPeopleInRate}/>
           </div>

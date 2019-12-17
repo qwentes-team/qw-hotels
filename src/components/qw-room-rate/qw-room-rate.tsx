@@ -9,6 +9,7 @@ import {
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
+import {QwCounterId} from '../../index';
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
@@ -120,7 +121,7 @@ export class QwRoomRate {
         {!this.qwRoomRateDefaultToOne && <div class="qw-room-rate__counter">
           <div class="qw-room-rate__counter-label">Number of rooms</div>
           {this.qwRoomRateRate && <qw-counter
-            qwCounterId="qwRoomRateCounter"
+            qwCounterId={QwCounterId.QwRoomRateCounter}
             qwCounterName={this.qwRoomRateRate.description.name}
             qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
             qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
