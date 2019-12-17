@@ -12,7 +12,7 @@ export class QwRoomBaseInfo {
   @Prop() qwRoomBaseInfoRoomId: string;
   @State() room: RoomModel;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     if (this.qwRoomBaseInfoIsStateFull) {
       SessionService.getSession().subscribe();
       SessionLoaded$

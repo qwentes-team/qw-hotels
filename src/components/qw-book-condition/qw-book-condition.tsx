@@ -20,7 +20,7 @@ export class QwBookCondition {
   @State() quote: QuoteModel;
   @State() session: SessionModel;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     QuoteLoaded$.subscribe(quote => this.quote = quote);
 
     if (this.qwBookConditionStateless) {

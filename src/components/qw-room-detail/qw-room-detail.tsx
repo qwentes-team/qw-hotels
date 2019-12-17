@@ -34,7 +34,7 @@ export class QwRoomDetail {
   @Event() qwRoomDetailAddAnotherRoom: EventEmitter<void>;
   @Event() qwRoomDetailProceed: EventEmitter<void>;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
       switchMap(session => {

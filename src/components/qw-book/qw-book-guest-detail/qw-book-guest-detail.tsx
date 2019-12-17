@@ -20,7 +20,7 @@ export class QwBookGuestDetail {
 
   private countries: Array<{name: string, code: string}> = countries;
 
-  componentDidLoad() {
+  public componentWillLoad() {
     this.guestDetailForm = QuoteHelper.initObjectForCreateBody();
   }
 

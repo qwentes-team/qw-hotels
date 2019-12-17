@@ -50,7 +50,7 @@ export class QwRoomList {
   private rangeDateStored: string[] = [];
   private todayString: string;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     this.todayString = DateUtil.getDateStringFromDate(this.initNewDate(new Date()));
     SessionService.getSession().subscribe();
 

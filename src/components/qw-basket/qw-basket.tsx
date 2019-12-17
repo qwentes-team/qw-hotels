@@ -27,7 +27,7 @@ export class QwBasket {
   @Event() qwBasketBookNow: EventEmitter<void>;
   @Event() qwBasketClickPrice: EventEmitter<void>;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap((session) => {
       this.numberOfGuests = SessionHelper.getTotalGuests(session);

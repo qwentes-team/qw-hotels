@@ -29,7 +29,7 @@ export class QwLanguage {
   @Event() qwLanguageChanged: EventEmitter<SessionDisplay['culture']>;
   @Element() el: HTMLElement;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.subscribe((session) => this.session = session);
 

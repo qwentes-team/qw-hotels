@@ -20,7 +20,7 @@ export class QwBasketSummary {
   @State() session: SessionModel;
   @State() basketIsLoading: boolean;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap((session) => {
       this.session = session;

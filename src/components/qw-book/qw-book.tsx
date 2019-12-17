@@ -32,7 +32,7 @@ export class QwBook {
     GuestDetailFormProperty.EmailAddress,
   ];
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     this.formQuote = QuoteHelper.initObjectForCreateBody();
 
     SessionService.getSession().subscribe();

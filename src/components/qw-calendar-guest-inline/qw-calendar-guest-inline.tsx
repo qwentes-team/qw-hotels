@@ -23,7 +23,7 @@ export class QwCalendarGuestInline {
   @Event() qwCalendarGuestInlineCheckAvailability: EventEmitter<void>;
   @Event() qwCalendarGuestInlineClickInput: EventEmitter<QwCalendarGuestInlineInputType>;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.subscribe((session) => {
       this.session = session;

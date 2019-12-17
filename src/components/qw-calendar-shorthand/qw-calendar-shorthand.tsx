@@ -23,7 +23,7 @@ export class QwCalendarShorthand {
   @Event() qwCalendarShorthandTomorrowSuccess: EventEmitter<void>;
   @Event() qwCalendarShorthandOtherDates: EventEmitter<void>;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.subscribe((session) => {
       this.session = session;

@@ -36,7 +36,7 @@ export class QwInput {
     return this.qwInputType === 'checkbox';
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     if (this.isPhoneType()) {
       this.initPhoneInput();
     }

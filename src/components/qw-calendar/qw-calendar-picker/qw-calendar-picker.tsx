@@ -25,7 +25,7 @@ export class QwCalendarPicker {
   private elementCalendarInstance: HTMLElement;
   private configCalendarInstance: { [key: string]: any } = {};
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     this.initCalendar();
   }
 
@@ -113,7 +113,7 @@ export class QwCalendarPicker {
   render() {
     return (
       <Host class={`
-        ${this.qwCalendarPickerDisabled && 'qw-calendar-picker--disabled'} 
+        ${this.qwCalendarPickerDisabled && 'qw-calendar-picker--disabled'}
         ${this.disableStartDate && 'qw-calendar-picker--disable-start-date'}
         ${this.qwCalendarPickerResponsive && 'qw-calendar-picker--responsive'}
       `}>

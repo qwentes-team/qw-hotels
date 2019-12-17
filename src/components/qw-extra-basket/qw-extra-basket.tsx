@@ -19,7 +19,7 @@ export class QwExtraBasket {
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
       switchMap(session => BasketService.getBasket(session)),

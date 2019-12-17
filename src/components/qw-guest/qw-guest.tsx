@@ -16,7 +16,7 @@ export class QwGuest {
   @State() isSessionLoading: boolean = false;
   @Event() qwGuestChange: EventEmitter<SessionGuests>;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.subscribe((session) => {
       this.session = session;

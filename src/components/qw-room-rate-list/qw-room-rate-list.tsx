@@ -39,7 +39,7 @@ export class QwRoomRateList {
   @State() maxNumberOfPeopleInRate: number;
   @State() mixNumberOfPeopleInRate: number;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$
       .pipe(switchMap(session => {

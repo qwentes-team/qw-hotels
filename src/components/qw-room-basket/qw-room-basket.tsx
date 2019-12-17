@@ -26,7 +26,7 @@ export class QwRoomBasket {
   @State() numberOfRooms: number = 0;
   @Event() qwRoomBasketBackToRoomList: EventEmitter<void>;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.subscribe((session) => {
       this.nights = SessionHelper.getNumberOfNights(session);

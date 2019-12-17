@@ -19,7 +19,7 @@ export class QwExtra {
   @State() basketIsLoading: boolean;
   @State() extraIsLoading: boolean;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
       switchMap(session => zip(

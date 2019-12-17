@@ -11,7 +11,7 @@ export class QwRoomService {
   @Prop() qwRoomServiceRoomId: string;
   @State() room: RoomModel;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$
       .pipe(switchMap(session => RoomService.getRooms(session.sessionId)))

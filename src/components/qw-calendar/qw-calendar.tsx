@@ -24,7 +24,7 @@ export class QwCalendar {
   @State() locale: SessionDisplay['culture'];
   @Event() qwCalendarChange: EventEmitter<SessionStayPeriod>;
 
-  public componentDidLoad() {
+  public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.subscribe((session) => {
       this.session = session;
