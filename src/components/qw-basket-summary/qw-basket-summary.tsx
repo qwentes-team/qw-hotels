@@ -10,11 +10,6 @@ import {QwChangeExtraEvent, QwChangeRoomEvent, QwCounterId} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 
-enum QwCounterEventNameType {
-  RoomId = 'roomId',
-  ExtraId = 'extraId',
-}
-
 @Component({
   tag: 'qw-basket-summary',
   styleUrl: 'qw-basket-summary.css',
@@ -61,16 +56,13 @@ export class QwBasketSummary {
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
-    const {name, value} = event.detail;
-    const nameSplitted = (name as string).split(':');
-    const type = nameSplitted[0];
-    const id = parseInt(nameSplitted[1]);
+    const {name, value, id} = event.detail;
 
-    if (type === QwCounterEventNameType.RoomId) {
-      const basketRoom = this.basket.rooms.find(r => r.roomId === id);
+    if (id === QwCounterId.QwBasketSummaryBasketRoomsCounter) {
+      const basketRoom = this.basket.rooms.find(r => r.roomId === name);
       this.setRoomInBasket({quantity: value.toString(), room: basketRoom});
     } else {
-      this.setExtraInBasket({quantity: value.toString(), extraId: id});
+      this.setExtraInBasket({quantity: value.toString(), extraId: name as number});
     }
   }
 
@@ -121,7 +113,7 @@ export class QwBasketSummary {
                     qwCounterId={QwCounterId.QwBasketSummaryBasketRoomsCounter}
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={selectedQuantity}
-                    qwCounterName={`roomId:${basketRoom.roomId}`}
+                    qwCounterName={basketRoom.roomId}
                     qwCounterMaxValue={maxValueForCounter}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
@@ -150,7 +142,7 @@ export class QwBasketSummary {
                     qwCounterId={QwCounterId.QwBasketSummaryBasketExtrasCounter}
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={extra.selectedQuantity.value}
-                    qwCounterName={`extraId:${extra.extraId}`}
+                    qwCounterName={extra.extraId}
                     qwCounterMaxValue={extra.availableQuantity}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
