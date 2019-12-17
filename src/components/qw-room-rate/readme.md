@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property                   | Attribute                      | Description | Type      | Default     |
-| -------------------------- | ------------------------------ | ----------- | --------- | ----------- |
-| `qwRoomRateDefaultToOne`   | `qw-room-rate-default-to-one`  |             | `boolean` | `false`     |
-| `qwRoomRateIsDisabled`     | `qw-room-rate-is-disabled`     |             | `boolean` | `undefined` |
-| `qwRoomRateIsLoading`      | `qw-room-rate-is-loading`      |             | `boolean` | `undefined` |
-| `qwRoomRateRate`           | --                             |             | `Rate`    | `undefined` |
-| `qwRoomRateRoomId`         | `qw-room-rate-room-id`         |             | `number`  | `undefined` |
-| `qwRoomRateShowConditions` | `qw-room-rate-show-conditions` |             | `boolean` | `undefined` |
+| Property                     | Attribute                          | Description | Type      | Default     |
+| ---------------------------- | ---------------------------------- | ----------- | --------- | ----------- |
+| `qwRoomRateDefaultToOne`     | `qw-room-rate-default-to-one`      |             | `boolean` | `false`     |
+| `qwRoomRateIsAddingToBasket` | `qw-room-rate-is-adding-to-basket` |             | `boolean` | `undefined` |
+| `qwRoomRateIsDisabled`       | `qw-room-rate-is-disabled`         |             | `boolean` | `undefined` |
+| `qwRoomRateIsLoading`        | `qw-room-rate-is-loading`          |             | `boolean` | `undefined` |
+| `qwRoomRateRate`             | --                                 |             | `Rate`    | `undefined` |
+| `qwRoomRateRoomId`           | `qw-room-rate-room-id`             |             | `number`  | `undefined` |
+| `qwRoomRateShowConditions`   | `qw-room-rate-show-conditions`     |             | `boolean` | `undefined` |
 
 
 ## Events

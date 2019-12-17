@@ -10,6 +10,7 @@
 | Property                         | Attribute                           | Description | Type                                    | Default     |
 | -------------------------------- | ----------------------------------- | ----------- | --------------------------------------- | ----------- |
 | `qwWeekCalendarIsLoading`        | `qw-week-calendar-is-loading`       |             | `boolean`                               | `undefined` |
+| `qwWeekCalendarLanguage`         | `qw-week-calendar-language`         |             | `string`                                | `undefined` |
 | `qwWeekCalendarPricesByRoom`     | --                                  |             | `{ [dateString: string]: MoneyPrice; }` | `{}`        |
 | `qwWeekCalendarRangeDate`        | --                                  |             | `Date[]`                                | `undefined` |
 | `qwWeekCalendarRangeDateSession` | --                                  |             | `Date[]`                                | `undefined` |
