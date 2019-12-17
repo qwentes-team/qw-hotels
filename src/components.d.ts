@@ -220,6 +220,7 @@ export namespace Components {
   }
   interface QwRoomRate {
     'qwRoomRateDefaultToOne': boolean;
+    'qwRoomRateIsAddingToBasket': boolean;
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
     'qwRoomRateRate': Rate;
@@ -675,6 +676,7 @@ declare namespace LocalJSX {
     'onQwRoomRateAddedToBasket'?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
     'onQwRoomRateCounterChanged'?: (event: CustomEvent<QwRoomRateCounterChangedEmitter>) => void;
     'qwRoomRateDefaultToOne'?: boolean;
+    'qwRoomRateIsAddingToBasket'?: boolean;
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
     'qwRoomRateRate'?: Rate;

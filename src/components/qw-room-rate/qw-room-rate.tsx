@@ -27,6 +27,7 @@ export interface QwRoomRateCounterChangedEmitter {
 export class QwRoomRate {
   @Prop() qwRoomRateRate: Rate;
   @Prop() qwRoomRateIsLoading: boolean;
+  @Prop() qwRoomRateIsAddingToBasket: boolean;
   @Prop() qwRoomRateIsDisabled: boolean;
   @Prop() qwRoomRateShowConditions: boolean;
   @Prop() qwRoomRateDefaultToOne: boolean = false;
@@ -56,20 +57,14 @@ export class QwRoomRate {
   }
 
   addToBasket = () => {
-    const occupancyId = this.qwRoomRateRate.occupancyId !== undefined
-      ? this.qwRoomRateRate.occupancyId
-      : this.qwRoomRateRate.occupancy.occupancyId;
-
-    const quantity = this.qwRoomRateDefaultToOne ? 1 : this.quantity;
-
-    this.qwRoomRateIsLoading = true;
+    this.qwRoomRateIsAddingToBasket = true;
     BasketService.setRoomInBasket({
       roomId: this.qwRoomRateRoomId,
       rateId: this.qwRoomRateRate.rateId,
-      occupancyId,
-      quantity,
+      occupancyId: this.qwRoomRateRate.occupancy.occupancyId,
+      quantity: this.qwRoomRateDefaultToOne ? 1 : this.quantity,
     }).subscribe((basket) => {
-      this.qwRoomRateIsLoading = false;
+      this.qwRoomRateIsAddingToBasket = false;
       this.qwRoomRateAddedToBasket.emit({basket});
     });
   };
@@ -107,6 +102,7 @@ export class QwRoomRate {
       <Host class={`
         ${this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}
         ${this.qwRoomRateIsLoading ? 'qw-room-rate__is-loading' : ''}
+        ${this.qwRoomRateIsAddingToBasket ? 'qw-room-rate__is-adding-to-basket' : ''}
       `}>
         {this.qwRoomRateRate && <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateRate.description.name}</div>
@@ -134,7 +130,7 @@ export class QwRoomRate {
         </div>}
 
         {this.qwRoomRateRate && <QwButton
-          QwButtonClass="qw-button--primary"
+          QwButtonClass="qw-button--primary qw-button--add-to-basket"
           QwButtonLabel={this.language === 'fr-FR' ? 'Ajouter au panier' : 'Add to cart'}
           QwButtonDisabled={this.isAddToCartDisabled()}
           QwButtonOnClick={() => this.addToBasket()}/>}
