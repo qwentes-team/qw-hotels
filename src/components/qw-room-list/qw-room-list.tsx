@@ -54,7 +54,7 @@ export class QwRoomList {
     this.todayString = DateUtil.getDateStringFromDate(this.initNewDate(new Date()));
     SessionService.getSession().subscribe();
 
-    // todo gestire meglio il loading dei prezzi
+    // prezzi gestiti nella lista perché arrivano in batch - non è possibile fare un componente plug and play per questioni di performance
     SessionLoaded$.pipe(
       switchMap(session => {
         this.isPriceLoading = true;

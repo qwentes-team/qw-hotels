@@ -99,10 +99,6 @@ export class QwRoomDetailCard {
               }</div>
             </div>}
           </div>
-
-          <div class="qw-room-detail-card__services">
-            {/* todo */}
-          </div>
         </qw-card>
       </Host>
     );

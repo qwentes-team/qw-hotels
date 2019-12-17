@@ -73,9 +73,7 @@ export class QwLanguage {
 
   private setClassToSelect(culture: SessionDisplay['culture']) {
     const select = this.el.querySelector('.qw-select__qw-language select');
-    // todo risolvere dinamicamente
-    select.classList.remove('en-US');
-    select.classList.remove('fr-FR');
+    Object.keys(LABEL_LANGUAGES).forEach(labelKey => select.classList.remove(labelKey));
     select.classList.add(culture);
   }
 
