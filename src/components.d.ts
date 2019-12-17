@@ -242,6 +242,7 @@ export namespace Components {
   }
   interface QwWeekCalendar {
     'qwWeekCalendarIsLoading': boolean;
+    'qwWeekCalendarLanguage': SessionDisplay['culture'];
     'qwWeekCalendarPricesByRoom': PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate': Date[];
     'qwWeekCalendarRangeDateSession': Date[];
@@ -700,6 +701,7 @@ declare namespace LocalJSX {
   interface QwWeekCalendar {
     'onQwWeekCalendarChangeDates'?: (event: CustomEvent<QwWeekCalendarDirection>) => void;
     'qwWeekCalendarIsLoading'?: boolean;
+    'qwWeekCalendarLanguage'?: SessionDisplay['culture'];
     'qwWeekCalendarPricesByRoom'?: PricesForStayPeriod[RoomModel['roomId']];
     'qwWeekCalendarRangeDate'?: Date[];
     'qwWeekCalendarRangeDateSession'?: Date[];

@@ -1,8 +1,5 @@
-import {Component, EventEmitter, h, Host, Prop, State, Event} from '@stencil/core';
-import {
-  DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel,
-  SessionLoaded$, SessionModel, SessionService,
-} from '@qwentes/booking-state-manager';
+import {Component, EventEmitter, h, Host, Prop, Event} from '@stencil/core';
+import {DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel, SessionDisplay} from '@qwentes/booking-state-manager';
 import {QwWeekCalendarDirection} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
 
@@ -17,17 +14,11 @@ export class QwWeekCalendar {
   @Prop() qwWeekCalendarPricesByRoom: PricesForStayPeriod[RoomModel['roomId']] = {};
   @Prop() qwWeekCalendarSelectedRoomId: RoomModel['roomId'];
   @Prop() qwWeekCalendarIsLoading: boolean;
-  @State() session: SessionModel; // todo passare lingua come prop e rimuovere session
+  @Prop() qwWeekCalendarLanguage: SessionDisplay['culture'];
   @Event() qwWeekCalendarChangeDates: EventEmitter<QwWeekCalendarDirection>;
 
-  public componentDidLoad() {
-    SessionService.getSession().subscribe();
-    SessionLoaded$.subscribe((session) => this.session = session);
-  }
-
   private formatDate(date: Date) {
-    const language = this.session && this.session.display.culture;
-    return DateUtil.formatCalendarDate(date, language);
+    return DateUtil.formatCalendarDate(date, this.qwWeekCalendarLanguage);
   }
 
   private isDateInSession(date: Date) {
@@ -70,7 +61,7 @@ export class QwWeekCalendar {
           QwButtonLabel=""
           QwButtonDisabled={this.qwWeekCalendarIsLoading || this.disableLeftButton()}
           QwButtonClass="qw-week-calendar__icon"
-          QwButtonOnClick={() => this.onChangeDates(QwWeekCalendarDirection.Left)} />
+          QwButtonOnClick={() => this.onChangeDates(QwWeekCalendarDirection.Left)}/>
         {this.qwWeekCalendarRangeDate && this.qwWeekCalendarRangeDate.map(date => {
           return <div class={
             `qw-calendar-week__block ${this.isDateInSession(date) ? 'qw-calendar-week__block--selected' : ''}
@@ -87,7 +78,7 @@ export class QwWeekCalendar {
           QwButtonLabel=""
           QwButtonDisabled={this.qwWeekCalendarIsLoading}
           QwButtonClass="qw-week-calendar__icon"
-          QwButtonOnClick={() => this.onChangeDates(QwWeekCalendarDirection.Right)} />
+          QwButtonOnClick={() => this.onChangeDates(QwWeekCalendarDirection.Right)}/>
       </Host>
     );
   }
