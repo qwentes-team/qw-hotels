@@ -1,29 +1,10 @@
 import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketModel,
-  BasketService,
-  BasketWithPrice$,
-  createRateFromRoomBasketOccupancy,
-  DateFormat,
-  DateUtil,
-  MONEY_SYMBOLS,
-  MoneyPrice,
-  PricesForStayPeriod,
-  Rate,
-  RoomBasketModel,
-  RoomBasketOccupancy,
-  RoomDefaultLabel,
-  RoomHelper,
-  RoomIsLoading$,
-  RoomLoaded$,
-  RoomModel,
-  RoomService, SessionDisplay,
-  SessionHelper,
-  SessionIsLoading$,
-  SessionLoaded$,
-  SessionModel,
-  SessionService,
-  SessionStayPeriod,
+  BasketHelper, BasketModel, BasketService, BasketWithPrice$,
+  createRateFromRoomBasketOccupancy, DateFormat, DateUtil,
+  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod, Rate,
+  RoomBasketModel, RoomBasketOccupancy, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
+  SessionDisplay, SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService, SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -91,7 +72,7 @@ export class QwRoomList {
           return zip(of({}), RoomService.getRooms(session.sessionId));
         }
         return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
-      })
+      }),
     ).subscribe(([newRoomPrices]) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
 
     RoomLoaded$.subscribe(res => {
@@ -285,7 +266,7 @@ export class QwRoomList {
         ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}
         ${!this.rooms.length ? 'qw-room-list--loading' : 'qw-room-list--loaded'}
       `}>
-        <div style={this.rooms.length && { 'display': 'none' }}>
+        <div style={this.rooms.length && {'display': 'none'}}>
           <slot name="qwRoomListLoading"/>
         </div>
         <div class="qw-room-list__header-message">{this.qwRoomListHeaderMessage}</div>
