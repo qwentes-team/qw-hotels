@@ -95,13 +95,9 @@ export class QwRoomListCard {
     }
   }
 
-  // todo usare sempre occupancy.definition - to refactor
   public getRateForBasketNotEmpty() {
     const rate = this.qwRoomListCardRates.find(r => {
-      if (r.occupancy) {
-        return r.occupancy.occupancyId === this.qwRoomListCardBasketRoomOccupancyId || r.occupancy.occupancyId === 0;
-      }
-      return true;
+      return r.occupancy.occupancyId === this.qwRoomListCardBasketRoomOccupancyId || r.occupancy.occupancyId === 0;
     });
 
     return rate ? <qw-room-rate
