@@ -25,7 +25,7 @@ export class QwCalendarPicker {
   private elementCalendarInstance: HTMLElement;
   private configCalendarInstance: { [key: string]: any } = {};
 
-  public componentWillLoad() {
+  public componentDidLoad() {
     this.initCalendar();
   }
 
