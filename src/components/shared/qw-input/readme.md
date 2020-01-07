@@ -15,7 +15,7 @@
 | `qwInputIsReadonly`  | `qw-input-is-readonly`  |             | `boolean` | `undefined` |
 | `qwInputLabel`       | `qw-input-label`        |             | `string`  | `undefined` |
 | `qwInputName`        | `qw-input-name`         |             | `string`  | `undefined` |
-| `qwInputType`        | `qw-input-type`         |             | `string`  | `undefined` |
+| `qwInputType`        | `qw-input-type`         |             | `string`  | `'text'`    |
 | `qwInputValue`       | `qw-input-value`        |             | `string`  | `undefined` |
 
 

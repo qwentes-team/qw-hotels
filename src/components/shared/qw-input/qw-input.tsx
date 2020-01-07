@@ -17,7 +17,7 @@ const QW_INPUT_PHONE = 'qw-input__phone';
 })
 export class QwInput {
   @Prop() qwInputName: string;
-  @Prop() qwInputType: string;
+  @Prop() qwInputType: string = 'text';
   @Prop() qwInputValue: string;
   @Prop() qwInputLabel: string;
   @Prop() qwInputCaption: string;
@@ -36,7 +36,7 @@ export class QwInput {
     return this.qwInputType === 'checkbox';
   }
 
-  componentWillLoad() {
+  componentDidLoad() {
     if (this.isPhoneType()) {
       this.initPhoneInput();
     }
@@ -87,6 +87,12 @@ export class QwInput {
     });
   }
 
+  private getId() {
+    return this.isPhoneType()
+      ? QW_INPUT_PHONE
+      : `qw-input__${this.qwInputType}__${(Math.random() * 1000000).toFixed(0)}`;
+  }
+
   render() {
     return (
       <Host class={`
@@ -98,8 +104,8 @@ export class QwInput {
           <div class="qw-input__label">{this.qwInputLabel}</div>
           <input
             readonly={this.qwInputIsReadonly}
-            type={this.qwInputType || 'text'}
-            id={this.isPhoneType() ? QW_INPUT_PHONE : ''}
+            type={this.qwInputType}
+            id={this.getId()}
             value={this.qwInputValue}
             onInput={(event: any) => this.inputChange(event)}/>
             {this.qwInputCaption && <div class="qw-input__caption">{this.qwInputCaption}</div>}
