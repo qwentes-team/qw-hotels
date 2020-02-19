@@ -3,11 +3,11 @@ qw-language {
 }
 
 select.en-US, .qw-select__qw-language option[value="en-US"] {
-  background: url("/img/flags/en-US.png") no-repeat right;
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/en-US.png') no-repeat right;
   background-size: 20px;
 }
 select.fr-FR, .qw-select__qw-language option[value="fr-FR"] {
-  background: url("/img/flags/fr-FR.png") no-repeat right;
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/fr-FR.png') no-repeat right;
   background-size: 20px;
 }
 

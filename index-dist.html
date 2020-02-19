@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo</title>
+
+  <script>
+    window.QW_HOTEL_ENV = {
+      ENDPOINT: 'http://hotel-gabriel.matteo.qwentes.lan/hub-api',
+      ENGINE_ID: 'J262',
+    };
+  </script>
+
+  <link rel="stylesheet" href="dist/qw-hotels/qw-hotels.css">
+  <script type="module" src="dist/qw-hotels/qw-hotels.esm.js"></script>
+  <script nomodule src="dist/qw-hotels/qw-hotels.js"></script>
+</head>
+<body>
+
+  <qw-room-detail qw-room-detail-id="97815">
+    <div slot="qwRoomDetailLoading">Loading detail room...</div>
+  </qw-room-detail>
+
+</body>
+</html>

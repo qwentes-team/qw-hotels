@@ -10,6 +10,6 @@ qw-room-base-info {
 .qw-room-base-info__person-icon span {
   width: 20px;
   height: 20px;
-  background: url('img/person.svg') no-repeat center;
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/person.svg') no-repeat center;
   background-size: 17px 17px;
 }
