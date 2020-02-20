@@ -10,6 +10,12 @@
     window.QW_HOTEL_ENV = {
       ENDPOINT: 'http://hotel-gabriel.matteo.qwentes.lan/hub-api',
       ENGINE_ID: 'J262', // 'J2VG'
+      LABELS: {
+        proceedToCheckout: 'Proceed to Checkout',
+        viewRoom: 'View Room',
+        viewAllRates: 'View all Rates',
+        changeDates: 'Change dates',
+      }
     };
   </script>
 
@@ -20,7 +26,7 @@
 <body>
 
 <!--<qw-calendar-shorthand></qw-calendar-shorthand>-->
-<!--<qw-language qw-language-languages='["en-US", "fr-FR"]'></qw-language>-->
+<qw-language qw-language-languages='["en-US", "fr-FR"]'></qw-language>
 <!--<qw-calendar-guest-inline></qw-calendar-guest-inline>-->
 <!--<qw-basket-summary></qw-basket-summary>-->
 
@@ -29,9 +35,9 @@
 <!--  qw-basket-show-price-if-empty="true"-->
 <!--  qw-basket-show-book-now-button="true"></qw-basket>-->
 
-<qw-room-detail qw-room-detail-id="97815"> <!-- 100284 -->
-  <div slot="qwRoomDetailLoading">Loading detail room...</div>
-</qw-room-detail>
+<!--<qw-room-detail qw-room-detail-id="97815"> &lt;!&ndash; 100284 &ndash;&gt;-->
+<!--  <div slot="qwRoomDetailLoading">Loading detail room...</div>-->
+<!--</qw-room-detail>-->
 
 <!--<qw-extra></qw-extra>-->
 
@@ -39,9 +45,9 @@
 <!--  qw-room-rate-list-default-to-one="true"-->
 <!--  qw-room-rate-list-id="100284"></qw-room-rate-list>-->
 <!--<qw-calendar></qw-calendar>-->
-<!--<qw-room-list qw-room-list-show-prices="false">-->
-<!--  <div slot="qwRoomListLoading">loading</div>-->
-<!--</qw-room-list>-->
+<qw-room-list qw-room-list-show-prices="false">
+  <div slot="qwRoomListLoading">loading</div>
+</qw-room-list>
 <!--<qw-language-->
 <!--  qw-language-languages='["en-US", "fr-FR", "it-IT"]'>-->
 <!--</qw-language>-->

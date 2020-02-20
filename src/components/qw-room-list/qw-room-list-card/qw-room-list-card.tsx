@@ -182,18 +182,18 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
             {this.showProceedButton()
               ? <QwButton
-                  QwButtonLabel={this.qwRoomListCardLanguage === 'fr-FR' ? 'Passer à la caisse' : 'Proceed to checkout'}
+                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.proceedToCheckout}
                   QwButtonOnClick={() => this.qwRoomListCardOnProceedToCheckout()}/>
               : <QwButton
-                  QwButtonLabel={this.qwRoomListCardLanguage === 'fr-FR' ? 'Voir chambre' : 'View room'}
+                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.viewRoom}
                   QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
             }
             {this.qwRoomListCardPrice
               ? <QwButton
-                  QwButtonLabel={this.qwRoomListCardLanguage === 'fr-FR' ? 'Voir les tarifs' : 'View all rates'}
+                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.viewAllRates}
                   QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
               : <QwButton
-                  QwButtonLabel={this.qwRoomListCardLanguage === 'fr-FR' ? 'Changer les dates' : 'Change dates'}
+                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.changeDates}
                   QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
           </div>}

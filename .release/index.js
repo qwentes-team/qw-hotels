@@ -23,7 +23,9 @@ const config = {
 const buildCommand = commandModel('npm', ['run', 'build']);
 
 return yesOrNoQuestion(`
-  Are you sure do you want to release the package with a version of ${version}?` + '\n[ YES ] to continue, [ NO ] to abort: '
+Are you sure do you want to release the package with a version of ${version}` +
+  `\nin destination ${config.destinationPath}?`+
+  '\n[ YES ] to continue, [ NO ] to abort: '
 )
   .then(() => updatePackageJson(version))
   .then(() => runCommand(buildCommand))

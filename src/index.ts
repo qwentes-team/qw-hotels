@@ -1,4 +1,4 @@
-import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
+import {ExtraModel, QwHotelEnv, RoomBasketModel} from '@qwentes/booking-state-manager';
 
 export * from './components';
 
@@ -59,4 +59,10 @@ export enum QwCounterId {
   QwExtraCardCounter = 'qwExtraCardCounter',
   QwGuestCounter = 'qwGuestCounter',
   QwRoomListCardCounter = 'qwRoomListCardCounter',
+}
+
+declare global {
+  interface Window {
+    QW_HOTEL_ENV: QwHotelEnv;
+  }
 }
