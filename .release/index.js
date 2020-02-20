@@ -16,7 +16,7 @@ const config = {
     password: process.env.SFTP_PASSWORD,
     port: process.env.SFTP_PORT,
   },
-  sourcePath: path.join(__dirname, '..', './dist'),
+  sourcePath: path.join(__dirname, '..', 'dist'),
   destinationPath: process.env.SFTP_DESTINATION_PATH,
 };
 
