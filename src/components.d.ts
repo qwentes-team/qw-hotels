@@ -102,6 +102,7 @@ export namespace Components {
     'qwCounterName': string | number;
     'qwCounterValue': number;
   }
+  interface QwCurrency {}
   interface QwError {}
   interface QwExtra {}
   interface QwExtraBasket {
@@ -327,6 +328,12 @@ declare global {
     new (): HTMLQwCounterElement;
   };
 
+  interface HTMLQwCurrencyElement extends Components.QwCurrency, HTMLStencilElement {}
+  var HTMLQwCurrencyElement: {
+    prototype: HTMLQwCurrencyElement;
+    new (): HTMLQwCurrencyElement;
+  };
+
   interface HTMLQwErrorElement extends Components.QwError, HTMLStencilElement {}
   var HTMLQwErrorElement: {
     prototype: HTMLQwErrorElement;
@@ -459,6 +466,7 @@ declare global {
     'qw-calendar-shorthand': HTMLQwCalendarShorthandElement;
     'qw-card': HTMLQwCardElement;
     'qw-counter': HTMLQwCounterElement;
+    'qw-currency': HTMLQwCurrencyElement;
     'qw-error': HTMLQwErrorElement;
     'qw-extra': HTMLQwExtraElement;
     'qw-extra-basket': HTMLQwExtraBasketElement;
@@ -543,6 +551,9 @@ declare namespace LocalJSX {
     'qwCounterMinValue'?: number;
     'qwCounterName'?: string | number;
     'qwCounterValue'?: number;
+  }
+  interface QwCurrency {
+    'onQwCurrencyChanged'?: (event: CustomEvent<SessionDisplay['culture']>) => void;
   }
   interface QwError {}
   interface QwExtra {}
@@ -724,6 +735,7 @@ declare namespace LocalJSX {
     'qw-calendar-shorthand': QwCalendarShorthand;
     'qw-card': QwCard;
     'qw-counter': QwCounter;
+    'qw-currency': QwCurrency;
     'qw-error': QwError;
     'qw-extra': QwExtra;
     'qw-extra-basket': QwExtraBasket;
@@ -765,6 +777,7 @@ declare module "@stencil/core" {
       'qw-calendar-shorthand': LocalJSX.QwCalendarShorthand & JSXBase.HTMLAttributes<HTMLQwCalendarShorthandElement>;
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
       'qw-counter': LocalJSX.QwCounter & JSXBase.HTMLAttributes<HTMLQwCounterElement>;
+      'qw-currency': LocalJSX.QwCurrency & JSXBase.HTMLAttributes<HTMLQwCurrencyElement>;
       'qw-error': LocalJSX.QwError & JSXBase.HTMLAttributes<HTMLQwErrorElement>;
       'qw-extra': LocalJSX.QwExtra & JSXBase.HTMLAttributes<HTMLQwExtraElement>;
       'qw-extra-basket': LocalJSX.QwExtraBasket & JSXBase.HTMLAttributes<HTMLQwExtraBasketElement>;
