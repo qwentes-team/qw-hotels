@@ -10,7 +10,7 @@ export const config: Config = {
         'BasketService', 'BasketHelper', 'BasketWithPrice$', 'BasketIsLoading$',
         'DateUtil', 'DateFormat', 'MONEY_SYMBOLS', 'MONEY_CURRENCIES', 'RateHelper', 'createRateFromRoomBasketOccupancy',
         'ExtraService', 'ExtraLoaded$', 'ExtraHelper', 'ExtraIsLoading$',
-        'QuoteService', 'QuoteHelper', 'QuoteLoaded$', 'RateQualifierType',
+        'QuoteService', 'QuoteHelper', 'QuoteLoaded$', 'RateQualifierType', 'Language',
       ]
     }
   },

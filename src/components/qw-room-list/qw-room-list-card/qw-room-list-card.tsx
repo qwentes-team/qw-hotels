@@ -5,6 +5,7 @@ import {
   BasketHelper,
   BasketModel,
   MoneyPrice,
+  Language,
   Rate,
   RoomBasketModel,
   RoomDefaultLabel,
@@ -182,18 +183,18 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
             {this.showProceedButton()
               ? <QwButton
-                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.proceedToCheckout}
+                  QwButtonLabel={Language.getTranslation('proceedToCheckout')}
                   QwButtonOnClick={() => this.qwRoomListCardOnProceedToCheckout()}/>
               : <QwButton
-                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.viewRoom}
+                  QwButtonLabel={Language.getTranslation('viewRoom')}
                   QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
             }
             {this.qwRoomListCardPrice
               ? <QwButton
-                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.viewAllRates}
+                  QwButtonLabel={Language.getTranslation('viewAllRates')}
                   QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
               : <QwButton
-                  QwButtonLabel={window.QW_HOTEL_ENV.LABELS?.changeDates}
+                  QwButtonLabel={Language.getTranslation('changeDates')}
                   QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
           </div>}
