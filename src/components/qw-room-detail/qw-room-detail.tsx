@@ -19,9 +19,6 @@ export interface QwRoomDetailAddToBasketEmitter {
 })
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
-  @Prop() qwRoomDetailAlertMessage: string;
-  @Prop() qwRoomDetailAddAnotherRoomButtonMessage: string;
-  @Prop() qwRoomDetailProceedToCheckoutButtonMessage: string;
   @State() room: RoomModel;
   @State() basketRoomRate: Rate;
   @State() numberOfNights: number;
@@ -106,7 +103,6 @@ export class QwRoomDetail {
           qwRoomDetailCardIsLoading={this.isLoadingData()}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
-          qwRoomDetailCardAlertMessage={this.qwRoomDetailAlertMessage}
           qwRoomDetailCardRates={this.basketRoomRate ? [this.basketRoomRate] : (this.room.rates || [])}/>}
       </Host>
     );

@@ -1,8 +1,8 @@
-import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
+import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel,
   BasketService,
-  BasketWithPrice$, ExtraHelper, RateHelper,
+  BasketWithPrice$, ExtraHelper, Language, RateHelper,
   SessionLoaded$,
   SessionService,
 } from '@qwentes/booking-state-manager';
@@ -15,7 +15,6 @@ import {QwExtraEmitter} from '../qw-extra/qw-extra-card/qw-extra-card';
   shadow: false,
 })
 export class QwExtraBasket {
-  @Prop() qwExtraNoExtraMessage: string;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
 
@@ -42,7 +41,7 @@ export class QwExtraBasket {
       <Host class={`${!this.basket ? 'qw-extra-basket--loading' : 'qw-extra-basket--loaded'}`}>
         {this.basket ?
           !this.basket.hotelExtras.length
-            ? <div class="qw-extra-basket__no-extra">{this.qwExtraNoExtraMessage || 'No extra in your basket.'}</div>
+            ? <div class="qw-extra-basket__no-extra">{Language.getTranslation('noExtraInYourBasket')}</div>
             : this.basket.hotelExtras.map(basketExtra => {
               const price = basketExtra.price.converted.text
                 ? RateHelper.multiplyMoney(basketExtra.price.converted, basketExtra.selectedQuantity.value)

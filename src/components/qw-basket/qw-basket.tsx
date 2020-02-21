@@ -1,6 +1,6 @@
 import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
 import {
-  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$,
+  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$, Language,
   MoneyPrice, SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
@@ -17,7 +17,6 @@ export class QwBasket {
   @Prop() qwBasketShowPriceIfEmpty: boolean = false;
   @Prop() qwBasketShowTaxes: boolean = false;
   @Prop() qwBasketShowOnSiteTaxes: boolean = false;
-  @Prop() qwBasketBookNowButtonLabel: string;
   @State() totalPrice: MoneyPrice;
   @State() onSiteTaxes: string;
   @State() taxesMessage: string;
@@ -75,11 +74,11 @@ export class QwBasket {
           </div>
         </div>}
         {this.qwBasketShowEmptyButton && <QwButton
-          QwButtonLabel="Empty basket"
+          QwButtonLabel={Language.getTranslation('emptyBasket')}
           QwButtonOnClick={this.deleteBasket}/>}
         {this.qwBasketShowBookNowButton && <QwButton
           QwButtonClass="qw-button--checkout"
-          QwButtonLabel={this.qwBasketBookNowButtonLabel || 'Checkout'}
+          QwButtonLabel={Language.getTranslation('checkout')}
           QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero() || !this.isAccommodationSatisfy()}
           QwButtonOnClick={this.bookNow}/>}
         {(!this.isTotalPriceZero() && this.qwBasketShowOnSiteTaxes) && <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>

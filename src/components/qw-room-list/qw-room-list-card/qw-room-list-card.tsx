@@ -137,7 +137,9 @@ export class QwRoomListCard {
                   onClick={() => this.qwRoomListCardOnClickBook()}
                   qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}
                   qwPriceMainPrice={this.qwRoomListCardPrice || RoomDefaultLabel.NoPrice}
-                  qwPriceCaption={`Total for ${this.qwRoomListCardNights} ${this.qwRoomListCardNights > 1 ? 'nights' : 'night'}`}/>)
+                  qwPriceCaption={`
+                    ${Language.getTranslation('totalFor')} ${this.qwRoomListCardNights} ${Language.getTranslation('nights')}
+                  `}/>)
             }
           </div>
 
@@ -148,7 +150,8 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowPrices && <div class="qw-room-list-card__prices">
             {this.qwRoomListCardBasketIsEmpty && <div class="qw-room-list-card__prices-container">
               <div class="qw-room-list-card__prices-average">
-                Best prices - Average per night: {this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}
+                {Language.getTranslation('bestPrices')} - {Language.getTranslation('averagePerNight')}:
+                {this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}
               </div>
               <qw-week-calendar
                 qwWeekCalendarRangeDate={this.qwRoomListCardRangeDate}
@@ -164,7 +167,9 @@ export class QwRoomListCard {
 
           {this.qwRoomListCardBasketRoom && this.qwRoomListCardShowActions && <div class="qw-room-list-card__basket-actions">
             <div class="qw-room-list-card__basket-actions-counter">
-              <div class="qw-room-list-card__basket-actions-counter-label">Room qty.</div>
+              <div class="qw-room-list-card__basket-actions-counter-label">
+                {Language.getTranslation('roomQuantity')}
+              </div>
               <qw-counter
                 qwCounterId={QwCounterId.QwRoomListCardCounter}
                 qwCounterValue={this.getActionsCounterValues().selectedQuantity}

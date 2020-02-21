@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, State} from '@stencil/core';
-import {RoomHelper, RoomLoaded$, RoomModel, RoomService, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
+import {Language, RoomHelper, RoomLoaded$, RoomModel, RoomService, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/internal/operators/switchMap';
 
 @Component({
@@ -31,7 +31,9 @@ export class QwRoomBaseInfo {
         {this.room && <ul>
           <li class="qw-room-base-info__person-icon">
             {Array.from(Array(RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount)).map(() => <span/>)}
-            {RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount === 1 ? 'person' : 'people'}
+            {RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount === 1
+              ? Language.getTranslation('person')
+              : Language.getTranslation('people')}
           </li>
           <li class="qw-room-base-info__person-text">{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
           {this.room.surfaceArea.text && <li>{this.room.surfaceArea.text}</li>}

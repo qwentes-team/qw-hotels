@@ -3,9 +3,9 @@ import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 import {
   BasketHelper,
-  BasketModel, BasketService,
+  BasketModel, BasketService, Language,
   Rate, RateHelper, RateInformation, RateQualifierType,
-  RoomModel, RoomSummaryType, SessionDisplay,
+  RoomModel, RoomSummaryType,
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
@@ -35,7 +35,6 @@ export class QwRoomRate {
   @Prop() qwRoomRateRoomId: RoomModel['roomId'];
   @State() quantity: number = 0;
   @State() numberOfGuests: number = 0;
-  @State() language: SessionDisplay['culture'];
   @State() numberOfRooms: number = 0;
   @Event() qwRoomRateAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateCounterChangedEmitter>;
@@ -51,7 +50,6 @@ export class QwRoomRate {
     SessionLoaded$.pipe(
       switchMap(session => {
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
-        this.language = session.display.culture;
         return BasketService.getBasket(session);
       })
     ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
@@ -132,7 +130,7 @@ export class QwRoomRate {
 
         {this.qwRoomRateRate && <QwButton
           QwButtonClass="qw-button--primary qw-button--add-to-basket"
-          QwButtonLabel={this.language === 'fr-FR' ? 'Ajouter au panier' : 'Add to cart'}
+          QwButtonLabel={Language.getTranslation('addToCart')}
           QwButtonDisabled={this.isAddToCartDisabled()}
           QwButtonOnClick={() => this.addToBasket()}/>}
 
@@ -149,7 +147,7 @@ export class QwRoomRate {
             <div
               class="qw-room-rate__conditions-trigger"
               onClick={() => this.qwRoomRateShowConditions = !this.qwRoomRateShowConditions}>
-              {this.qwRoomRateShowConditions ? '-' : '+'} {this.language === 'fr-FR' ? 'Voir plus' : 'View more'}
+              {this.qwRoomRateShowConditions ? '-' : '+'} {Language.getTranslation('viewMore')}
             </div>
 
             {this.qwRoomRateShowConditions && <div class="qw-room-rate__conditions-content">

@@ -2,7 +2,7 @@ import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
 import {
   SessionLoaded$, SessionService, SessionModel,
   QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper, QuoteLoaded$,
-  BasketService, BasketHelper, SessionHelper, BasketWithPrice$,
+  BasketService, BasketHelper, SessionHelper, BasketWithPrice$, Language,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwInputEmitter} from '../shared/qw-input/qw-input';
@@ -128,19 +128,19 @@ export class QwBook {
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
 
               <div class="qw-book__extra">
-                <h3>Extras</h3>
+                <h3>{Language.getTranslation('extras')}</h3>
                 <qw-extra/>
               </div>
 
               <div class="qw-book__other-info">
-                <h3>Other info</h3>
+                <h3>{Language.getTranslation('otherInfo')}</h3>
                 <div class="qw-book__special-requests">
                   <div class="qw-book__special-requests__title">
-                    <h4>Special requests</h4>
+                    <h4>{Language.getTranslation('specialRequest')}</h4>
                     <QwButton QwButtonLabel=""/>
                   </div>
                   <div class="qw-book__special-requests__caption">
-                    Tell us if you need any special services or special requests
+                    {Language.getTranslation('specialRequestMessage')}
                   </div>
                   <div class="qw-book__special-requests__content">
                     <qw-textarea qwTextareaName="specialRequest"/>
@@ -148,17 +148,17 @@ export class QwBook {
                 </div>
                 {this.quote && <qw-book-condition qwBookConditionStateless={true}/>}
                 <div class="qw-book__confirmation">
-                  <h4>Confirmation</h4>
+                  <h4>{Language.getTranslation('confirmation')}</h4>
                   <div class="qw-book__confirmation-checkbox">
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
-                    <div>I have read and agree with the terms & conditions and booking conditions for my stay *</div>
+                    <div>{Language.getTranslation('termsAndConditionMessage')} *</div>
                   </div>
                 </div>
               </div>
 
               <div class="qw-book__pay">
                 <QwButton
-                  QwButtonLabel="Pay now"
+                  QwButtonLabel={Language.getTranslation('payNow')}
                   QwButtonOnClick={() => this.payNow()}/>
               </div>
             </div>

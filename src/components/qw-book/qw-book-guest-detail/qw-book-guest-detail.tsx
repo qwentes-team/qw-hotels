@@ -1,7 +1,7 @@
 import {Component, Host, h, Prop, EventEmitter, Event, State, Listen} from '@stencil/core';
 import {QwSelect} from '../../shared/qw-select/qw-select';
 import {RoomMetadata} from '@qwentes/booking-state-manager/src/feature/room/model/room.interface';
-import {QuoteCreateBody, QuoteHelper} from '@qwentes/booking-state-manager';
+import {Language, QuoteCreateBody, QuoteHelper} from '@qwentes/booking-state-manager';
 import {GuestDetailFormProperty} from '../../../index';
 import countries from './countries';
 import {QwInputEmitter} from '../../shared/qw-input/qw-input';
@@ -71,7 +71,7 @@ export class QwBookGuestDetail {
     return (
       <Host>
         <QwSelect
-          QwSelectLabel="Title"
+          QwSelectLabel={Language.getTranslation('title')}
           QwSelectName={GuestDetailFormProperty.Title}
           QwSelectOnChange={(e) => this.guestDetailTitleSelectChanged(e)}>
           <option value="">--</option>
@@ -81,14 +81,14 @@ export class QwBookGuestDetail {
           qwInputHasError={this.qwBookFormShowError && !this.guestDetailForm.customerDetails.firstName}
           qwInputName={GuestDetailFormProperty.FirstName}
           qwInputIsMandatory={true}
-          qwInputLabel="First Name *"/>
+          qwInputLabel={Language.getTranslation('firstName') + ' *'}/>
         <qw-input
           qwInputHasError={this.qwBookFormShowError && !this.guestDetailForm.customerDetails.lastName}
           qwInputName={GuestDetailFormProperty.LastName}
           qwInputIsMandatory={true}
-          qwInputLabel="Last Name *"/>
+          qwInputLabel={Language.getTranslation('lastName') + ' *'}/>
         <QwSelect
-          QwSelectLabel="Country of residence *"
+          QwSelectLabel={Language.getTranslation('country') + ' *'}
           QwSelectName={GuestDetailFormProperty.CountryCode}
           QwSelectIsMandatory={true}
           QwSelectOnChange={(e) => this.guestDetailCountrySelectChanged(e)}
@@ -96,10 +96,10 @@ export class QwBookGuestDetail {
           <option value="">--</option>
           {this.countries.map(country => <option value={country.code}>{country.name}</option>)}
         </QwSelect>
-        <h4>Contacts</h4>
+        <h4>{Language.getTranslation('contacts')}</h4>
         <qw-input
           qwInputName={GuestDetailFormProperty.EmailAddress}
-          qwInputLabel="Email *"
+          qwInputLabel={Language.getTranslation('email') + ' *'}
           qwInputType="email"
           qwInputIsMandatory={true}
           qwInputHasError={
@@ -107,12 +107,12 @@ export class QwBookGuestDetail {
             this.guestDetailForm && !this.guestDetailForm.customerDetails.emailAddress &&
             this.qwBookFormShowError
           }
-          qwInputCaption="This is the email we will send your confirmation to"/>
+          qwInputCaption={Language.getTranslation('emailCaption')}/>
         <qw-input
           qwInputName={GuestDetailFormProperty.Phone}
-          qwInputLabel="Phone number"
+          qwInputLabel={Language.getTranslation('phone')}
           qwInputType="tel"
-          qwInputCaption="We will use this for urgent communications"/>
+          qwInputCaption={Language.getTranslation('phoneCaption')}/>
       </Host>
     );
   }

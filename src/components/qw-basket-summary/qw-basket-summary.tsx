@@ -1,7 +1,7 @@
 import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
   BasketHelper,
-  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
+  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, Language,
   RateHelper, RoomBasketOccupancy,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
@@ -78,12 +78,14 @@ export class QwBasketSummary {
       <Host>
         <div class="qw-basket-summary__rooms">
           <div class="qw-basket-summary__room qw-basket-summary__room-header">
-            <div class="qw-basket-summary__room-date">Dates</div>
-            <div class="qw-basket-summary__room-name">Type of room/service</div>
-            <div class="qw-basket-summary__room-rate">Rate</div>
-            <div class="qw-basket-summary__room-night">Nights</div>
-            <div class="qw-basket-summary__room-quantity">Room qty.</div>
-            <div class="qw-basket-summary__room-price">Subtotal</div>
+            <div class="qw-basket-summary__room-date">{Language.getTranslation('dates')}</div>
+            <div class="qw-basket-summary__room-name">
+              {Language.getTranslation('typeOf')} {Language.getTranslation('room')} / {Language.getTranslation('service')}
+            </div>
+            <div class="qw-basket-summary__room-rate">{Language.getTranslation('rate')}</div>
+            <div class="qw-basket-summary__room-night">{Language.getTranslation('nights')}</div>
+            <div class="qw-basket-summary__room-quantity">{Language.getTranslation('roomQuantity')}</div>
+            <div class="qw-basket-summary__room-price">{Language.getTranslation('subtotal')}</div>
             <div class="qw-basket-summary__room-delete"/>
           </div>
 

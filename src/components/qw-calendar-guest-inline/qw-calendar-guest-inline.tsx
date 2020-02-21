@@ -4,8 +4,7 @@ import {
   SessionModel,
   SessionService,
   SessionHelper,
-  SessionIsLoading$,
-  SessionDisplay,
+  SessionIsLoading$, Language,
 } from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCalendarGuestInlineInputType} from '../../index';
@@ -18,17 +17,13 @@ import {QwCalendarGuestInlineInputType} from '../../index';
 export class QwCalendarGuestInline {
   @Prop() qwCalendarGuestInlineShowCheckButton: boolean = true;
   @State() session: SessionModel;
-  @State() language: SessionDisplay['culture'];
   @State() isSessionLoading: boolean;
   @Event() qwCalendarGuestInlineCheckAvailability: EventEmitter<void>;
   @Event() qwCalendarGuestInlineClickInput: EventEmitter<QwCalendarGuestInlineInputType>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
-    SessionLoaded$.subscribe((session) => {
-      this.session = session;
-      this.language = session.display.culture;
-    });
+    SessionLoaded$.subscribe((session) => this.session = session);
     SessionIsLoading$.subscribe((isLoading) => this.isSessionLoading = isLoading);
   }
 
@@ -47,16 +42,18 @@ export class QwCalendarGuestInline {
           <qw-input
             onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Date)}
             qwInputIsReadonly={true}
-            qwInputLabel="Dates"
-            qwInputValue={(this.session && SessionHelper.formatStayPeriod(this.session)) || 'Dates'}/>
+            qwInputLabel={Language.getTranslation('dates')}
+            qwInputValue={(this.session && SessionHelper.formatStayPeriod(this.session))
+              || Language.getTranslation('dates')}/>
           <qw-input
             onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Guest)}
             qwInputIsReadonly={true}
-            qwInputLabel={this.language === 'fr-FR' ? 'Clientes' : 'Guests'}
-            qwInputValue={(this.session && `${SessionHelper.getTotalGuests(this.session)} guests`) || 'Guests'}/>
+            qwInputLabel={Language.getTranslation('guests')}
+            qwInputValue={(this.session && `${SessionHelper.getTotalGuests(this.session)} ${Language.getTranslation('guests')}`)
+              || Language.getTranslation('guests')}/>
         </div>
         {this.qwCalendarGuestInlineShowCheckButton && <QwButton
-          QwButtonLabel={this.language === 'fr-FR' ? 'Vérifier la disponibilité' : 'Check Availability'}
+          QwButtonLabel={Language.getTranslation('checkAvailability')}
           QwButtonDisabled={this.isSessionLoading}
           QwButtonOnClick={() => this.onCheckAvailability()}/>}
       </Host>

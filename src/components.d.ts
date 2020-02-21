@@ -56,7 +56,6 @@ import {
 
 export namespace Components {
   interface QwBasket {
-    'qwBasketBookNowButtonLabel': string;
     'qwBasketShowBookNowButton': boolean;
     'qwBasketShowEmptyButton': boolean;
     'qwBasketShowOnSiteTaxes': boolean;
@@ -105,9 +104,7 @@ export namespace Components {
   interface QwCurrency {}
   interface QwError {}
   interface QwExtra {}
-  interface QwExtraBasket {
-    'qwExtraNoExtraMessage': string;
-  }
+  interface QwExtraBasket {}
   interface QwExtraCard {
     'qwExtraCardAvailability': number;
     'qwExtraCardCover': RoomImageMetadata;
@@ -146,19 +143,11 @@ export namespace Components {
     'qwRoomBaseInfoIsStateFull': boolean;
     'qwRoomBaseInfoRoomId': string;
   }
-  interface QwRoomBasket {
-    'qwRoomBasketBackToRoomListMessage': string;
-    'qwRoomBasketShowDescription': any;
-  }
+  interface QwRoomBasket {}
   interface QwRoomDetail {
-    'qwRoomDetailAddAnotherRoomButtonMessage': string;
-    'qwRoomDetailAlertMessage': string;
     'qwRoomDetailId': string;
-    'qwRoomDetailProceedToCheckoutButtonMessage': string;
   }
   interface QwRoomDetailCard {
-    'qwRoomDetailAddAnotherRoomButtonMessage': string;
-    'qwRoomDetailCardAlertMessage': string;
     'qwRoomDetailCardBed': string;
     'qwRoomDetailCardGuests': string;
     'qwRoomDetailCardImage': string;
@@ -170,7 +159,6 @@ export namespace Components {
     'qwRoomDetailCardRoomId': RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter': string;
     'qwRoomDetailCardTitle': string;
-    'qwRoomDetailProceedToCheckoutButtonMessage': string;
   }
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
@@ -230,11 +218,8 @@ export namespace Components {
     'qwRoomRateShowConditions': boolean;
   }
   interface QwRoomRateList {
-    'qwRoomRateListAddAnotherRoomButtonMessage': string;
-    'qwRoomRateListAlertMessage': string;
     'qwRoomRateListDefaultToOne': boolean;
     'qwRoomRateListId': string;
-    'qwRoomRateListProceedToCheckoutButtonMessage': string;
   }
   interface QwRoomService {
     'qwRoomServiceRoomId': string;
@@ -494,7 +479,6 @@ declare namespace LocalJSX {
   interface QwBasket {
     'onQwBasketBookNow'?: (event: CustomEvent<void>) => void;
     'onQwBasketClickPrice'?: (event: CustomEvent<void>) => void;
-    'qwBasketBookNowButtonLabel'?: string;
     'qwBasketShowBookNowButton'?: boolean;
     'qwBasketShowEmptyButton'?: boolean;
     'qwBasketShowOnSiteTaxes'?: boolean;
@@ -557,9 +541,7 @@ declare namespace LocalJSX {
   }
   interface QwError {}
   interface QwExtra {}
-  interface QwExtraBasket {
-    'qwExtraNoExtraMessage'?: string;
-  }
+  interface QwExtraBasket {}
   interface QwExtraCard {
     'onQwExtraCounterChanged'?: (event: CustomEvent<QwExtraEmitter>) => void;
     'qwExtraCardAvailability'?: number;
@@ -604,24 +586,17 @@ declare namespace LocalJSX {
   }
   interface QwRoomBasket {
     'onQwRoomBasketBackToRoomList'?: (event: CustomEvent<void>) => void;
-    'qwRoomBasketBackToRoomListMessage'?: string;
-    'qwRoomBasketShowDescription'?: any;
   }
   interface QwRoomDetail {
     'onQwRoomDetailAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
     'onQwRoomDetailProceed'?: (event: CustomEvent<void>) => void;
-    'qwRoomDetailAddAnotherRoomButtonMessage'?: string;
-    'qwRoomDetailAlertMessage'?: string;
     'qwRoomDetailId'?: string;
-    'qwRoomDetailProceedToCheckoutButtonMessage'?: string;
   }
   interface QwRoomDetailCard {
     'onQwRoomDetailCardAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailCardAddedToBasket'?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
     'onQwRoomDetailCardProceed'?: (event: CustomEvent<void>) => void;
-    'qwRoomDetailAddAnotherRoomButtonMessage'?: string;
-    'qwRoomDetailCardAlertMessage'?: string;
     'qwRoomDetailCardBed'?: string;
     'qwRoomDetailCardGuests'?: string;
     'qwRoomDetailCardImage'?: string;
@@ -633,7 +608,6 @@ declare namespace LocalJSX {
     'qwRoomDetailCardRoomId'?: RoomModel['roomId'];
     'qwRoomDetailCardSquareMeter'?: string;
     'qwRoomDetailCardTitle'?: string;
-    'qwRoomDetailProceedToCheckoutButtonMessage'?: string;
   }
   interface QwRoomList {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
@@ -698,11 +672,8 @@ declare namespace LocalJSX {
   interface QwRoomRateList {
     'onQwRoomRateListAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomRateListProceed'?: (event: CustomEvent<void>) => void;
-    'qwRoomRateListAddAnotherRoomButtonMessage'?: string;
-    'qwRoomRateListAlertMessage'?: string;
     'qwRoomRateListDefaultToOne'?: boolean;
     'qwRoomRateListId'?: string;
-    'qwRoomRateListProceedToCheckoutButtonMessage'?: string;
   }
   interface QwRoomService {
     'qwRoomServiceRoomId'?: string;

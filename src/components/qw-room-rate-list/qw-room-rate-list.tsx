@@ -2,7 +2,7 @@ import {Component, Host, h, Prop, State, Listen, EventEmitter, Event} from '@ste
 import {
   BasketHelper, BasketIsLoading$,
   BasketWithPrice$,
-  createRateFromRoomBasketOccupancy, Rate, RoomBasketModel, RoomIsLoading$,
+  createRateFromRoomBasketOccupancy, Language, Rate, RoomBasketModel, RoomIsLoading$,
   RoomLoaded$, RoomModel,
   RoomService, SessionHelper, SessionIsLoading$,
   SessionLoaded$,
@@ -21,9 +21,6 @@ import {QwCounterId} from '../../index';
 })
 export class QwRoomRateList {
   @Prop() qwRoomRateListId: string;
-  @Prop() qwRoomRateListAddAnotherRoomButtonMessage: string;
-  @Prop() qwRoomRateListProceedToCheckoutButtonMessage: string;
-  @Prop() qwRoomRateListAlertMessage: string;
   @Prop() qwRoomRateListDefaultToOne: boolean = false;
   @Event() qwRoomRateListAddAnotherRoom: EventEmitter<void>;
   @Event() qwRoomRateListProceed: EventEmitter<void>;
@@ -141,7 +138,7 @@ export class QwRoomRateList {
         </div>
         <div class="qw-room-rate-list__wrapper">
           <div class="qw-room-rate-list__header">
-            <span>Number of guests</span>
+            <span>{Language.getTranslation('numberOfGuests')}</span>
             <qw-counter
               qwCounterId={QwCounterId.QwRoomRateListCounter}
               qwCounterDisabled={this.isLoadingData() || !!this.basketRoomRate}
@@ -159,13 +156,13 @@ export class QwRoomRateList {
           ? this.showAlertForAccommodation()
             ? <div class="qw-room-rate-list__alert-message">
               <QwButton
-                QwButtonLabel={this.qwRoomRateListAddAnotherRoomButtonMessage || 'Add another room'}
+                QwButtonLabel={Language.getTranslation('addAnotherRoom')}
                 QwButtonOnClick={() => this.onAddAnotherRoom()}/>
-              <div>{this.qwRoomRateListAlertMessage || 'No sufficent rooms for your guests'}</div>
+              <div>{Language.getTranslation('noSufficientRooms')}</div>
             </div>
             : <QwButton
               QwButtonClass="qw-room-rate-list__alert-proceed"
-              QwButtonLabel={this.qwRoomRateListProceedToCheckoutButtonMessage || 'Proceed to checkout'}
+              QwButtonLabel={Language.getTranslation('proceedToCheckout')}
               QwButtonOnClick={() => this.onProceed()}/>
           : ''
         }</div>

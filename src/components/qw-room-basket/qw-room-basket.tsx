@@ -1,7 +1,7 @@
-import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
+import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
 import {QwChangeRoomEvent} from '../../index';
 import {
-  BasketHelper, BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
+  BasketHelper, BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, Language,
   RateHelper, RoomBasketOccupancy, RoomModel,
   SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
@@ -15,8 +15,6 @@ import {of} from 'rxjs/internal/observable/of';
   shadow: false
 })
 export class QwRoomBasket {
-  @Prop() qwRoomBasketShowDescription;
-  @Prop() qwRoomBasketBackToRoomListMessage: string;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
   @State() rooms: {[roomId: string]: RoomModel} = {};
@@ -72,8 +70,10 @@ export class QwRoomBasket {
         {this.basket ?
           !this.basket.rooms.length
             ? <div class="qw-room-basket__no-rooms">
-              {this.qwRoomBasketBackToRoomListMessage || 'Your cart is empty.'}
-              <QwButton QwButtonLabel="Back to room list" QwButtonOnClick={() => this.backToRoomList()}/>
+              {Language.getTranslation('yourCartIsEmpty')}
+              <QwButton
+                QwButtonLabel={Language.getTranslation('backToRoomList')}
+                QwButtonOnClick={() => this.backToRoomList()}/>
               </div>
             : this.basket.rooms.map(basketRoom => {
               const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);

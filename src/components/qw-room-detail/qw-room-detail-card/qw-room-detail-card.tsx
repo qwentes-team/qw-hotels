@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
-import {Rate, RoomModel} from '@qwentes/booking-state-manager';
+import {Language, Rate, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddedToBasketEmitter, QwRoomRateCounterChangedEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
@@ -21,9 +21,6 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardIsLoading: boolean;
   @Prop() qwRoomDetailCardNumberOfGuests: number;
   @Prop() qwRoomDetailCardNumberOfAccommodation: number;
-  @Prop() qwRoomDetailCardAlertMessage: string;
-  @Prop() qwRoomDetailAddAnotherRoomButtonMessage: string;
-  @Prop() qwRoomDetailProceedToCheckoutButtonMessage: string;
   @State() qwRoomDetailCardActiveRate: Rate['rateId'];
   @Event() qwRoomDetailCardAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomDetailCardAddAnotherRoom: EventEmitter<void>;
@@ -71,7 +68,7 @@ export class QwRoomDetailCard {
 
           <div class="qw-room-detail-card__rates">
             {this.qwRoomDetailCardRates.length && <div class="qw-room-detail-card__nights">
-              Prices for {this.qwRoomDetailCardNumberOfNights} {this.qwRoomDetailCardNumberOfNights > 1 ? 'nights' : 'night'}
+              {Language.getTranslation('pricesFor')} {this.qwRoomDetailCardNumberOfNights} {Language.getTranslation('nights')}
             </div>}
             {this.qwRoomDetailCardRates.length &&
             <div>
@@ -87,13 +84,13 @@ export class QwRoomDetailCard {
                 ? this.showAlertForAccommodation()
                   ? <div class="qw-room-detail-card__alert-message">
                     <QwButton
-                      QwButtonLabel={this.qwRoomDetailAddAnotherRoomButtonMessage || 'Add another room'}
+                      QwButtonLabel={Language.getTranslation('addAnotherRoom')}
                       QwButtonOnClick={() => this.qwRoomDetailCardAddAnotherRoom.emit()}/>
-                    <div>{this.qwRoomDetailCardAlertMessage || 'No sufficent rooms for your guests'}</div>
+                    <div>{Language.getTranslation('noSufficientRooms')}</div>
                   </div>
                   : <QwButton
                       QwButtonClass="qw-room-detail-card__alert-proceed"
-                      QwButtonLabel={this.qwRoomDetailProceedToCheckoutButtonMessage || 'Proceed to checkout'}
+                      QwButtonLabel={Language.getTranslation('proceedToCheckout')}
                       QwButtonOnClick={() => this.qwRoomDetailCardProceed.emit()}/>
                 : ''
               }</div>

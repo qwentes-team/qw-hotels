@@ -86,6 +86,7 @@ export class QwCalendarPicker {
     }
   }
 
+  // todo dinamicizzare con tutte le lingue
   private getLocaleForCalendar() {
     if (this.qwCalendarPickerLocale === 'fr-FR') {
       return French.default.fr;

@@ -1,7 +1,7 @@
 import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
 import {
   DateUtil,
-  SessionDisplay,
+  Language,
   SessionIsLoading$,
   SessionLoaded$,
   SessionModel,
@@ -18,17 +18,13 @@ import {QwButton} from '../shared/qw-button/qw-button';
 export class QwCalendarShorthand {
   @State() session: SessionModel;
   @State() isSessionLoading: boolean;
-  @State() language: SessionDisplay['culture'];
   @Event() qwCalendarShorthandTodaySuccess: EventEmitter<void>;
   @Event() qwCalendarShorthandTomorrowSuccess: EventEmitter<void>;
   @Event() qwCalendarShorthandOtherDates: EventEmitter<void>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
-    SessionLoaded$.subscribe((session) => {
-      this.session = session;
-      this.language = session.display.culture;
-    });
+    SessionLoaded$.subscribe((session) => this.session = session);
     SessionIsLoading$.subscribe((isLoading) => this.isSessionLoading = isLoading);
   }
 
@@ -63,11 +59,11 @@ export class QwCalendarShorthand {
   render() {
     return (
       <Host>
-        <QwButton QwButtonLabel={this.language === 'fr-FR' ? 'Aujourd\'hui' : 'Today'}
+        <QwButton QwButtonLabel={Language.getTranslation('today')}
                   QwButtonDisabled={this.isSessionLoading} QwButtonOnClick={() => this.today()}/>
-        <QwButton QwButtonLabel={this.language === 'fr-FR' ? 'Demain' : 'Tomorrow'}
+        <QwButton QwButtonLabel={Language.getTranslation('tomorrow')}
                   QwButtonDisabled={this.isSessionLoading} QwButtonOnClick={() => this.tomorrow()}/>
-        <QwButton QwButtonLabel={this.language === 'fr-FR' ? 'Autres dates' : 'Other dates'}
+        <QwButton QwButtonLabel={Language.getTranslation('otherDates')}
                   QwButtonDisabled={this.isSessionLoading} QwButtonOnClick={() => this.otherDates()}/>
       </Host>
     );
