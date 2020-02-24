@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
+import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
   SessionLoaded$, SessionService, SessionModel,
   QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper, QuoteLoaded$,
@@ -17,14 +17,12 @@ import {of} from 'rxjs';
   shadow: false,
 })
 export class QwBook {
-  @Prop() qwBookErrorQuoteMessage: string;
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
 
   private session: SessionModel;
-  private quoteErrorMessage = 'The basket rooms could not welcome all guests';
   private mandatoriesCustomerFields = [
     GuestDetailFormProperty.FirstName,
     GuestDetailFormProperty.LastName,
@@ -120,8 +118,8 @@ export class QwBook {
         {this.quote
           ? this.quoteHasError()
             ? <div class="qw-book__error-quote">
-              {this.qwBookErrorQuoteMessage || this.quoteErrorMessage}
-            </div>
+                {Language.getTranslation('quoteErrorMessage')}
+              </div>
             : <div class="qw-book__wrapper">
               <qw-book-guest-detail
                 qwBookFormShowError={this.showFormErrors}
@@ -146,7 +144,7 @@ export class QwBook {
                     <qw-textarea qwTextareaName="specialRequest"/>
                   </div>
                 </div>
-                {this.quote && <qw-book-condition qwBookConditionStateless={true}/>}
+                {this.quote && <qw-book-condition/>}
                 <div class="qw-book__confirmation">
                   <h4>{Language.getTranslation('confirmation')}</h4>
                   <div class="qw-book__confirmation-checkbox">

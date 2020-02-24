@@ -16,14 +16,14 @@ import {of} from 'rxjs';
   shadow: false,
 })
 export class QwBookCondition {
-  @Prop() qwBookConditionStateless: boolean = false;
+  @Prop() qwBookConditionForceQuoteCall: boolean = false;
   @State() quote: QuoteModel;
   @State() session: SessionModel;
 
   public componentWillLoad() {
     QuoteLoaded$.subscribe(quote => this.quote = quote);
 
-    if (this.qwBookConditionStateless) {
+    if (!this.qwBookConditionForceQuoteCall) {
       return;
     }
 
