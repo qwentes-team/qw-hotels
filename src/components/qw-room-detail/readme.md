@@ -7,12 +7,9 @@
 
 ## Properties
 
-| Property                                     | Attribute                                           | Description | Type     | Default     |
-| -------------------------------------------- | --------------------------------------------------- | ----------- | -------- | ----------- |
-| `qwRoomDetailAddAnotherRoomButtonMessage`    | `qw-room-detail-add-another-room-button-message`    |             | `string` | `undefined` |
-| `qwRoomDetailAlertMessage`                   | `qw-room-detail-alert-message`                      |             | `string` | `undefined` |
-| `qwRoomDetailId`                             | `qw-room-detail-id`                                 |             | `string` | `undefined` |
-| `qwRoomDetailProceedToCheckoutButtonMessage` | `qw-room-detail-proceed-to-checkout-button-message` |             | `string` | `undefined` |
+| Property         | Attribute           | Description | Type     | Default     |
+| ---------------- | ------------------- | ----------- | -------- | ----------- |
+| `qwRoomDetailId` | `qw-room-detail-id` |             | `string` | `undefined` |
 
 
 ## Events

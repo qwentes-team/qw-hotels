@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property                    | Attribute                         | Description | Type      | Default     |
-| --------------------------- | --------------------------------- | ----------- | --------- | ----------- |
-| `qwRoomBaseInfoIsStateFull` | `qw-room-base-info-is-state-full` |             | `boolean` | `false`     |
-| `qwRoomBaseInfoRoomId`      | `qw-room-base-info-room-id`       |             | `string`  | `undefined` |
+| Property               | Attribute                   | Description | Type     | Default     |
+| ---------------------- | --------------------------- | ----------- | -------- | ----------- |
+| `qwRoomBaseInfoRoomId` | `qw-room-base-info-room-id` |             | `string` | `undefined` |
 
 
 ## Dependencies

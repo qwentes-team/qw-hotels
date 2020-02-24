@@ -140,7 +140,6 @@ export namespace Components {
     'qwPriceMainPrice': string;
   }
   interface QwRoomBaseInfo {
-    'qwRoomBaseInfoIsStateFull': boolean;
     'qwRoomBaseInfoRoomId': string;
   }
   interface QwRoomBasket {}
@@ -581,7 +580,6 @@ declare namespace LocalJSX {
     'qwPriceMainPrice'?: string;
   }
   interface QwRoomBaseInfo {
-    'qwRoomBaseInfoIsStateFull'?: boolean;
     'qwRoomBaseInfoRoomId'?: string;
   }
   interface QwRoomBasket {

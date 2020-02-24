@@ -65,15 +65,16 @@ export class QwRoomList {
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
         const sessionStayPeriod = session.context.stayPeriod;
         this.rangeDateSession = DateUtil.getDatesRange(this.initNewDate(sessionStayPeriod.arrivalDate), this.initNewDate(sessionStayPeriod.departureDate), DateFormat.Date);
-        return zip(of(session), BasketService.getBasket(session));
+        // todo: test if work in parallel getBasket / getRooms
+        return zip(of(session), BasketService.getBasket(session), RoomService.getRooms(session.sessionId));
       }),
       switchMap(([session]) => {
         if (!this.qwRoomListShowPrices) {
-          return zip(of({}), RoomService.getRooms(session.sessionId));
+          return of({});
         }
-        return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
+        return this.getRoomsSearchForRange(session.context.stayPeriod);
       }),
-    ).subscribe(([newRoomPrices]) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
+    ).subscribe((newRoomPrices) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
 
     RoomLoaded$.subscribe(res => {
       const roomsWithPrice = res.filter(room => {

@@ -5,13 +5,6 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property                | Attribute                   | Description | Type     | Default     |
-| ----------------------- | --------------------------- | ----------- | -------- | ----------- |
-| `qwExtraNoExtraMessage` | `qw-extra-no-extra-message` |             | `string` | `undefined` |
-
-
 ## Dependencies
 
 ### Depends on

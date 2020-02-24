@@ -7,13 +7,10 @@
 
 ## Properties
 
-| Property                                       | Attribute                                              | Description | Type      | Default     |
-| ---------------------------------------------- | ------------------------------------------------------ | ----------- | --------- | ----------- |
-| `qwRoomRateListAddAnotherRoomButtonMessage`    | `qw-room-rate-list-add-another-room-button-message`    |             | `string`  | `undefined` |
-| `qwRoomRateListAlertMessage`                   | `qw-room-rate-list-alert-message`                      |             | `string`  | `undefined` |
-| `qwRoomRateListDefaultToOne`                   | `qw-room-rate-list-default-to-one`                     |             | `boolean` | `false`     |
-| `qwRoomRateListId`                             | `qw-room-rate-list-id`                                 |             | `string`  | `undefined` |
-| `qwRoomRateListProceedToCheckoutButtonMessage` | `qw-room-rate-list-proceed-to-checkout-button-message` |             | `string`  | `undefined` |
+| Property                     | Attribute                          | Description | Type      | Default     |
+| ---------------------------- | ---------------------------------- | ----------- | --------- | ----------- |
+| `qwRoomRateListDefaultToOne` | `qw-room-rate-list-default-to-one` |             | `boolean` | `false`     |
+| `qwRoomRateListId`           | `qw-room-rate-list-id`             |             | `string`  | `undefined` |
 
 
 ## Events
