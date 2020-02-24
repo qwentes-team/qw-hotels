@@ -1,5 +1,5 @@
 export default {
-  title: 'Room base info',
+  title: 'Room/Room base info',
 };
 
 export const base = () => `

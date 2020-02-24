@@ -1,9 +1,11 @@
 export default {
-  title: 'Basket',
+  title: 'Basket/Basket',
 };
 
 export const base = () => `
   <qw-basket></qw-basket>
+  <hr>
+  <h4>Use this room component to play and mutate the basket behaviour</h4>
   <qw-room-detail qw-room-detail-id="98868"></qw-room-detail>
 `;
 
