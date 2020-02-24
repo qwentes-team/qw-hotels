@@ -9,13 +9,16 @@ import {switchMap} from 'rxjs/internal/operators/switchMap';
 })
 export class QwRoomBaseInfo {
   @Prop() qwRoomBaseInfoRoomId: string;
+  @Prop() qwRoomBaseInfoForceRoomsCall: boolean = false;
   @State() room: RoomModel;
 
   public componentWillLoad() {
-    SessionService.getSession().subscribe();
-    SessionLoaded$
-      .pipe(switchMap(session => RoomService.getRooms(session.sessionId)))
-      .subscribe();
+    if (this.qwRoomBaseInfoForceRoomsCall) {
+      SessionService.getSession().subscribe();
+      SessionLoaded$
+        .pipe(switchMap(session => RoomService.getRooms(session.sessionId)))
+        .subscribe();
+    }
 
     RoomLoaded$.subscribe(rooms => {
       this.room = rooms.find(r => r.roomId === parseInt(this.qwRoomBaseInfoRoomId));

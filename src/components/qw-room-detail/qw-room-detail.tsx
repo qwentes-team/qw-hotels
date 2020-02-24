@@ -1,8 +1,8 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketIsLoading$, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
+  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
   RoomBasketModel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
-  SessionHelper, SessionIsLoading$, SessionLoaded$, SessionService,
+  SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddedToBasketEmitter} from '../qw-room-rate/qw-room-rate';
@@ -19,7 +19,9 @@ export interface QwRoomDetailAddToBasketEmitter {
 })
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
+  @Prop() qwRoomDetailForceBasketCall: boolean = false;
   @State() room: RoomModel;
+  @State() session: SessionModel;
   @State() basketRoomRate: Rate;
   @State() numberOfNights: number;
   @State() basketIsLoading: boolean;
@@ -35,24 +37,23 @@ export class QwRoomDetail {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
       switchMap(session => {
+        this.session = session;
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
         this.numberOfNights = SessionHelper.getNumberOfNights(session);
         return RoomService.getRooms(session.sessionId);
       }),
     ).subscribe();
 
-    RoomLoaded$
-      .pipe(
-        switchMap(rooms => {
-          this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
-          return BasketWithPrice$;
-        }),
-      )
-      .subscribe(basket => {
-        const basketRoom = basket.rooms && this.getBasketRoom(basket.rooms);
-        const occupancyId = basketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
-        this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
-      });
+    RoomLoaded$.pipe(
+      switchMap(rooms => {
+        this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
+        return this.qwRoomDetailForceBasketCall ? BasketService.getBasket(this.session) : BasketWithPrice$;
+      }),
+    ).subscribe(basket => {
+      const basketRoom = basket.rooms && this.getBasketRoom(basket.rooms);
+      const occupancyId = basketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
+      this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
+    });
 
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
     SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);

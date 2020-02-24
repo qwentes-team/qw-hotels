@@ -25,15 +25,15 @@
 <body>
 
 <!--<qw-calendar-shorthand></qw-calendar-shorthand>-->
-<qw-currency></qw-currency>
+<!--<qw-currency></qw-currency>-->
 <!--<qw-language qw-language-languages='["en-US", "fr-FR"]'></qw-language>-->
 <!--<qw-calendar-guest-inline></qw-calendar-guest-inline>-->
 <!--<qw-basket-summary></qw-basket-summary>-->
 
-<!--<qw-basket-->
-<!--  qw-basket-show-empty-button="true"-->
-<!--  qw-basket-show-price-if-empty="true"-->
-<!--  qw-basket-show-book-now-button="true"></qw-basket>-->
+<qw-basket
+  qw-basket-show-empty-button="true"
+  qw-basket-show-price-if-empty="true"
+  qw-basket-show-book-now-button="true"></qw-basket>
 
 <!--<qw-room-detail qw-room-detail-id="97815"> &lt;!&ndash; 100284 &ndash;&gt;-->
 <!--  <div slot="qwRoomDetailLoading">Loading detail room...</div>-->
@@ -47,9 +47,13 @@
 <!--<qw-calendar></qw-calendar>-->
 <qw-room-base-info qw-room-base-info-room-id="98868"></qw-room-base-info>
 
-<qw-room-list qw-room-list-show-prices="false">
-  <div slot="qwRoomListLoading">loading</div>
-</qw-room-list>
+<qw-room-detail qw-room-detail-id="98868">
+  <div slot="qwRoomDetailLoading">loading</div>
+</qw-room-detail>
+
+<!--<qw-room-list qw-room-list-show-prices="false">-->
+<!--  <div slot="qwRoomListLoading">loading</div>-->
+<!--</qw-room-list>-->
 <!--<qw-language-->
 <!--  qw-language-languages='["en-US", "fr-FR", "it-IT"]'>-->
 <!--</qw-language>-->

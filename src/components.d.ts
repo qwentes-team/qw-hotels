@@ -140,10 +140,12 @@ export namespace Components {
     'qwPriceMainPrice': string;
   }
   interface QwRoomBaseInfo {
+    'qwRoomBaseInfoForceRoomsCall': boolean;
     'qwRoomBaseInfoRoomId': string;
   }
   interface QwRoomBasket {}
   interface QwRoomDetail {
+    'qwRoomDetailForceBasketCall': boolean;
     'qwRoomDetailId': string;
   }
   interface QwRoomDetailCard {
@@ -580,6 +582,7 @@ declare namespace LocalJSX {
     'qwPriceMainPrice'?: string;
   }
   interface QwRoomBaseInfo {
+    'qwRoomBaseInfoForceRoomsCall'?: boolean;
     'qwRoomBaseInfoRoomId'?: string;
   }
   interface QwRoomBasket {
@@ -589,6 +592,7 @@ declare namespace LocalJSX {
     'onQwRoomDetailAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
     'onQwRoomDetailProceed'?: (event: CustomEvent<void>) => void;
+    'qwRoomDetailForceBasketCall'?: boolean;
     'qwRoomDetailId'?: string;
   }
   interface QwRoomDetailCard {

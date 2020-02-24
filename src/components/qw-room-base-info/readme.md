@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property               | Attribute                   | Description | Type     | Default     |
-| ---------------------- | --------------------------- | ----------- | -------- | ----------- |
-| `qwRoomBaseInfoRoomId` | `qw-room-base-info-room-id` |             | `string` | `undefined` |
+| Property                       | Attribute                            | Description | Type      | Default     |
+| ------------------------------ | ------------------------------------ | ----------- | --------- | ----------- |
+| `qwRoomBaseInfoForceRoomsCall` | `qw-room-base-info-force-rooms-call` |             | `boolean` | `false`     |
+| `qwRoomBaseInfoRoomId`         | `qw-room-base-info-room-id`          |             | `string`  | `undefined` |
 
 
 ## Dependencies
