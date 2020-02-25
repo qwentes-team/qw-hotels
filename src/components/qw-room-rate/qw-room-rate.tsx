@@ -3,13 +3,22 @@ import {QwButton} from '../shared/qw-button/qw-button';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 import {
   BasketHelper,
-  BasketModel, BasketService, Language,
-  Rate, RateHelper, RateInformation, RateQualifierType,
-  RoomModel, RoomSummaryType,
-  SessionHelper, SessionLoaded$, SessionService,
+  BasketModel,
+  BasketService,
+  Language,
+  Rate,
+  RateHelper,
+  RateInformation,
+  RateQualifierType,
+  RoomModel,
+  RoomSummaryType,
+  SessionHelper,
+  SessionLoaded$,
+  SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwCounterId} from '../../index';
+import {QwCounterId, QwRoomListType} from '../../index';
+import {QwWrapInDiv} from '../shared/qw-wrap-in-div/qw-wrap-in-div';
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
@@ -26,6 +35,7 @@ export interface QwRoomRateCounterChangedEmitter {
   shadow: false,
 })
 export class QwRoomRate {
+  @Prop() qwRoomRateType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomRateRate: Rate;
   @Prop() qwRoomRateIsLoading: boolean;
   @Prop() qwRoomRateIsAddingToBasket: boolean;
@@ -99,6 +109,7 @@ export class QwRoomRate {
   render() {
     return (
       <Host class={`
+        qw-room-rate--${this.qwRoomRateType}
         ${this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}
         ${this.qwRoomRateIsLoading ? 'qw-room-rate__is-loading' : ''}
         ${this.qwRoomRateIsAddingToBasket ? 'qw-room-rate__is-adding-to-basket' : ''}
@@ -116,23 +127,25 @@ export class QwRoomRate {
           </div>
         </div>}
 
-        {!this.qwRoomRateDefaultToOne && <div class="qw-room-rate__counter">
-          <div class="qw-room-rate__counter-label">Number of rooms</div>
-          {this.qwRoomRateRate && <qw-counter
-            qwCounterId={QwCounterId.QwRoomRateCounter}
-            qwCounterName={this.qwRoomRateRate.description.name}
-            qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-            qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
-          <div class="qw-room-rate__counter-availability">
-            {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
-          </div>
-        </div>}
+        <QwWrapInDiv wrapIt={this.qwRoomRateType === QwRoomListType.Card} wrapperClass="qw-room-rate__counter-add-to-basket">
+          {!this.qwRoomRateDefaultToOne && <div class="qw-room-rate__counter">
+            <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
+            {this.qwRoomRateRate && <qw-counter
+              qwCounterId={QwCounterId.QwRoomRateCounter}
+              qwCounterName={this.qwRoomRateRate.description.name}
+              qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
+              qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
+            <div class="qw-room-rate__counter-availability">
+              {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
+            </div>
+          </div>}
 
-        {this.qwRoomRateRate && <QwButton
-          QwButtonClass="qw-button--primary qw-button--add-to-basket"
-          QwButtonLabel={Language.getTranslation('addToCart')}
-          QwButtonDisabled={this.isAddToCartDisabled()}
-          QwButtonOnClick={() => this.addToBasket()}/>}
+          {this.qwRoomRateRate && <QwButton
+            QwButtonClass="qw-button--primary qw-button--add-to-basket"
+            QwButtonLabel={Language.getTranslation('addToCart')}
+            QwButtonDisabled={this.isAddToCartDisabled()}
+            QwButtonOnClick={() => this.addToBasket()}/>}
+        </QwWrapInDiv>
 
         {this.qwRoomRateRate && <div class="qw-room-rate__conditions">
           {this.qwRoomRateRate.taxes.onSite.amount.text && <li class="qw-room-rate--stay-tax">

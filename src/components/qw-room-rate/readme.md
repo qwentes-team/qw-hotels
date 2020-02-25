@@ -7,15 +7,16 @@
 
 ## Properties
 
-| Property                     | Attribute                          | Description | Type      | Default     |
-| ---------------------------- | ---------------------------------- | ----------- | --------- | ----------- |
-| `qwRoomRateDefaultToOne`     | `qw-room-rate-default-to-one`      |             | `boolean` | `false`     |
-| `qwRoomRateIsAddingToBasket` | `qw-room-rate-is-adding-to-basket` |             | `boolean` | `undefined` |
-| `qwRoomRateIsDisabled`       | `qw-room-rate-is-disabled`         |             | `boolean` | `undefined` |
-| `qwRoomRateIsLoading`        | `qw-room-rate-is-loading`          |             | `boolean` | `undefined` |
-| `qwRoomRateRate`             | --                                 |             | `Rate`    | `undefined` |
-| `qwRoomRateRoomId`           | `qw-room-rate-room-id`             |             | `number`  | `undefined` |
-| `qwRoomRateShowConditions`   | `qw-room-rate-show-conditions`     |             | `boolean` | `undefined` |
+| Property                     | Attribute                          | Description | Type                                                                  | Default                 |
+| ---------------------------- | ---------------------------------- | ----------- | --------------------------------------------------------------------- | ----------------------- |
+| `qwRoomRateDefaultToOne`     | `qw-room-rate-default-to-one`      |             | `boolean`                                                             | `false`                 |
+| `qwRoomRateIsAddingToBasket` | `qw-room-rate-is-adding-to-basket` |             | `boolean`                                                             | `undefined`             |
+| `qwRoomRateIsDisabled`       | `qw-room-rate-is-disabled`         |             | `boolean`                                                             | `undefined`             |
+| `qwRoomRateIsLoading`        | `qw-room-rate-is-loading`          |             | `boolean`                                                             | `undefined`             |
+| `qwRoomRateRate`             | --                                 |             | `Rate`                                                                | `undefined`             |
+| `qwRoomRateRoomId`           | `qw-room-rate-room-id`             |             | `number`                                                              | `undefined`             |
+| `qwRoomRateShowConditions`   | `qw-room-rate-show-conditions`     |             | `boolean`                                                             | `undefined`             |
+| `qwRoomRateType`             | `qw-room-rate-type`                |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline` |
 
 
 ## Events
@@ -30,9 +31,9 @@
 
 ### Used by
 
- - [qw-room-detail-card](../qw-room-detail/qw-room-detail-card)
  - [qw-room-list-card](../qw-room-list/qw-room-list-card)
  - [qw-room-rate-list](../qw-room-rate-list)
+ - [qw-room-rates](../qw-room-rates)
 
 ### Depends on
 
@@ -42,9 +43,9 @@
 ```mermaid
 graph TD;
   qw-room-rate --> qw-counter
-  qw-room-detail-card --> qw-room-rate
   qw-room-list-card --> qw-room-rate
   qw-room-rate-list --> qw-room-rate
+  qw-room-rates --> qw-room-rate
   style qw-room-rate fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

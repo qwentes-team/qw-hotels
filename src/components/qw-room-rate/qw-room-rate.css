@@ -56,3 +56,36 @@ qw-room-rate .qw-button {
 .qw-room-rate__counter-label, .qw-room-rate__counter-availability {
   font-size: 70%;
 }
+
+.qw-room-rate--card {
+  min-width: var(--qw-room-rate--card--min-width);
+  max-width: var(--qw-room-rate--card--max-width);
+  min-height: var(--qw-room-rate--card--min-height);
+  margin-right: var(--qw-hotel-gap-sm);
+  padding: var(--qw-hotel-gap-sm);
+  border: 2px solid var(--qw-hotel-neutral-medium);
+  flex-direction: column;
+}
+
+.qw-room-rate--card .qw-room-rate__title,
+.qw-room-rate--card .qw-room-rate__price {
+  width: 100%;
+}
+
+.qw-room-rate--card .qw-room-rate__title {
+  order: 1;
+}
+
+.qw-room-rate--card .qw-room-rate__conditions {
+  order: 2;
+}
+
+.qw-room-rate__counter-add-to-basket {
+  display: flex;
+  justify-content: space-between;
+  order: 3;
+}
+
+.qw-room-rate__counter-add-to-basket .qw-button {
+  width: 40%;
+}

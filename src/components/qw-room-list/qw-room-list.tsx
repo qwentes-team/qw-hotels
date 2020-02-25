@@ -264,7 +264,7 @@ export class QwRoomList {
   public render() {
     return (
       <Host class={`
-        ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list--grid' : ''}
+        qw-room-list--${this.qwRoomListType}
         ${!this.rooms.length ? 'qw-room-list--loading' : 'qw-room-list--loaded'}
       `}>
         <div style={this.rooms.length && {'display': 'none'}}>
@@ -275,16 +275,14 @@ export class QwRoomList {
           return <div class="qw-room-list__card-wrapper">
             <qw-room-list-card
               class={`
+                qw-room-list-card--${this.qwRoomListType}
                 ${this.isLoadingData() ? 'qw-room-list-card__disabled' : ''}
-                ${this.qwRoomListType === QwRoomListType.Grid ? 'qw-room-list-card--grid' : ''}
               `}
               qwRoomListCardId={r.roomId}
               qwRoomListCardTitle={r.name}
               qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}
               qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
               qwRoomListCardAveragePrice={this.roomPrices ? this.getAveragePricePerNight(r.roomId) : ''}
-              qwRoomListCardSquareMeter={r.surfaceArea.text}
-              qwRoomListCardGuests={RoomHelper.getDefaultOccupancy(r).definition.text}
               qwRoomListCardImage={RoomHelper.getCoverImage(r).url}
               qwRoomListCardRates={this.mergeRatesAndBasketRoomRate(r.rates, r.roomId)}
               qwRoomListCardBasketRoom={this.getBasketRoom(r.roomId)}
@@ -304,6 +302,7 @@ export class QwRoomList {
               qwRoomListCardNumberOfGuests={this.numberOfGuests}
               qwRoomListCardNumberOfAccommodation={this.numberOfAccommodation}
               qwRoomListCardLanguage={this.language}
+              qwRoomListCardType={this.qwRoomListType}
               qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
               qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
               qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}

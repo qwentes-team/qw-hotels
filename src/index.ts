@@ -17,6 +17,17 @@ export enum QwRoomListCardButtonType {
 export enum QwRoomListType {
   Inline = 'inline',
   Grid = 'grid',
+  Card = 'card',
+}
+
+export enum QwRoomBaseInfoType {
+  List = 'list',
+  Inline = 'inline',
+}
+
+export enum QwRoomBaseInfoGuestType {
+  Icon = 'icon',
+  Text = 'text',
 }
 
 export enum QwRoomListOrderType {

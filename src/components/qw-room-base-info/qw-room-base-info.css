@@ -13,3 +13,24 @@ qw-room-base-info {
   background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/person.svg') no-repeat center;
   background-size: 17px 17px;
 }
+
+ul.qw-room-base-info--inline {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+ul.qw-room-base-info--inline li {
+  list-style-type: none;
+}
+
+ul.qw-room-base-info--inline li:after {
+  content: ' / ';
+  margin-right: 4px;
+}
+
+ul.qw-room-base-info--inline li:last-of-type:after {
+  content: '';
+}

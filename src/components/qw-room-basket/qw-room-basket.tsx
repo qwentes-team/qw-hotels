@@ -81,8 +81,6 @@ export class QwRoomBasket {
                 class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
                 qwRoomListCardId={basketRoom.roomId}
                 qwRoomListCardTitle={basketRoom.name}
-                qwRoomListCardSquareMeter={basketRoom.surfaceArea.text}
-                qwRoomListCardGuests={basketRoom.defaultOccupancy.definition.text}
                 qwRoomListCardImage={BasketHelper.getRoomCoverImage(basketRoom).url}
                 qwRoomListCardIsLoadingBasket={this.basketIsLoading}
                 qwRoomListCardShowDescription={false}

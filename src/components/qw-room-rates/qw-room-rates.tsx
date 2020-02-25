@@ -1,6 +1,7 @@
-import {Component, h, Listen, Prop, State} from '@stencil/core';
+import {Component, h, Host, Listen, Prop, State} from '@stencil/core';
 import {Rate, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateCounterChangedEmitter} from '../qw-room-rate/qw-room-rate';
+import {QwRoomListType} from '../../index';
 
 @Component({
   tag: 'qw-room-rates',
@@ -8,6 +9,7 @@ import {QwRoomRateCounterChangedEmitter} from '../qw-room-rate/qw-room-rate';
   shadow: false
 })
 export class QwRoomRates {
+  @Prop() qwRoomRatesType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomRatesRates: Rate[] = [];
   @Prop() qwRoomRatesRoomId: RoomModel['roomId'];
   @State() qwRoomRatesActiveRate: Rate['rateId'];
@@ -26,12 +28,19 @@ export class QwRoomRates {
   }
 
   render() {
-    return this.qwRoomRatesRates.map(r => {
-      return <qw-room-rate
-        qwRoomRateRoomId={this.qwRoomRatesRoomId}
-        qwRoomRateRate={r}
-        qwRoomRateIsDisabled={this.isRateDisabled(r.rateId)}
-        qwRoomRateShowConditions={this.qwRoomRatesRates.length === 1}/>
-    });
+    return (
+      <Host class={`qw-room-rates--${this.qwRoomRatesType}`}>
+        <div class="qw-room-rates__wrapper">
+          {this.qwRoomRatesRates.map(r => {
+            return <qw-room-rate
+              qwRoomRateRoomId={this.qwRoomRatesRoomId}
+              qwRoomRateRate={r}
+              qwRoomRateType={this.qwRoomRatesType}
+              qwRoomRateIsDisabled={this.isRateDisabled(r.rateId)}
+              qwRoomRateShowConditions={this.qwRoomRatesRates.length === 1}/>
+          })}
+        </div>
+      </Host>
+    )
   }
 }

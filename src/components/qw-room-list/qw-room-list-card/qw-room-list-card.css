@@ -2,7 +2,7 @@ qw-room-list-card {
   --qw-room-list-card-gap: var(--qw-hotel-gap-sm);
   --qw-room-list-card-background: var(--qw-hotel-background);
   --qw-room-list-card-border-radius: 2px;
-  
+
   display: flex;
   flex-direction: column;
   padding: var(--qw-room-list-card-gap);
@@ -21,7 +21,7 @@ qw-room-list-card.qw-room-list-card__disabled {
 
 qw-room-list-card qw-card {
   display: grid;
-  grid-template-columns: repeat(2, 50%);
+  grid-template-columns: repeat(2, minmax(var(--qw-room-rate--card--min-width), 1fr));
   grid-template-rows: repeat(5, auto);
   width: 100%;
   height: auto;
@@ -98,4 +98,28 @@ qw-room-list-card .qw-room-list-card__basket-actions-counter-label {
 }
 qw-room-list-card .qw-room-list-card__room-taxes {
   font-size: var(--qw-hotel-small-font-size);
+}
+
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__title,
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__image,
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__descriptions,
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__cta {
+  grid-column: 1 / 2;
+}
+
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__image {
+  grid-row: 2 / 3;
+}
+
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__descriptions {
+  display: none;
+}
+
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__cta {
+  grid-row: 4 / 5;
+}
+
+qw-room-list-card.qw-room-list-card--card .qw-room-list-card__rates {
+  grid-column: 2 / 2;
+  grid-row: 1 / 6;
 }

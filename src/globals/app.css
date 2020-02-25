@@ -23,6 +23,10 @@
 
   --qw-hotel-opacity: .5;
   --qw-hotel-small-font-size: 70%;
+
+  --qw-room-rate--card--min-width: 200px;
+  --qw-room-rate--card--max-width: 250px;
+  --qw-room-rate--card--min-height: 300px;
 }
 
 * {

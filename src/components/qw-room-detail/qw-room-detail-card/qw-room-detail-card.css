@@ -8,24 +8,6 @@ qw-room-detail-card .qw-room-detail-card__title {
   flex-direction: column;
 }
 
-qw-room-detail-card .qw-room-detail-card__title qw-room-base-info ul {
-  display: flex;
-  padding: 0;
-  margin: 0;
-}
-qw-room-detail-card .qw-room-detail-card__title qw-room-base-info ul li {
-  list-style-type: none;
-}
-
-qw-room-detail-card .qw-room-detail-card__title qw-room-base-info ul li:after {
-  content: ' / ';
-  margin-right: 4px;
-}
-
-qw-room-detail-card .qw-room-detail-card__title qw-room-base-info ul li:last-of-type:after {
-  content: '';
-}
-
 qw-room-detail-card qw-card {
   display: grid;
   grid-template-columns: repeat(2, 50%);

@@ -1,18 +1,18 @@
-import {Component, Host, h, Prop, Listen} from '@stencil/core';
+import {Component, h, Host, Listen, Prop} from '@stencil/core';
 import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {
   BasketHelper,
   BasketModel,
-  MoneyPrice,
   Language,
+  MoneyPrice,
   Rate,
   RoomBasketModel,
   RoomDefaultLabel,
   RoomModel,
   SessionDisplay,
 } from '@qwentes/booking-state-manager';
-import {QwChangeRoomEvent, QwCounterId, QwWeekCalendarDirection} from '../../../index';
+import {QwChangeRoomEvent, QwCounterId, QwRoomListType, QwWeekCalendarDirection} from '../../../index';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 
@@ -22,14 +22,13 @@ import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
   shadow: false,
 })
 export class QwRoomListCard {
+  @Prop() qwRoomListCardType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomListCardId: RoomModel['roomId'];
   @Prop() qwRoomListCardTitle: string;
   @Prop() qwRoomListCardPrice: string;
   @Prop() qwRoomListCardCrossedOutPrice: string;
   @Prop() qwRoomListCardAveragePrice: string;
   @Prop() qwRoomListCardTaxes: string;
-  @Prop() qwRoomListCardSquareMeter: string;
-  @Prop() qwRoomListCardGuests: string;
   @Prop() qwRoomListCardImage: string;
   @Prop() qwRoomListCardRates: Rate[];
   @Prop() qwRoomListCardIsLoading: boolean;
@@ -112,6 +111,15 @@ export class QwRoomListCard {
     return this.qwRoomListCardNumberOfGuests <= this.qwRoomListCardNumberOfAccommodation;
   }
 
+  private isCardType() {
+    return this.qwRoomListCardType === QwRoomListType.Card;
+  }
+
+  private getErrorComponent() {
+    return !this.qwRoomListCardIsLoading
+      && <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>;
+  }
+
   render() {
     return (
       <Host>
@@ -124,11 +132,11 @@ export class QwRoomListCard {
             <div class="qw-room-list-card__title-content" onClick={() => this.qwRoomListCardOnClickView()}>
               <h4>{this.qwRoomListCardTitle}</h4>
               <h6 class="qw-room-list-card__caption">
-                {this.qwRoomListCardGuests}{this.qwRoomListCardSquareMeter && ` / ${this.qwRoomListCardSquareMeter}`}
+                <qw-room-base-info qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
               </h6>
             </div>
             {this.qwRoomListCardShowPrice && (!this.qwRoomListCardPrice
-              ? <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>
+              ? this.isCardType() ? '' : this.getErrorComponent()
               : <qw-price
                   onClick={() => this.qwRoomListCardOnClickBook()}
                   qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}
@@ -161,8 +169,16 @@ export class QwRoomListCard {
             {!this.qwRoomListCardBasketIsEmpty && this.qwRoomListCardRates.length ? this.getRateForBasketNotEmpty() : ''}
           </div>}
 
-          {this.qwRoomListCardShowRates &&
-            <qw-room-rates qwRoomRatesRoomId={this.qwRoomListCardId} qwRoomRatesRates={this.qwRoomListCardRates}/>
+          {this.qwRoomListCardShowRates
+            ? <div class="qw-room-list-card__rates">
+              {this.qwRoomListCardRates.length
+                ? <qw-room-rates
+                  qwRoomRatesType={this.qwRoomListCardType}
+                  qwRoomRatesRoomId={this.qwRoomListCardId}
+                  qwRoomRatesRates={this.qwRoomListCardRates}/>
+                : this.getErrorComponent()}
+              </div>
+            : ''
           }
 
           {this.qwRoomListCardBasketRoom && this.qwRoomListCardShowActions && <div class="qw-room-list-card__basket-actions">
