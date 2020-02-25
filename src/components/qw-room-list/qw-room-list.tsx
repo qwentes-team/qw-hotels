@@ -21,6 +21,7 @@ export class QwRoomList {
   @Prop() qwRoomListFilterRoomsWith: string;
   @Prop() qwRoomListShowPrices: boolean = true;
   @Prop() qwRoomListShowCta: boolean = true;
+  @Prop() qwRoomListShowRates: boolean = false;
   @Prop() qwRoomListHeaderMessage: string;
   @Prop() qwRoomListOrder: QwRoomListOrderType = QwRoomListOrderType.AscendingPrice;
   @State() rooms: RoomModel[] = [];
@@ -65,14 +66,13 @@ export class QwRoomList {
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
         const sessionStayPeriod = session.context.stayPeriod;
         this.rangeDateSession = DateUtil.getDatesRange(this.initNewDate(sessionStayPeriod.arrivalDate), this.initNewDate(sessionStayPeriod.departureDate), DateFormat.Date);
-        // todo: test if work in parallel getBasket / getRooms
-        return zip(of(session), BasketService.getBasket(session), RoomService.getRooms(session.sessionId));
+        return zip(of(session), BasketService.getBasket(session));
       }),
       switchMap(([session]) => {
         if (!this.qwRoomListShowPrices) {
-          return of({});
+          return zip(of({}), RoomService.getRooms(session.sessionId));
         }
-        return this.getRoomsSearchForRange(session.context.stayPeriod);
+        return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
       }),
     ).subscribe((newRoomPrices) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
 
@@ -298,6 +298,7 @@ export class QwRoomList {
               qwRoomListCardShowPrices={this.qwRoomListShowPrices}
               qwRoomListCardNights={this.nights}
               qwRoomListCardShowCta={this.qwRoomListShowCta}
+              qwRoomListCardShowRates={this.qwRoomListShowRates}
               qwRoomListCardBasketIsEmpty={this.basketIsEmpty}
               qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
               qwRoomListCardNumberOfGuests={this.numberOfGuests}

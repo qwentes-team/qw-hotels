@@ -46,6 +46,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardShowDescription: boolean = true;
   @Prop() qwRoomListCardShowPriceAndTaxes: boolean;
   @Prop() qwRoomListCardShowActions: boolean;
+  @Prop() qwRoomListCardShowRates: boolean;
   @Prop() qwRoomListCardBasketRoom: RoomBasketModel;
   @Prop() qwRoomListCardBasketRoomOccupancyId: number;
   @Prop() qwRoomListCardBasketIsEmpty: boolean;
@@ -159,6 +160,10 @@ export class QwRoomListCard {
 
             {!this.qwRoomListCardBasketIsEmpty && this.qwRoomListCardRates.length ? this.getRateForBasketNotEmpty() : ''}
           </div>}
+
+          {this.qwRoomListCardShowRates &&
+            <qw-room-rates qwRoomRatesRoomId={this.qwRoomListCardId} qwRoomRatesRates={this.qwRoomListCardRates}/>
+          }
 
           {this.qwRoomListCardBasketRoom && this.qwRoomListCardShowActions && <div class="qw-room-list-card__basket-actions">
             <div class="qw-room-list-card__basket-actions-counter">
