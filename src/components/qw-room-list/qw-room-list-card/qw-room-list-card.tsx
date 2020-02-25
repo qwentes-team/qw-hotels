@@ -61,11 +61,6 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardOnChangeWeekDates: (e: QwWeekCalendarDirection) => void;
   @Prop() qwRoomListCardOnAddedToBasket: (e: BasketModel) => void;
 
-  private getMessageError() {
-    // todo differenziare i due errori
-    return 'This room is not available fot the dates selected, or the rate is not available with the one in your basket.';
-  }
-
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
     if (event.detail.id === QwCounterId.QwRoomRateCounter) {
@@ -132,7 +127,7 @@ export class QwRoomListCard {
               </h6>
             </div>
             {this.qwRoomListCardShowPrice && (!this.qwRoomListCardPrice
-              ? <qw-error>{this.getMessageError()}</qw-error>
+              ? <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>
               : <qw-price
                   onClick={() => this.qwRoomListCardOnClickBook()}
                   qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}

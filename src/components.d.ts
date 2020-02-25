@@ -64,11 +64,9 @@ export namespace Components {
   }
   interface QwBasketRoomCounter {}
   interface QwBasketSummary {}
-  interface QwBook {
-    'qwBookErrorQuoteMessage': string;
-  }
+  interface QwBook {}
   interface QwBookCondition {
-    'qwBookConditionStateless': boolean;
+    'qwBookConditionForceQuoteCall': boolean;
   }
   interface QwBookGuestDetail {
     'qwBookFormShowError': boolean;
@@ -490,11 +488,9 @@ declare namespace LocalJSX {
     'onQwBasketRoomCounterNumber'?: (event: CustomEvent<number>) => void;
   }
   interface QwBasketSummary {}
-  interface QwBook {
-    'qwBookErrorQuoteMessage'?: string;
-  }
+  interface QwBook {}
   interface QwBookCondition {
-    'qwBookConditionStateless'?: boolean;
+    'qwBookConditionForceQuoteCall'?: boolean;
   }
   interface QwBookGuestDetail {
     'onQwBookGuestDetailChangeForm'?: (event: CustomEvent<QuoteCreateBody>) => void;

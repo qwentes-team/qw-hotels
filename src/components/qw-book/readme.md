@@ -5,13 +5,6 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property                  | Attribute                     | Description | Type     | Default     |
-| ------------------------- | ----------------------------- | ----------- | -------- | ----------- |
-| `qwBookErrorQuoteMessage` | `qw-book-error-quote-message` |             | `string` | `undefined` |
-
-
 ## Dependencies
 
 ### Depends on

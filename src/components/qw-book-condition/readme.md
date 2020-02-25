@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property                   | Attribute                     | Description | Type      | Default |
-| -------------------------- | ----------------------------- | ----------- | --------- | ------- |
-| `qwBookConditionStateless` | `qw-book-condition-stateless` |             | `boolean` | `false` |
+| Property                        | Attribute                            | Description | Type      | Default |
+| ------------------------------- | ------------------------------------ | ----------- | --------- | ------- |
+| `qwBookConditionForceQuoteCall` | `qw-book-condition-force-quote-call` |             | `boolean` | `false` |
 
 
 ## Dependencies
