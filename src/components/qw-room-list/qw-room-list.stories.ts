@@ -10,6 +10,13 @@ export const grid = () => `
   <qw-room-list qw-room-list-type="grid"></qw-room-list>
 `;
 
+export const gridMinimal = () => `
+  <qw-room-list
+    qw-room-list-type="grid"
+    qw-room-list-show-prices="false"
+    qw-room-list-show-cta="false"></qw-room-list>
+`;
+
 export const card = () => `
   <qw-room-list
     qw-room-list-show-rates="true"
