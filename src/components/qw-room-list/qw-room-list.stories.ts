@@ -26,3 +26,11 @@ export const cardWithoutPrice = () => `
 export const withoutCta = () => `
   <qw-room-list qw-room-list-show-cta="false"></qw-room-list>
 `;
+
+export const orderedByDecreasingPrice = () => `
+  <qw-room-list qw-room-list-order="desc"></qw-room-list>
+`;
+
+export const filteredList = () => `
+  <qw-room-list qw-room-list-filter-rooms-with="[98868, 98869]"></qw-room-list>
+`;

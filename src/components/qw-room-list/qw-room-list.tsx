@@ -22,7 +22,6 @@ export class QwRoomList {
   @Prop() qwRoomListShowPrices: boolean = true;
   @Prop() qwRoomListShowCta: boolean = true;
   @Prop() qwRoomListShowRates: boolean = false;
-  @Prop() qwRoomListHeaderMessage: string;
   @Prop() qwRoomListOrder: QwRoomListOrderType = QwRoomListOrderType.AscendingPrice;
   @State() rooms: RoomModel[] = [];
   @State() isBasketLoading: boolean;
@@ -270,7 +269,6 @@ export class QwRoomList {
         <div style={this.rooms.length && {'display': 'none'}}>
           <slot name="qwRoomListLoading"/>
         </div>
-        <div class="qw-room-list__header-message">{this.qwRoomListHeaderMessage}</div>
         {this.rooms.map(r => {
           return <div class="qw-room-list__card-wrapper">
             <qw-room-list-card
