@@ -134,6 +134,9 @@ export namespace Components {
   interface QwLoading {
     'QwLoadingSize': string;
   }
+  interface QwOffers {
+    'qwOffersMax': number;
+  }
   interface QwPrice {
     'qwPriceCaption': string;
     'qwPriceCrossedPrice': string;
@@ -373,6 +376,12 @@ declare global {
     new (): HTMLQwLoadingElement;
   };
 
+  interface HTMLQwOffersElement extends Components.QwOffers, HTMLStencilElement {}
+  var HTMLQwOffersElement: {
+    prototype: HTMLQwOffersElement;
+    new (): HTMLQwOffersElement;
+  };
+
   interface HTMLQwPriceElement extends Components.QwPrice, HTMLStencilElement {}
   var HTMLQwPriceElement: {
     prototype: HTMLQwPriceElement;
@@ -472,6 +481,7 @@ declare global {
     'qw-input': HTMLQwInputElement;
     'qw-language': HTMLQwLanguageElement;
     'qw-loading': HTMLQwLoadingElement;
+    'qw-offers': HTMLQwOffersElement;
     'qw-price': HTMLQwPriceElement;
     'qw-room-base-info': HTMLQwRoomBaseInfoElement;
     'qw-room-basket': HTMLQwRoomBasketElement;
@@ -585,6 +595,9 @@ declare namespace LocalJSX {
   }
   interface QwLoading {
     'QwLoadingSize'?: string;
+  }
+  interface QwOffers {
+    'qwOffersMax'?: number;
   }
   interface QwPrice {
     'qwPriceCaption'?: string;
@@ -732,6 +745,7 @@ declare namespace LocalJSX {
     'qw-input': QwInput;
     'qw-language': QwLanguage;
     'qw-loading': QwLoading;
+    'qw-offers': QwOffers;
     'qw-price': QwPrice;
     'qw-room-base-info': QwRoomBaseInfo;
     'qw-room-basket': QwRoomBasket;
@@ -775,6 +789,7 @@ declare module "@stencil/core" {
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-language': LocalJSX.QwLanguage & JSXBase.HTMLAttributes<HTMLQwLanguageElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
+      'qw-offers': LocalJSX.QwOffers & JSXBase.HTMLAttributes<HTMLQwOffersElement>;
       'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
       'qw-room-base-info': LocalJSX.QwRoomBaseInfo & JSXBase.HTMLAttributes<HTMLQwRoomBaseInfoElement>;
       'qw-room-basket': LocalJSX.QwRoomBasket & JSXBase.HTMLAttributes<HTMLQwRoomBasketElement>;

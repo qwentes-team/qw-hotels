@@ -1,0 +1,23 @@
+qw-offers {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  --qw-hotel--offer-img-height: 250px;
+}
+
+.qw-offers__offer {
+  width: 49%;
+}
+
+.qw-offers__offer .qw-image {
+  height: var(--qw-hotel--offer-img-height);
+}
+
+.qw-offers__offer img {
+  object-fit: cover;
+  width: 100%;
+  height: var(--qw-hotel--offer-img-height);
+}
