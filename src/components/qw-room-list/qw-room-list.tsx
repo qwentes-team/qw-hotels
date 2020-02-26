@@ -74,7 +74,7 @@ export class QwRoomList {
         }
         return zip(this.getRoomsSearchForRange(session.context.stayPeriod), RoomService.getRooms(session.sessionId));
       }),
-    ).subscribe((newRoomPrices) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
+    ).subscribe(([newRoomPrices]) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
 
     RoomLoaded$.subscribe(res => {
       const roomsWithPrice = res.filter(room => {
