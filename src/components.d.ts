@@ -43,6 +43,9 @@ import {
   QwInputEmitter,
 } from './components/shared/qw-input/qw-input';
 import {
+  QwOfferClickEmitter,
+} from './components/qw-offers/qw-offers';
+import {
   QwRoomDetailAddToBasketEmitter,
 } from './components/qw-room-detail/qw-room-detail';
 import {
@@ -136,6 +139,7 @@ export namespace Components {
   }
   interface QwOffers {
     'qwOffersMax': number;
+    'qwOffersType': QwRoomListType;
   }
   interface QwPrice {
     'qwPriceCaption': string;
@@ -597,7 +601,9 @@ declare namespace LocalJSX {
     'QwLoadingSize'?: string;
   }
   interface QwOffers {
+    'onQwOffersOfferClick'?: (event: CustomEvent<QwOfferClickEmitter>) => void;
     'qwOffersMax'?: number;
+    'qwOffersType'?: QwRoomListType;
   }
   interface QwPrice {
     'qwPriceCaption'?: string;

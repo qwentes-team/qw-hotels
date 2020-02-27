@@ -1,23 +1,76 @@
 qw-offers {
   width: 100%;
   display: flex;
+
+  --qw-offer-img-height: 250px;
+  --qw-offer--card--min-width: 300px;
+}
+
+.qw-offers__wrapper {
+  display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-
-  --qw-hotel--offer-img-height: 250px;
 }
 
 .qw-offers__offer {
-  width: 49%;
+  width: 32%;
 }
 
 .qw-offers__offer .qw-image {
-  height: var(--qw-hotel--offer-img-height);
+  height: var(--qw-offer-img-height);
 }
 
 .qw-offers__offer img {
   object-fit: cover;
   width: 100%;
-  height: var(--qw-hotel--offer-img-height);
+  height: var(--qw-offer-img-height);
+}
+
+.qw-offers--card {
+  --qw-offer-img-height: 300px;
+
+  overflow: scroll;
+}
+
+.qw-offers--card .qw-offers__wrapper {
+  flex-flow: row nowrap;
+}
+
+.qw-offers--card .qw-offers__offer {
+  min-width: var(--qw-offer--card--min-width);
+  height: var(--qw-offer-img-height);
+  margin-right: var(--qw-hotel-gap-sm);
+  position: relative;
+  background-color: var(--qw-hotel-neutral-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.qw-offers--card .qw-offers__offer > * {
+  position: relative;
+  z-index: 1;
+}
+
+.qw-offers--card .qw-offers__offer__caption,
+.qw-offers--card .qw-offers__offer__title {
+  color: var(--qw-hotel-neutral-light);
+}
+
+.qw-offers--card .qw-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  opacity: .5;
+}
+
+@media only screen and (max-width: 700px) {
+  .qw-offers__offer {
+    width: 49%;
+  }
 }
