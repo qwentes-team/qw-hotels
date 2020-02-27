@@ -34,7 +34,6 @@
 ```mermaid
 graph TD;
   qw-room-list --> qw-room-list-card
-  qw-room-list-card --> qw-error
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-price

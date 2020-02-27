@@ -97,15 +97,6 @@ export class QwRoomListCard {
     return this.qwRoomListCardNumberOfGuests <= this.qwRoomListCardNumberOfAccommodation;
   }
 
-  private isCardType() {
-    return this.qwRoomListCardType === QwRoomListType.Card;
-  }
-
-  private getErrorComponent() {
-    return !this.qwRoomListCardIsLoading
-      && <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>;
-  }
-
   render() {
     return (
       <Host>
@@ -121,16 +112,15 @@ export class QwRoomListCard {
                 <qw-room-base-info qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
               </h6>
             </div>
-            {this.qwRoomListCardShowPrice && (!this.qwRoomListCardPrice
-              ? this.isCardType() ? '' : this.getErrorComponent()
-              : <qw-price
+            {this.qwRoomListCardShowPrice && (this.qwRoomListCardPrice
+              ? <qw-price
                   onClick={() => this.qwRoomListCardOnClickBook()}
                   qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}
                   qwPriceMainPrice={this.qwRoomListCardPrice || RoomDefaultLabel.NoPrice}
                   qwPriceCaption={`
                     ${Language.getTranslation('totalFor')} ${this.qwRoomListCardNights} ${Language.getTranslation('nights')}
-                  `}/>)
-            }
+                  `}/>
+              : '')}
           </div>
 
           {this.qwRoomListCardShowDescription && <div class="qw-room-list-card__descriptions">

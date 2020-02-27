@@ -56,7 +56,6 @@
 
 ### Depends on
 
-- [qw-error](../../shared/qw-error)
 - [qw-card](../../shared/qw-card)
 - [qw-room-base-info](../../qw-room-base-info)
 - [qw-price](../../qw-price)
@@ -67,7 +66,6 @@
 ### Graph
 ```mermaid
 graph TD;
-  qw-room-list-card --> qw-error
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-price
