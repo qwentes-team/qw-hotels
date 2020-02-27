@@ -163,7 +163,6 @@ export namespace Components {
     'qwRoomDetailCardNumberOfAccommodation': number;
     'qwRoomDetailCardNumberOfGuests': number;
     'qwRoomDetailCardNumberOfNights': number;
-    'qwRoomDetailCardRates': Rate[];
     'qwRoomDetailCardRoomId': RoomModel['roomId'];
     'qwRoomDetailCardTitle': string;
   }
@@ -203,7 +202,6 @@ export namespace Components {
     'qwRoomListCardPrices': {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate': Date[];
     'qwRoomListCardRangeDateSession': Date[];
-    'qwRoomListCardRates': Rate[];
     'qwRoomListCardShowActions': boolean;
     'qwRoomListCardShowCta': boolean;
     'qwRoomListCardShowDescription': boolean;
@@ -635,7 +633,6 @@ declare namespace LocalJSX {
     'qwRoomDetailCardNumberOfAccommodation'?: number;
     'qwRoomDetailCardNumberOfGuests'?: number;
     'qwRoomDetailCardNumberOfNights'?: number;
-    'qwRoomDetailCardRates'?: Rate[];
     'qwRoomDetailCardRoomId'?: RoomModel['roomId'];
     'qwRoomDetailCardTitle'?: string;
   }
@@ -676,7 +673,6 @@ declare namespace LocalJSX {
     'qwRoomListCardPrices'?: {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate'?: Date[];
     'qwRoomListCardRangeDateSession'?: Date[];
-    'qwRoomListCardRates'?: Rate[];
     'qwRoomListCardShowActions'?: boolean;
     'qwRoomListCardShowCta'?: boolean;
     'qwRoomListCardShowDescription'?: boolean;

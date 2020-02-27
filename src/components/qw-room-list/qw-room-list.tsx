@@ -1,8 +1,7 @@
 import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketModel, BasketService, BasketWithPrice$,
-  createRateFromRoomBasketOccupancy, DateFormat, DateUtil,
-  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod, Rate,
+  BasketHelper, BasketModel, BasketService, BasketWithPrice$, DateFormat, DateUtil,
+  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod,
   RoomBasketModel, RoomBasketOccupancy, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
   SessionDisplay, SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService, SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
@@ -121,17 +120,6 @@ export class QwRoomList {
 
   private getBasketRoom(roomId: RoomModel['roomId']) {
     return this.basketRooms.find(r => r.roomId === roomId);
-  }
-
-  private getBasketRoomRate(roomId: RoomModel['roomId']) {
-    const basketRoom = this.getBasketRoom(roomId);
-    const occupancyId = basketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
-    return basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
-  }
-
-  private mergeRatesAndBasketRoomRate(rates: Rate[] = [], roomId: RoomModel['roomId']) {
-    const basketRoomRate = this.getBasketRoomRate(roomId);
-    return basketRoomRate ? [basketRoomRate, ...rates] : rates;
   }
 
   private getFilteredRooms(rooms: RoomModel[]) {
@@ -282,7 +270,6 @@ export class QwRoomList {
               qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
               qwRoomListCardAveragePrice={this.roomPrices ? this.getAveragePricePerNight(r.roomId) : ''}
               qwRoomListCardImage={RoomHelper.getCoverImage(r).url}
-              qwRoomListCardRates={this.mergeRatesAndBasketRoomRate(r.rates, r.roomId)}
               qwRoomListCardBasketRoom={this.getBasketRoom(r.roomId)}
               qwRoomListCardBasketRoomOccupancyId={this.basketRoomsOccupancyId}
               qwRoomListCardIsLoading={this.isLoadingData()}

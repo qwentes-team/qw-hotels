@@ -6,7 +6,6 @@ import {
   BasketModel,
   Language,
   MoneyPrice,
-  Rate,
   RoomBasketModel,
   RoomDefaultLabel,
   RoomModel,
@@ -30,7 +29,6 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardAveragePrice: string;
   @Prop() qwRoomListCardTaxes: string;
   @Prop() qwRoomListCardImage: string;
-  @Prop() qwRoomListCardRates: Rate[];
   @Prop() qwRoomListCardIsLoading: boolean;
   @Prop() qwRoomListCardDescription: string;
   @Prop() qwRoomListCardRangeDate: Date[];
@@ -89,17 +87,6 @@ export class QwRoomListCard {
       selectedQuantity: this.qwRoomListCardBasketRoom.occupancies[occupancyId].selectedQuantity,
       availableQuantity: this.qwRoomListCardBasketRoom.occupancies[occupancyId].availableQuantity,
     }
-  }
-
-  public getRateForBasketNotEmpty() {
-    const rate = this.qwRoomListCardRates.find(r => {
-      return r.occupancy.occupancyId === this.qwRoomListCardBasketRoomOccupancyId || r.occupancy.occupancyId === 0;
-    });
-
-    return rate ? <qw-room-rate
-      qwRoomRateRoomId={this.qwRoomListCardId}
-      qwRoomRateRate={rate}
-      qwRoomRateIsLoading={this.qwRoomListCardIsLoading}/> : '';
   }
 
   private getMaxValue(availableQuantity: number, selectedQuantity: number) {
@@ -166,17 +153,18 @@ export class QwRoomListCard {
                 qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>
             </div>}
 
-            {!this.qwRoomListCardBasketIsEmpty && this.qwRoomListCardRates.length ? this.getRateForBasketNotEmpty() : ''}
+            {!this.qwRoomListCardBasketIsEmpty
+              ? <qw-room-rates qwRoomRatesType={QwRoomListType.Inline} qwRoomRatesRoomId={this.qwRoomListCardId}/>
+              : ''
+            }
           </div>}
 
           {this.qwRoomListCardShowRates
             ? <div class="qw-room-list-card__rates">
-              {this.qwRoomListCardRates.length
-                ? <qw-room-rates
+                <qw-room-rates
+                  qwRoomRatesIsLoading={this.qwRoomListCardIsLoading}
                   qwRoomRatesType={this.qwRoomListCardType}
-                  qwRoomRatesRoomId={this.qwRoomListCardId}
-                  qwRoomRatesRates={this.qwRoomListCardRates}/>
-                : this.getErrorComponent()}
+                  qwRoomRatesRoomId={this.qwRoomListCardId}/>
               </div>
             : ''
           }

@@ -1,7 +1,7 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$, createRateFromRoomBasketOccupancy, Rate,
-  RoomBasketModel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
+  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$,
+  RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
   SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
@@ -22,7 +22,6 @@ export class QwRoomDetail {
   @Prop() qwRoomDetailForceBasketCall: boolean = false;
   @State() room: RoomModel;
   @State() session: SessionModel;
-  @State() basketRoomRate: Rate;
   @State() numberOfNights: number;
   @State() basketIsLoading: boolean;
   @State() sessionIsLoading: boolean;
@@ -49,19 +48,11 @@ export class QwRoomDetail {
         this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
         return this.qwRoomDetailForceBasketCall ? BasketService.getBasket(this.session) : BasketWithPrice$;
       }),
-    ).subscribe(basket => {
-      const basketRoom = basket.rooms && this.getBasketRoom(basket.rooms);
-      const occupancyId = basketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
-      this.basketRoomRate = basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
-    });
+    ).subscribe();
 
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
     SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);
     RoomIsLoading$.subscribe(isLoading => this.roomIsLoading = isLoading);
-  }
-
-  private getBasketRoom(rooms: RoomBasketModel[]) {
-    return this.room && rooms.find(r => r.roomId === this.room.roomId);
   }
 
   @Listen('qwRoomDetailCardAddedToBasket')
@@ -100,8 +91,7 @@ export class QwRoomDetail {
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
           qwRoomDetailCardIsLoading={this.isLoadingData()}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
-          qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}
-          qwRoomDetailCardRates={this.basketRoomRate ? [this.basketRoomRate] : (this.room.rates || [])}/>}
+          qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}/>}
       </Host>
     );
   }
