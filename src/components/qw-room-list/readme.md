@@ -34,7 +34,6 @@
 ```mermaid
 graph TD;
   qw-room-list --> qw-room-list-card
-  qw-room-list-card --> qw-room-rate
   qw-room-list-card --> qw-error
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-room-base-info
@@ -42,9 +41,10 @@ graph TD;
   qw-room-list-card --> qw-week-calendar
   qw-room-list-card --> qw-room-rates
   qw-room-list-card --> qw-counter
-  qw-room-rate --> qw-counter
   qw-price --> qw-loading
   qw-room-rates --> qw-room-rate
+  qw-room-rates --> qw-error
+  qw-room-rate --> qw-counter
   style qw-room-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

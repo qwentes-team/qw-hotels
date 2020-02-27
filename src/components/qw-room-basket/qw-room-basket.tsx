@@ -82,7 +82,6 @@ export class QwRoomBasket {
                 qwRoomListCardId={basketRoom.roomId}
                 qwRoomListCardTitle={basketRoom.name}
                 qwRoomListCardImage={BasketHelper.getRoomCoverImage(basketRoom).url}
-                qwRoomListCardIsLoadingBasket={this.basketIsLoading}
                 qwRoomListCardShowDescription={false}
                 qwRoomListCardNights={this.nights}
                 qwRoomListCardShowPrices={false}

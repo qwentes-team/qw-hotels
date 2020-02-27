@@ -19,7 +19,6 @@
 | `qwRoomListCardId`                    | `qw-room-list-card-id`                       |             | `number`                                                              | `undefined`             |
 | `qwRoomListCardImage`                 | `qw-room-list-card-image`                    |             | `string`                                                              | `undefined`             |
 | `qwRoomListCardIsLoading`             | `qw-room-list-card-is-loading`               |             | `boolean`                                                             | `undefined`             |
-| `qwRoomListCardIsLoadingBasket`       | `qw-room-list-card-is-loading-basket`        |             | `boolean`                                                             | `undefined`             |
 | `qwRoomListCardIsLoadingPrice`        | `qw-room-list-card-is-loading-price`         |             | `boolean`                                                             | `undefined`             |
 | `qwRoomListCardLanguage`              | `qw-room-list-card-language`                 |             | `string`                                                              | `undefined`             |
 | `qwRoomListCardNights`                | `qw-room-list-card-nights`                   |             | `number`                                                              | `undefined`             |
@@ -36,7 +35,6 @@
 | `qwRoomListCardPrices`                | --                                           |             | `{ [dateString: string]: MoneyPrice; }`                               | `undefined`             |
 | `qwRoomListCardRangeDate`             | --                                           |             | `Date[]`                                                              | `undefined`             |
 | `qwRoomListCardRangeDateSession`      | --                                           |             | `Date[]`                                                              | `undefined`             |
-| `qwRoomListCardRates`                 | --                                           |             | `Rate[]`                                                              | `undefined`             |
 | `qwRoomListCardShowActions`           | `qw-room-list-card-show-actions`             |             | `boolean`                                                             | `undefined`             |
 | `qwRoomListCardShowCta`               | `qw-room-list-card-show-cta`                 |             | `boolean`                                                             | `true`                  |
 | `qwRoomListCardShowDescription`       | `qw-room-list-card-show-description`         |             | `boolean`                                                             | `true`                  |
@@ -58,7 +56,6 @@
 
 ### Depends on
 
-- [qw-room-rate](../../qw-room-rate)
 - [qw-error](../../shared/qw-error)
 - [qw-card](../../shared/qw-card)
 - [qw-room-base-info](../../qw-room-base-info)
@@ -70,7 +67,6 @@
 ### Graph
 ```mermaid
 graph TD;
-  qw-room-list-card --> qw-room-rate
   qw-room-list-card --> qw-error
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-room-base-info
@@ -78,9 +74,10 @@ graph TD;
   qw-room-list-card --> qw-week-calendar
   qw-room-list-card --> qw-room-rates
   qw-room-list-card --> qw-counter
-  qw-room-rate --> qw-counter
   qw-price --> qw-loading
   qw-room-rates --> qw-room-rate
+  qw-room-rates --> qw-error
+  qw-room-rate --> qw-counter
   qw-room-basket --> qw-room-list-card
   qw-room-list --> qw-room-list-card
   style qw-room-list-card fill:#f9f,stroke:#333,stroke-width:4px

@@ -35,7 +35,6 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardRangeDateSession: Date[];
   @Prop() qwRoomListCardPrices: {[dateString: string]: MoneyPrice};
   @Prop() qwRoomListCardIsLoadingPrice: boolean;
-  @Prop() qwRoomListCardIsLoadingBasket: boolean;
   @Prop() qwRoomListCardNights: number;
   @Prop() qwRoomListCardShowPrices: boolean = true;
   @Prop() qwRoomListCardShowCta: boolean = true;
@@ -161,10 +160,7 @@ export class QwRoomListCard {
 
           {this.qwRoomListCardShowRates
             ? <div class="qw-room-list-card__rates">
-                <qw-room-rates
-                  qwRoomRatesIsLoading={this.qwRoomListCardIsLoading}
-                  qwRoomRatesType={this.qwRoomListCardType}
-                  qwRoomRatesRoomId={this.qwRoomListCardId}/>
+                <qw-room-rates qwRoomRatesType={this.qwRoomListCardType} qwRoomRatesRoomId={this.qwRoomListCardId}/>
               </div>
             : ''
           }

@@ -1,8 +1,8 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$,
-  RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
-  SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService,
+  BasketHelper, BasketService, BasketWithPrice$,
+  RoomHelper, RoomLoaded$, RoomModel, RoomService,
+  SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddedToBasketEmitter} from '../qw-room-rate/qw-room-rate';
@@ -23,9 +23,6 @@ export class QwRoomDetail {
   @State() room: RoomModel;
   @State() session: SessionModel;
   @State() numberOfNights: number;
-  @State() basketIsLoading: boolean;
-  @State() sessionIsLoading: boolean;
-  @State() roomIsLoading: boolean;
   @State() numberOfGuests: number;
   @State() numberOfAccommodation: number;
   @Event() qwRoomDetailAddToBasketSuccess: EventEmitter<QwRoomDetailAddToBasketEmitter>;
@@ -49,10 +46,6 @@ export class QwRoomDetail {
         return this.qwRoomDetailForceBasketCall ? BasketService.getBasket(this.session) : BasketWithPrice$;
       }),
     ).subscribe();
-
-    BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
-    SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);
-    RoomIsLoading$.subscribe(isLoading => this.roomIsLoading = isLoading);
   }
 
   @Listen('qwRoomDetailCardAddedToBasket')
@@ -74,10 +67,6 @@ export class QwRoomDetail {
     this.qwRoomDetailProceed.emit();
   }
 
-  private isLoadingData() {
-    return this.basketIsLoading || this.sessionIsLoading || this.roomIsLoading;
-  }
-
   render() {
     return (
       <Host class={`${!this.room ? 'qw-room-detail--loading' : 'qw-room-detail--loaded'}`}>
@@ -89,7 +78,6 @@ export class QwRoomDetail {
           qwRoomDetailCardTitle={this.room.name}
           qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
-          qwRoomDetailCardIsLoading={this.isLoadingData()}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}/>}
       </Host>

@@ -14,7 +14,6 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardTitle: string;
   @Prop() qwRoomDetailCardImage: string;
   @Prop() qwRoomDetailCardNumberOfNights: number;
-  @Prop() qwRoomDetailCardIsLoading: boolean;
   @Prop() qwRoomDetailCardNumberOfGuests: number;
   @Prop() qwRoomDetailCardNumberOfAccommodation: number;
   @Event() qwRoomDetailCardAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
@@ -48,7 +47,7 @@ export class QwRoomDetailCard {
               <div class="qw-room-detail-card__nights">
                 {Language.getTranslation('pricesFor')} {this.qwRoomDetailCardNumberOfNights} {Language.getTranslation('nights')}
               </div>
-              <qw-room-rates qwRoomRatesRoomId={this.qwRoomDetailCardRoomId} qwRoomRatesIsLoading={this.qwRoomDetailCardIsLoading}/>
+              <qw-room-rates qwRoomRatesRoomId={this.qwRoomDetailCardRoomId}/>
 
               <div class="qw-room-detail-card__alert">{this.qwRoomDetailCardNumberOfAccommodation
                 ? this.showAlertForAccommodation()
