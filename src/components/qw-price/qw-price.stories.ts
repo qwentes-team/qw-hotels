@@ -1,5 +1,5 @@
 export default {
-  title: 'Price'
+  title: 'Stateless/Price'
 }
 
 export const base = () => `
