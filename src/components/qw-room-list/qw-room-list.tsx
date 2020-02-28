@@ -2,7 +2,7 @@ import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/cor
 import {
   BasketHelper, BasketModel, BasketService, BasketWithPrice$, DateFormat, DateUtil,
   MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod,
-  RoomBasketModel, RoomBasketOccupancy, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
+  RoomBasketModel, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
   SessionDisplay, SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService, SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
@@ -34,7 +34,6 @@ export class QwRoomList {
   @State() nights: number;
   @State() basketIsEmpty: boolean;
   @State() basketRooms: RoomBasketModel[] = [];
-  @State() basketRoomsOccupancyId: RoomBasketOccupancy['occupancyId'];
   @State() basketRoom: RoomBasketModel;
   @State() basketRoomTotals: {[roomId: string]: MoneyPrice} = {};
   @State() numberOfGuests: number;
@@ -93,11 +92,10 @@ export class QwRoomList {
 
       return this.rooms = !this.qwRoomListFilterRoomsWith ? rooms : this.getFilteredRooms(rooms);
     });
+
     BasketWithPrice$.subscribe(basket => {
       this.basketIsEmpty = !basket.rooms.length;
       this.basketRooms = basket.rooms;
-      const firstBasketRoom = !this.basketIsEmpty && basket.rooms[0];
-      this.basketRoomsOccupancyId = parseInt(firstBasketRoom && BasketHelper.getFirstOccupancyIdInBasketRoom(firstBasketRoom));
       this.basketRoomTotals = basket.rooms.reduce((acc, room) => {
         const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(room);
         return {...acc, [room.roomId]: room.occupancies[occupancyId].price.converted};
@@ -271,7 +269,6 @@ export class QwRoomList {
               qwRoomListCardAveragePrice={this.roomPrices ? this.getAveragePricePerNight(r.roomId) : ''}
               qwRoomListCardImage={RoomHelper.getCoverImage(r).url}
               qwRoomListCardBasketRoom={this.getBasketRoom(r.roomId)}
-              qwRoomListCardBasketRoomOccupancyId={this.basketRoomsOccupancyId}
               qwRoomListCardIsLoading={this.isLoadingData()}
               qwRoomListCardIsLoadingPrice={this.isPriceLoading}
               qwRoomListCardDescription={RoomHelper.getSummary(r).text}

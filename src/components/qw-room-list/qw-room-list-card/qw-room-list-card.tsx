@@ -44,7 +44,6 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardShowActions: boolean;
   @Prop() qwRoomListCardShowRates: boolean;
   @Prop() qwRoomListCardBasketRoom: RoomBasketModel;
-  @Prop() qwRoomListCardBasketRoomOccupancyId: number;
   @Prop() qwRoomListCardBasketIsEmpty: boolean;
   @Prop() qwRoomListCardAddableLeftover: number = 0;
   @Prop() qwRoomListCardNumberOfGuests: number;
