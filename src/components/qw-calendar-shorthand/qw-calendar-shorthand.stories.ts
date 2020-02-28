@@ -1,5 +1,5 @@
 export default {
-  title: 'Calendar/Calendar shorthand'
+  title: 'Calendar & Guest/Calendar shorthand'
 }
 
 export const base = () => `

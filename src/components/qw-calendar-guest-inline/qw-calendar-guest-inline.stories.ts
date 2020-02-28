@@ -1,5 +1,5 @@
 export default {
-  title: 'Calendar/Calendar Guest inline'
+  title: 'Calendar & Guest/Calendar Guest inline'
 }
 
 export const base = () => `

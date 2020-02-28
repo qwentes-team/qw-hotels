@@ -1,5 +1,5 @@
 export default {
-  title: 'Calendar/Calendar'
+  title: 'Calendar & Guest/Calendar'
 }
 
 export const base = () => `
