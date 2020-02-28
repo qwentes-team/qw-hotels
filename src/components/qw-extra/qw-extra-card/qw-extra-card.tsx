@@ -43,7 +43,7 @@ export class QwExtraCard {
             <div class="qw-extra-card__price-content">{this.qwExtraCardUnitPrice}</div>
           </div>
           <div class="qw-extra-card__quantity">
-            <div class="qw-extra-card__quantity-label">{Language.getTranslation('quantity')}}</div>
+            <div class="qw-extra-card__quantity-label">{Language.getTranslation('quantity')}</div>
             <div class="qw-extra-card__quantity-content">
               <qw-counter
                 qwCounterId={QwCounterId.QwExtraCardCounter}

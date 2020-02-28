@@ -3,7 +3,7 @@ export default {
 }
 
 export const base = () => `
-  <qw-room-detail qw-room-detail-id="98868">
+  <qw-room-detail qw-room-detail-id="103252">
     <div slot="qwRoomDetailLoading">loading</div>
   </qw-room-detail>
   <hr>

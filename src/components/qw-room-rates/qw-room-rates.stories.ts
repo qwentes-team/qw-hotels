@@ -4,7 +4,7 @@ export default {
 
 export const base = () => `
   <qw-room-rates
-    qw-room-rates-room-id="98868"
+    qw-room-rates-room-id="103252"
     qw-room-rates-force-rooms-call="true">
   </qw-room-rates>
   <hr>
@@ -17,7 +17,7 @@ export const base = () => `
 
 export const card = () => `
   <qw-room-rates
-    qw-room-rates-room-id="98868"
+    qw-room-rates-room-id="103252"
     qw-room-rates-type="card"
     qw-room-rates-force-rooms-call="true">
   </qw-room-rates>
