@@ -29,7 +29,7 @@ export class QwRoomService {
           return <ul>
             <div class="qw-room-service__category">{service.category.text}</div>
             {service.amenities.map(amenity => {
-              return <li class="qw-room-service__service">{amenity.text}</li>
+              return <li class={`qw-room-service__service qw-room-service__service-${amenity.value}`}>{amenity.text}</li>
             })}
           </ul>
         })}
