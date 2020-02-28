@@ -13,6 +13,8 @@ const LABEL_LANGUAGES = {
   'en-US': 'ENGLISH',
   'fr-FR': 'FRANÇAIS',
   'it-IT': 'ITALIANO',
+  'es-ES': 'ESPAÑOL',
+  'de-DE': 'DEUTSCH',
 };
 
 @Component({
@@ -51,7 +53,7 @@ export class QwLanguage {
   }
 
   private getLanguagesFromProps(): string[] {
-    return this.qwLanguageLanguages ? JSON.parse(this.qwLanguageLanguages) : [];
+    return this.qwLanguageLanguages ? JSON.parse(this.qwLanguageLanguages) : Object.keys(LABEL_LANGUAGES);
   }
 
   languageChanged = (e) => {

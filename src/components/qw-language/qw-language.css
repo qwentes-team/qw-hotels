@@ -2,13 +2,32 @@ qw-language {
   display: flex;
 }
 
-select.en-US, .qw-select__qw-language option[value="en-US"] {
-  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/en-US.png') no-repeat right;
-  background-size: 20px;
+.qw-select__qw-language {
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/icons/arrow-select.svg') no-repeat right;
+  background-size: 15px;
 }
-select.fr-FR, .qw-select__qw-language option[value="fr-FR"] {
-  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/fr-FR.png') no-repeat right;
+
+qw-language select {
   background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: left;
+  background-color: transparent;
+}
+
+qw-language select.en-US {
+  background-image: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/en-US.png');
+}
+qw-language select.fr-FR {
+  background-image: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/fr-FR.png');
+}
+qw-language select.it-IT {
+  background-image: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/it-IT.png');
+}
+qw-language select.es-ES {
+  background-image: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/es-ES.png');
+}
+qw-language select.de-DE {
+  background-image: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/flags/de-DE.png');
 }
 
 qw-language select {
@@ -16,5 +35,6 @@ qw-language select {
   appearance: none;
   outline: none;
   border: none;
-  width: 30px;
+  width: 45px;
+  color: transparent;
 }
