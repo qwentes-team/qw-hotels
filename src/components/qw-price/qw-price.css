@@ -3,7 +3,7 @@ qw-price {
   --qw-price-crossed-price-font-size: 12px;
   --qw-price-background: var(--qw-hotel-secondary-color);
 
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
