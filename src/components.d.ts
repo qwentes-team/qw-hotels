@@ -226,7 +226,7 @@ export namespace Components {
     'qwRoomRateListId': string;
   }
   interface QwRoomRates {
-    'qwRoomRatesRates': Rate[];
+    'qwRoomRatesForceRoomsCall': boolean;
     'qwRoomRatesRoomId': RoomModel['roomId'];
     'qwRoomRatesType': QwRoomListType;
   }
@@ -706,7 +706,7 @@ declare namespace LocalJSX {
     'qwRoomRateListId'?: string;
   }
   interface QwRoomRates {
-    'qwRoomRatesRates'?: Rate[];
+    'qwRoomRatesForceRoomsCall'?: boolean;
     'qwRoomRatesRoomId'?: RoomModel['roomId'];
     'qwRoomRatesType'?: QwRoomListType;
   }

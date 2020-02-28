@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property            | Attribute               | Description | Type                                                                  | Default                 |
-| ------------------- | ----------------------- | ----------- | --------------------------------------------------------------------- | ----------------------- |
-| `qwRoomRatesRates`  | --                      |             | `Rate[]`                                                              | `[]`                    |
-| `qwRoomRatesRoomId` | `qw-room-rates-room-id` |             | `number`                                                              | `undefined`             |
-| `qwRoomRatesType`   | `qw-room-rates-type`    |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline` |
+| Property                    | Attribute                        | Description | Type                                                                  | Default                 |
+| --------------------------- | -------------------------------- | ----------- | --------------------------------------------------------------------- | ----------------------- |
+| `qwRoomRatesForceRoomsCall` | `qw-room-rates-force-rooms-call` |             | `boolean`                                                             | `undefined`             |
+| `qwRoomRatesRoomId`         | `qw-room-rates-room-id`          |             | `number`                                                              | `undefined`             |
+| `qwRoomRatesType`           | `qw-room-rates-type`             |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline` |
 
 
 ## Dependencies

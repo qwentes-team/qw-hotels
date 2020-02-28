@@ -1,12 +1,13 @@
 import {Component, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketIsLoading$, BasketWithPrice$,
+  BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$,
   createRateFromRoomBasketOccupancy, Language, Rate,
-  RoomBasketModel, RoomIsLoading$, RoomLoaded$, RoomModel,
+  RoomBasketModel, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {QwRoomRateCounterChangedEmitter} from '../qw-room-rate/qw-room-rate';
 import {QwRoomListType} from '../../index';
 import {switchMap} from 'rxjs/operators';
+import {of, zip} from 'rxjs';
 
 @Component({
   tag: 'qw-room-rates',
@@ -15,8 +16,8 @@ import {switchMap} from 'rxjs/operators';
 })
 export class QwRoomRates {
   @Prop() qwRoomRatesType: QwRoomListType = QwRoomListType.Inline;
-  @Prop() qwRoomRatesRates: Rate[] = [];
   @Prop() qwRoomRatesRoomId: RoomModel['roomId'];
+  @Prop() qwRoomRatesForceRoomsCall: boolean;
   @State() mergedRates: Rate[] = [];
   @State() basketRooms: RoomBasketModel[] = [];
   @State() qwRoomRatesActiveRate: Rate['rateId'];
@@ -24,6 +25,14 @@ export class QwRoomRates {
   @State() roomIsLoading: boolean;
 
   public componentWillLoad() {
+    if (this.qwRoomRatesForceRoomsCall) {
+      SessionService.getSession().subscribe();
+      SessionLoaded$
+        .pipe(switchMap(session => zip(of(session), BasketService.getBasket(session))))
+        .pipe(switchMap(([session]) => RoomService.getRooms(session.sessionId)))
+        .subscribe();
+    }
+
     BasketWithPrice$.pipe(
       switchMap(basket => {
         this.basketRooms = basket.rooms;
@@ -46,7 +55,7 @@ export class QwRoomRates {
   }
 
   private mergeRatesAndBasketRoomRate(rooms: RoomModel[]) {
-    const rates = rooms.find(room => room.roomId === this.qwRoomRatesRoomId).rates || [];
+    const rates = rooms.find(room => room.roomId === this.qwRoomRatesRoomId)?.rates || [];
     const basketRoomRate = this.getBasketRoomRate();
     return basketRoomRate ? [basketRoomRate, ...rates] : rates;
   }
