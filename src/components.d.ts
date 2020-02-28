@@ -154,7 +154,6 @@ export namespace Components {
   }
   interface QwRoomBasket {}
   interface QwRoomDetail {
-    'qwRoomDetailForceBasketCall': boolean;
     'qwRoomDetailId': string;
   }
   interface QwRoomDetailCard {
@@ -626,7 +625,6 @@ declare namespace LocalJSX {
     'onQwRoomDetailAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
     'onQwRoomDetailProceed'?: (event: CustomEvent<void>) => void;
-    'qwRoomDetailForceBasketCall'?: boolean;
     'qwRoomDetailId'?: string;
   }
   interface QwRoomDetailCard {

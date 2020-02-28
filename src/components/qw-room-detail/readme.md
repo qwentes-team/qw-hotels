@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property                      | Attribute                          | Description | Type      | Default     |
-| ----------------------------- | ---------------------------------- | ----------- | --------- | ----------- |
-| `qwRoomDetailForceBasketCall` | `qw-room-detail-force-basket-call` |             | `boolean` | `false`     |
-| `qwRoomDetailId`              | `qw-room-detail-id`                |             | `string`  | `undefined` |
+| Property         | Attribute           | Description | Type     | Default     |
+| ---------------- | ------------------- | ----------- | -------- | ----------- |
+| `qwRoomDetailId` | `qw-room-detail-id` |             | `string` | `undefined` |
 
 
 ## Events

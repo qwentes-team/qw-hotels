@@ -1,11 +1,12 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketService, BasketWithPrice$,
+  BasketHelper, BasketService,
   RoomHelper, RoomLoaded$, RoomModel, RoomService,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomRateAddedToBasketEmitter} from '../qw-room-rate/qw-room-rate';
+import {zip} from 'rxjs';
 
 export interface QwRoomDetailAddToBasketEmitter {
   numberOfGuests: number;
@@ -19,7 +20,6 @@ export interface QwRoomDetailAddToBasketEmitter {
 })
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
-  @Prop() qwRoomDetailForceBasketCall: boolean = false;
   @State() room: RoomModel;
   @State() session: SessionModel;
   @State() numberOfNights: number;
@@ -36,16 +36,14 @@ export class QwRoomDetail {
         this.session = session;
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
         this.numberOfNights = SessionHelper.getNumberOfNights(session);
-        return RoomService.getRooms(session.sessionId);
+        return zip(RoomService.getRooms(session.sessionId), BasketService.getBasket(session));
       }),
     ).subscribe();
 
-    RoomLoaded$.pipe(
-      switchMap(rooms => {
+    RoomLoaded$
+      .subscribe((rooms) => {
         this.room = rooms.find(r => r.roomId == parseInt(this.qwRoomDetailId));
-        return this.qwRoomDetailForceBasketCall ? BasketService.getBasket(this.session) : BasketWithPrice$;
-      }),
-    ).subscribe();
+      });
   }
 
   @Listen('qwRoomDetailCardAddedToBasket')
