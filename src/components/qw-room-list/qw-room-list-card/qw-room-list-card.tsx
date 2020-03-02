@@ -104,12 +104,15 @@ export class QwRoomListCard {
           </div>
 
           <div class={`qw-room-list-card__title ${!this.qwRoomListCardPrice ? 'qw-room-list-card--has-error' : ''}`}>
-            <div class="qw-room-list-card__title-content" onClick={() => this.qwRoomListCardOnClickView()}>
-              <h4>{this.qwRoomListCardTitle}</h4>
-              <h6 class="qw-room-list-card__caption">
-                <qw-room-base-info qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
-              </h6>
-            </div>
+            {this.qwRoomListCardTitle
+              ? <div class="qw-room-list-card__title-content" onClick={() => this.qwRoomListCardOnClickView()}>
+                  <h4>{this.qwRoomListCardTitle}</h4>
+                  <h6 class="qw-room-list-card__caption">
+                    <qw-room-base-info qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
+                  </h6>
+                </div>
+              : <div class="qw-placeholder"/>
+            }
             {this.qwRoomListCardShowPrice && (this.qwRoomListCardPrice
               ? <qw-price
                   onClick={() => this.qwRoomListCardOnClickBook()}

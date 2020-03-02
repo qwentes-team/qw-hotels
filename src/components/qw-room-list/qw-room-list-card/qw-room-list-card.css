@@ -8,6 +8,7 @@ qw-room-list-card {
   padding: var(--qw-room-list-card-gap);
   background: var(--qw-room-list-card-background);
   border-radius: var(--qw-room-list-card-border-radius);
+  width: 100%;
 }
 
 qw-room-list-card h4, qw-room-list-card h6 {

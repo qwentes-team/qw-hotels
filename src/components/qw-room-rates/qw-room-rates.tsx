@@ -1,4 +1,4 @@
-import {Component, h, Host, Listen, Prop, State} from '@stencil/core';
+import {Component, h, Host, Listen, Prop, State, Watch} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$,
   createRateFromRoomBasketOccupancy, Language, Rate,
@@ -19,6 +19,7 @@ export class QwRoomRates {
   @Prop() qwRoomRatesRoomId: RoomModel['roomId'];
   @Prop() qwRoomRatesForceRoomsCall: boolean;
   @State() mergedRates: Rate[] = [];
+  @State() rooms: RoomModel[];
   @State() basketRooms: RoomBasketModel[] = [];
   @State() qwRoomRatesActiveRate: Rate['rateId'];
   @State() basketIsLoading: boolean;
@@ -38,10 +39,22 @@ export class QwRoomRates {
         this.basketRooms = basket.rooms;
         return RoomLoaded$;
       })
-    ).subscribe((rooms) => this.mergedRates = this.mergeRatesAndBasketRoomRate(rooms));
+    ).subscribe((rooms) => {
+      this.rooms = rooms;
+      this.mergedRates = this.mergeRatesAndBasketRoomRate();
+    });
 
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
     RoomIsLoading$.subscribe(isLoading => this.roomIsLoading = isLoading);
+  }
+
+  @Watch('qwRoomRatesRoomId')
+  watchHandler(newValue: RoomModel['roomId'], oldValue: RoomModel['roomId']) {
+    if (oldValue && newValue !== oldValue) {
+      this.mergedRates = this.mergeRatesAndBasketRoomRate();
+      console.log('watch');
+      console.log(oldValue, newValue);
+    }
   }
 
   private getBasketRoom() {
@@ -54,8 +67,8 @@ export class QwRoomRates {
     return basketRoom && createRateFromRoomBasketOccupancy(basketRoom.occupancies[occupancyId]);
   }
 
-  private mergeRatesAndBasketRoomRate(rooms: RoomModel[]) {
-    const rates = rooms.find(room => room.roomId === this.qwRoomRatesRoomId)?.rates || [];
+  private mergeRatesAndBasketRoomRate() {
+    const rates = this.rooms.find(room => room.roomId === this.qwRoomRatesRoomId)?.rates || [];
     const basketRoomRate = this.getBasketRoomRate();
     return basketRoomRate ? [basketRoomRate, ...rates] : rates;
   }

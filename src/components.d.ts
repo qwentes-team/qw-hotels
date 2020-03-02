@@ -171,6 +171,7 @@ export namespace Components {
   interface QwRoomList {
     'qwRoomListFilterRoomsWith': string;
     'qwRoomListOrder': QwRoomListOrderType;
+    'qwRoomListPlaceholders': string;
     'qwRoomListShowCta': boolean;
     'qwRoomListShowPrices': boolean;
     'qwRoomListShowRates': boolean;
@@ -657,6 +658,7 @@ declare namespace LocalJSX {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
     'qwRoomListFilterRoomsWith'?: string;
     'qwRoomListOrder'?: QwRoomListOrderType;
+    'qwRoomListPlaceholders'?: string;
     'qwRoomListShowCta'?: boolean;
     'qwRoomListShowPrices'?: boolean;
     'qwRoomListShowRates'?: boolean;

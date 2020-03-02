@@ -3,11 +3,16 @@ qw-room-list {
   flex-flow: row wrap;
   justify-content: space-between;
   font-family: var(--qw-hotel-font-family);
+  width: 100%;
+}
+
+.qw-room-list__cards {
+  width: 100%;
 }
 
 .qw-room-list__card-wrapper {
   margin: var(--qw-hotel-gap-sm) 0;
-  width: auto;
+  width: 100%;
 }
 
 .qw-room-list__loading-wrapper {
@@ -16,4 +21,12 @@ qw-room-list {
 
 .qw-room-list--grid .qw-room-list__card-wrapper {
   width: 49%;
+}
+
+.qw-room-list--loaded .qw-room-list__loading-wrapper {
+  display: none;
+}
+
+qw-room-list qw-image {
+  min-height: 200px;
 }
