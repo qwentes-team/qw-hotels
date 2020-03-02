@@ -29,7 +29,6 @@ export class QwCurrency {
       this.session = session;
       this.currentCurrency = session.display.currency;
     });
-    console.log();
   }
 
   public currencyChanged = (e) => {

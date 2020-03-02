@@ -41,3 +41,7 @@ export const orderedByDecreasingPrice = () => `
 export const filteredList = () => `
   <qw-room-list qw-room-list-filter-rooms-with="[103252, 103251]"></qw-room-list>
 `;
+
+export const withPlaceholders = () => `
+  <qw-room-list qw-room-list-placeholders="2"></qw-room-list>
+`;

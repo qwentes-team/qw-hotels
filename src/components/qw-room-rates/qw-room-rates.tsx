@@ -52,8 +52,6 @@ export class QwRoomRates {
   watchHandler(newValue: RoomModel['roomId'], oldValue: RoomModel['roomId']) {
     if (oldValue && newValue !== oldValue) {
       this.mergedRates = this.mergeRatesAndBasketRoomRate();
-      console.log('watch');
-      console.log(oldValue, newValue);
     }
   }
 
