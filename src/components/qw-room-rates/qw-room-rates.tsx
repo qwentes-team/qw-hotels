@@ -12,13 +12,14 @@ import {of, zip} from 'rxjs';
 @Component({
   tag: 'qw-room-rates',
   styleUrl: 'qw-room-rates.css',
-  shadow: false
+  shadow: false,
 })
 export class QwRoomRates {
   @Prop() qwRoomRatesType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomRatesRoomId: RoomModel['roomId'];
   @Prop() qwRoomRatesForceRoomsCall: boolean;
-  @State() mergedRates: Rate[] = [];
+  @State() firstLoad: boolean = false;
+  @State() mergedRates: Rate[];
   @State() rooms: RoomModel[];
   @State() basketRooms: RoomBasketModel[] = [];
   @State() qwRoomRatesActiveRate: Rate['rateId'];
@@ -38,10 +39,11 @@ export class QwRoomRates {
       switchMap(basket => {
         this.basketRooms = basket.rooms;
         return RoomLoaded$;
-      })
+      }),
     ).subscribe((rooms) => {
       this.rooms = rooms;
       this.mergedRates = this.mergeRatesAndBasketRoomRate();
+      this.firstLoad = true;
     });
 
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
@@ -85,28 +87,34 @@ export class QwRoomRates {
   }
 
   private isRateError() {
-    return !this.basketIsLoading && !this.roomIsLoading && !this.mergedRates.length;
+    console.log(this.mergedRates.length);
+    return !this.basketIsLoading && !this.roomIsLoading && !this.mergedRates.length && this.firstLoad;
   }
 
   render() {
     return (
       <Host class={`qw-room-rates--${this.qwRoomRatesType}`}>
         <div class="qw-room-rates__wrapper">
-          {this.mergedRates.map(r => {
+          {this.mergedRates?.map(r => {
             return <qw-room-rate
               qwRoomRateRoomId={this.qwRoomRatesRoomId}
               qwRoomRateRate={r}
               qwRoomRateType={this.qwRoomRatesType}
               qwRoomRateIsDisabled={this.isRateDisabled(r.rateId)}
-              qwRoomRateShowConditions={this.mergedRates.length === 1}/>
+              qwRoomRateShowConditions={this.mergedRates.length === 1}/>;
           })}
         </div>
 
-        {this.isRateError()
-          ? <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>
-          : ''
+        {!this.firstLoad
+          ? <div class="qw-placeholder__wrapper">
+              <div class={`qw-placeholder qw-placeholder--${this.qwRoomRatesType}`}/>
+              <div class={`qw-placeholder qw-placeholder--${this.qwRoomRatesType}`}/>
+            </div>
+          : this.isRateError()
+            ? <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>
+            : ''
         }
       </Host>
-    )
+    );
   }
 }
