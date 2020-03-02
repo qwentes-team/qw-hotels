@@ -252,7 +252,7 @@ export class QwRoomList {
         qw-room-list--${this.qwRoomListType}
         ${!this.rooms.length ? 'qw-room-list--loading' : 'qw-room-list--loaded'}
       `}>
-        <div style={this.rooms.length && {'display': 'none'}}>
+        <div class="qw-room-list__loading-wrapper" style={this.rooms.length && {'visibility': 'hidden', 'height': '0'}}>
           <slot name="qwRoomListLoading"/>
         </div>
         {this.rooms.map(r => {

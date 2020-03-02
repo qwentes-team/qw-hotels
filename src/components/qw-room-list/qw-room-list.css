@@ -5,11 +5,15 @@ qw-room-list {
   font-family: var(--qw-hotel-font-family);
 }
 
-qw-room-list .qw-room-list__card-wrapper {
+.qw-room-list__card-wrapper {
   margin: var(--qw-hotel-gap-sm) 0;
   width: auto;
 }
 
-qw-room-list.qw-room-list--grid .qw-room-list__card-wrapper {
+.qw-room-list__loading-wrapper {
+  position: relative;
+}
+
+.qw-room-list--grid .qw-room-list__card-wrapper {
   width: 49%;
 }

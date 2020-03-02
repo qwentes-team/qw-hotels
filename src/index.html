@@ -9,12 +9,6 @@
     window.QW_HOTEL_ENV = {
       ENDPOINT: 'https://booking-api-hub.decms.eu',
       ENGINE_ID: 'JJ7Y', // 'J262' hotel gabriel fake
-      LABELS: {
-        // proceedToCheckout: 'Proceed to Checkout',
-        // viewRoom: 'View Room',
-        // viewAllRates: 'View all Rates',
-        // changeDates: 'Change dates',
-      }
     };
   </script>
 
@@ -24,29 +18,22 @@
 </head>
 <body>
 
-<!--<qw-calendar-shorthand></qw-calendar-shorthand>-->
 <!--<qw-currency></qw-currency>-->
-<qw-language></qw-language>
-<!--<qw-calendar-guest-inline></qw-calendar-guest-inline>-->
-<!--<qw-basket-summary></qw-basket-summary>-->
+<!--<qw-language></qw-language>-->
 
-<qw-basket
-  qw-basket-show-empty-button="true"
-  qw-basket-show-price-if-empty="true"
-  qw-basket-show-book-now-button="true"></qw-basket>
+<!--<qw-basket-->
+<!--  qw-basket-show-empty-button="true"-->
+<!--  qw-basket-show-price-if-empty="true"-->
+<!--  qw-basket-show-book-now-button="true"></qw-basket>-->
 
-<qw-room-rates
-  qw-room-rates-room-id="103252"
-  qw-room-rates-type="card"
-  qw-room-rates-force-rooms-call="true"></qw-room-rates>
+<!--<qw-room-rates-->
+<!--  qw-room-rates-room-id="103252"-->
+<!--  qw-room-rates-type="card"-->
+<!--  qw-room-rates-force-rooms-call="true"></qw-room-rates>-->
 
-<!--<qw-extra></qw-extra>-->
-
-<!--<qw-calendar></qw-calendar>-->
-
-<qw-room-detail qw-room-detail-id="103252">
-  <div slot="qwRoomDetailLoading">loading</div>
-</qw-room-detail>
+<!--<qw-room-detail qw-room-detail-id="103252">-->
+<!--  <div slot="qwRoomDetailLoading">loading</div>-->
+<!--</qw-room-detail>-->
 
 <qw-room-list
   qw-room-list-show-prices="false"
@@ -54,14 +41,5 @@
   qw-room-list-type="card">
   <div slot="qwRoomListLoading">loading</div>
 </qw-room-list>
-<!--<qw-room-service qw-room-service-room-id="97816"></qw-room-service>-->
-<!--<qw-book-condition></qw-book-condition>-->
-<!--<qw-extra-basket></qw-extra-basket>-->
-<!--<qw-book>-->
-<!--  <div slot="qwBookLoading">Loading form...</div>-->
-<!--</qw-book>-->
-<!--  <qw-calendar-guest-inline qw-calendar-guest-inline-show-check-button="false"></qw-calendar-guest-inline>-->
-<!--  <qw-guest qw-guest-center="true"></qw-guest>-->
-<!--<qw-room-service qw-room-service-room-id="97816"></qw-room-service>-->
 </body>
 </html>
