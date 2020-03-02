@@ -32,6 +32,7 @@
 graph TD;
   qw-room-detail --> qw-room-detail-card
   qw-room-detail-card --> qw-card
+  qw-room-detail-card --> qw-image
   qw-room-detail-card --> qw-room-base-info
   qw-room-detail-card --> qw-room-rates
   qw-room-rates --> qw-room-rate

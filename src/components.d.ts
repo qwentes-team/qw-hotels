@@ -120,6 +120,10 @@ export namespace Components {
     'qwGuestCenter': boolean;
     'qwGuestSyncOnChange': boolean;
   }
+  interface QwImage {
+    'qwImageAlt': string;
+    'qwImageUrl': string;
+  }
   interface QwInput {
     'qwInputCaption': string;
     'qwInputHasError': boolean;
@@ -357,6 +361,12 @@ declare global {
     new (): HTMLQwGuestElement;
   };
 
+  interface HTMLQwImageElement extends Components.QwImage, HTMLStencilElement {}
+  var HTMLQwImageElement: {
+    prototype: HTMLQwImageElement;
+    new (): HTMLQwImageElement;
+  };
+
   interface HTMLQwInputElement extends Components.QwInput, HTMLStencilElement {}
   var HTMLQwInputElement: {
     prototype: HTMLQwInputElement;
@@ -483,6 +493,7 @@ declare global {
     'qw-extra-basket': HTMLQwExtraBasketElement;
     'qw-extra-card': HTMLQwExtraCardElement;
     'qw-guest': HTMLQwGuestElement;
+    'qw-image': HTMLQwImageElement;
     'qw-input': HTMLQwInputElement;
     'qw-language': HTMLQwLanguageElement;
     'qw-loading': HTMLQwLoadingElement;
@@ -582,6 +593,10 @@ declare namespace LocalJSX {
     'onQwGuestChange'?: (event: CustomEvent<SessionGuests>) => void;
     'qwGuestCenter'?: boolean;
     'qwGuestSyncOnChange'?: boolean;
+  }
+  interface QwImage {
+    'qwImageAlt'?: string;
+    'qwImageUrl'?: string;
   }
   interface QwInput {
     'onQwInputChanged'?: (event: CustomEvent<QwInputEmitter>) => void;
@@ -745,6 +760,7 @@ declare namespace LocalJSX {
     'qw-extra-basket': QwExtraBasket;
     'qw-extra-card': QwExtraCard;
     'qw-guest': QwGuest;
+    'qw-image': QwImage;
     'qw-input': QwInput;
     'qw-language': QwLanguage;
     'qw-loading': QwLoading;
@@ -790,6 +806,7 @@ declare module "@stencil/core" {
       'qw-extra-basket': LocalJSX.QwExtraBasket & JSXBase.HTMLAttributes<HTMLQwExtraBasketElement>;
       'qw-extra-card': LocalJSX.QwExtraCard & JSXBase.HTMLAttributes<HTMLQwExtraCardElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
+      'qw-image': LocalJSX.QwImage & JSXBase.HTMLAttributes<HTMLQwImageElement>;
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-language': LocalJSX.QwLanguage & JSXBase.HTMLAttributes<HTMLQwLanguageElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;

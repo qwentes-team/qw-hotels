@@ -20,6 +20,19 @@
 | `qwOffersOfferClick` |             | `CustomEvent<QwOfferClickEmitter>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [qw-image](../shared/qw-image)
+
+### Graph
+```mermaid
+graph TD;
+  qw-offers --> qw-image
+  style qw-offers fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

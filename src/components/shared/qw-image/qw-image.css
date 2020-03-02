@@ -1,4 +1,4 @@
-.qw-image {
+qw-image {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -6,9 +6,19 @@
   height: 100%;
 }
 
-.qw-image.qw-image__no-image {
+.qw-image__no-image, .qw-image__loading {
   align-items: center;
   border: 1px solid var(--qw-hotel-neutral-medium);
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/no-image.png') no-repeat center;
+}
+
+.qw-image__loading img {
+  opacity: 0;
+}
+
+.qw-image__loaded img {
+  opacity: 1;
+  transition: opacity .5s ease;
 }
 
 .qw-image__no-image img {

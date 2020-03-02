@@ -1,5 +1,4 @@
 import {Component, h, Host, Listen, Prop} from '@stencil/core';
-import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {
   BasketHelper,
@@ -98,10 +97,10 @@ export class QwRoomListCard {
 
   render() {
     return (
-      <Host>
+      <Host class={this.qwRoomListCardIsLoading ? 'qw-room-list-card__is-loading' : ''}>
         <qw-card>
           <div class="qw-room-list-card__image" onClick={() => this.qwRoomListCardOnClickView()}>
-            <QwImage imageUrl={this.qwRoomListCardImage} alt={this.qwRoomListCardTitle}/>
+            <qw-image qwImageUrl={this.qwRoomListCardImage} qwImageAlt={this.qwRoomListCardTitle}/>
           </div>
 
           <div class={`qw-room-list-card__title ${!this.qwRoomListCardPrice ? 'qw-room-list-card--has-error' : ''}`}>

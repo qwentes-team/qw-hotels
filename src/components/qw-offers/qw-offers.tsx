@@ -1,7 +1,6 @@
 import {Component, h, State, Host, Prop, Event, EventEmitter} from '@stencil/core';
 import {Language, Rate, RateHelper, RoomModel, RoomService, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwImage} from '../shared/qw-image/qw-image';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwRoomListType} from '../../index';
 
@@ -66,7 +65,7 @@ export class QwOffers {
             return (
               <div class="qw-offers__offer">
                 <h5 class="qw-offers__offer__caption">{this.roomsFormatted[o.roomId].name} -- starting from {o.price.totalPrice.converted.text}</h5>
-                <QwImage imageUrl={RateHelper.getCoverImage(o).url} />
+                <qw-image qwImageUrl={RateHelper.getCoverImage(o).url} />
                 <h3 class="qw-offers__offer__title">{o.description.name}</h3>
                 <QwButton
                   QwButtonLabel={Language.getTranslation('bookNow')}

@@ -23,6 +23,7 @@
 graph TD;
   qw-room-basket --> qw-room-list-card
   qw-room-list-card --> qw-card
+  qw-room-list-card --> qw-image
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-price
   qw-room-list-card --> qw-week-calendar

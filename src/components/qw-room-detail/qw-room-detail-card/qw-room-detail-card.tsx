@@ -1,7 +1,6 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event} from '@stencil/core';
 import {Language, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
-import {QwImage} from '../../shared/qw-image/qw-image';
 import {QwButton} from '../../shared/qw-button/qw-button';
 
 @Component({
@@ -34,7 +33,7 @@ export class QwRoomDetailCard {
       <Host>
         <qw-card>
           <div class="qw-room-detail-card__image">
-            <QwImage imageUrl={this.qwRoomDetailCardImage} alt={this.qwRoomDetailCardTitle}/>
+            <qw-image qwImageUrl={this.qwRoomDetailCardImage} qwImageAlt={this.qwRoomDetailCardTitle}/>
           </div>
 
           <div class="qw-room-detail-card__title">

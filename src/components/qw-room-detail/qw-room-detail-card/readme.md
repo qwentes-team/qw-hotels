@@ -35,6 +35,7 @@
 ### Depends on
 
 - [qw-card](../../shared/qw-card)
+- [qw-image](../../shared/qw-image)
 - [qw-room-base-info](../../qw-room-base-info)
 - [qw-room-rates](../../qw-room-rates)
 
@@ -42,6 +43,7 @@
 ```mermaid
 graph TD;
   qw-room-detail-card --> qw-card
+  qw-room-detail-card --> qw-image
   qw-room-detail-card --> qw-room-base-info
   qw-room-detail-card --> qw-room-rates
   qw-room-rates --> qw-room-rate

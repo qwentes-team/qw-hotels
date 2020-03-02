@@ -56,6 +56,7 @@
 ### Depends on
 
 - [qw-card](../../shared/qw-card)
+- [qw-image](../../shared/qw-image)
 - [qw-room-base-info](../../qw-room-base-info)
 - [qw-price](../../qw-price)
 - [qw-week-calendar](../../qw-week-calendar)
@@ -66,6 +67,7 @@
 ```mermaid
 graph TD;
   qw-room-list-card --> qw-card
+  qw-room-list-card --> qw-image
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-price
   qw-room-list-card --> qw-week-calendar

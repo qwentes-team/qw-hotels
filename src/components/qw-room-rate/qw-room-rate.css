@@ -89,3 +89,8 @@ qw-room-rate .qw-button {
 .qw-room-rate__counter-add-to-basket .qw-button {
   width: 40%;
 }
+
+.qw-room-rate__is-adding-to-basket {
+  opacity: var(--qw-hotel-opacity);
+  pointer-events: none !important;
+}
