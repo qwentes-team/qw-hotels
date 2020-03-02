@@ -47,6 +47,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardAddableLeftover: number = 0;
   @Prop() qwRoomListCardNumberOfGuests: number;
   @Prop() qwRoomListCardNumberOfAccommodation: number;
+  @Prop() qwRoomListCardPlaceholders: string;
   @Prop() qwRoomListCardLanguage: SessionDisplay['culture'];
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
@@ -151,7 +152,10 @@ export class QwRoomListCard {
 
           {this.qwRoomListCardShowRates
             ? <div class="qw-room-list-card__rates">
-                <qw-room-rates qwRoomRatesType={this.qwRoomListCardType} qwRoomRatesRoomId={this.qwRoomListCardId}/>
+                <qw-room-rates
+                  qwRoomRatesType={this.qwRoomListCardType}
+                  qwRoomRatesPlaceholders={this.qwRoomListCardPlaceholders}
+                  qwRoomRatesRoomId={this.qwRoomListCardId}/>
               </div>
             : ''
           }

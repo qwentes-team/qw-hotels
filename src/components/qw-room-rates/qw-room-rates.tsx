@@ -18,6 +18,7 @@ export class QwRoomRates {
   @Prop() qwRoomRatesType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomRatesRoomId: RoomModel['roomId'];
   @Prop() qwRoomRatesForceRoomsCall: boolean;
+  @Prop() qwRoomRatesPlaceholders: string;
   @State() firstLoad: boolean = false;
   @State() mergedRates: Rate[];
   @State() rooms: RoomModel[];
@@ -87,7 +88,6 @@ export class QwRoomRates {
   }
 
   private isRateError() {
-    console.log(this.mergedRates.length);
     return !this.basketIsLoading && !this.roomIsLoading && !this.mergedRates.length && this.firstLoad;
   }
 
@@ -105,10 +105,11 @@ export class QwRoomRates {
           })}
         </div>
 
-        {!this.firstLoad
+        {!this.firstLoad && this.qwRoomRatesPlaceholders
           ? <div class="qw-placeholder__wrapper">
-              <div class={`qw-placeholder qw-placeholder--${this.qwRoomRatesType}`}/>
-              <div class={`qw-placeholder qw-placeholder--${this.qwRoomRatesType}`}/>
+              {Array(parseInt(this.qwRoomRatesPlaceholders)).fill(null).map(() => {
+                return <div class={`qw-placeholder qw-placeholder--${this.qwRoomRatesType}`}/>
+              })}
             </div>
           : this.isRateError()
             ? <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>

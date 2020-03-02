@@ -199,6 +199,7 @@ export namespace Components {
     'qwRoomListCardOnClickChangeDate': () => void;
     'qwRoomListCardOnClickView': () => void;
     'qwRoomListCardOnProceedToCheckout': () => void;
+    'qwRoomListCardPlaceholders': string;
     'qwRoomListCardPrice': string;
     'qwRoomListCardPrices': {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate': Date[];
@@ -231,6 +232,7 @@ export namespace Components {
   }
   interface QwRoomRates {
     'qwRoomRatesForceRoomsCall': boolean;
+    'qwRoomRatesPlaceholders': string;
     'qwRoomRatesRoomId': RoomModel['roomId'];
     'qwRoomRatesType': QwRoomListType;
   }
@@ -656,6 +658,7 @@ declare namespace LocalJSX {
   }
   interface QwRoomList {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
+    'onQwRoomListOnLoad'?: (event: CustomEvent<void>) => void;
     'qwRoomListFilterRoomsWith'?: string;
     'qwRoomListOrder'?: QwRoomListOrderType;
     'qwRoomListPlaceholders'?: string;
@@ -686,6 +689,7 @@ declare namespace LocalJSX {
     'qwRoomListCardOnClickChangeDate'?: () => void;
     'qwRoomListCardOnClickView'?: () => void;
     'qwRoomListCardOnProceedToCheckout'?: () => void;
+    'qwRoomListCardPlaceholders'?: string;
     'qwRoomListCardPrice'?: string;
     'qwRoomListCardPrices'?: {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate'?: Date[];
@@ -722,6 +726,7 @@ declare namespace LocalJSX {
   }
   interface QwRoomRates {
     'qwRoomRatesForceRoomsCall'?: boolean;
+    'qwRoomRatesPlaceholders'?: string;
     'qwRoomRatesRoomId'?: RoomModel['roomId'];
     'qwRoomRatesType'?: QwRoomListType;
   }

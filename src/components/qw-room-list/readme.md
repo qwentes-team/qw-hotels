@@ -23,6 +23,7 @@
 | Event                 | Description | Type                                                                |
 | --------------------- | ----------- | ------------------------------------------------------------------- |
 | `qwRoomListClickRoom` |             | `CustomEvent<{ type: QwRoomListCardButtonType; room: RoomModel; }>` |
+| `qwRoomListOnLoad`    |             | `CustomEvent<void>`                                                 |
 
 
 ## Dependencies

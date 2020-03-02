@@ -30,6 +30,7 @@
 | `qwRoomListCardOnClickChangeDate`     | --                                          |             | `() => void`                                                          | `undefined`             |
 | `qwRoomListCardOnClickView`           | --                                          |             | `() => void`                                                          | `undefined`             |
 | `qwRoomListCardOnProceedToCheckout`   | --                                          |             | `() => void`                                                          | `undefined`             |
+| `qwRoomListCardPlaceholders`          | `qw-room-list-card-placeholders`            |             | `string`                                                              | `undefined`             |
 | `qwRoomListCardPrice`                 | `qw-room-list-card-price`                   |             | `string`                                                              | `undefined`             |
 | `qwRoomListCardPrices`                | --                                          |             | `{ [dateString: string]: MoneyPrice; }`                               | `undefined`             |
 | `qwRoomListCardRangeDate`             | --                                          |             | `Date[]`                                                              | `undefined`             |

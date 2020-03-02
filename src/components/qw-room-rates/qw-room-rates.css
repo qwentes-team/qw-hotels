@@ -16,9 +16,11 @@ qw-room-rates {
   height: 44px;
   border-radius: 4px;
   background-color: var(--qw-hotel-neutral-medium);
+  margin-bottom: var(--qw-hotel-gap-sm);
+  margin-right: var(--qw-hotel-gap-sm);
 }
 
-.qw-placeholder__wrapper {
+.qw-room-rates--card .qw-placeholder__wrapper {
   display: flex;
 }
 

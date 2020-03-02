@@ -44,6 +44,7 @@ export class QwRoomList {
   @State() numberOfAccommodation: number;
   @State() language: SessionDisplay['culture'];
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
+  @Event() qwRoomListOnLoad: EventEmitter<void>;
 
   private startDate: Date;
   private endDate: Date;
@@ -82,6 +83,7 @@ export class QwRoomList {
     ).subscribe(([newRoomPrices]) => {
       this.getRoomsSearchForRangeSuccess(newRoomPrices);
       this.firstLoad = true;
+      this.qwRoomListOnLoad.emit();
     });
 
     RoomLoaded$.subscribe(res => {
@@ -297,6 +299,7 @@ export class QwRoomList {
                 qwRoomListCardNumberOfAccommodation={this.numberOfAccommodation}
                 qwRoomListCardLanguage={this.language}
                 qwRoomListCardType={this.qwRoomListType}
+                qwRoomListCardPlaceholders={this.qwRoomListPlaceholders}
                 qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
                 qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
                 qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}
