@@ -85,6 +85,7 @@ export namespace Components {
   }
   interface QwCalendarGuestInline {
     'qwCalendarGuestInlineShowCheckButton': boolean;
+    'qwCalendarGuestInlineShowInputs': boolean;
   }
   interface QwCalendarPicker {
     'qwCalendarPickerDesktopLimit': number;
@@ -562,6 +563,7 @@ declare namespace LocalJSX {
     'onQwCalendarGuestInlineCheckAvailability'?: (event: CustomEvent<void>) => void;
     'onQwCalendarGuestInlineClickInput'?: (event: CustomEvent<QwCalendarGuestInlineInputType>) => void;
     'qwCalendarGuestInlineShowCheckButton'?: boolean;
+    'qwCalendarGuestInlineShowInputs'?: boolean;
   }
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;

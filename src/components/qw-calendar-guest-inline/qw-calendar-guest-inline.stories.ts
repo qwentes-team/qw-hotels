@@ -9,3 +9,7 @@ export const base = () => `
 export const noCheckButton = () => `
   <qw-calendar-guest-inline qw-calendar-guest-inline-show-check-button="false"></qw-calendar-guest-inline>
 `;
+
+export const noInputs = () => `
+  <qw-calendar-guest-inline qw-calendar-guest-inline-show-inputs="false"></qw-calendar-guest-inline>
+`;

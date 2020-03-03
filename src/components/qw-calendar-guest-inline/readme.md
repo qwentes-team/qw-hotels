@@ -10,6 +10,7 @@
 | Property                               | Attribute                                    | Description | Type      | Default |
 | -------------------------------------- | -------------------------------------------- | ----------- | --------- | ------- |
 | `qwCalendarGuestInlineShowCheckButton` | `qw-calendar-guest-inline-show-check-button` |             | `boolean` | `true`  |
+| `qwCalendarGuestInlineShowInputs`      | `qw-calendar-guest-inline-show-inputs`       |             | `boolean` | `true`  |
 
 
 ## Events

@@ -16,6 +16,7 @@ import {QwCalendarGuestInlineInputType} from '../../index';
 })
 export class QwCalendarGuestInline {
   @Prop() qwCalendarGuestInlineShowCheckButton: boolean = true;
+  @Prop() qwCalendarGuestInlineShowInputs: boolean = true;
   @State() session: SessionModel;
   @State() isSessionLoading: boolean;
   @Event() qwCalendarGuestInlineCheckAvailability: EventEmitter<void>;
@@ -38,7 +39,7 @@ export class QwCalendarGuestInline {
   render() {
     return (
       <Host>
-        <div class="qw-calendar-guest-inline__input-fields">
+        {this.qwCalendarGuestInlineShowInputs && <div class="qw-calendar-guest-inline__input-fields">
           <qw-input
             onClick={() => this.onClickInput(QwCalendarGuestInlineInputType.Date)}
             qwInputIsReadonly={true}
@@ -51,7 +52,7 @@ export class QwCalendarGuestInline {
             qwInputLabel={Language.getTranslation('guests')}
             qwInputValue={(this.session && `${SessionHelper.getTotalGuests(this.session)} ${Language.getTranslation('guests')}`)
               || Language.getTranslation('guests')}/>
-        </div>
+        </div>}
         {this.qwCalendarGuestInlineShowCheckButton && <QwButton
           QwButtonLabel={Language.getTranslation('checkAvailability')}
           QwButtonDisabled={this.isSessionLoading}
