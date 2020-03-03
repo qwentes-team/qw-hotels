@@ -145,6 +145,9 @@ export namespace Components {
     'qwOffersMax': number;
     'qwOffersType': QwRoomListType;
   }
+  interface QwPlaceholder {
+    'qwPlaceholderType': QwRoomListType;
+  }
   interface QwPrice {
     'qwPriceCaption': string;
     'qwPriceCrossedPrice': string;
@@ -394,6 +397,12 @@ declare global {
     new (): HTMLQwOffersElement;
   };
 
+  interface HTMLQwPlaceholderElement extends Components.QwPlaceholder, HTMLStencilElement {}
+  var HTMLQwPlaceholderElement: {
+    prototype: HTMLQwPlaceholderElement;
+    new (): HTMLQwPlaceholderElement;
+  };
+
   interface HTMLQwPriceElement extends Components.QwPrice, HTMLStencilElement {}
   var HTMLQwPriceElement: {
     prototype: HTMLQwPriceElement;
@@ -501,6 +510,7 @@ declare global {
     'qw-language': HTMLQwLanguageElement;
     'qw-loading': HTMLQwLoadingElement;
     'qw-offers': HTMLQwOffersElement;
+    'qw-placeholder': HTMLQwPlaceholderElement;
     'qw-price': HTMLQwPriceElement;
     'qw-room-base-info': HTMLQwRoomBaseInfoElement;
     'qw-room-basket': HTMLQwRoomBasketElement;
@@ -624,6 +634,9 @@ declare namespace LocalJSX {
     'onQwOffersOfferClick'?: (event: CustomEvent<QwOfferClickEmitter>) => void;
     'qwOffersMax'?: number;
     'qwOffersType'?: QwRoomListType;
+  }
+  interface QwPlaceholder {
+    'qwPlaceholderType'?: QwRoomListType;
   }
   interface QwPrice {
     'qwPriceCaption'?: string;
@@ -772,6 +785,7 @@ declare namespace LocalJSX {
     'qw-language': QwLanguage;
     'qw-loading': QwLoading;
     'qw-offers': QwOffers;
+    'qw-placeholder': QwPlaceholder;
     'qw-price': QwPrice;
     'qw-room-base-info': QwRoomBaseInfo;
     'qw-room-basket': QwRoomBasket;
@@ -818,6 +832,7 @@ declare module "@stencil/core" {
       'qw-language': LocalJSX.QwLanguage & JSXBase.HTMLAttributes<HTMLQwLanguageElement>;
       'qw-loading': LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
       'qw-offers': LocalJSX.QwOffers & JSXBase.HTMLAttributes<HTMLQwOffersElement>;
+      'qw-placeholder': LocalJSX.QwPlaceholder & JSXBase.HTMLAttributes<HTMLQwPlaceholderElement>;
       'qw-price': LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
       'qw-room-base-info': LocalJSX.QwRoomBaseInfo & JSXBase.HTMLAttributes<HTMLQwRoomBaseInfoElement>;
       'qw-room-basket': LocalJSX.QwRoomBasket & JSXBase.HTMLAttributes<HTMLQwRoomBasketElement>;

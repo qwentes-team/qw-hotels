@@ -10,23 +10,3 @@ qw-room-rates {
 .qw-room-rates--card .qw-room-rates__wrapper {
   display: flex;
 }
-
-.qw-placeholder {
-  width: 100%;
-  height: 44px;
-  border-radius: 4px;
-  background-color: var(--qw-hotel-neutral-medium);
-  margin-bottom: var(--qw-hotel-gap-sm);
-  margin-right: var(--qw-hotel-gap-sm);
-}
-
-.qw-room-rates--card .qw-placeholder__wrapper {
-  display: flex;
-}
-
-.qw-placeholder--card {
-  margin-right: var(--qw-hotel-gap-sm);
-  height: var(--qw-room-rate--card--min-height);
-  min-width: var(--qw-room-rate--card--min-width);
-  max-width: var(--qw-room-rate--card--max-width);
-}

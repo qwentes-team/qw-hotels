@@ -44,7 +44,8 @@ export class QwRoomRates {
     ).subscribe((rooms) => {
       this.rooms = rooms;
       this.mergedRates = this.mergeRatesAndBasketRoomRate();
-      this.firstLoad = true;
+      // utile per non mostrare qw-error per una frazione di secondo tra placeholders e dati veri
+      setTimeout(() => this.firstLoad = true);
     });
 
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
@@ -108,7 +109,7 @@ export class QwRoomRates {
         {!this.firstLoad && this.qwRoomRatesPlaceholders
           ? <div class="qw-placeholder__wrapper">
               {Array(parseInt(this.qwRoomRatesPlaceholders)).fill(null).map(() => {
-                return <div class={`qw-placeholder qw-placeholder--${this.qwRoomRatesType}`}/>
+                return <qw-placeholder qwPlaceholderType={this.qwRoomRatesType} />
               })}
             </div>
           : this.isRateError()

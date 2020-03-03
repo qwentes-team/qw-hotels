@@ -1,0 +1,22 @@
+qw-placeholder {
+  --qw-placeholder--height: 34px;
+
+  display: flex;
+  width: 100%;
+  height: var(--qw-placeholder--height);
+  border-radius: 4px;
+  background-color: var(--qw-hotel-neutral-medium);
+  margin-bottom: var(--qw-hotel-gap-sm);
+  margin-right: var(--qw-hotel-gap-sm);
+}
+
+.qw-placeholder--card {
+  --qw-placeholder--height: var(--qw-room-rate--card--min-height);
+
+  min-width: var(--qw-room-rate--card--min-width);
+  max-width: var(--qw-room-rate--card--max-width);
+}
+
+.qw-placeholder__wrapper {
+  display: flex;
+}

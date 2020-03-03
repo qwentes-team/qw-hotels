@@ -112,7 +112,7 @@ export class QwRoomListCard {
                     <qw-room-base-info qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
                   </h6>
                 </div>
-              : <div class="qw-placeholder"/>
+              : <qw-placeholder />
             }
             {this.qwRoomListCardShowPrice && (this.qwRoomListCardPrice
               ? <qw-price
