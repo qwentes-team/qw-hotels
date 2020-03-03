@@ -45,3 +45,12 @@ export const filteredList = () => `
 export const withPlaceholders = () => `
   <qw-room-list qw-room-list-placeholders="2"></qw-room-list>
 `;
+
+export const withPlaceholdersAndCards = () => `
+  <qw-room-list
+    qw-room-list-show-prices="false"
+    qw-room-list-placeholders="2"
+    qw-room-list-type="card"
+    qw-room-list-show-rates="true">
+  </qw-room-list>
+`;
