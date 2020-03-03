@@ -23,6 +23,12 @@ qw-room-list {
   width: 49%;
 }
 
+.qw-room-list--grid .qw-room-list__cards {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
 .qw-room-list--loaded .qw-room-list__loading-wrapper {
   display: none;
 }
