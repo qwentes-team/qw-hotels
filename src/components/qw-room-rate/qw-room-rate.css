@@ -100,7 +100,7 @@ qw-room-rate .qw-button {
 .qw-room-rate__info {
   width: 20px;
   height: 20px;
-  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/icons/info.svg') no-repeat;
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/icons/info.svg') no-repeat center;
   background-size: 20px 20px;
   border: 1px solid var(--qw-hotel-neutral-medium);
   border-radius: 50%;

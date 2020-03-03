@@ -82,11 +82,12 @@ export class QwRoomList {
       }),
     ).subscribe(([newRoomPrices]) => {
       this.getRoomsSearchForRangeSuccess(newRoomPrices);
-      this.firstLoad = true;
-      this.qwRoomListOnLoad.emit();
     });
 
     RoomLoaded$.subscribe(res => {
+      this.firstLoad = true;
+      this.qwRoomListOnLoad.emit();
+
       const roomsWithPrice = res.filter(room => {
         return RoomHelper.getCheapestPrice(room).value || this.basketRoomTotals[room.roomId];
       });

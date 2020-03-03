@@ -159,7 +159,7 @@ export class QwRoomRate {
           </li>
           <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
 
-          {!this.isCardType() && <div class="qw-room-rate__other-conditions">
+          {!this.isCardType() && this.getRateSummary() && <div class="qw-room-rate__other-conditions">
             <div
               class="qw-room-rate__conditions-trigger"
               onClick={() => this.qwRoomRateShowConditions = !this.qwRoomRateShowConditions}>
