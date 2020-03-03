@@ -83,8 +83,7 @@ export class QwRoomRate {
   }
 
   public getRateSummary() {
-    const summary = this.qwRoomRateRate.description.summary.find(summary => summary.value === RoomSummaryType.PlainText);
-    return summary && summary.text;
+    return this.qwRoomRateRate?.description.summary.find(summary => summary.value === RoomSummaryType.PlainText)?.text;
   }
 
   private getMaxValue(currentValue = 0) {
@@ -104,6 +103,10 @@ export class QwRoomRate {
 
   private notAddedWithDefaultToOne() {
     return this.qwRoomRateDefaultToOne && this.qwRoomRateRate.selectedQuantity !== 1;
+  }
+
+  private isCardType() {
+    return this.qwRoomRateType === QwRoomListType.Card;
   }
 
   render() {
@@ -127,7 +130,7 @@ export class QwRoomRate {
           </div>
         </div>}
 
-        <QwWrapInDiv wrapIt={this.qwRoomRateType === QwRoomListType.Card} wrapperClass="qw-room-rate__counter-add-to-basket">
+        <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
           {!this.qwRoomRateDefaultToOne && <div class="qw-room-rate__counter">
             <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
             {this.qwRoomRateRate && <qw-counter
@@ -147,7 +150,7 @@ export class QwRoomRate {
             QwButtonOnClick={() => this.addToBasket()}/>}
         </QwWrapInDiv>
 
-        {this.qwRoomRateRate && <div class="qw-room-rate__conditions">
+        {this.qwRoomRateRate && <ul class="qw-room-rate__conditions">
           {this.qwRoomRateRate.taxes.onSite.amount.text && <li class="qw-room-rate--stay-tax">
             {RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
           </li>}
@@ -156,7 +159,7 @@ export class QwRoomRate {
           </li>
           <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
 
-          {this.getRateSummary() && <div class="qw-room-rate__other-conditions">
+          {!this.isCardType() && <div class="qw-room-rate__other-conditions">
             <div
               class="qw-room-rate__conditions-trigger"
               onClick={() => this.qwRoomRateShowConditions = !this.qwRoomRateShowConditions}>
@@ -167,7 +170,13 @@ export class QwRoomRate {
               {<li>{this.getRateSummary()}</li>}
             </div>}
           </div>}
-        </div>}
+        </ul>}
+        {this.isCardType() && this.getRateSummary() &&
+          <QwWrapInDiv wrapIt={false}>
+            <span class="qw-room-rate__info"/>
+            <div class="qw-room-rate__other-conditions-popup">{this.getRateSummary()}</div>
+          </QwWrapInDiv>
+        }
       </Host>
     );
   }

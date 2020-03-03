@@ -25,12 +25,14 @@
 ### Depends on
 
 - [qw-room-rate](../qw-room-rate)
+- [qw-placeholder](../shared/qw-placeholder)
 - [qw-error](../shared/qw-error)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-room-rates --> qw-room-rate
+  qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error
   qw-room-rate --> qw-counter
   qw-room-detail-card --> qw-room-rates

@@ -47,6 +47,7 @@ graph TD;
   qw-room-detail-card --> qw-room-base-info
   qw-room-detail-card --> qw-room-rates
   qw-room-rates --> qw-room-rate
+  qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error
   qw-room-rate --> qw-counter
   qw-room-detail --> qw-room-detail-card
