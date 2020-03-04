@@ -1,6 +1,5 @@
 import {Component, Host, h, State} from '@stencil/core';
 import {
-  DateUtil,
   Language,
   SessionHelper,
   SessionIsLoading$,
@@ -22,10 +21,6 @@ export class QwCalendarInline {
     SessionService.getSession().subscribe();
     SessionLoaded$.subscribe((session) => this.session = session);
     SessionIsLoading$.subscribe((isLoading) => this.isSessionLoading = isLoading);
-
-    console.log(DateUtil.formatCalendarDate(DateUtil.removeTimeFromDate(new Date('2020-12-03')), 'en-US'));
-    console.log(DateUtil.formatCalendarDate(DateUtil.removeTimeFromDate(new Date('2020-12-03')), 'en-GB'));
-    console.log(DateUtil.formatCalendarDate(DateUtil.removeTimeFromDate(new Date('2020-12-03')), 'it-IT'));
   }
 
   render() {
@@ -49,5 +44,4 @@ export class QwCalendarInline {
       </Host>
     );
   }
-
 }

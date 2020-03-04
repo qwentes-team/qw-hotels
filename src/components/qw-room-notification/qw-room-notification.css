@@ -21,7 +21,7 @@ qw-room-notification {
 }
 
 .qw-room-notification__popup--show {
-  transform: translateY(30px);
+  transform: translateY(50px);
   opacity: 1;
 }
 

@@ -14,7 +14,7 @@ const POPUP_CLASS = 'qw-room-notification__popup';
   shadow: false
 })
 export class QwRoomNotification {
-  @Prop() qwRoomNotificationShowPopupTime: number = 5000;
+  @Prop() qwRoomNotificationShowPopupTime: number = 3000;
   @State() isLoading: boolean;
   @State() numberOfRooms: number;
   @State() lastAddedRoom: RoomBasketModel;
