@@ -1,12 +1,19 @@
 qw-room-notification {
-  display: block;
+  display: flex;
   position: relative;
+}
+
+.qw-room-notification__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .qw-room-notification__popup {
   position: absolute;
   top: 0;
-  z-index: 1;
+  z-index: -1;
   opacity: 0;
   background-color: var(--qw-hotel-neutral-light);
   padding: var(--qw-hotel-gap-sm);

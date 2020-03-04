@@ -87,6 +87,7 @@ export namespace Components {
     'qwCalendarGuestInlineShowCheckButton': boolean;
     'qwCalendarGuestInlineShowInputs': boolean;
   }
+  interface QwCalendarInline {}
   interface QwCalendarPicker {
     'qwCalendarPickerDesktopLimit': number;
     'qwCalendarPickerDisabled': boolean;
@@ -246,6 +247,7 @@ export namespace Components {
   interface QwRoomService {
     'qwRoomServiceRoomId': string;
   }
+  interface QwSeparator {}
   interface QwTextarea {
     'qwTextareaName': string;
     'qwTextareaValue': string;
@@ -309,6 +311,12 @@ declare global {
   var HTMLQwCalendarGuestInlineElement: {
     prototype: HTMLQwCalendarGuestInlineElement;
     new (): HTMLQwCalendarGuestInlineElement;
+  };
+
+  interface HTMLQwCalendarInlineElement extends Components.QwCalendarInline, HTMLStencilElement {}
+  var HTMLQwCalendarInlineElement: {
+    prototype: HTMLQwCalendarInlineElement;
+    new (): HTMLQwCalendarInlineElement;
   };
 
   interface HTMLQwCalendarPickerElement extends Components.QwCalendarPicker, HTMLStencilElement {}
@@ -485,6 +493,12 @@ declare global {
     new (): HTMLQwRoomServiceElement;
   };
 
+  interface HTMLQwSeparatorElement extends Components.QwSeparator, HTMLStencilElement {}
+  var HTMLQwSeparatorElement: {
+    prototype: HTMLQwSeparatorElement;
+    new (): HTMLQwSeparatorElement;
+  };
+
   interface HTMLQwTextareaElement extends Components.QwTextarea, HTMLStencilElement {}
   var HTMLQwTextareaElement: {
     prototype: HTMLQwTextareaElement;
@@ -505,6 +519,7 @@ declare global {
     'qw-book-guest-detail': HTMLQwBookGuestDetailElement;
     'qw-calendar': HTMLQwCalendarElement;
     'qw-calendar-guest-inline': HTMLQwCalendarGuestInlineElement;
+    'qw-calendar-inline': HTMLQwCalendarInlineElement;
     'qw-calendar-picker': HTMLQwCalendarPickerElement;
     'qw-calendar-shorthand': HTMLQwCalendarShorthandElement;
     'qw-card': HTMLQwCardElement;
@@ -534,6 +549,7 @@ declare global {
     'qw-room-rate-list': HTMLQwRoomRateListElement;
     'qw-room-rates': HTMLQwRoomRatesElement;
     'qw-room-service': HTMLQwRoomServiceElement;
+    'qw-separator': HTMLQwSeparatorElement;
     'qw-textarea': HTMLQwTextareaElement;
     'qw-week-calendar': HTMLQwWeekCalendarElement;
   }
@@ -575,6 +591,7 @@ declare namespace LocalJSX {
     'qwCalendarGuestInlineShowCheckButton'?: boolean;
     'qwCalendarGuestInlineShowInputs'?: boolean;
   }
+  interface QwCalendarInline {}
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'qwCalendarPickerDesktopLimit'?: number;
@@ -761,6 +778,7 @@ declare namespace LocalJSX {
   interface QwRoomService {
     'qwRoomServiceRoomId'?: string;
   }
+  interface QwSeparator {}
   interface QwTextarea {
     'onQwTextareaChanged'?: (event: CustomEvent<QwInputEmitter>) => void;
     'qwTextareaName'?: string;
@@ -785,6 +803,7 @@ declare namespace LocalJSX {
     'qw-book-guest-detail': QwBookGuestDetail;
     'qw-calendar': QwCalendar;
     'qw-calendar-guest-inline': QwCalendarGuestInline;
+    'qw-calendar-inline': QwCalendarInline;
     'qw-calendar-picker': QwCalendarPicker;
     'qw-calendar-shorthand': QwCalendarShorthand;
     'qw-card': QwCard;
@@ -814,6 +833,7 @@ declare namespace LocalJSX {
     'qw-room-rate-list': QwRoomRateList;
     'qw-room-rates': QwRoomRates;
     'qw-room-service': QwRoomService;
+    'qw-separator': QwSeparator;
     'qw-textarea': QwTextarea;
     'qw-week-calendar': QwWeekCalendar;
   }
@@ -833,6 +853,7 @@ declare module "@stencil/core" {
       'qw-book-guest-detail': LocalJSX.QwBookGuestDetail & JSXBase.HTMLAttributes<HTMLQwBookGuestDetailElement>;
       'qw-calendar': LocalJSX.QwCalendar & JSXBase.HTMLAttributes<HTMLQwCalendarElement>;
       'qw-calendar-guest-inline': LocalJSX.QwCalendarGuestInline & JSXBase.HTMLAttributes<HTMLQwCalendarGuestInlineElement>;
+      'qw-calendar-inline': LocalJSX.QwCalendarInline & JSXBase.HTMLAttributes<HTMLQwCalendarInlineElement>;
       'qw-calendar-picker': LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
       'qw-calendar-shorthand': LocalJSX.QwCalendarShorthand & JSXBase.HTMLAttributes<HTMLQwCalendarShorthandElement>;
       'qw-card': LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
@@ -862,6 +883,7 @@ declare module "@stencil/core" {
       'qw-room-rate-list': LocalJSX.QwRoomRateList & JSXBase.HTMLAttributes<HTMLQwRoomRateListElement>;
       'qw-room-rates': LocalJSX.QwRoomRates & JSXBase.HTMLAttributes<HTMLQwRoomRatesElement>;
       'qw-room-service': LocalJSX.QwRoomService & JSXBase.HTMLAttributes<HTMLQwRoomServiceElement>;
+      'qw-separator': LocalJSX.QwSeparator & JSXBase.HTMLAttributes<HTMLQwSeparatorElement>;
       'qw-textarea': LocalJSX.QwTextarea & JSXBase.HTMLAttributes<HTMLQwTextareaElement>;
       'qw-week-calendar': LocalJSX.QwWeekCalendar & JSXBase.HTMLAttributes<HTMLQwWeekCalendarElement>;
     }

@@ -24,6 +24,19 @@
 | `qwBasketClickPrice` |             | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [qw-room-notification](../qw-room-notification)
+
+### Graph
+```mermaid
+graph TD;
+  qw-room-notification --> qw-basket
+  style qw-basket fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

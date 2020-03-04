@@ -14,6 +14,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [qw-room-notification](../qw-room-notification)
+
 ### Depends on
 
 - [qw-room-list-card](../qw-room-list/qw-room-list-card)
@@ -35,6 +39,7 @@ graph TD;
   qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error
   qw-room-rate --> qw-counter
+  qw-room-notification --> qw-room-basket
   style qw-room-basket fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1,0 +1,10 @@
+qw-calendar-inline {
+  display: flex;
+}
+
+.qw-calendar-inline__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

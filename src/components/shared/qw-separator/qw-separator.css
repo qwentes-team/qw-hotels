@@ -1,0 +1,6 @@
+qw-separator {
+  display: inline-block;
+  border-bottom: 2px solid var(--qw-hotel-neutral-medium);
+  width: 30px;
+  margin: var(--qw-hotel-gap-md);
+}

@@ -56,13 +56,14 @@ export class QwRoomNotification {
     return (
       <Host>
         <div class="qw-room-notification__box">
+          <div class="qw-room-notification__box__label">Accommodation</div>
           {this.numberOfRooms
             ? `${this.numberOfRooms} ${Language.getTranslation(this.numberOfRooms === 1 ? 'room' : 'rooms')}`
-            : '--'
+            : <qw-separator />
           }
         </div>
         <div class={POPUP_CLASS}>
-          <h4 class="qw-room-notification__popup__title">Added to your cart</h4>
+          <h4 class="qw-room-notification__popup__title">{Language.getTranslation('addedToYourCart')}</h4>
           {this.lastAddedRoom && <div class="qw-room-notification__popup__last-added">
             <qw-image qw-image-url={BasketHelper.getRoomCoverImage(this.lastAddedRoom).url}/>
             <h4 class="qw-room-notification__popup__last-added__title">{this.lastAddedRoom.name}</h4>
@@ -71,9 +72,9 @@ export class QwRoomNotification {
             </div>
           </div>}
           <hr />
-          <h4 class="qw-room-notification__popup__title">Your rooms</h4>
+          <h4 class="qw-room-notification__popup__title">{Language.getTranslation('yourRooms')}</h4>
           <qw-room-basket />
-          <div class="qw-room-notification__popup__total">Total: <qw-basket /></div>
+          <div class="qw-room-notification__popup__total">{Language.getTranslation('subtotal')}: <qw-basket /></div>
         </div>
       </Host>
     );
