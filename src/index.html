@@ -9,6 +9,7 @@
     window.QW_HOTEL_ENV = {
       ENDPOINT: 'https://booking-api-hub.decms.eu',
       ENGINE_ID: 'JJ7Y', // 'J262' hotel gabriel fake
+      GUESTS: 7,
     };
   </script>
 
@@ -26,6 +27,8 @@
   qw-basket-show-price-if-empty="true"
   qw-basket-show-book-now-button="true"></qw-basket>
 
+<qw-room-notification></qw-room-notification>
+
 <!--<qw-calendar></qw-calendar>-->
 
 <!--<qw-room-rates-->
@@ -38,12 +41,12 @@
 <!--</qw-room-detail>-->
 
 <!--<qw-offers qw-offers-type="card"></qw-offers>-->
-<qw-calendar-guest-inline qw-calendar-guest-inline-show-inputs="false"></qw-calendar-guest-inline>
 
 <qw-room-list
   qw-room-list-show-prices="false"
+  qw-room-list-show-rates="true"
   qw-room-list-placeholders="2"
-  qw-room-list-type="grid">
+  qw-room-list-type="card">
 </qw-room-list>
 </body>
 </html>

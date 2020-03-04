@@ -22,6 +22,7 @@ import {QwWrapInDiv} from '../shared/qw-wrap-in-div/qw-wrap-in-div';
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
+  roomId: RoomModel['roomId'];
 }
 
 export interface QwRoomRateCounterChangedEmitter {
@@ -74,7 +75,7 @@ export class QwRoomRate {
       quantity: this.qwRoomRateDefaultToOne ? 1 : this.quantity,
     }).subscribe((basket) => {
       this.qwRoomRateIsAddingToBasket = false;
-      this.qwRoomRateAddedToBasket.emit({basket});
+      this.qwRoomRateAddedToBasket.emit({basket, roomId: this.qwRoomRateRoomId});
     });
   };
 

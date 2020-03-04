@@ -1,0 +1,99 @@
+qw-room-notification {
+  display: block;
+  position: relative;
+}
+
+.qw-room-notification__popup {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  opacity: 0;
+  background-color: var(--qw-hotel-neutral-light);
+  padding: var(--qw-hotel-gap-sm);
+  transition: transform 1s ease, opacity .5s ease;
+}
+
+.qw-room-notification__popup--show {
+  transform: translateY(30px);
+  opacity: 1;
+}
+
+.qw-room-notification__popup--foreground {
+  z-index: 1;
+}
+
+.qw-room-notification__popup qw-room-basket {
+  flex-direction: column;
+  width: 300px;
+}
+
+.qw-room-notification__popup qw-image,
+.qw-room-notification__popup img {
+  height: 50px;
+  width: 70px;
+}
+
+.qw-room-notification__popup img {
+  object-fit: cover;
+}
+
+.qw-room-notification__popup qw-room-list-card {
+  padding: 0;
+}
+
+.qw-room-notification__popup qw-card {
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 100%;
+}
+
+.qw-room-notification__popup hr {
+  margin: var(--qw-hotel-gap-md) 0;
+}
+
+.qw-room-notification__popup__title {
+  margin: 0 calc(var(--qw-hotel-gap-sm) / 2) var(--qw-hotel-gap-md);
+}
+
+.qw-room-notification__popup__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: calc(var(--qw-hotel-gap-sm) / 2);
+  margin-top: var(--qw-hotel-gap-lg);
+}
+
+.qw-room-notification__popup__last-added {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: calc(var(--qw-hotel-gap-sm) / 2);
+}
+
+.qw-room-notification__popup__last-added__title {
+  margin-left: var(--qw-hotel-gap-sm);
+  flex-grow: 1;
+}
+
+.qw-room-notification__popup .qw-room-list-card__caption,
+.qw-room-notification__popup .qw-room-list-card__basket-actions-counter,
+.qw-room-notification__popup .qw-room-list-card__image {
+  display: none;
+}
+.qw-room-notification__popup .qw-room-list-card__image,
+.qw-room-notification__popup .qw-room-list-card__title,
+.qw-room-notification__popup .qw-room-list-card__basket-actions {
+  grid-row: 1 / 1;
+}
+
+.qw-room-notification__popup .qw-room-list-card__title {
+  grid-column: 1 / 1;
+}
+.qw-room-notification__popup .qw-room-list-card__basket-actions {
+  grid-column: 2 / 2;
+  justify-self: end;
+}
+.qw-room-notification__popup .qw-room-list-card__prices-with-taxes--amount {
+  text-align: right;
+}

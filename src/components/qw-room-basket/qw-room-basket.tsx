@@ -2,8 +2,7 @@ import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
 import {QwChangeRoomEvent} from '../../index';
 import {
   BasketHelper, BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, Language,
-  RateHelper, RoomBasketOccupancy, RoomModel,
-  SessionHelper, SessionLoaded$, SessionService,
+  RateHelper, RoomModel, SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {zip} from 'rxjs/internal/observable/zip';
@@ -57,10 +56,6 @@ export class QwRoomBasket {
     this.qwRoomBasketBackToRoomList.emit();
   };
 
-  private getTotalPrice(basketRoomOccupancy: RoomBasketOccupancy) {
-    return RateHelper.multiplyMoney(basketRoomOccupancy.price.converted, basketRoomOccupancy.selectedQuantity)
-  }
-
   render() {
     return (
       <Host class={`${!this.basket ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
@@ -80,13 +75,13 @@ export class QwRoomBasket {
               return <qw-room-list-card
                 class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
                 qwRoomListCardId={basketRoom.roomId}
-                qwRoomListCardTitle={basketRoom.name}
+                qwRoomListCardTitle={BasketHelper.getQuantityByBasketRoom(basketRoom) + ' ' + basketRoom.name}
                 qwRoomListCardImage={BasketHelper.getRoomCoverImage(basketRoom).url}
                 qwRoomListCardShowDescription={false}
                 qwRoomListCardNights={this.nights}
                 qwRoomListCardShowPrices={false}
                 qwRoomListCardShowPrice={false}
-                qwRoomListCardPrice={this.getTotalPrice(basketRoom.occupancies[occupancyId])}
+                qwRoomListCardPrice={BasketHelper.getRoomTotalPrice(basketRoom)}
                 qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[occupancyId].taxes)}
                 qwRoomListCardShowCta={false}
                 qwRoomListCardShowPriceAndTaxes={true}
