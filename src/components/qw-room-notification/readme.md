@@ -9,7 +9,7 @@
 
 | Property                          | Attribute                              | Description | Type     | Default |
 | --------------------------------- | -------------------------------------- | ----------- | -------- | ------- |
-| `qwRoomNotificationShowPopupTime` | `qw-room-notification-show-popup-time` |             | `number` | `5000`  |
+| `qwRoomNotificationShowPopupTime` | `qw-room-notification-show-popup-time` |             | `number` | `3000`  |
 
 
 ## Dependencies
