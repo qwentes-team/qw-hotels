@@ -106,3 +106,7 @@ qw-room-notification {
 .qw-room-notification__popup .qw-room-list-card__prices-with-taxes--amount {
   text-align: right;
 }
+
+.qw-room-notification__popup .qw-room-basket__no-rooms {
+  display: none;
+}
