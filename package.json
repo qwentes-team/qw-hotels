@@ -29,9 +29,9 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@stencil/core": "^1.8.11",
-    "@storybook/addon-actions": "^5.3.12",
-    "@storybook/addon-storysource": "^5.3.12",
-    "@storybook/html": "^5.3.12",
+    "@storybook/addon-actions": "^6.0.0-alpha.21",
+    "@storybook/addon-storysource": "^6.0.0-alpha.21",
+    "@storybook/html": "^6.0.0-alpha.21",
     "@types/jest": "24.0.23",
     "@types/puppeteer": "1.20.3",
     "babel-loader": "^8.0.6",
