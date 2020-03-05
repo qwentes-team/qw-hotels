@@ -21,6 +21,7 @@ export interface QwOfferClickEmitter {
 export class QwOffers {
   @Prop() qwOffersMax: number;
   @Prop() qwOffersType: QwRoomListType = QwRoomListType.Grid;
+  @Prop() qwOffersImageTransformationOptions: string;
   @State() roomsFormatted: {[roomId: number]: RoomModel};
   @State() flatOffers: Offer[];
   @Event() qwOffersOfferClick: EventEmitter<QwOfferClickEmitter>;
@@ -34,7 +35,7 @@ export class QwOffers {
       this.roomsFormatted = rooms.reduce((acc, room) => ({...acc, [room.roomId]: room}), {});
 
       this.flatOffers = rooms
-        .map(r => r.rates.map(rate => ({...rate, roomId: r.roomId})))
+        .map(r => r.rates?.map(rate => ({...rate, roomId: r.roomId})) || [])
         .reduce((acc, val) => acc.concat(val), [])
         .sort(this.sortByPrice);
 
@@ -64,8 +65,13 @@ export class QwOffers {
           {this.flatOffers?.map(o => {
             return (
               <div class="qw-offers__offer">
-                <h5 class="qw-offers__offer__caption">{this.roomsFormatted[o.roomId].name} -- starting from {o.price.totalPrice.converted.text}</h5>
-                <qw-image qwImageUrl={RateHelper.getCoverImage(o).url} />
+                <h5 class="qw-offers__offer__caption">
+                  {this.roomsFormatted[o.roomId].name} -- starting from {o.price.totalPrice.converted.text}
+                </h5>
+                <qw-image
+                  qwImageTransformationOptions={this.qwOffersImageTransformationOptions ? JSON.parse(this.qwOffersImageTransformationOptions) : {}}
+                  qwImageUrl={RateHelper.getCoverImage(o).url}
+                  qwImageAlt={o.description.name} />
                 <h3 class="qw-offers__offer__title">{o.description.name}</h3>
                 <QwButton
                   QwButtonLabel={Language.getTranslation('bookNow')}

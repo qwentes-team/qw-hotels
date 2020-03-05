@@ -63,7 +63,10 @@ export class QwRoomNotification {
         <div class={POPUP_CLASS}>
           <h4 class="qw-room-notification__popup__title">{Language.getTranslation('addedToYourCart')}</h4>
           {this.lastAddedRoom && <div class="qw-room-notification__popup__last-added">
-            <qw-image qw-image-url={BasketHelper.getRoomCoverImage(this.lastAddedRoom).url}/>
+            <qw-image
+              qwImageTransformationOptions={{width: 80, height: 60}}
+              qwImageAlt={this.lastAddedRoom.name}
+              qwImageUrl={BasketHelper.getRoomCoverImage(this.lastAddedRoom).url}/>
             <h4 class="qw-room-notification__popup__last-added__title">{this.lastAddedRoom.name}</h4>
             <div class="qw-room-notification__popup__last-added__price">
               {this.lastAddedRoom.occupancies[BasketHelper.getFirstOccupancyIdInBasketRoom(this.lastAddedRoom)].price.converted.text}

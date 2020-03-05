@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property     | Attribute      | Description | Type     | Default     |
-| ------------ | -------------- | ----------- | -------- | ----------- |
-| `qwImageAlt` | `qw-image-alt` |             | `string` | `undefined` |
-| `qwImageUrl` | `qw-image-url` |             | `string` | `undefined` |
+| Property                       | Attribute      | Description | Type      | Default     |
+| ------------------------------ | -------------- | ----------- | --------- | ----------- |
+| `qwImageAlt`                   | `qw-image-alt` |             | `string`  | `undefined` |
+| `qwImageTransformationOptions` | --             |             | `Options` | `{}`        |
+| `qwImageUrl`                   | `qw-image-url` |             | `string`  | `undefined` |
 
 
 ## Dependencies

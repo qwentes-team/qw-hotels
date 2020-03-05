@@ -109,7 +109,9 @@ export class QwRoomListCard {
       <Host class={this.qwRoomListCardIsLoading ? 'qw-room-list-card__is-loading' : ''}>
         <qw-card>
           <div class="qw-room-list-card__image" onClick={() => this.qwRoomListCardOnClickView()}>
-            <qw-image qwImageUrl={this.qwRoomListCardImage} qwImageAlt={this.qwRoomListCardTitle}/>
+            <qw-image
+              qwImageUrl={this.qwRoomListCardImage}
+              qwImageAlt={this.qwRoomListCardTitle}/>
           </div>
 
           <div class={`qw-room-list-card__title ${!this.qwRoomListCardPrice ? 'qw-room-list-card--has-error' : ''}`}>

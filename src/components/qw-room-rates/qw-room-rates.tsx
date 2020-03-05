@@ -70,7 +70,7 @@ export class QwRoomRates {
   }
 
   private mergeRatesAndBasketRoomRate() {
-    const rates = this.rooms.find(room => room.roomId === this.qwRoomRatesRoomId)?.rates || [];
+    const rates = this.rooms?.find(room => room.roomId === this.qwRoomRatesRoomId)?.rates || [];
     const basketRoomRate = this.getBasketRoomRate();
     return basketRoomRate ? [basketRoomRate, ...rates] : rates;
   }

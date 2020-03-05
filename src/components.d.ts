@@ -40,6 +40,9 @@ import {
   QwExtraEmitter,
 } from './components/qw-extra/qw-extra-card/qw-extra-card';
 import {
+  Transformation,
+} from 'cloudinary-core';
+import {
   QwInputEmitter,
 } from './components/shared/qw-input/qw-input';
 import {
@@ -124,6 +127,7 @@ export namespace Components {
   }
   interface QwImage {
     'qwImageAlt': string;
+    'qwImageTransformationOptions': Transformation.Options;
     'qwImageUrl': string;
   }
   interface QwInput {
@@ -144,6 +148,7 @@ export namespace Components {
     'QwLoadingSize': string;
   }
   interface QwOffers {
+    'qwOffersImageTransformationOptions': string;
     'qwOffersMax': number;
     'qwOffersType': QwRoomListType;
   }
@@ -640,6 +645,7 @@ declare namespace LocalJSX {
   }
   interface QwImage {
     'qwImageAlt'?: string;
+    'qwImageTransformationOptions'?: Transformation.Options;
     'qwImageUrl'?: string;
   }
   interface QwInput {
@@ -663,6 +669,7 @@ declare namespace LocalJSX {
   }
   interface QwOffers {
     'onQwOffersOfferClick'?: (event: CustomEvent<QwOfferClickEmitter>) => void;
+    'qwOffersImageTransformationOptions'?: string;
     'qwOffersMax'?: number;
     'qwOffersType'?: QwRoomListType;
   }

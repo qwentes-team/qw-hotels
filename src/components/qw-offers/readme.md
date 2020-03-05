@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property       | Attribute        | Description | Type                                                                  | Default               |
-| -------------- | ---------------- | ----------- | --------------------------------------------------------------------- | --------------------- |
-| `qwOffersMax`  | `qw-offers-max`  |             | `number`                                                              | `undefined`           |
-| `qwOffersType` | `qw-offers-type` |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Grid` |
+| Property                             | Attribute                                | Description | Type                                                                  | Default               |
+| ------------------------------------ | ---------------------------------------- | ----------- | --------------------------------------------------------------------- | --------------------- |
+| `qwOffersImageTransformationOptions` | `qw-offers-image-transformation-options` |             | `string`                                                              | `undefined`           |
+| `qwOffersMax`                        | `qw-offers-max`                          |             | `number`                                                              | `undefined`           |
+| `qwOffersType`                       | `qw-offers-type`                         |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Grid` |
 
 
 ## Events
