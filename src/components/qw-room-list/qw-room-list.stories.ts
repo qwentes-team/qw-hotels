@@ -54,3 +54,13 @@ export const withPlaceholdersAndCards = () => `
     qw-room-list-show-rates="true">
   </qw-room-list>
 `;
+
+export const withBaseInfoAsList = () => `
+  <qw-room-list
+    qw-room-list-show-prices="false"
+    qw-room-list-placeholders="2"
+    qw-room-list-type="card"
+    qw-room-list-show-rates="true"
+    qw-room-list-base-info-type="list">
+  </qw-room-list>
+`;

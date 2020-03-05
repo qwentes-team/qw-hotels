@@ -88,7 +88,8 @@ export class QwRoomBasket {
                 qwRoomListCardShowActions={true}
                 qwRoomListCardBasketRoom={basketRoom}
                 qwRoomListCardAddableLeftover={this.addableLeftover}
-                qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}/>
+                qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
+                qwRoomListCardOnClickView={() => {}}/>
           }) : undefined}
       </Host>
     );
