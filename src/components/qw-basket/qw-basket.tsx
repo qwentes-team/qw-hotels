@@ -64,7 +64,7 @@ export class QwBasket {
 
   public render() {
     return (
-      <Host>
+      <Host class={this.isAccommodationSatisfy() ? 'qw-basket--active' : ''}>
         {(!this.isTotalPriceZero() || this.qwBasketShowPriceIfEmpty) && <div class="qw-basket__price" onClick={() => this.clickPrice()}>
           {this.qwBasketShowTaxes && <div class={`qw-basket__tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
             {this.taxesMessage}
