@@ -174,6 +174,7 @@ export namespace Components {
     'qwRoomDetailCardTitle': string;
   }
   interface QwRoomList {
+    'qwRoomListBaseInfoType': QwRoomBaseInfoType;
     'qwRoomListFilterRoomsWith': string;
     'qwRoomListOrder': QwRoomListOrderType;
     'qwRoomListPlaceholders': string;
@@ -185,6 +186,7 @@ export namespace Components {
   interface QwRoomListCard {
     'qwRoomListCardAddableLeftover': number;
     'qwRoomListCardAveragePrice': string;
+    'qwRoomListCardBaseInfoType': QwRoomBaseInfoType;
     'qwRoomListCardBasketIsEmpty': boolean;
     'qwRoomListCardBasketRoom': RoomBasketModel;
     'qwRoomListCardCrossedOutPrice': string;
@@ -701,6 +703,7 @@ declare namespace LocalJSX {
   interface QwRoomList {
     'onQwRoomListClickRoom'?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
     'onQwRoomListOnLoad'?: (event: CustomEvent<void>) => void;
+    'qwRoomListBaseInfoType'?: QwRoomBaseInfoType;
     'qwRoomListFilterRoomsWith'?: string;
     'qwRoomListOrder'?: QwRoomListOrderType;
     'qwRoomListPlaceholders'?: string;
@@ -712,6 +715,7 @@ declare namespace LocalJSX {
   interface QwRoomListCard {
     'qwRoomListCardAddableLeftover'?: number;
     'qwRoomListCardAveragePrice'?: string;
+    'qwRoomListCardBaseInfoType'?: QwRoomBaseInfoType;
     'qwRoomListCardBasketIsEmpty'?: boolean;
     'qwRoomListCardBasketRoom'?: RoomBasketModel;
     'qwRoomListCardCrossedOutPrice'?: string;

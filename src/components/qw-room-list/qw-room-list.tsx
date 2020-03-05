@@ -8,7 +8,14 @@ import {
 import {switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {zip} from 'rxjs/internal/observable/zip';
-import {QwChangeRoomEvent, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection} from '../../index';
+import {
+  QwChangeRoomEvent,
+  QwRoomBaseInfoType,
+  QwRoomListCardButtonType,
+  QwRoomListOrderType,
+  QwRoomListType,
+  QwWeekCalendarDirection,
+} from '../../index';
 
 const mockRoomsSkeleton = {roomId: 1, pictures: [], summary: []} as any;
 
@@ -25,6 +32,7 @@ export class QwRoomList {
   @Prop() qwRoomListShowRates: boolean = false;
   @Prop() qwRoomListOrder: QwRoomListOrderType = QwRoomListOrderType.AscendingPrice;
   @Prop() qwRoomListPlaceholders: string;
+  @Prop() qwRoomListBaseInfoType: QwRoomBaseInfoType = QwRoomBaseInfoType.Inline;
   @State() rooms: RoomModel[] = [];
   @State() firstLoad: boolean = false;
   @State() isBasketLoading: boolean;
@@ -301,6 +309,7 @@ export class QwRoomList {
                 qwRoomListCardLanguage={this.language}
                 qwRoomListCardType={this.qwRoomListType}
                 qwRoomListCardPlaceholders={this.qwRoomListPlaceholders}
+                qwRoomListCardBaseInfoType={this.qwRoomListBaseInfoType}
                 qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
                 qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
                 qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}

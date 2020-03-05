@@ -42,13 +42,11 @@ export class QwRoomNotification {
     this.lastAddedRoom = event.detail.basket.rooms.find(r => r.roomId === event.detail.roomId);
     const showPopupClass = `${POPUP_CLASS}--show`;
     const foregroundPopupClass = `${POPUP_CLASS}--foreground`;
-    this.popupElement.classList.add(showPopupClass);
     this.popupElement.classList.add(foregroundPopupClass);
+    setTimeout(() => this.popupElement.classList.add(showPopupClass), 100);
     setTimeout(() => {
       this.popupElement.classList.remove(showPopupClass);
-      setTimeout(() => {
-        this.popupElement.classList.remove(foregroundPopupClass);
-      }, 1000);
+      setTimeout(() => this.popupElement.classList.remove(foregroundPopupClass), 1000);
     }, this.qwRoomNotificationShowPopupTime);
   }
 

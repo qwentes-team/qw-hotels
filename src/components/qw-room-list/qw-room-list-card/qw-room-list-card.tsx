@@ -10,7 +10,14 @@ import {
   RoomModel,
   SessionDisplay,
 } from '@qwentes/booking-state-manager';
-import {QwChangeRoomEvent, QwCounterId, QwRoomListType, QwWeekCalendarDirection} from '../../../index';
+import {
+  QwChangeRoomEvent,
+  QwCounterId,
+  QwRoomBaseInfoGuestType,
+  QwRoomBaseInfoType,
+  QwRoomListType,
+  QwWeekCalendarDirection,
+} from '../../../index';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 
@@ -21,6 +28,7 @@ import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 })
 export class QwRoomListCard {
   @Prop() qwRoomListCardType: QwRoomListType = QwRoomListType.Inline;
+  @Prop() qwRoomListCardBaseInfoType: QwRoomBaseInfoType = QwRoomBaseInfoType.Inline;
   @Prop() qwRoomListCardId: RoomModel['roomId'];
   @Prop() qwRoomListCardTitle: string;
   @Prop() qwRoomListCardPrice: string;
@@ -109,7 +117,12 @@ export class QwRoomListCard {
               ? <div class="qw-room-list-card__title-content" onClick={() => this.qwRoomListCardOnClickView()}>
                   <h4>{this.qwRoomListCardTitle}</h4>
                   <h6 class="qw-room-list-card__caption">
-                    <qw-room-base-info qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
+                    <qw-room-base-info
+                      qw-room-base-info-guest-type={this.qwRoomListCardBaseInfoType === QwRoomBaseInfoType.List
+                        ? QwRoomBaseInfoGuestType.Text
+                        : QwRoomBaseInfoGuestType.Icon}
+                      qw-room-base-info-type={this.qwRoomListCardBaseInfoType}
+                      qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
                   </h6>
                 </div>
               : <qw-placeholder />

@@ -9,6 +9,7 @@
 
 | Property                    | Attribute                        | Description | Type                                                                        | Default                              |
 | --------------------------- | -------------------------------- | ----------- | --------------------------------------------------------------------------- | ------------------------------------ |
+| `qwRoomListBaseInfoType`    | `qw-room-list-base-info-type`    |             | `QwRoomBaseInfoType.Inline \| QwRoomBaseInfoType.List`                      | `QwRoomBaseInfoType.Inline`          |
 | `qwRoomListFilterRoomsWith` | `qw-room-list-filter-rooms-with` |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListOrder`           | `qw-room-list-order`             |             | `QwRoomListOrderType.AscendingPrice \| QwRoomListOrderType.DescendingPrice` | `QwRoomListOrderType.AscendingPrice` |
 | `qwRoomListPlaceholders`    | `qw-room-list-placeholders`      |             | `string`                                                                    | `undefined`                          |
