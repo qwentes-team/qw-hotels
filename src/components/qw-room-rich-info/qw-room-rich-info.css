@@ -2,6 +2,14 @@ qw-room-rich-info {
   display: block;
 }
 
+.qw-room-rich-info__loading-wrapper {
+  position: relative;
+}
+
+.qw-room-rich-info--loaded .qw-room-rich-info__loading-wrapper {
+  display: none;
+}
+
 .qw-room-rich-info__info {
   display: flex;
   justify-content: flex-start;
