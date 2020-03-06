@@ -7,16 +7,17 @@
 
 ## Properties
 
-| Property                    | Attribute                        | Description | Type                                                                        | Default                              |
-| --------------------------- | -------------------------------- | ----------- | --------------------------------------------------------------------------- | ------------------------------------ |
-| `qwRoomListBaseInfoType`    | `qw-room-list-base-info-type`    |             | `QwRoomBaseInfoType.Inline \| QwRoomBaseInfoType.List`                      | `QwRoomBaseInfoType.Inline`          |
-| `qwRoomListFilterRoomsWith` | `qw-room-list-filter-rooms-with` |             | `string`                                                                    | `undefined`                          |
-| `qwRoomListOrder`           | `qw-room-list-order`             |             | `QwRoomListOrderType.AscendingPrice \| QwRoomListOrderType.DescendingPrice` | `QwRoomListOrderType.AscendingPrice` |
-| `qwRoomListPlaceholders`    | `qw-room-list-placeholders`      |             | `string`                                                                    | `undefined`                          |
-| `qwRoomListShowCta`         | `qw-room-list-show-cta`          |             | `boolean`                                                                   | `true`                               |
-| `qwRoomListShowPrices`      | `qw-room-list-show-prices`       |             | `boolean`                                                                   | `true`                               |
-| `qwRoomListShowRates`       | `qw-room-list-show-rates`        |             | `boolean`                                                                   | `false`                              |
-| `qwRoomListType`            | `qw-room-list-type`              |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline`       | `QwRoomListType.Inline`              |
+| Property                               | Attribute                                   | Description | Type                                                                        | Default                              |
+| -------------------------------------- | ------------------------------------------- | ----------- | --------------------------------------------------------------------------- | ------------------------------------ |
+| `qwRoomListBaseInfoType`               | `qw-room-list-base-info-type`               |             | `QwRoomBaseInfoType.Inline \| QwRoomBaseInfoType.List`                      | `QwRoomBaseInfoType.Inline`          |
+| `qwRoomListFilterRoomsWith`            | `qw-room-list-filter-rooms-with`            |             | `string`                                                                    | `undefined`                          |
+| `qwRoomListImageTransformationOptions` | `qw-room-list-image-transformation-options` |             | `string`                                                                    | `undefined`                          |
+| `qwRoomListOrder`                      | `qw-room-list-order`                        |             | `QwRoomListOrderType.AscendingPrice \| QwRoomListOrderType.DescendingPrice` | `QwRoomListOrderType.AscendingPrice` |
+| `qwRoomListPlaceholders`               | `qw-room-list-placeholders`                 |             | `string`                                                                    | `undefined`                          |
+| `qwRoomListShowCta`                    | `qw-room-list-show-cta`                     |             | `boolean`                                                                   | `true`                               |
+| `qwRoomListShowPrices`                 | `qw-room-list-show-prices`                  |             | `boolean`                                                                   | `true`                               |
+| `qwRoomListShowRates`                  | `qw-room-list-show-rates`                   |             | `boolean`                                                                   | `false`                              |
+| `qwRoomListType`                       | `qw-room-list-type`                         |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline`       | `QwRoomListType.Inline`              |
 
 
 ## Events

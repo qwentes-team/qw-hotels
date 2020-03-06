@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property         | Attribute           | Description | Type     | Default     |
-| ---------------- | ------------------- | ----------- | -------- | ----------- |
-| `qwRoomDetailId` | `qw-room-detail-id` |             | `string` | `undefined` |
+| Property                                 | Attribute                                     | Description | Type     | Default     |
+| ---------------------------------------- | --------------------------------------------- | ----------- | -------- | ----------- |
+| `qwRoomDetailId`                         | `qw-room-detail-id`                           |             | `string` | `undefined` |
+| `qwRoomDetailImageTransformationOptions` | `qw-room-detail-image-transformation-options` |             | `string` | `undefined` |
 
 
 ## Events

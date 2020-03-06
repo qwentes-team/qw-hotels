@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property               | Attribute                  | Description | Type      | Default |
+| ---------------------- | -------------------------- | ----------- | --------- | ------- |
+| `qwRoomBasketHasImage` | `qw-room-basket-has-image` |             | `boolean` | `true`  |
+
+
 ## Events
 
 | Event                        | Description | Type                |

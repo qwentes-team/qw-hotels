@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property                                | Attribute                                     | Description | Type     | Default     |
-| --------------------------------------- | --------------------------------------------- | ----------- | -------- | ----------- |
-| `qwRoomDetailCardImage`                 | `qw-room-detail-card-image`                   |             | `string` | `undefined` |
-| `qwRoomDetailCardNumberOfAccommodation` | `qw-room-detail-card-number-of-accommodation` |             | `number` | `undefined` |
-| `qwRoomDetailCardNumberOfGuests`        | `qw-room-detail-card-number-of-guests`        |             | `number` | `undefined` |
-| `qwRoomDetailCardNumberOfNights`        | `qw-room-detail-card-number-of-nights`        |             | `number` | `undefined` |
-| `qwRoomDetailCardRoomId`                | `qw-room-detail-card-room-id`                 |             | `number` | `undefined` |
-| `qwRoomDetailCardTitle`                 | `qw-room-detail-card-title`                   |             | `string` | `undefined` |
+| Property                                     | Attribute                                     | Description | Type      | Default     |
+| -------------------------------------------- | --------------------------------------------- | ----------- | --------- | ----------- |
+| `qwRoomDetailCardImage`                      | `qw-room-detail-card-image`                   |             | `string`  | `undefined` |
+| `qwRoomDetailCardImageTransformationOptions` | --                                            |             | `Options` | `{}`        |
+| `qwRoomDetailCardNumberOfAccommodation`      | `qw-room-detail-card-number-of-accommodation` |             | `number`  | `undefined` |
+| `qwRoomDetailCardNumberOfGuests`             | `qw-room-detail-card-number-of-guests`        |             | `number`  | `undefined` |
+| `qwRoomDetailCardNumberOfNights`             | `qw-room-detail-card-number-of-nights`        |             | `number`  | `undefined` |
+| `qwRoomDetailCardRoomId`                     | `qw-room-detail-card-room-id`                 |             | `number`  | `undefined` |
+| `qwRoomDetailCardTitle`                      | `qw-room-detail-card-title`                   |             | `string`  | `undefined` |
 
 
 ## Events
