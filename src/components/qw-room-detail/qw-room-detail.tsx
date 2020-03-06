@@ -20,6 +20,7 @@ export interface QwRoomDetailAddToBasketEmitter {
 })
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
+  @Prop() qwRoomDetailImageTransformationOptions: string;
   @State() room: RoomModel;
   @State() session: SessionModel;
   @State() numberOfNights: number;
@@ -77,6 +78,7 @@ export class QwRoomDetail {
           qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
+          qwRoomDetailCardImageTransformationOptions={this.qwRoomDetailImageTransformationOptions ? JSON.parse(this.qwRoomDetailImageTransformationOptions) : {}}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}/>}
       </Host>
     );

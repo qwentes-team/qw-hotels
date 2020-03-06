@@ -74,7 +74,7 @@ export class QwRoomNotification {
           </div>}
           <hr />
           <h4 class="qw-room-notification__popup__title">{Language.getTranslation('yourRooms')}</h4>
-          <qw-room-basket />
+          <qw-room-basket qwRoomBasketHasImage={false} />
           <div class="qw-room-notification__popup__total">{Language.getTranslation('subtotal')}: <qw-basket /></div>
         </div>
       </Host>

@@ -2,6 +2,7 @@ import {Component, Host, h, Prop, Listen, EventEmitter, Event} from '@stencil/co
 import {Language, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwButton} from '../../shared/qw-button/qw-button';
+import {Transformation} from 'cloudinary-core';
 
 @Component({
   tag: 'qw-room-detail-card',
@@ -15,6 +16,7 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardNumberOfNights: number;
   @Prop() qwRoomDetailCardNumberOfGuests: number;
   @Prop() qwRoomDetailCardNumberOfAccommodation: number;
+  @Prop() qwRoomDetailCardImageTransformationOptions: Transformation.Options = {};
   @Event() qwRoomDetailCardAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomDetailCardAddAnotherRoom: EventEmitter<void>;
   @Event() qwRoomDetailCardProceed: EventEmitter<void>;
@@ -33,7 +35,10 @@ export class QwRoomDetailCard {
       <Host>
         <qw-card>
           <div class="qw-room-detail-card__image">
-            <qw-image qwImageUrl={this.qwRoomDetailCardImage} qwImageAlt={this.qwRoomDetailCardTitle}/>
+            <qw-image
+              qwImageTransformationOptions={this.qwRoomDetailCardImageTransformationOptions}
+              qwImageUrl={this.qwRoomDetailCardImage}
+              qwImageAlt={this.qwRoomDetailCardTitle}/>
           </div>
 
           <div class="qw-room-detail-card__title">

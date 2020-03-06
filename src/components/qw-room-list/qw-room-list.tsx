@@ -33,6 +33,7 @@ export class QwRoomList {
   @Prop() qwRoomListOrder: QwRoomListOrderType = QwRoomListOrderType.AscendingPrice;
   @Prop() qwRoomListPlaceholders: string;
   @Prop() qwRoomListBaseInfoType: QwRoomBaseInfoType = QwRoomBaseInfoType.Inline;
+  @Prop() qwRoomListImageTransformationOptions: string;
   @State() rooms: RoomModel[] = [];
   @State() firstLoad: boolean = false;
   @State() isBasketLoading: boolean;
@@ -310,6 +311,7 @@ export class QwRoomList {
                 qwRoomListCardType={this.qwRoomListType}
                 qwRoomListCardPlaceholders={this.qwRoomListPlaceholders}
                 qwRoomListCardBaseInfoType={this.qwRoomListBaseInfoType}
+                qwRoomListCardImageTransformationOptions={this.qwRoomListImageTransformationOptions ? JSON.parse(this.qwRoomListImageTransformationOptions) : {}}
                 qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
                 qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
                 qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}

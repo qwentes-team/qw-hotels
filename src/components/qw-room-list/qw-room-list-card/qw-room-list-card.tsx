@@ -20,6 +20,7 @@ import {
 } from '../../../index';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
+import {Transformation} from 'cloudinary-core';
 
 @Component({
   tag: 'qw-room-list-card',
@@ -57,6 +58,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardNumberOfAccommodation: number;
   @Prop() qwRoomListCardPlaceholders: string;
   @Prop() qwRoomListCardLanguage: SessionDisplay['culture'];
+  @Prop() qwRoomListCardImageTransformationOptions: Transformation.Options = {};
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
@@ -109,9 +111,10 @@ export class QwRoomListCard {
       <Host class={this.qwRoomListCardIsLoading ? 'qw-room-list-card__is-loading' : ''}>
         <qw-card>
           <div class="qw-room-list-card__image" onClick={() => this.qwRoomListCardOnClickView()}>
-            <qw-image
+            {<qw-image
+              qwImageTransformationOptions={this.qwRoomListCardImageTransformationOptions}
               qwImageUrl={this.qwRoomListCardImage}
-              qwImageAlt={this.qwRoomListCardTitle}/>
+              qwImageAlt={this.qwRoomListCardTitle}/>}
           </div>
 
           <div class={`qw-room-list-card__title ${!this.qwRoomListCardPrice ? 'qw-room-list-card--has-error' : ''}`}>

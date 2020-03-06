@@ -166,12 +166,16 @@ export namespace Components {
     'qwRoomBaseInfoRoomId': string;
     'qwRoomBaseInfoType': QwRoomBaseInfoType;
   }
-  interface QwRoomBasket {}
+  interface QwRoomBasket {
+    'qwRoomBasketHasImage': boolean;
+  }
   interface QwRoomDetail {
     'qwRoomDetailId': string;
+    'qwRoomDetailImageTransformationOptions': string;
   }
   interface QwRoomDetailCard {
     'qwRoomDetailCardImage': string;
+    'qwRoomDetailCardImageTransformationOptions': Transformation.Options;
     'qwRoomDetailCardNumberOfAccommodation': number;
     'qwRoomDetailCardNumberOfGuests': number;
     'qwRoomDetailCardNumberOfNights': number;
@@ -181,6 +185,7 @@ export namespace Components {
   interface QwRoomList {
     'qwRoomListBaseInfoType': QwRoomBaseInfoType;
     'qwRoomListFilterRoomsWith': string;
+    'qwRoomListImageTransformationOptions': string;
     'qwRoomListOrder': QwRoomListOrderType;
     'qwRoomListPlaceholders': string;
     'qwRoomListShowCta': boolean;
@@ -198,6 +203,7 @@ export namespace Components {
     'qwRoomListCardDescription': string;
     'qwRoomListCardId': RoomModel['roomId'];
     'qwRoomListCardImage': string;
+    'qwRoomListCardImageTransformationOptions': Transformation.Options;
     'qwRoomListCardIsLoading': boolean;
     'qwRoomListCardIsLoadingPrice': boolean;
     'qwRoomListCardLanguage': SessionDisplay['culture'];
@@ -689,18 +695,21 @@ declare namespace LocalJSX {
   }
   interface QwRoomBasket {
     'onQwRoomBasketBackToRoomList'?: (event: CustomEvent<void>) => void;
+    'qwRoomBasketHasImage'?: boolean;
   }
   interface QwRoomDetail {
     'onQwRoomDetailAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailAddToBasketSuccess'?: (event: CustomEvent<QwRoomDetailAddToBasketEmitter>) => void;
     'onQwRoomDetailProceed'?: (event: CustomEvent<void>) => void;
     'qwRoomDetailId'?: string;
+    'qwRoomDetailImageTransformationOptions'?: string;
   }
   interface QwRoomDetailCard {
     'onQwRoomDetailCardAddAnotherRoom'?: (event: CustomEvent<void>) => void;
     'onQwRoomDetailCardAddedToBasket'?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
     'onQwRoomDetailCardProceed'?: (event: CustomEvent<void>) => void;
     'qwRoomDetailCardImage'?: string;
+    'qwRoomDetailCardImageTransformationOptions'?: Transformation.Options;
     'qwRoomDetailCardNumberOfAccommodation'?: number;
     'qwRoomDetailCardNumberOfGuests'?: number;
     'qwRoomDetailCardNumberOfNights'?: number;
@@ -712,6 +721,7 @@ declare namespace LocalJSX {
     'onQwRoomListOnLoad'?: (event: CustomEvent<void>) => void;
     'qwRoomListBaseInfoType'?: QwRoomBaseInfoType;
     'qwRoomListFilterRoomsWith'?: string;
+    'qwRoomListImageTransformationOptions'?: string;
     'qwRoomListOrder'?: QwRoomListOrderType;
     'qwRoomListPlaceholders'?: string;
     'qwRoomListShowCta'?: boolean;
@@ -729,6 +739,7 @@ declare namespace LocalJSX {
     'qwRoomListCardDescription'?: string;
     'qwRoomListCardId'?: RoomModel['roomId'];
     'qwRoomListCardImage'?: string;
+    'qwRoomListCardImageTransformationOptions'?: Transformation.Options;
     'qwRoomListCardIsLoading'?: boolean;
     'qwRoomListCardIsLoadingPrice'?: boolean;
     'qwRoomListCardLanguage'?: SessionDisplay['culture'];
