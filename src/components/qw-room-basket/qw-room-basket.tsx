@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
+import {Component, Host, h, State, Event, EventEmitter, Prop} from '@stencil/core';
 import {QwChangeRoomEvent} from '../../index';
 import {
   BasketHelper, BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, Language,
@@ -14,6 +14,7 @@ import {of} from 'rxjs/internal/observable/of';
   shadow: false
 })
 export class QwRoomBasket {
+  @Prop() qwRoomBasketHasImage: boolean = true;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
   @State() rooms: {[roomId: string]: RoomModel} = {};
@@ -76,7 +77,7 @@ export class QwRoomBasket {
                 class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
                 qwRoomListCardId={basketRoom.roomId}
                 qwRoomListCardTitle={BasketHelper.getQuantityByBasketRoom(basketRoom) + ' ' + basketRoom.name}
-                qwRoomListCardImage={BasketHelper.getRoomCoverImage(basketRoom).url}
+                qwRoomListCardImage={this.qwRoomBasketHasImage ? BasketHelper.getRoomCoverImage(basketRoom).url : undefined}
                 qwRoomListCardShowDescription={false}
                 qwRoomListCardNights={this.nights}
                 qwRoomListCardShowPrices={false}

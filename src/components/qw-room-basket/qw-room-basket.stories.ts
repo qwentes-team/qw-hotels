@@ -16,3 +16,9 @@ export const base = () => `
         <div slot="qwRoomListLoading">loading room list</div>
     </qw-room-list>
 `;
+
+export const noImages = () => `
+  <qw-room-basket qw-room-basket-has-image="false">
+    <div slot="qwRoomBasketLoading">loading room basket</div>
+  </qw-room-basket>
+`;
