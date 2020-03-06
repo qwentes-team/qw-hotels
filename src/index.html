@@ -27,9 +27,8 @@
   qw-basket-show-price-if-empty="true"
   qw-basket-show-book-now-button="true"></qw-basket>
 
-<qw-calendar-inline></qw-calendar-inline>
-<qw-guest></qw-guest>
-<qw-room-notification></qw-room-notification>
+<qw-room-rich-info
+  qw-room-rich-info-room-id="103252"></qw-room-rich-info>
 
 <!--<qw-calendar></qw-calendar>-->
 
@@ -38,11 +37,9 @@
 <!--  qw-room-rates-placeholders="2"-->
 <!--  qw-room-rates-force-rooms-call="true"></qw-room-rates>-->
 
-<!--<qw-room-detail-->
-<!--  qw-room-detail-id="103252"-->
-<!--  qw-room-detail-image-transformation-options='{"width": 2000}'>-->
-<!--  <div slot="qwRoomDetailLoading">loading</div>-->
-<!--</qw-room-detail>-->
+<qw-room-detail qw-room-detail-id="103252">
+  <div slot="qwRoomDetailLoading">loading</div>
+</qw-room-detail>
 
 <!--<qw-offers-->
 <!--  qw-offers-type="card"-->

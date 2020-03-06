@@ -9,13 +9,16 @@ import {switchMap} from 'rxjs/operators';
 })
 export class QwRoomService {
   @Prop() qwRoomServiceRoomId: string;
+  @Prop() qwRoomServiceForceRoomsCall: boolean = false;
   @State() room: RoomModel;
 
   public componentWillLoad() {
-    SessionService.getSession().subscribe();
-    SessionLoaded$
-      .pipe(switchMap(session => RoomService.getRooms(session.sessionId)))
-      .subscribe();
+    if (this.qwRoomServiceForceRoomsCall) {
+      SessionService.getSession().subscribe();
+      SessionLoaded$
+        .pipe(switchMap(session => RoomService.getRooms(session.sessionId)))
+        .subscribe();
+    }
 
     RoomLoaded$.subscribe(rooms => {
       this.room = rooms.find(r => r.roomId === parseInt(this.qwRoomServiceRoomId));

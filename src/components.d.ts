@@ -257,7 +257,13 @@ export namespace Components {
     'qwRoomRatesRoomId': RoomModel['roomId'];
     'qwRoomRatesType': QwRoomListType;
   }
+  interface QwRoomRichInfo {
+    'qwRoomRichInfoBaseInfoType': QwRoomBaseInfoType;
+    'qwRoomRichInfoForceRoomsCall': boolean;
+    'qwRoomRichInfoRoomId': string;
+  }
   interface QwRoomService {
+    'qwRoomServiceForceRoomsCall': boolean;
     'qwRoomServiceRoomId': string;
   }
   interface QwSeparator {}
@@ -500,6 +506,12 @@ declare global {
     new (): HTMLQwRoomRatesElement;
   };
 
+  interface HTMLQwRoomRichInfoElement extends Components.QwRoomRichInfo, HTMLStencilElement {}
+  var HTMLQwRoomRichInfoElement: {
+    prototype: HTMLQwRoomRichInfoElement;
+    new (): HTMLQwRoomRichInfoElement;
+  };
+
   interface HTMLQwRoomServiceElement extends Components.QwRoomService, HTMLStencilElement {}
   var HTMLQwRoomServiceElement: {
     prototype: HTMLQwRoomServiceElement;
@@ -561,6 +573,7 @@ declare global {
     'qw-room-rate': HTMLQwRoomRateElement;
     'qw-room-rate-list': HTMLQwRoomRateListElement;
     'qw-room-rates': HTMLQwRoomRatesElement;
+    'qw-room-rich-info': HTMLQwRoomRichInfoElement;
     'qw-room-service': HTMLQwRoomServiceElement;
     'qw-separator': HTMLQwSeparatorElement;
     'qw-textarea': HTMLQwTextareaElement;
@@ -797,7 +810,13 @@ declare namespace LocalJSX {
     'qwRoomRatesRoomId'?: RoomModel['roomId'];
     'qwRoomRatesType'?: QwRoomListType;
   }
+  interface QwRoomRichInfo {
+    'qwRoomRichInfoBaseInfoType'?: QwRoomBaseInfoType;
+    'qwRoomRichInfoForceRoomsCall'?: boolean;
+    'qwRoomRichInfoRoomId'?: string;
+  }
   interface QwRoomService {
+    'qwRoomServiceForceRoomsCall'?: boolean;
     'qwRoomServiceRoomId'?: string;
   }
   interface QwSeparator {}
@@ -854,6 +873,7 @@ declare namespace LocalJSX {
     'qw-room-rate': QwRoomRate;
     'qw-room-rate-list': QwRoomRateList;
     'qw-room-rates': QwRoomRates;
+    'qw-room-rich-info': QwRoomRichInfo;
     'qw-room-service': QwRoomService;
     'qw-separator': QwSeparator;
     'qw-textarea': QwTextarea;
@@ -904,6 +924,7 @@ declare module "@stencil/core" {
       'qw-room-rate': LocalJSX.QwRoomRate & JSXBase.HTMLAttributes<HTMLQwRoomRateElement>;
       'qw-room-rate-list': LocalJSX.QwRoomRateList & JSXBase.HTMLAttributes<HTMLQwRoomRateListElement>;
       'qw-room-rates': LocalJSX.QwRoomRates & JSXBase.HTMLAttributes<HTMLQwRoomRatesElement>;
+      'qw-room-rich-info': LocalJSX.QwRoomRichInfo & JSXBase.HTMLAttributes<HTMLQwRoomRichInfoElement>;
       'qw-room-service': LocalJSX.QwRoomService & JSXBase.HTMLAttributes<HTMLQwRoomServiceElement>;
       'qw-separator': LocalJSX.QwSeparator & JSXBase.HTMLAttributes<HTMLQwSeparatorElement>;
       'qw-textarea': LocalJSX.QwTextarea & JSXBase.HTMLAttributes<HTMLQwTextareaElement>;

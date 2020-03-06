@@ -1,0 +1,17 @@
+qw-room-rich-info {
+  display: block;
+}
+
+.qw-room-rich-info__info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.qw-room-rich-info__amenities-trigger {
+  cursor: pointer;
+}
+
+.qw-room-rich-info__info qw-room-base-info {
+  margin-right: var(--qw-hotel-gap-md);
+}

@@ -21,12 +21,14 @@
 
  - [qw-room-detail-card](../qw-room-detail/qw-room-detail-card)
  - [qw-room-list-card](../qw-room-list/qw-room-list-card)
+ - [qw-room-rich-info](../qw-room-rich-info)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-room-detail-card --> qw-room-base-info
   qw-room-list-card --> qw-room-base-info
+  qw-room-rich-info --> qw-room-base-info
   style qw-room-base-info fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
