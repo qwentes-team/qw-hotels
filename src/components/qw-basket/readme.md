@@ -18,10 +18,11 @@
 
 ## Events
 
-| Event                | Description | Type                |
-| -------------------- | ----------- | ------------------- |
-| `qwBasketBookNow`    |             | `CustomEvent<void>` |
-| `qwBasketClickPrice` |             | `CustomEvent<void>` |
+| Event                            | Description | Type                   |
+| -------------------------------- | ----------- | ---------------------- |
+| `qwBasketBookNow`                |             | `CustomEvent<void>`    |
+| `qwBasketClickPrice`             |             | `CustomEvent<void>`    |
+| `qwBasketIsAccommodationSatisfy` |             | `CustomEvent<boolean>` |
 
 
 ## Dependencies

@@ -25,6 +25,7 @@ export class QwBasket {
   @State() numberOfAccommodation: number;
   @Event() qwBasketBookNow: EventEmitter<void>;
   @Event() qwBasketClickPrice: EventEmitter<void>;
+  @Event() qwBasketIsAccommodationSatisfy: EventEmitter<boolean>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -38,6 +39,7 @@ export class QwBasket {
       this.onSiteTaxes = basket.taxes.onSite.text;
       this.taxesMessage = BasketHelper.getTaxesFormatted(basket);
       this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
+      this.qwBasketIsAccommodationSatisfy.emit(this.isAccommodationSatisfy());
     });
     BasketIsLoading$.subscribe(isLoading => this.isLoading = isLoading);
   }
