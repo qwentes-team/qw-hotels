@@ -782,7 +782,9 @@ declare namespace LocalJSX {
     'qwRoomListCardTitle'?: string;
     'qwRoomListCardType'?: QwRoomListType;
   }
-  interface QwRoomNames {}
+  interface QwRoomNames {
+    'onQwRoomNamesClick'?: (event: CustomEvent<RoomModel>) => void;
+  }
   interface QwRoomNotification {
     'qwRoomNotificationShowPopupTime'?: number;
   }
