@@ -50,6 +50,12 @@ qw-offers {
   z-index: 1;
 }
 
+.qw-offers--card .qw-offers__offer__caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .qw-offers--card .qw-offers__offer__caption,
 .qw-offers--card .qw-offers__offer__title {
   color: var(--qw-hotel-neutral-light);

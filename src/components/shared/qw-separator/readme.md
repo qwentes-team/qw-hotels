@@ -10,12 +10,14 @@
 ### Used by
 
  - [qw-calendar-inline](../../qw-calendar-inline)
+ - [qw-offers](../../qw-offers)
  - [qw-room-notification](../../qw-room-notification)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-calendar-inline --> qw-separator
+  qw-offers --> qw-separator
   qw-room-notification --> qw-separator
   style qw-separator fill:#f9f,stroke:#333,stroke-width:4px
 ```
