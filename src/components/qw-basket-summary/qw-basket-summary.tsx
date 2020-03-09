@@ -3,7 +3,7 @@ import {
   BasketHelper,
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, Language,
   RateHelper, RoomBasketOccupancy,
-  SessionHelper, SessionLoaded$, SessionModel, SessionService,
+  SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwChangeExtraEvent, QwChangeRoomEvent, QwCounterId} from '../../index';
@@ -19,6 +19,7 @@ export class QwBasketSummary {
   @State() basket: BasketModel;
   @State() session: SessionModel;
   @State() basketIsLoading: boolean;
+  @State() sessionIsLoading: boolean;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -28,7 +29,12 @@ export class QwBasketSummary {
     })).subscribe();
 
     BasketWithPrice$.subscribe(basket => this.basket = basket);
+    SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
+  }
+
+  public isLoading() {
+    return this.sessionIsLoading || this.basketIsLoading;
   }
 
   private getTotalPrice(basketRoomOccupancy: RoomBasketOccupancy) {
@@ -75,7 +81,7 @@ export class QwBasketSummary {
 
   render() {
     return (
-      <Host>
+      <Host class={`${!this.basket?.rooms.length ? 'qw-basket-summary--no-rooms' : ''}`}>
         <div class="qw-basket-summary__rooms">
           <div class="qw-basket-summary__room qw-basket-summary__room-header">
             <div class="qw-basket-summary__room-date">{Language.getTranslation('dates')}</div>
@@ -89,7 +95,7 @@ export class QwBasketSummary {
             <div class="qw-basket-summary__room-delete"/>
           </div>
 
-          {this.basket && this.basket.rooms.map(basketRoom => {
+          {this.basket?.rooms.map(basketRoom => {
             const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
             const basketOccupancy = basketRoom.occupancies[occupancyId];
             const rateName = occupancyId && basketOccupancy.rateInformation.name;
@@ -130,6 +136,7 @@ export class QwBasketSummary {
               </div>
             );
           })}
+          {(!this.isLoading() && !this.basket?.rooms.length) ? Language.getTranslation('noRooms') : ''}
           {this.basket && this.basket.hotelExtras.map(extra => {
             return (
               <div class="qw-basket-summary__room qw-basket-summary__extra">
