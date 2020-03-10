@@ -6,6 +6,14 @@ qw-offers {
   --qw-offer--card--min-width: 300px;
 }
 
+.qw-offers__loading-wrapper {
+  position: relative;
+}
+
+.qw-offers--loaded .qw-offers__loading-wrapper {
+  display: none;
+}
+
 .qw-offers__wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -50,7 +58,7 @@ qw-offers {
   z-index: 1;
 }
 
-.qw-offers--card .qw-offers__offer__caption {
+.qw-offers__offer__caption {
   display: flex;
   align-items: center;
   justify-content: center;

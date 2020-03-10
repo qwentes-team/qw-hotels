@@ -72,13 +72,19 @@ export class QwOffers {
 
   render() {
     return (
-      <Host class={`qw-offers--${this.qwOffersType}`}>
+      <Host class={`
+        qw-offers--${this.qwOffersType}
+        ${!this.flatOffers ? 'qw-offers--loading' : 'qw-offers--loaded'}
+      `}>
+        <div class="qw-offers__loading-wrapper">
+          <slot name="qwOffersLoading"/>
+        </div>
         <div class="qw-offers__wrapper">
           {this.flatOffers?.map(o => {
             return (
               <div class="qw-offers__offer">
                 <h5 class="qw-offers__offer__caption">
-                  {this.roomsFormatted[o.roomId].name} <qw-separator /> starting from {o.price.totalPrice.converted.text}
+                  {this.roomsFormatted[o.roomId].name} <qw-separator /> starting from <span class="qw-offers__offer__price">{o.price.totalPrice.converted.text}</span>
                 </h5>
                 <qw-image
                   qwImageTransformationOptions={this.qwOffersImageTransformationOptions ? JSON.parse(this.qwOffersImageTransformationOptions) : {}}
