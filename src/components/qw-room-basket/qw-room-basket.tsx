@@ -1,5 +1,5 @@
 import {Component, Host, h, State, Event, EventEmitter, Prop} from '@stencil/core';
-import {QwChangeRoomEvent} from '../../index';
+import {QwChangeRoomEvent, QwRoomBaseInfoType, QwRoomBasketType} from '../../index';
 import {
   BasketHelper, BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, Language,
   RateHelper, RoomModel, SessionHelper, SessionLoaded$, SessionService,
@@ -15,6 +15,7 @@ import {of} from 'rxjs/internal/observable/of';
 })
 export class QwRoomBasket {
   @Prop() qwRoomBasketHasImage: boolean = true;
+  @Prop() qwRoomBasketType: QwRoomBasketType = QwRoomBasketType.Classic;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
   @State() rooms: {[roomId: string]: RoomModel} = {};
@@ -59,7 +60,10 @@ export class QwRoomBasket {
 
   render() {
     return (
-      <Host class={`${!this.basket ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}`}>
+      <Host class={`
+        qw-room-basket--${this.qwRoomBasketType}
+        ${!this.basket ? 'qw-room-basket--loading' : 'qw-room-basket--loaded'}
+      `}>
         <div style={this.basket && { 'display': 'none' }}>
           <slot name="qwRoomBasketLoading"/>
         </div>
@@ -89,6 +93,7 @@ export class QwRoomBasket {
                 qwRoomListCardShowActions={true}
                 qwRoomListCardBasketRoom={basketRoom}
                 qwRoomListCardAddableLeftover={this.addableLeftover}
+                qwRoomListCardBaseInfoType={this.qwRoomBasketType === QwRoomBasketType.Classic ? QwRoomBaseInfoType.Inline : QwRoomBaseInfoType.List}
                 qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
                 qwRoomListCardOnClickView={() => {}}/>
           }) : undefined}

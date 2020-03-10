@@ -20,6 +20,11 @@ export enum QwRoomListType {
   Card = 'card',
 }
 
+export enum QwRoomBasketType {
+  Classic = 'classic',
+  Basic = 'basic',
+}
+
 export enum QwRoomBaseInfoType {
   List = 'list',
   Inline = 'inline',

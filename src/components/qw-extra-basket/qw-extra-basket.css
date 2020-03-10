@@ -24,3 +24,15 @@ qw-extra-basket qw-extra-card .qw-extra-card__content {
 qw-extra-basket qw-extra-card .qw-extra-card__footer .qw-extra-card__quantity {
   order: -1;
 }
+
+.qw-extra-basket--basic qw-extra-card {
+  grid-template-columns: 100%;
+}
+.qw-extra-basket--basic .qw-extra-card__title,
+.qw-extra-basket--basic .qw-extra-card__footer {
+  grid-column: 1 / 2;
+}
+.qw-extra-basket--basic .qw-extra-card__image,
+.qw-extra-basket--basic .qw-extra-card__footer {
+  display: none;
+}

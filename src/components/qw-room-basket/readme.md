@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property               | Attribute                  | Description | Type      | Default |
-| ---------------------- | -------------------------- | ----------- | --------- | ------- |
-| `qwRoomBasketHasImage` | `qw-room-basket-has-image` |             | `boolean` | `true`  |
+| Property               | Attribute                  | Description | Type                                                 | Default                    |
+| ---------------------- | -------------------------- | ----------- | ---------------------------------------------------- | -------------------------- |
+| `qwRoomBasketHasImage` | `qw-room-basket-has-image` |             | `boolean`                                            | `true`                     |
+| `qwRoomBasketType`     | `qw-room-basket-type`      |             | `QwRoomBasketType.Basic \| QwRoomBasketType.Classic` | `QwRoomBasketType.Classic` |
 
 
 ## Events

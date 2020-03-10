@@ -17,7 +17,6 @@ import {
   QuoteCreateBody,
   Rate,
   RoomBasketModel,
-  RoomImageMetadata,
   RoomModel,
   SessionDisplay,
   SessionGuests,
@@ -28,6 +27,7 @@ import {
   QwChangeRoomEvent,
   QwRoomBaseInfoGuestType,
   QwRoomBaseInfoType,
+  QwRoomBasketType,
   QwRoomListCardButtonType,
   QwRoomListOrderType,
   QwRoomListType,
@@ -112,10 +112,13 @@ export namespace Components {
   interface QwCurrency {}
   interface QwError {}
   interface QwExtra {}
-  interface QwExtraBasket {}
+  interface QwExtraBasket {
+    'qwExtraBasketHasImage': boolean;
+    'qwExtraBasketType': QwRoomBasketType;
+  }
   interface QwExtraCard {
     'qwExtraCardAvailability': number;
-    'qwExtraCardCover': RoomImageMetadata;
+    'qwExtraCardCover': string;
     'qwExtraCardId': number;
     'qwExtraCardName': string;
     'qwExtraCardSelectedQuantity': number;
@@ -168,6 +171,7 @@ export namespace Components {
   }
   interface QwRoomBasket {
     'qwRoomBasketHasImage': boolean;
+    'qwRoomBasketType': QwRoomBasketType;
   }
   interface QwRoomDetail {
     'qwRoomDetailId': string;
@@ -648,11 +652,14 @@ declare namespace LocalJSX {
   }
   interface QwError {}
   interface QwExtra {}
-  interface QwExtraBasket {}
+  interface QwExtraBasket {
+    'qwExtraBasketHasImage'?: boolean;
+    'qwExtraBasketType'?: QwRoomBasketType;
+  }
   interface QwExtraCard {
     'onQwExtraCounterChanged'?: (event: CustomEvent<QwExtraEmitter>) => void;
     'qwExtraCardAvailability'?: number;
-    'qwExtraCardCover'?: RoomImageMetadata;
+    'qwExtraCardCover'?: string;
     'qwExtraCardId'?: number;
     'qwExtraCardName'?: string;
     'qwExtraCardSelectedQuantity'?: number;
@@ -711,6 +718,7 @@ declare namespace LocalJSX {
   interface QwRoomBasket {
     'onQwRoomBasketBackToRoomList'?: (event: CustomEvent<void>) => void;
     'qwRoomBasketHasImage'?: boolean;
+    'qwRoomBasketType'?: QwRoomBasketType;
   }
   interface QwRoomDetail {
     'onQwRoomDetailAddAnotherRoom'?: (event: CustomEvent<void>) => void;

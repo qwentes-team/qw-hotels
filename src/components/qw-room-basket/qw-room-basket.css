@@ -9,3 +9,18 @@ qw-room-basket qw-room-list-card {
 qw-room-basket qw-room-list-card qw-card {
   grid-template-columns: 30% 70%;
 }
+
+.qw-room-basket--basic {
+  flex-direction: column;
+}
+.qw-room-basket--basic qw-room-list-card qw-card {
+  grid-template-columns: 100%;
+}
+.qw-room-basket--basic .qw-room-list-card__title,
+.qw-room-basket--basic .qw-room-list-card__basket-actions {
+  grid-column: 1 / 2;
+}
+.qw-room-basket--basic .qw-room-list-card__image,
+.qw-room-basket--basic .qw-room-list-card__basket-actions {
+  display: none;
+}

@@ -22,3 +22,9 @@ export const noImages = () => `
     <div slot="qwRoomBasketLoading">loading room basket</div>
   </qw-room-basket>
 `;
+
+export const basic = () => `
+  <qw-room-basket qw-room-basket-has-image="false" qw-room-basket-type="basic">
+    <div slot="qwRoomBasketLoading">loading room basket</div>
+  </qw-room-basket>
+`;

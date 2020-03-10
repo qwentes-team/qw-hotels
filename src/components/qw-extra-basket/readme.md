@@ -5,6 +5,14 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property                | Attribute                   | Description | Type                                                 | Default                    |
+| ----------------------- | --------------------------- | ----------- | ---------------------------------------------------- | -------------------------- |
+| `qwExtraBasketHasImage` | `qw-extra-basket-has-image` |             | `boolean`                                            | `true`                     |
+| `qwExtraBasketType`     | `qw-extra-basket-type`      |             | `QwRoomBasketType.Basic \| QwRoomBasketType.Classic` | `QwRoomBasketType.Classic` |
+
+
 ## Dependencies
 
 ### Depends on
@@ -15,6 +23,7 @@
 ```mermaid
 graph TD;
   qw-extra-basket --> qw-extra-card
+  qw-extra-card --> qw-image
   qw-extra-card --> qw-counter
   style qw-extra-basket fill:#f9f,stroke:#333,stroke-width:4px
 ```

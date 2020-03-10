@@ -65,7 +65,7 @@ export class QwExtra {
               class={this.isLoadingData() ? 'qw-extra-card--disabled' : ''}
               qwExtraCardId={extra.extraId}
               qwExtraCardName={extra.name}
-              qwExtraCardCover={ExtraHelper.getCoverImage(extra)}
+              qwExtraCardCover={ExtraHelper.getCoverImage(extra).url}
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
               qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
               qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;

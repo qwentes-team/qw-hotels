@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event} from '@stencil/core';
-import {ExtraModel, Language, RoomImageMetadata} from '@qwentes/booking-state-manager';
+import {ExtraModel, Language} from '@qwentes/booking-state-manager';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 import {QwCounterId} from '../../../index';
 
@@ -16,7 +16,7 @@ export interface QwExtraEmitter {
 export class QwExtraCard {
   @Prop() qwExtraCardId: number;
   @Prop() qwExtraCardName: string;
-  @Prop() qwExtraCardCover: RoomImageMetadata;
+  @Prop() qwExtraCardCover: string;
   @Prop() qwExtraCardUnitPrice: string;
   @Prop() qwExtraCardAvailability: number;
   @Prop() qwExtraCardSelectedQuantity: number;
@@ -32,7 +32,7 @@ export class QwExtraCard {
     return (
       <Host>
         <div class="qw-extra-card__image">
-          <img src={this.qwExtraCardCover.url} alt={this.qwExtraCardName}/>
+          <qw-image qwImageUrl={this.qwExtraCardCover} qwImageAlt={this.qwExtraCardName}/>
         </div>
         <div class="qw-extra-card__title">
           <h4>{this.qwExtraCardName}</h4>

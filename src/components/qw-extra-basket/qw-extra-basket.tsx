@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen} from '@stencil/core';
+import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel,
   BasketService,
@@ -8,6 +8,7 @@ import {
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwExtraEmitter} from '../qw-extra/qw-extra-card/qw-extra-card';
+import {QwRoomBasketType} from '../../index';
 
 @Component({
   tag: 'qw-extra-basket',
@@ -15,6 +16,8 @@ import {QwExtraEmitter} from '../qw-extra/qw-extra-card/qw-extra-card';
   shadow: false,
 })
 export class QwExtraBasket {
+  @Prop() qwExtraBasketHasImage: boolean = true;
+  @Prop() qwExtraBasketType: QwRoomBasketType = QwRoomBasketType.Classic;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
 
@@ -38,7 +41,10 @@ export class QwExtraBasket {
 
   render() {
     return (
-      <Host class={`${!this.basket ? 'qw-extra-basket--loading' : 'qw-extra-basket--loaded'}`}>
+      <Host class={`
+        qw-extra-basket--${this.qwExtraBasketType}
+        ${!this.basket ? 'qw-extra-basket--loading' : 'qw-extra-basket--loaded'}
+      `}>
         {this.basket ?
           !this.basket.hotelExtras.length
             ? <div class="qw-extra-basket__no-extra">{Language.getTranslation('noExtraInYourBasket')}</div>
@@ -49,11 +55,11 @@ export class QwExtraBasket {
               return <qw-extra-card
                 class={this.basketIsLoading ? 'qw-extra-card--disabled' : ''}
                 qwExtraCardId={basketExtra.extraId}
-                qwExtraCardName={basketExtra.name}
-                qwExtraCardCover={ExtraHelper.getCoverImage(basketExtra)}
+                qwExtraCardName={basketExtra?.selectedQuantity.value + ' ' +basketExtra.name}
+                qwExtraCardCover={this.qwExtraBasketHasImage ? ExtraHelper.getCoverImage(basketExtra).url : undefined}
                 qwExtraCardUnitPrice={price}
                 qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
-                qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
+                qwExtraCardSelectedQuantity={basketExtra?.selectedQuantity.value || 0}/>;
             }) : undefined}
       </Host>
     );
