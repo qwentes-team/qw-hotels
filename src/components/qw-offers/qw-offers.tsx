@@ -1,6 +1,15 @@
 import {Component, h, State, Host, Prop, Event, EventEmitter} from '@stencil/core';
-import {Language, Rate, RateHelper, RoomModel, RoomService, SessionLoaded$, SessionService} from '@qwentes/booking-state-manager';
-import {switchMap} from 'rxjs/operators';
+import {
+  Language,
+  Rate,
+  RateHelper,
+  RoomLoaded$,
+  RoomModel,
+  RoomService,
+  SessionLoaded$,
+  SessionService,
+} from '@qwentes/booking-state-manager';
+import {first, switchMap} from 'rxjs/operators';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {QwRoomListType} from '../../index';
 
@@ -25,6 +34,7 @@ export class QwOffers {
   @State() roomsFormatted: {[roomId: number]: RoomModel};
   @State() flatOffers: Offer[];
   @Event() qwOffersOfferClick: EventEmitter<QwOfferClickEmitter>;
+  @Event() qwOffersOnLoad: EventEmitter<void>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -43,6 +53,8 @@ export class QwOffers {
         this.flatOffers = this.flatOffers.slice(0, this.qwOffersMax);
       }
     });
+
+    RoomLoaded$.pipe(first()).subscribe(() => this.qwOffersOnLoad.emit());
   }
 
   private sortByPrice(a: Offer, b: Offer) {

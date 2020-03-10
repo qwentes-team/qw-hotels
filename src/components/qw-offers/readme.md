@@ -19,6 +19,7 @@
 | Event                | Description | Type                               |
 | -------------------- | ----------- | ---------------------------------- |
 | `qwOffersOfferClick` |             | `CustomEvent<QwOfferClickEmitter>` |
+| `qwOffersOnLoad`     |             | `CustomEvent<void>`                |
 
 
 ## Dependencies

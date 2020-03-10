@@ -689,6 +689,7 @@ declare namespace LocalJSX {
   }
   interface QwOffers {
     'onQwOffersOfferClick'?: (event: CustomEvent<QwOfferClickEmitter>) => void;
+    'onQwOffersOnLoad'?: (event: CustomEvent<void>) => void;
     'qwOffersImageTransformationOptions'?: string;
     'qwOffersMax'?: number;
     'qwOffersType'?: QwRoomListType;

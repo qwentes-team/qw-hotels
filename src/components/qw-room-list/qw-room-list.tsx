@@ -5,9 +5,8 @@ import {
   RoomBasketModel, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
   SessionDisplay, SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService, SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
-import {switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
-import {zip} from 'rxjs/internal/observable/zip';
+import {first, switchMap} from 'rxjs/operators';
+import {of, zip} from 'rxjs';
 import {
   QwChangeRoomEvent,
   QwRoomBaseInfoType,
@@ -93,9 +92,10 @@ export class QwRoomList {
       this.getRoomsSearchForRangeSuccess(newRoomPrices);
     });
 
+    RoomLoaded$.pipe(first()).subscribe(() => this.qwRoomListOnLoad.emit());
+
     RoomLoaded$.subscribe(res => {
       this.firstLoad = true;
-      this.qwRoomListOnLoad.emit();
 
       const roomsWithPrice = res.filter(room => {
         return RoomHelper.getCheapestPrice(room).value || this.basketRoomTotals[room.roomId];
