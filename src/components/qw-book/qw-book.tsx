@@ -109,6 +109,10 @@ export class QwBook {
     }
   };
 
+  public showMissingRequiredForm() {
+    return this.showFormErrors && (!this.isFormValid() || !this.isConfirmedConditions);
+  }
+
   render() {
     return (
       <Host class={`${!this.quote ? 'qw-book--loading' : 'qw-book--loaded'}`}>
@@ -147,7 +151,7 @@ export class QwBook {
                 {this.quote && <qw-book-condition/>}
                 <div class="qw-book__confirmation">
                   <h4>{Language.getTranslation('confirmation')}</h4>
-                  <div class="qw-book__confirmation-checkbox">
+                  <div class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
                     <div>{Language.getTranslation('termsAndConditionMessage')} *</div>
                   </div>
@@ -155,6 +159,9 @@ export class QwBook {
               </div>
 
               <div class="qw-book__pay">
+                <span class="qw-book__missing-required-fields">
+                  {this.showMissingRequiredForm() ? Language.getTranslation('missingRequiredFields') : ''}
+                </span>
                 <QwButton
                   QwButtonLabel={Language.getTranslation('payNow')}
                   QwButtonOnClick={() => this.payNow()}/>
