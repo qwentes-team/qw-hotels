@@ -128,6 +128,7 @@ export namespace Components {
     'qwGuestCenter': boolean;
     'qwGuestSyncOnChange': boolean;
   }
+  interface QwGuestInline {}
   interface QwImage {
     'qwImageAlt': string;
     'qwImageTransformationOptions': Transformation.Options;
@@ -402,6 +403,12 @@ declare global {
     new (): HTMLQwGuestElement;
   };
 
+  interface HTMLQwGuestInlineElement extends Components.QwGuestInline, HTMLStencilElement {}
+  var HTMLQwGuestInlineElement: {
+    prototype: HTMLQwGuestInlineElement;
+    new (): HTMLQwGuestInlineElement;
+  };
+
   interface HTMLQwImageElement extends Components.QwImage, HTMLStencilElement {}
   var HTMLQwImageElement: {
     prototype: HTMLQwImageElement;
@@ -559,6 +566,7 @@ declare global {
     'qw-extra-basket': HTMLQwExtraBasketElement;
     'qw-extra-card': HTMLQwExtraCardElement;
     'qw-guest': HTMLQwGuestElement;
+    'qw-guest-inline': HTMLQwGuestInlineElement;
     'qw-image': HTMLQwImageElement;
     'qw-input': HTMLQwInputElement;
     'qw-language': HTMLQwLanguageElement;
@@ -670,6 +678,7 @@ declare namespace LocalJSX {
     'qwGuestCenter'?: boolean;
     'qwGuestSyncOnChange'?: boolean;
   }
+  interface QwGuestInline {}
   interface QwImage {
     'qwImageAlt'?: string;
     'qwImageTransformationOptions'?: Transformation.Options;
@@ -823,6 +832,7 @@ declare namespace LocalJSX {
     'qwRoomRatesType'?: QwRoomListType;
   }
   interface QwRoomRichInfo {
+    'onQwRoomRichInfoOnLoad'?: (event: CustomEvent<void>) => void;
     'qwRoomRichInfoBaseInfoType'?: QwRoomBaseInfoType;
     'qwRoomRichInfoForceRoomsCall'?: boolean;
     'qwRoomRichInfoRoomId'?: string;
@@ -867,6 +877,7 @@ declare namespace LocalJSX {
     'qw-extra-basket': QwExtraBasket;
     'qw-extra-card': QwExtraCard;
     'qw-guest': QwGuest;
+    'qw-guest-inline': QwGuestInline;
     'qw-image': QwImage;
     'qw-input': QwInput;
     'qw-language': QwLanguage;
@@ -918,6 +929,7 @@ declare module "@stencil/core" {
       'qw-extra-basket': LocalJSX.QwExtraBasket & JSXBase.HTMLAttributes<HTMLQwExtraBasketElement>;
       'qw-extra-card': LocalJSX.QwExtraCard & JSXBase.HTMLAttributes<HTMLQwExtraCardElement>;
       'qw-guest': LocalJSX.QwGuest & JSXBase.HTMLAttributes<HTMLQwGuestElement>;
+      'qw-guest-inline': LocalJSX.QwGuestInline & JSXBase.HTMLAttributes<HTMLQwGuestInlineElement>;
       'qw-image': LocalJSX.QwImage & JSXBase.HTMLAttributes<HTMLQwImageElement>;
       'qw-input': LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
       'qw-language': LocalJSX.QwLanguage & JSXBase.HTMLAttributes<HTMLQwLanguageElement>;

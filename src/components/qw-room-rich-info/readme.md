@@ -14,6 +14,13 @@
 | `qwRoomRichInfoRoomId`         | `qw-room-rich-info-room-id`          |             | `string`                                               | `undefined`                 |
 
 
+## Events
+
+| Event                  | Description | Type                |
+| ---------------------- | ----------- | ------------------- |
+| `qwRoomRichInfoOnLoad` |             | `CustomEvent<void>` |
+
+
 ## Dependencies
 
 ### Depends on

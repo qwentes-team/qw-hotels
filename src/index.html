@@ -11,6 +11,10 @@
       ENGINE_ID: 'JJ7Y', // 'J262' hotel gabriel fake
       GUESTS: 7,
     };
+
+    window.addEventListener('qwRoomRichInfoOnLoad', () => {
+      console.log('loaded qwRoomRichInfoOnLoad');
+    })
   </script>
 
   <link rel="stylesheet" href="/build/qw-hotels.css">
@@ -22,7 +26,8 @@
 <!--<qw-currency></qw-currency>-->
 <!--<qw-language></qw-language>-->
 
-<qw-book></qw-book>
+<qw-guest-inline></qw-guest-inline>
+
 
 <!--<qw-offers>-->
 <!--  <div slot="qwOffersLoading">loading</div>-->
@@ -46,10 +51,10 @@
 
 <!--<qw-room-names></qw-room-names>-->
 
-<!--<qw-room-rich-info-->
-<!--  qw-room-rich-info-room-id="103252">-->
-<!--  <div slot="qwRoomRichInfoLoading">loading rich </div>-->
-<!--</qw-room-rich-info>-->
+<qw-room-rich-info
+  qw-room-rich-info-room-id="103252">
+  <div slot="qwRoomRichInfoLoading">loading rich </div>
+</qw-room-rich-info>
 
 <!--<qw-calendar></qw-calendar>-->
 
