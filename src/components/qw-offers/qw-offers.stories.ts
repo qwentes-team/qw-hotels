@@ -1,4 +1,4 @@
-import {action} from '@storybook/addon-actions';
+import {logEvent} from 'storybook-events-logger';
 
 export default {
   title: 'Offer/Offers',
@@ -17,4 +17,5 @@ export const imageResized = () => `
   </qw-offers>
 `;
 
-window.addEventListener('qwOffersOfferClick', action('logMyEvent'));
+window.addEventListener('qwOffersOfferClick', logEvent);
+window.addEventListener('qwOffersOnLoad', logEvent);

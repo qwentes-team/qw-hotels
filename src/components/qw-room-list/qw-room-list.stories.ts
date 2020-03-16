@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Room/Room list',
 };
@@ -74,3 +76,6 @@ export const withImageResized = () => `
     qw-room-list-image-transformation-options='{"width": 2000}'>
   </qw-room-list>
 `;
+
+window.addEventListener('qwRoomListClickRoom', logEvent);
+window.addEventListener('qwRoomListOnLoad', logEvent);
