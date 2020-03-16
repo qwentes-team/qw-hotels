@@ -1,7 +1,7 @@
 import {Component, h, Host, Listen, Prop, State, Watch} from '@stencil/core';
 import {
   BasketHelper, BasketIsLoading$, BasketService, BasketWithPrice$,
-  createRateFromRoomBasketOccupancy, Language, Rate,
+  createRateFromRoomBasketOccupancy, Language, Rate, RateInformation,
   RoomBasketModel, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {QwRoomRateCounterChangedEmitter} from '../qw-room-rate/qw-room-rate';
@@ -19,6 +19,7 @@ export class QwRoomRates {
   @Prop() qwRoomRatesRoomId: RoomModel['roomId'];
   @Prop() qwRoomRatesForceRoomsCall: boolean;
   @Prop() qwRoomRatesPlaceholders: string;
+  @Prop() qwRoomRatesRateHighlight: RateInformation['code'];
   @State() firstLoad: boolean = false;
   @State() mergedRates: Rate[];
   @State() rooms: RoomModel[];
@@ -102,6 +103,7 @@ export class QwRoomRates {
               qwRoomRateRate={r}
               qwRoomRateType={this.qwRoomRatesType}
               qwRoomRateIsDisabled={this.isRateDisabled(r.rateId)}
+              qwRoomRateHighlight={this.qwRoomRatesRateHighlight}
               qwRoomRateShowConditions={this.mergedRates.length === 1}/>;
           })}
         </div>

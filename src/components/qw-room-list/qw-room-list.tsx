@@ -1,7 +1,7 @@
 import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
 import {
   BasketHelper, BasketModel, BasketService, BasketWithPrice$, DateFormat, DateUtil,
-  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod,
+  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod, RateInformation,
   RoomBasketModel, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
   SessionDisplay, SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService, SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
@@ -33,6 +33,7 @@ export class QwRoomList {
   @Prop() qwRoomListPlaceholders: string;
   @Prop() qwRoomListBaseInfoType: QwRoomBaseInfoType = QwRoomBaseInfoType.Inline;
   @Prop() qwRoomListImageTransformationOptions: string;
+  @Prop() qwRoomListRateHighlight: RateInformation['code'];
   @State() rooms: RoomModel[] = [];
   @State() firstLoad: boolean = false;
   @State() isBasketLoading: boolean;
@@ -311,6 +312,7 @@ export class QwRoomList {
                 qwRoomListCardType={this.qwRoomListType}
                 qwRoomListCardPlaceholders={this.qwRoomListPlaceholders}
                 qwRoomListCardBaseInfoType={this.qwRoomListBaseInfoType}
+                qwRoomListCardRateHighlight={this.qwRoomListRateHighlight}
                 qwRoomListCardImageTransformationOptions={this.qwRoomListImageTransformationOptions ? JSON.parse(this.qwRoomListImageTransformationOptions) : {}}
                 qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
                 qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}

@@ -14,6 +14,7 @@
 | `qwRoomDetailCardNumberOfAccommodation`      | `qw-room-detail-card-number-of-accommodation` |             | `number`  | `undefined` |
 | `qwRoomDetailCardNumberOfGuests`             | `qw-room-detail-card-number-of-guests`        |             | `number`  | `undefined` |
 | `qwRoomDetailCardNumberOfNights`             | `qw-room-detail-card-number-of-nights`        |             | `number`  | `undefined` |
+| `qwRoomDetailCardRateHighlight`              | `qw-room-detail-card-rate-highlight`          |             | `string`  | `undefined` |
 | `qwRoomDetailCardRoomId`                     | `qw-room-detail-card-room-id`                 |             | `number`  | `undefined` |
 | `qwRoomDetailCardTitle`                      | `qw-room-detail-card-title`                   |             | `string`  | `undefined` |
 

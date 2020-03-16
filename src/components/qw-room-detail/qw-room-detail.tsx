@@ -1,6 +1,6 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketService,
+  BasketHelper, BasketService, RateInformation,
   RoomHelper, RoomLoaded$, RoomModel, RoomService,
   SessionHelper, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
@@ -21,6 +21,7 @@ export interface QwRoomDetailAddToBasketEmitter {
 export class QwRoomDetail {
   @Prop() qwRoomDetailId: string;
   @Prop() qwRoomDetailImageTransformationOptions: string;
+  @Prop() qwRoomDetailRateHighlight: RateInformation['code'];
   @State() room: RoomModel;
   @State() session: SessionModel;
   @State() numberOfNights: number;
@@ -78,6 +79,7 @@ export class QwRoomDetail {
           qwRoomDetailCardImage={RoomHelper.getCoverImage(this.room).url}
           qwRoomDetailCardNumberOfNights={this.numberOfNights}
           qwRoomDetailCardNumberOfGuests={this.numberOfGuests}
+          qwRoomDetailCardRateHighlight={this.qwRoomDetailRateHighlight}
           qwRoomDetailCardImageTransformationOptions={this.qwRoomDetailImageTransformationOptions ? JSON.parse(this.qwRoomDetailImageTransformationOptions) : {}}
           qwRoomDetailCardNumberOfAccommodation={this.numberOfAccommodation}/>}
       </Host>

@@ -11,6 +11,7 @@
 | ---------------------------------------- | --------------------------------------------- | ----------- | -------- | ----------- |
 | `qwRoomDetailId`                         | `qw-room-detail-id`                           |             | `string` | `undefined` |
 | `qwRoomDetailImageTransformationOptions` | `qw-room-detail-image-transformation-options` |             | `string` | `undefined` |
+| `qwRoomDetailRateHighlight`              | `qw-room-detail-rate-highlight`               |             | `string` | `undefined` |
 
 
 ## Events

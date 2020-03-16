@@ -4,7 +4,7 @@ import {
   BasketHelper,
   BasketModel,
   Language,
-  MoneyPrice,
+  MoneyPrice, RateInformation,
   RoomBasketModel,
   RoomDefaultLabel,
   RoomModel,
@@ -59,6 +59,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardPlaceholders: string;
   @Prop() qwRoomListCardLanguage: SessionDisplay['culture'];
   @Prop() qwRoomListCardImageTransformationOptions: Transformation.Options = {};
+  @Prop() qwRoomListCardRateHighlight: RateInformation['code'];
   @Prop() qwRoomListCardOnClickBook: () => void;
   @Prop() qwRoomListCardOnClickView: () => void;
   @Prop() qwRoomListCardOnClickChangeDate: () => void;
@@ -163,7 +164,10 @@ export class QwRoomListCard {
             </div>}
 
             {!this.qwRoomListCardBasketIsEmpty
-              ? <qw-room-rates qwRoomRatesType={QwRoomListType.Inline} qwRoomRatesRoomId={this.qwRoomListCardId}/>
+              ? <qw-room-rates
+                  qwRoomRatesType={QwRoomListType.Inline}
+                  qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}
+                  qwRoomRatesRoomId={this.qwRoomListCardId}/>
               : ''
             }
           </div>}
@@ -172,6 +176,7 @@ export class QwRoomListCard {
             ? <div class="qw-room-list-card__rates">
                 <qw-room-rates
                   qwRoomRatesType={this.qwRoomListCardType}
+                  qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}
                   qwRoomRatesPlaceholders={this.qwRoomListCardPlaceholders}
                   qwRoomRatesRoomId={this.qwRoomListCardId}/>
               </div>

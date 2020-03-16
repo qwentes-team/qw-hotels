@@ -11,6 +11,7 @@
 | --------------------------- | -------------------------------- | ----------- | --------------------------------------------------------------------- | ----------------------- |
 | `qwRoomRatesForceRoomsCall` | `qw-room-rates-force-rooms-call` |             | `boolean`                                                             | `undefined`             |
 | `qwRoomRatesPlaceholders`   | `qw-room-rates-placeholders`     |             | `string`                                                              | `undefined`             |
+| `qwRoomRatesRateHighlight`  | `qw-room-rates-rate-highlight`   |             | `string`                                                              | `undefined`             |
 | `qwRoomRatesRoomId`         | `qw-room-rates-room-id`          |             | `number`                                                              | `undefined`             |
 | `qwRoomRatesType`           | `qw-room-rates-type`             |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline` |
 

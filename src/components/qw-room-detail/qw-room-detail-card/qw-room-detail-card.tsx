@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event} from '@stencil/core';
-import {Language, RoomModel} from '@qwentes/booking-state-manager';
+import {Language, RateInformation, RoomModel} from '@qwentes/booking-state-manager';
 import {QwRoomRateAddedToBasketEmitter} from '../../qw-room-rate/qw-room-rate';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {Transformation} from 'cloudinary-core';
@@ -16,6 +16,7 @@ export class QwRoomDetailCard {
   @Prop() qwRoomDetailCardNumberOfNights: number;
   @Prop() qwRoomDetailCardNumberOfGuests: number;
   @Prop() qwRoomDetailCardNumberOfAccommodation: number;
+  @Prop() qwRoomDetailCardRateHighlight: RateInformation['code'];
   @Prop() qwRoomDetailCardImageTransformationOptions: Transformation.Options = {};
   @Event() qwRoomDetailCardAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomDetailCardAddAnotherRoom: EventEmitter<void>;
@@ -51,7 +52,7 @@ export class QwRoomDetailCard {
               <div class="qw-room-detail-card__nights">
                 {Language.getTranslation('pricesFor')} {this.qwRoomDetailCardNumberOfNights} {Language.getTranslation('nights')}
               </div>
-              <qw-room-rates qwRoomRatesRoomId={this.qwRoomDetailCardRoomId}/>
+              <qw-room-rates qwRoomRatesRoomId={this.qwRoomDetailCardRoomId} qwRoomRatesRateHighlight={this.qwRoomDetailCardRateHighlight}/>
 
               <div class="qw-room-detail-card__alert">{this.qwRoomDetailCardNumberOfAccommodation
                 ? this.showAlertForAccommodation()

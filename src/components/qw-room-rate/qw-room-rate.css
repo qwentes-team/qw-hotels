@@ -124,3 +124,7 @@ qw-room-rate .qw-button {
   right: var(--qw-hotel-gap-sm);
   font-size: var(--qw-hotel-small-font-size);
 }
+
+.qw-room-rate__highlight .qw-room-rate__title-name {
+  font-weight: bold;
+}

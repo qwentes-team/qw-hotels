@@ -16,6 +16,7 @@ import {
   PricesForStayPeriod,
   QuoteCreateBody,
   Rate,
+  RateInformation,
   RoomBasketModel,
   RoomModel,
   SessionDisplay,
@@ -177,6 +178,7 @@ export namespace Components {
   interface QwRoomDetail {
     'qwRoomDetailId': string;
     'qwRoomDetailImageTransformationOptions': string;
+    'qwRoomDetailRateHighlight': RateInformation['code'];
   }
   interface QwRoomDetailCard {
     'qwRoomDetailCardImage': string;
@@ -184,6 +186,7 @@ export namespace Components {
     'qwRoomDetailCardNumberOfAccommodation': number;
     'qwRoomDetailCardNumberOfGuests': number;
     'qwRoomDetailCardNumberOfNights': number;
+    'qwRoomDetailCardRateHighlight': RateInformation['code'];
     'qwRoomDetailCardRoomId': RoomModel['roomId'];
     'qwRoomDetailCardTitle': string;
   }
@@ -193,6 +196,7 @@ export namespace Components {
     'qwRoomListImageTransformationOptions': string;
     'qwRoomListOrder': QwRoomListOrderType;
     'qwRoomListPlaceholders': string;
+    'qwRoomListRateHighlight': RateInformation['code'];
     'qwRoomListShowCta': boolean;
     'qwRoomListShowPrices': boolean;
     'qwRoomListShowRates': boolean;
@@ -227,6 +231,7 @@ export namespace Components {
     'qwRoomListCardPrices': {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate': Date[];
     'qwRoomListCardRangeDateSession': Date[];
+    'qwRoomListCardRateHighlight': RateInformation['code'];
     'qwRoomListCardShowActions': boolean;
     'qwRoomListCardShowCta': boolean;
     'qwRoomListCardShowDescription': boolean;
@@ -244,6 +249,7 @@ export namespace Components {
   }
   interface QwRoomRate {
     'qwRoomRateDefaultToOne': boolean;
+    'qwRoomRateHighlight': RateInformation['code'];
     'qwRoomRateIsAddingToBasket': boolean;
     'qwRoomRateIsDisabled': boolean;
     'qwRoomRateIsLoading': boolean;
@@ -259,6 +265,7 @@ export namespace Components {
   interface QwRoomRates {
     'qwRoomRatesForceRoomsCall': boolean;
     'qwRoomRatesPlaceholders': string;
+    'qwRoomRatesRateHighlight': RateInformation['code'];
     'qwRoomRatesRoomId': RoomModel['roomId'];
     'qwRoomRatesType': QwRoomListType;
   }
@@ -735,6 +742,7 @@ declare namespace LocalJSX {
     'onQwRoomDetailProceed'?: (event: CustomEvent<void>) => void;
     'qwRoomDetailId'?: string;
     'qwRoomDetailImageTransformationOptions'?: string;
+    'qwRoomDetailRateHighlight'?: RateInformation['code'];
   }
   interface QwRoomDetailCard {
     'onQwRoomDetailCardAddAnotherRoom'?: (event: CustomEvent<void>) => void;
@@ -745,6 +753,7 @@ declare namespace LocalJSX {
     'qwRoomDetailCardNumberOfAccommodation'?: number;
     'qwRoomDetailCardNumberOfGuests'?: number;
     'qwRoomDetailCardNumberOfNights'?: number;
+    'qwRoomDetailCardRateHighlight'?: RateInformation['code'];
     'qwRoomDetailCardRoomId'?: RoomModel['roomId'];
     'qwRoomDetailCardTitle'?: string;
   }
@@ -756,6 +765,7 @@ declare namespace LocalJSX {
     'qwRoomListImageTransformationOptions'?: string;
     'qwRoomListOrder'?: QwRoomListOrderType;
     'qwRoomListPlaceholders'?: string;
+    'qwRoomListRateHighlight'?: RateInformation['code'];
     'qwRoomListShowCta'?: boolean;
     'qwRoomListShowPrices'?: boolean;
     'qwRoomListShowRates'?: boolean;
@@ -790,6 +800,7 @@ declare namespace LocalJSX {
     'qwRoomListCardPrices'?: {[dateString: string]: MoneyPrice};
     'qwRoomListCardRangeDate'?: Date[];
     'qwRoomListCardRangeDateSession'?: Date[];
+    'qwRoomListCardRateHighlight'?: RateInformation['code'];
     'qwRoomListCardShowActions'?: boolean;
     'qwRoomListCardShowCta'?: boolean;
     'qwRoomListCardShowDescription'?: boolean;
@@ -811,6 +822,7 @@ declare namespace LocalJSX {
     'onQwRoomRateAddedToBasket'?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
     'onQwRoomRateCounterChanged'?: (event: CustomEvent<QwRoomRateCounterChangedEmitter>) => void;
     'qwRoomRateDefaultToOne'?: boolean;
+    'qwRoomRateHighlight'?: RateInformation['code'];
     'qwRoomRateIsAddingToBasket'?: boolean;
     'qwRoomRateIsDisabled'?: boolean;
     'qwRoomRateIsLoading'?: boolean;
@@ -828,6 +840,7 @@ declare namespace LocalJSX {
   interface QwRoomRates {
     'qwRoomRatesForceRoomsCall'?: boolean;
     'qwRoomRatesPlaceholders'?: string;
+    'qwRoomRatesRateHighlight'?: RateInformation['code'];
     'qwRoomRatesRoomId'?: RoomModel['roomId'];
     'qwRoomRatesType'?: QwRoomListType;
   }

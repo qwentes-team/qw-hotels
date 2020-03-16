@@ -37,6 +37,7 @@
 | `qwRoomListCardPrices`                     | --                                          |             | `{ [dateString: string]: MoneyPrice; }`                               | `undefined`                 |
 | `qwRoomListCardRangeDate`                  | --                                          |             | `Date[]`                                                              | `undefined`                 |
 | `qwRoomListCardRangeDateSession`           | --                                          |             | `Date[]`                                                              | `undefined`                 |
+| `qwRoomListCardRateHighlight`              | `qw-room-list-card-rate-highlight`          |             | `string`                                                              | `undefined`                 |
 | `qwRoomListCardShowActions`                | `qw-room-list-card-show-actions`            |             | `boolean`                                                             | `undefined`                 |
 | `qwRoomListCardShowCta`                    | `qw-room-list-card-show-cta`                |             | `boolean`                                                             | `true`                      |
 | `qwRoomListCardShowDescription`            | `qw-room-list-card-show-description`        |             | `boolean`                                                             | `true`                      |

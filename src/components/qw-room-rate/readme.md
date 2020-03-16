@@ -10,6 +10,7 @@
 | Property                     | Attribute                          | Description | Type                                                                  | Default                 |
 | ---------------------------- | ---------------------------------- | ----------- | --------------------------------------------------------------------- | ----------------------- |
 | `qwRoomRateDefaultToOne`     | `qw-room-rate-default-to-one`      |             | `boolean`                                                             | `false`                 |
+| `qwRoomRateHighlight`        | `qw-room-rate-highlight`           |             | `string`                                                              | `undefined`             |
 | `qwRoomRateIsAddingToBasket` | `qw-room-rate-is-adding-to-basket` |             | `boolean`                                                             | `undefined`             |
 | `qwRoomRateIsDisabled`       | `qw-room-rate-is-disabled`         |             | `boolean`                                                             | `undefined`             |
 | `qwRoomRateIsLoading`        | `qw-room-rate-is-loading`          |             | `boolean`                                                             | `undefined`             |

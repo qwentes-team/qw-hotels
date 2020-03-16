@@ -44,6 +44,7 @@ export class QwRoomRate {
   @Prop() qwRoomRateShowConditions: boolean;
   @Prop() qwRoomRateDefaultToOne: boolean = false;
   @Prop() qwRoomRateRoomId: RoomModel['roomId'];
+  @Prop() qwRoomRateHighlight: RateInformation['code'];
   @State() quantity: number = 0;
   @State() numberOfGuests: number = 0;
   @State() numberOfRooms: number = 0;
@@ -110,10 +111,15 @@ export class QwRoomRate {
     return this.qwRoomRateType === QwRoomListType.Card;
   }
 
+  private isHighlight(code: RateInformation['code']) {
+    return this.qwRoomRateHighlight === code;
+  }
+
   render() {
     return (
       <Host class={`
         qw-room-rate--${this.qwRoomRateType}
+        ${this.isHighlight(this.qwRoomRateRate?.description.code) ? 'qw-room-rate__highlight' : ''}
         ${this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}
         ${this.qwRoomRateIsLoading ? 'qw-room-rate__is-loading' : ''}
         ${this.qwRoomRateIsAddingToBasket ? 'qw-room-rate__is-adding-to-basket' : ''}
