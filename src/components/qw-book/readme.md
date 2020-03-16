@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Events
+
+| Event            | Description | Type                |
+| ---------------- | ----------- | ------------------- |
+| `qwBookIsLoaded` |             | `CustomEvent<void>` |
+
+
 ## Dependencies
 
 ### Depends on

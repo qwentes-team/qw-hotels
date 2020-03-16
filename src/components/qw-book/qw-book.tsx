@@ -1,10 +1,10 @@
-import {Component, Host, h, State, Listen} from '@stencil/core';
+import {Component, Host, h, State, Listen, EventEmitter, Event} from '@stencil/core';
 import {
   SessionLoaded$, SessionService, SessionModel,
   QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper, QuoteLoaded$,
   BasketService, BasketHelper, SessionHelper, BasketWithPrice$, Language,
 } from '@qwentes/booking-state-manager';
-import {switchMap} from 'rxjs/operators';
+import {first, switchMap} from 'rxjs/operators';
 import {QwInputEmitter} from '../shared/qw-input/qw-input';
 import {QwButton} from '../shared/qw-button/qw-button';
 import {GuestDetailFormProperty} from '../../index';
@@ -21,6 +21,7 @@ export class QwBook {
   @State() isConfirmedConditions: boolean;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
+  @Event() qwBookIsLoaded: EventEmitter<void>;
 
   private session: SessionModel;
   private mandatoriesCustomerFields = [
@@ -50,6 +51,7 @@ export class QwBook {
       return of(null);
     })).subscribe();
 
+    QuoteLoaded$.pipe(first()).subscribe(() => this.qwBookIsLoaded.emit());
     QuoteLoaded$.subscribe(quote => this.quote = quote);
   }
 

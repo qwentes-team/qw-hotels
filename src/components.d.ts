@@ -615,7 +615,9 @@ declare namespace LocalJSX {
     'onQwBasketRoomCounterNumber'?: (event: CustomEvent<number>) => void;
   }
   interface QwBasketSummary {}
-  interface QwBook {}
+  interface QwBook {
+    'onQwBookIsLoaded'?: (event: CustomEvent<void>) => void;
+  }
   interface QwBookCondition {
     'qwBookConditionForceQuoteCall'?: boolean;
   }
