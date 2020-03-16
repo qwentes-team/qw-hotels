@@ -166,7 +166,7 @@ export class QwRoomRate {
           </li>
           <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
 
-          {!this.isCardType() && this.getRateSummary() && <div class="qw-room-rate__other-conditions">
+          {this.getRateSummary() && <div class="qw-room-rate__other-conditions">
             <div
               class="qw-room-rate__conditions-trigger"
               onClick={() => this.qwRoomRateShowConditions = !this.qwRoomRateShowConditions}>
@@ -178,12 +178,12 @@ export class QwRoomRate {
             </div>}
           </div>}
         </ul>}
-        {this.isCardType() && this.getRateSummary() &&
-          <QwWrapInDiv wrapIt={false}>
-            <span class="qw-room-rate__info"/>
-            <div class="qw-room-rate__other-conditions-popup">{this.getRateSummary()}</div>
-          </QwWrapInDiv>
-        }
+        {/*{this.isCardType() && this.getRateSummary() &&*/}
+        {/*  <QwWrapInDiv wrapIt={false}>*/}
+        {/*    <span class="qw-room-rate__info"/>*/}
+        {/*    <div class="qw-room-rate__other-conditions-popup">{this.getRateSummary()}</div>*/}
+        {/*  </QwWrapInDiv>*/}
+        {/*}*/}
       </Host>
     );
   }

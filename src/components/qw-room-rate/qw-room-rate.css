@@ -74,10 +74,6 @@ qw-room-rate .qw-button {
   width: 100%;
 }
 
-.qw-room-rate--card .qw-room-rate__title {
-  order: 1;
-}
-
 .qw-room-rate--card .qw-room-rate__conditions {
   order: 2;
 }
