@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Currency',
 }
@@ -11,3 +13,5 @@ export const base = () => `
     qw-room-rates-force-rooms-call="true">
   </qw-room-rates>
 `;
+
+window.addEventListener('qwCurrencyChanged', logEvent);

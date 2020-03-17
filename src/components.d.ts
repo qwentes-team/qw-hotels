@@ -665,7 +665,7 @@ declare namespace LocalJSX {
     'qwCounterValue'?: number;
   }
   interface QwCurrency {
-    'onQwCurrencyChanged'?: (event: CustomEvent<SessionDisplay['culture']>) => void;
+    'onQwCurrencyChanged'?: (event: CustomEvent<SessionDisplay['currency']>) => void;
   }
   interface QwError {}
   interface QwExtra {}

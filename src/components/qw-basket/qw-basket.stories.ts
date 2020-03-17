@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Basket/Basket',
 };
@@ -34,3 +36,7 @@ export const withTaxes = () => `
     qw-basket-show-on-site-taxes="true">
   </qw-basket>
 `;
+
+window.addEventListener('qwBasketBookNow', logEvent);
+window.addEventListener('qwBasketClickPrice', logEvent);
+window.addEventListener('qwBasketIsAccommodationSatisfy', logEvent);

@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Calendar & Guest/Calendar'
 }
@@ -17,3 +19,5 @@ export const notResponsiveMoreMonths = () => `
 export const notSync = () => `
   <qw-calendar qw-calendar-responsive="false" qw-calendar-sync-on-change="false"></qw-calendar>
 `;
+
+window.addEventListener('qwCalendarChange', logEvent);

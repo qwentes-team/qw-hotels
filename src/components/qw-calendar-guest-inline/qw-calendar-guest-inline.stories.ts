@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Calendar & Guest/Calendar Guest inline'
 }
@@ -13,3 +15,6 @@ export const noCheckButton = () => `
 export const noInputs = () => `
   <qw-calendar-guest-inline qw-calendar-guest-inline-show-inputs="false"></qw-calendar-guest-inline>
 `;
+
+window.addEventListener('qwCalendarGuestInlineCheckAvailability', logEvent);
+window.addEventListener('qwCalendarGuestInlineClickInput', logEvent);

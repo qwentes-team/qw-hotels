@@ -18,7 +18,7 @@ export class QwCurrency {
   @State() session: SessionModel;
   @State() currentCurrency: SessionDisplay['currency'];
   @State() isSessionLoading: boolean;
-  @Event() qwCurrencyChanged: EventEmitter<SessionDisplay['culture']>;
+  @Event() qwCurrencyChanged: EventEmitter<SessionDisplay['currency']>;
 
   public currencies = this.sortCurrenciesByName();
 
@@ -37,7 +37,7 @@ export class QwCurrency {
 
   private setCurrency = (currency: SessionDisplay['currency']) => {
     SessionService.updateDisplaySession({...this.session.display, currency})
-      .subscribe(session => this.qwCurrencyChanged.emit(session.display.culture));
+      .subscribe(session => this.qwCurrencyChanged.emit(session.display.currency));
   };
 
   private sortCurrenciesByName() {
