@@ -2,7 +2,10 @@ import {Component, Host, h, Prop, Watch, State, Event, EventEmitter, Listen} fro
 import flatpickr from 'flatpickr';
 import * as English from 'flatpickr/dist/l10n/default.js';
 import * as French from 'flatpickr/dist/l10n/fr.js';
-import {SessionDisplay, SessionStayPeriod} from '@qwentes/booking-state-manager';
+import * as Italian from 'flatpickr/dist/l10n/it.js';
+import * as Spanish from 'flatpickr/dist/l10n/es.js';
+import * as German from 'flatpickr/dist/l10n/de.js';
+import {QwLanguageKeys, SessionDisplay, SessionStayPeriod} from '@qwentes/booking-state-manager';
 
 const CALENDAR_ID = 'flatpickr-element';
 
@@ -86,13 +89,19 @@ export class QwCalendarPicker {
     }
   }
 
-  // todo dinamicizzare con tutte le lingue
   private getLocaleForCalendar() {
-    if (this.qwCalendarPickerLocale === 'fr-FR') {
-      return French.default.fr;
+    switch (this.qwCalendarPickerLocale) {
+      case QwLanguageKeys.fr:
+        return French.default.fr;
+      case QwLanguageKeys.it:
+        return Italian.default.it;
+      case QwLanguageKeys.es:
+        return Spanish.default.es;
+      case QwLanguageKeys.de:
+        return German.default.de;
+      default:
+        return English.default;
     }
-
-    return English.default;
   }
 
   @Watch('qwCalendarPickerStayPeriod')

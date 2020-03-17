@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Room/Room detail'
 }
@@ -18,3 +20,7 @@ export const withImageResized = () => `
     <div slot="qwRoomDetailLoading">loading</div>
   </qw-room-detail>
 `;
+
+window.addEventListener('qwRoomDetailAddToBasketSuccess', logEvent);
+window.addEventListener('qwRoomDetailAddAnotherRoom', logEvent);
+window.addEventListener('qwRoomDetailProceed', logEvent);

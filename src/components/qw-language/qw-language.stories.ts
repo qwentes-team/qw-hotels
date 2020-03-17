@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Language',
 }
@@ -19,3 +21,5 @@ export const filterLanguages = () => `
 export const preselected = () => `
   <qw-language qw-language-preselected="fr-FR"></qw-language>
 `;
+
+window.addEventListener('qwLanguageChanged', logEvent);

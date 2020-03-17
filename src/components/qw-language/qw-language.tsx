@@ -1,6 +1,7 @@
 import {Component, Host, h, Prop, State, EventEmitter, Event, Element} from '@stencil/core';
 import {QwSelect} from '../shared/qw-select/qw-select';
 import {
+  QwLanguageKeys,
   SessionDisplay,
   SessionIsLoading$,
   SessionLoaded$,
@@ -53,7 +54,7 @@ export class QwLanguage {
   }
 
   private getLanguagesFromProps(): string[] {
-    return this.qwLanguageLanguages ? JSON.parse(this.qwLanguageLanguages) : Object.keys(LABEL_LANGUAGES);
+    return this.qwLanguageLanguages ? JSON.parse(this.qwLanguageLanguages) : Object.values(QwLanguageKeys);
   }
 
   languageChanged = (e) => {
@@ -75,7 +76,7 @@ export class QwLanguage {
 
   private setClassToSelect(culture: SessionDisplay['culture']) {
     const select = this.el.querySelector('.qw-select__qw-language select');
-    Object.keys(LABEL_LANGUAGES).forEach(labelKey => select.classList.remove(labelKey));
+    Object.values(QwLanguageKeys).forEach(labelKey => select.classList.remove(labelKey));
     select.classList.add(culture);
   }
 

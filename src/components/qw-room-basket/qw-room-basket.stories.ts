@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Room/Room basket'
 }
@@ -28,3 +30,5 @@ export const basic = () => `
     <div slot="qwRoomBasketLoading">loading room basket</div>
   </qw-room-basket>
 `;
+
+window.addEventListener('qwRoomBasketBackToRoomList', logEvent);

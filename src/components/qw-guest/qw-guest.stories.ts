@@ -1,3 +1,5 @@
+import {logEvent} from 'storybook-events-logger';
+
 export default {
   title: 'Calendar & Guest/Guest'
 }
@@ -16,3 +18,5 @@ export const notSync = () => `
 export const center = () => `
   <qw-guest qw-guest-center="true"></qw-guest>
 `;
+
+window.addEventListener('qwGuestChange', logEvent);
