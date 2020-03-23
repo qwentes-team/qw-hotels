@@ -1,6 +1,7 @@
 import {Component, Host, h, Prop, State, EventEmitter, Event, Element} from '@stencil/core';
 import {QwSelect} from '../shared/qw-select/qw-select';
 import {
+  BasketService,
   QwLanguageKeys,
   SessionDisplay,
   SessionIsLoading$,
@@ -8,7 +9,7 @@ import {
   SessionModel,
   SessionService,
 } from '@qwentes/booking-state-manager';
-import {first, map} from 'rxjs/operators';
+import {first, map, tap} from 'rxjs/operators';
 
 const LABEL_LANGUAGES = {
   'en-US': 'ENGLISH',
@@ -64,6 +65,7 @@ export class QwLanguage {
 
   private setLanguage = (culture: SessionDisplay['culture']) => {
     SessionService.updateDisplaySession({...this.session.display, culture})
+      .pipe(tap((session) => BasketService.fetchBasket(session).subscribe()))
       .subscribe(session => this.qwLanguageChanged.emit(session.display.culture));
   };
 
