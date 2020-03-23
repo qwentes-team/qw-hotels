@@ -17,9 +17,10 @@
 
 ## Events
 
-| Event              | Description | Type                             |
-| ------------------ | ----------- | -------------------------------- |
-| `qwCalendarChange` |             | `CustomEvent<SessionStayPeriod>` |
+| Event                     | Description | Type                             |
+| ------------------------- | ----------- | -------------------------------- |
+| `qwCalendarChange`        |             | `CustomEvent<SessionStayPeriod>` |
+| `qwCalendarChangeSuccess` |             | `CustomEvent<void>`              |
 
 
 ## Dependencies

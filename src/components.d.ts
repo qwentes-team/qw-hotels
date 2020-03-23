@@ -628,6 +628,7 @@ declare namespace LocalJSX {
   }
   interface QwCalendar {
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
+    'onQwCalendarChangeSuccess'?: (event: CustomEvent<void>) => void;
     'qwCalendarDesktopLimit'?: number;
     'qwCalendarNumberOfMonths'?: number;
     'qwCalendarResponsive'?: boolean;

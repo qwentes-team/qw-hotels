@@ -23,6 +23,7 @@ export class QwCalendar {
   @State() isSessionLoading: boolean;
   @State() locale: SessionDisplay['culture'];
   @Event() qwCalendarChange: EventEmitter<SessionStayPeriod>;
+  @Event() qwCalendarChangeSuccess: EventEmitter<void>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -45,6 +46,7 @@ export class QwCalendar {
 
     SessionService.updateContextSession({...this.session.context, stayPeriod: this.stayPeriod})
       .subscribe({
+        next: () => this.qwCalendarChangeSuccess.emit(),
         error: (err) => {
           console.log(err);
           this.restoreStayPeriod();
