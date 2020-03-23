@@ -161,9 +161,9 @@ export class QwBook {
               </div>
 
               <div class="qw-book__pay">
-                <span class="qw-book__missing-required-fields">
-                  {this.showMissingRequiredForm() ? Language.getTranslation('missingRequiredFields') : ''}
-                </span>
+                {this.showMissingRequiredForm() ? <span class="qw-book__missing-required-fields">
+                  {Language.getTranslation('missingRequiredFields')}
+                </span> : ''}
                 <QwButton
                   QwButtonLabel={Language.getTranslation('payNow')}
                   QwButtonOnClick={() => this.payNow()}/>
