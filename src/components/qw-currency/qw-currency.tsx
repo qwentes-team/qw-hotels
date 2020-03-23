@@ -5,9 +5,10 @@ import {
   SessionModel,
   SessionService,
   MONEY_CURRENCIES,
-  SessionDisplay,
+  SessionDisplay, BasketService,
 } from '@qwentes/booking-state-manager';
 import {QwSelect} from '../shared/qw-select/qw-select';
+import {tap} from 'rxjs/operators';
 
 @Component({
   tag: 'qw-currency',
@@ -37,6 +38,7 @@ export class QwCurrency {
 
   private setCurrency = (currency: SessionDisplay['currency']) => {
     SessionService.updateDisplaySession({...this.session.display, currency})
+      .pipe(tap((session) => BasketService.fetchBasket(session).subscribe()))
       .subscribe(session => this.qwCurrencyChanged.emit(session.display.currency));
   };
 

@@ -4,7 +4,7 @@ import {
   MoneyPrice, SessionHelper, SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {QwButton} from '../shared/qw-button/qw-button';
-import {switchMap} from 'rxjs/operators';
+import {debounceTime, switchMap} from 'rxjs/operators';
 
 @Component({
   tag: 'qw-basket',
@@ -34,8 +34,8 @@ export class QwBasket {
       return BasketService.getBasket(session)
     })).subscribe();
 
-    BasketWithPrice$.subscribe(basket => {
-      this.totalPrice = BasketHelper.getTotalOriginalPrice(basket);
+    BasketWithPrice$.pipe(debounceTime(500)).subscribe(basket => {
+      this.totalPrice = BasketHelper.getTotalConvertedPrice(basket);
       this.onSiteTaxes = basket.taxes.onSite.text;
       this.taxesMessage = BasketHelper.getTaxesFormatted(basket);
       this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
