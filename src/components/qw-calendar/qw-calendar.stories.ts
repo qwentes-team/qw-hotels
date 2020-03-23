@@ -21,3 +21,4 @@ export const notSync = () => `
 `;
 
 window.addEventListener('qwCalendarChange', logEvent);
+window.addEventListener('qwCalendarChangeSuccess', logEvent);
