@@ -20,3 +20,4 @@ export const center = () => `
 `;
 
 window.addEventListener('qwGuestChange', logEvent);
+window.addEventListener('qwBasketWillBeReset', logEvent);

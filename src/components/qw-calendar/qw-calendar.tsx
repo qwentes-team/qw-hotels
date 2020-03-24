@@ -18,6 +18,7 @@ export class QwCalendar {
   @Prop() qwCalendarResponsive: boolean = true;
   @Prop() qwCalendarSyncOnChange: boolean = true;
   @Prop() qwCalendarDesktopLimit: number = 600;
+  @Prop() qwCalendarConfig: string; // flatpickr Options
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean;
@@ -73,7 +74,8 @@ export class QwCalendar {
           qwCalendarPickerNumberOfMonths={this.qwCalendarNumberOfMonths}
           qwCalendarPickerDisabled={this.isSessionLoading}
           qwCalendarPickerLocale={this.locale}
-          qwCalendarPickerStayPeriod={this.stayPeriod}/>
+          qwCalendarPickerStayPeriod={this.stayPeriod}
+          qwCalendarPickerConfig={this.qwCalendarConfig ? JSON.parse(this.qwCalendarConfig) : {}}/>
       </Host>
     );
   }

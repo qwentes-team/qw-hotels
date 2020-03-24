@@ -14,3 +14,4 @@ export const base = () => `
 window.addEventListener('qwCalendarShorthandTodaySuccess', logEvent);
 window.addEventListener('qwCalendarShorthandTomorrowSuccess', logEvent);
 window.addEventListener('qwCalendarShorthandOtherDates', logEvent);
+window.addEventListener('qwBasketWillBeReset', logEvent);

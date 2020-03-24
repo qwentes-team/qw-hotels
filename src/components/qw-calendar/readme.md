@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property                   | Attribute                      | Description | Type      | Default |
-| -------------------------- | ------------------------------ | ----------- | --------- | ------- |
-| `qwCalendarDesktopLimit`   | `qw-calendar-desktop-limit`    |             | `number`  | `600`   |
-| `qwCalendarNumberOfMonths` | `qw-calendar-number-of-months` |             | `number`  | `1`     |
-| `qwCalendarResponsive`     | `qw-calendar-responsive`       |             | `boolean` | `true`  |
-| `qwCalendarSyncOnChange`   | `qw-calendar-sync-on-change`   |             | `boolean` | `true`  |
+| Property                   | Attribute                      | Description | Type      | Default     |
+| -------------------------- | ------------------------------ | ----------- | --------- | ----------- |
+| `qwCalendarConfig`         | `qw-calendar-config`           |             | `string`  | `undefined` |
+| `qwCalendarDesktopLimit`   | `qw-calendar-desktop-limit`    |             | `number`  | `600`       |
+| `qwCalendarNumberOfMonths` | `qw-calendar-number-of-months` |             | `number`  | `1`         |
+| `qwCalendarResponsive`     | `qw-calendar-responsive`       |             | `boolean` | `true`      |
+| `qwCalendarSyncOnChange`   | `qw-calendar-sync-on-change`   |             | `boolean` | `true`      |
 
 
 ## Events

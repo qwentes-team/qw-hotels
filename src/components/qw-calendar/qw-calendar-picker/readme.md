@@ -9,6 +9,7 @@
 
 | Property                         | Attribute                             | Description | Type                | Default     |
 | -------------------------------- | ------------------------------------- | ----------- | ------------------- | ----------- |
+| `qwCalendarPickerConfig`         | `qw-calendar-picker-config`           |             | `any`               | `undefined` |
 | `qwCalendarPickerDesktopLimit`   | `qw-calendar-picker-desktop-limit`    |             | `number`            | `undefined` |
 | `qwCalendarPickerDisabled`       | `qw-calendar-picker-disabled`         |             | `boolean`           | `undefined` |
 | `qwCalendarPickerLocale`         | `qw-calendar-picker-locale`           |             | `string`            | `undefined` |

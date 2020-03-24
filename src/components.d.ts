@@ -82,6 +82,7 @@ export namespace Components {
     'qwBookGuestDetailTitleOptions': Array<RoomMetadata<string>>;
   }
   interface QwCalendar {
+    'qwCalendarConfig': string;
     'qwCalendarDesktopLimit': number;
     'qwCalendarNumberOfMonths': number;
     'qwCalendarResponsive': boolean;
@@ -93,6 +94,7 @@ export namespace Components {
   }
   interface QwCalendarInline {}
   interface QwCalendarPicker {
+    'qwCalendarPickerConfig': any;
     'qwCalendarPickerDesktopLimit': number;
     'qwCalendarPickerDisabled': boolean;
     'qwCalendarPickerLocale': SessionDisplay['culture'];
@@ -630,6 +632,7 @@ declare namespace LocalJSX {
     'onQwBasketWillBeReset'?: (event: CustomEvent<void>) => void;
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'onQwCalendarChangeSuccess'?: (event: CustomEvent<void>) => void;
+    'qwCalendarConfig'?: string;
     'qwCalendarDesktopLimit'?: number;
     'qwCalendarNumberOfMonths'?: number;
     'qwCalendarResponsive'?: boolean;
@@ -644,6 +647,7 @@ declare namespace LocalJSX {
   interface QwCalendarInline {}
   interface QwCalendarPicker {
     'onQwCalendarPickerChangeDates'?: (event: CustomEvent<SessionStayPeriod>) => void;
+    'qwCalendarPickerConfig'?: any;
     'qwCalendarPickerDesktopLimit'?: number;
     'qwCalendarPickerDisabled'?: boolean;
     'qwCalendarPickerLocale'?: SessionDisplay['culture'];

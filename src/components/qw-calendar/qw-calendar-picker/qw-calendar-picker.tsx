@@ -21,6 +21,7 @@ export class QwCalendarPicker {
   @Prop() qwCalendarPickerStayPeriod: SessionStayPeriod;
   @Prop() qwCalendarPickerDesktopLimit: number;
   @Prop() qwCalendarPickerLocale: SessionDisplay['culture'];
+  @Prop() qwCalendarPickerConfig: any; // todo capire perché si rompe flatpickr.Options.Options;
   @State() disableStartDate: boolean = false;
   @State() calendarInstance: flatpickr.Instance;
   @Event() qwCalendarPickerChangeDates: EventEmitter<SessionStayPeriod>;
@@ -41,6 +42,7 @@ export class QwCalendarPicker {
       showMonths: this.qwCalendarPickerNumberOfMonths,
       locale: this.getLocaleForCalendar(),
       onChange: this.change,
+      ...this.qwCalendarPickerConfig,
     };
     this.calendarInstance = flatpickr(this.elementCalendarInstance, this.configCalendarInstance);
     this.setOneOrTwoMonthIfResponsive();
