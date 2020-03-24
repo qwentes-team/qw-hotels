@@ -15,9 +15,10 @@
 
 ## Events
 
-| Event           | Description | Type                         |
-| --------------- | ----------- | ---------------------------- |
-| `qwGuestChange` |             | `CustomEvent<SessionGuests>` |
+| Event                 | Description | Type                         |
+| --------------------- | ----------- | ---------------------------- |
+| `qwBasketWillBeReset` |             | `CustomEvent<void>`          |
+| `qwGuestChange`       |             | `CustomEvent<SessionGuests>` |
 
 
 ## Dependencies

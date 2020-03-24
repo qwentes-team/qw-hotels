@@ -9,6 +9,7 @@
 
 | Event                                | Description | Type                |
 | ------------------------------------ | ----------- | ------------------- |
+| `qwBasketWillBeReset`                |             | `CustomEvent<void>` |
 | `qwCalendarShorthandOtherDates`      |             | `CustomEvent<void>` |
 | `qwCalendarShorthandTodaySuccess`    |             | `CustomEvent<void>` |
 | `qwCalendarShorthandTomorrowSuccess` |             | `CustomEvent<void>` |

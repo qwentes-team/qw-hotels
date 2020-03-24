@@ -627,6 +627,7 @@ declare namespace LocalJSX {
     'qwBookGuestDetailTitleOptions'?: Array<RoomMetadata<string>>;
   }
   interface QwCalendar {
+    'onQwBasketWillBeReset'?: (event: CustomEvent<void>) => void;
     'onQwCalendarChange'?: (event: CustomEvent<SessionStayPeriod>) => void;
     'onQwCalendarChangeSuccess'?: (event: CustomEvent<void>) => void;
     'qwCalendarDesktopLimit'?: number;
@@ -651,6 +652,7 @@ declare namespace LocalJSX {
     'qwCalendarPickerStayPeriod'?: SessionStayPeriod;
   }
   interface QwCalendarShorthand {
+    'onQwBasketWillBeReset'?: (event: CustomEvent<void>) => void;
     'onQwCalendarShorthandOtherDates'?: (event: CustomEvent<void>) => void;
     'onQwCalendarShorthandTodaySuccess'?: (event: CustomEvent<void>) => void;
     'onQwCalendarShorthandTomorrowSuccess'?: (event: CustomEvent<void>) => void;
@@ -684,6 +686,7 @@ declare namespace LocalJSX {
     'qwExtraCardUnitPrice'?: string;
   }
   interface QwGuest {
+    'onQwBasketWillBeReset'?: (event: CustomEvent<void>) => void;
     'onQwGuestChange'?: (event: CustomEvent<SessionGuests>) => void;
     'qwGuestCenter'?: boolean;
     'qwGuestSyncOnChange'?: boolean;

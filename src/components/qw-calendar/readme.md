@@ -19,6 +19,7 @@
 
 | Event                     | Description | Type                             |
 | ------------------------- | ----------- | -------------------------------- |
+| `qwBasketWillBeReset`     |             | `CustomEvent<void>`              |
 | `qwCalendarChange`        |             | `CustomEvent<SessionStayPeriod>` |
 | `qwCalendarChangeSuccess` |             | `CustomEvent<void>`              |
 

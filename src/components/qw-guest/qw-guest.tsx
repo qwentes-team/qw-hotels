@@ -1,5 +1,12 @@
 import {Component, Host, h, State, Listen, Prop, Event, EventEmitter} from '@stencil/core';
-import {SessionGuests, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService} from '@qwentes/booking-state-manager';
+import {
+  SessionGuests,
+  SessionHasRoomsSync,
+  SessionIsLoading$,
+  SessionLoaded$,
+  SessionModel,
+  SessionService,
+} from '@qwentes/booking-state-manager';
 import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 import {QwCounterId} from '../../index';
 
@@ -15,6 +22,7 @@ export class QwGuest {
   @State() guests: SessionGuests;
   @State() isSessionLoading: boolean = false;
   @Event() qwGuestChange: EventEmitter<SessionGuests>;
+  @Event() qwBasketWillBeReset: EventEmitter<void>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -31,7 +39,11 @@ export class QwGuest {
     this.qwGuestChange.emit(this.guests);
 
     if (!this.qwGuestSyncOnChange) {
-      return
+      return;
+    }
+
+    if (SessionHasRoomsSync()) {
+      this.qwBasketWillBeReset.emit();
     }
 
     SessionService.updateContextSession({...this.session.context, guests: this.guests})

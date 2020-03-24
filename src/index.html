@@ -12,8 +12,8 @@
       GUESTS: 7,
     };
 
-    window.addEventListener('qwCalendarChangeSuccess', () => {
-      console.log('we');
+    window.addEventListener('qwBasketWillBeReset', () => {
+      console.log('RESET');
     })
   </script>
 
@@ -23,10 +23,11 @@
 </head>
 <body>
 
-<qw-currency></qw-currency>
+<!--<qw-currency></qw-currency>-->
 <!--<qw-language></qw-language>-->
-
-<!--<qw-calendar></qw-calendar>-->
+<qw-guest></qw-guest>
+<qw-calendar></qw-calendar>
+<qw-calendar-shorthand></qw-calendar-shorthand>
 
 <!--<qw-offers>-->
 <!--  <div slot="qwOffersLoading">loading</div>-->

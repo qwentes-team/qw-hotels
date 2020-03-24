@@ -1,6 +1,6 @@
 import {Component, Host, h, Prop, State, Listen, Event, EventEmitter} from '@stencil/core';
 import {
-  SessionDisplay,
+  SessionDisplay, SessionHasRoomsSync,
   SessionIsLoading$,
   SessionLoaded$,
   SessionModel,
@@ -24,6 +24,7 @@ export class QwCalendar {
   @State() locale: SessionDisplay['culture'];
   @Event() qwCalendarChange: EventEmitter<SessionStayPeriod>;
   @Event() qwCalendarChangeSuccess: EventEmitter<void>;
+  @Event() qwBasketWillBeReset: EventEmitter<void>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -42,6 +43,10 @@ export class QwCalendar {
 
     if (!this.qwCalendarSyncOnChange) {
       return
+    }
+
+    if (SessionHasRoomsSync()) {
+      this.qwBasketWillBeReset.emit();
     }
 
     SessionService.updateContextSession({...this.session.context, stayPeriod: this.stayPeriod})

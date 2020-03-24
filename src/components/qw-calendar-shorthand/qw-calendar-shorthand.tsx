@@ -1,7 +1,7 @@
 import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
 import {
   DateUtil,
-  Language,
+  Language, SessionHasRoomsSync,
   SessionIsLoading$,
   SessionLoaded$,
   SessionModel,
@@ -21,6 +21,7 @@ export class QwCalendarShorthand {
   @Event() qwCalendarShorthandTodaySuccess: EventEmitter<void>;
   @Event() qwCalendarShorthandTomorrowSuccess: EventEmitter<void>;
   @Event() qwCalendarShorthandOtherDates: EventEmitter<void>;
+  @Event() qwBasketWillBeReset: EventEmitter<void>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -53,6 +54,9 @@ export class QwCalendarShorthand {
   }
 
   private updateDates(stayPeriod: SessionStayPeriod) {
+    if (SessionHasRoomsSync()) {
+      this.qwBasketWillBeReset.emit();
+    }
     return SessionService.updateContextSession({...this.session.context, stayPeriod: stayPeriod});
   }
 
