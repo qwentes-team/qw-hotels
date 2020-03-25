@@ -74,7 +74,7 @@ export class QwOffers {
   private sortRoomsByPrice(a: RoomModel, b: RoomModel) {
     const priceA = RoomHelper.getCheapestPrice(a).value;
     const priceB = RoomHelper.getCheapestPrice(b).value;
-    return priceA.amount - priceB.amount;
+    return priceA?.amount - priceB?.amount;
   }
 
   public offerClick(e: QwOfferClickEmitter) {
