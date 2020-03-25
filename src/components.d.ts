@@ -26,6 +26,7 @@ import {
 import {
   QwCalendarGuestInlineInputType,
   QwChangeRoomEvent,
+  QwOffersOrderType,
   QwRoomBaseInfoGuestType,
   QwRoomBaseInfoType,
   QwRoomBasketType,
@@ -157,6 +158,7 @@ export namespace Components {
   interface QwOffers {
     'qwOffersImageTransformationOptions': string;
     'qwOffersMax': number;
+    'qwOffersOrder': QwOffersOrderType;
     'qwOffersType': QwRoomListType;
   }
   interface QwPlaceholder {
@@ -725,6 +727,7 @@ declare namespace LocalJSX {
     'onQwOffersOnLoad'?: (event: CustomEvent<void>) => void;
     'qwOffersImageTransformationOptions'?: string;
     'qwOffersMax'?: number;
+    'qwOffersOrder'?: QwOffersOrderType;
     'qwOffersType'?: QwRoomListType;
   }
   interface QwPlaceholder {

@@ -76,3 +76,8 @@ export enum QwCounterId {
   QwGuestCounter = 'qwGuestCounter',
   QwRoomListCardCounter = 'qwRoomListCardCounter',
 }
+
+export enum QwOffersOrderType {
+  OrderByPrice = 'orderByPrice',
+  OrderByRoomType = 'orderByRoomType',
+}

@@ -1,8 +1,8 @@
-import {Component, h, State, Host, Prop, Event, EventEmitter} from '@stencil/core';
+import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
 import {
   Language,
   Rate,
-  RateHelper,
+  RateHelper, RoomHelper,
   RoomLoaded$,
   RoomModel,
   RoomService,
@@ -11,7 +11,7 @@ import {
 } from '@qwentes/booking-state-manager';
 import {first, switchMap} from 'rxjs/operators';
 import {QwButton} from '../shared/qw-button/qw-button';
-import {QwRoomListType} from '../../index';
+import {QwOffersOrderType, QwRoomListType} from '../../index';
 
 interface Offer extends Rate {
   roomId: RoomModel['roomId'];
@@ -30,6 +30,7 @@ export interface QwOfferClickEmitter {
 export class QwOffers {
   @Prop() qwOffersMax: number;
   @Prop() qwOffersType: QwRoomListType = QwRoomListType.Grid;
+  @Prop() qwOffersOrder: QwOffersOrderType = QwOffersOrderType.OrderByRoomType;
   @Prop() qwOffersImageTransformationOptions: string;
   @State() roomsFormatted: {[roomId: number]: RoomModel};
   @State() flatOffers: Offer[];
@@ -43,11 +44,15 @@ export class QwOffers {
       switchMap((session) => RoomService.getRooms(session.sessionId)),
     ).subscribe((rooms) => {
       this.roomsFormatted = rooms.reduce((acc, room) => ({...acc, [room.roomId]: room}), {});
+      const sortedRooms = rooms.sort(this.sortRoomsByPrice);
 
-      this.flatOffers = rooms
+      this.flatOffers = sortedRooms
         .map(r => r.rates?.map(rate => ({...rate, roomId: r.roomId})) || [])
-        .reduce((acc, val) => acc.concat(val), [])
-        .sort(this.sortByPrice);
+        .reduce((acc, val) => acc.concat(val), []);
+
+      if (this.qwOffersOrder === QwOffersOrderType.OrderByPrice) {
+        this.flatOffers = this.flatOffers.sort(this.sortOffertsByPrice);
+      }
 
       if (this.qwOffersMax) {
         this.flatOffers = this.flatOffers.slice(0, this.qwOffersMax);
@@ -57,13 +62,19 @@ export class QwOffers {
     RoomLoaded$.pipe(first()).subscribe(() => this.qwOffersOnLoad.emit());
   }
 
-  private sortByPrice(a: Offer, b: Offer) {
+  private sortOffertsByPrice(a: Offer, b: Offer) {
     const priceA = a.price.totalPrice.converted.value.amount;
     const priceB = b.price.totalPrice.converted.value.amount;
 
     if (priceA > priceB) return 1;
     if (priceA < priceB) return -1;
     return 0;
+  }
+
+  private sortRoomsByPrice(a: RoomModel, b: RoomModel) {
+    const priceA = RoomHelper.getCheapestPrice(a).value;
+    const priceB = RoomHelper.getCheapestPrice(b).value;
+    return priceA.amount - priceB.amount;
   }
 
   public offerClick(e: QwOfferClickEmitter) {
