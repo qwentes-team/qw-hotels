@@ -1,4 +1,4 @@
-import {Component, Event, EventEmitter, h, Host, Prop, State} from '@stencil/core';
+import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
   BasketHelper, BasketModel, BasketService, BasketWithPrice$, DateFormat, DateUtil,
   MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod, RateInformation,
@@ -160,7 +160,10 @@ export class QwRoomList {
     }, {} as PricesForStayPeriod);
   }
 
-  private getRoomsSearchForRange(sessionStayPeriod: SessionStayPeriod) {
+  private getRoomsSearchForRange(
+    sessionStayPeriod: SessionStayPeriod,
+    currency: SessionDisplay['currency'] = this.session.display.currency,
+  ) {
     const dayToRemoveToStartDate = sessionStayPeriod.arrivalDate <= this.todayString ? 0 : -1;
     this.startDate = DateUtil.addDaysToDate(dayToRemoveToStartDate, this.initNewDate(sessionStayPeriod.arrivalDate));
     this.endDate = DateUtil.addDaysToDate(6, this.initNewDate(this.startDate));
@@ -180,11 +183,11 @@ export class QwRoomList {
     const newDateToRequestStayPeriods = DateUtil.getAllPossibleStayPeriod({
       arrivalDate: newDateToRequest[0], departureDate: endDateStringPlusOneDay,
     });
-    return RoomService.getRoomPricesForStayPeriods(newDateToRequestStayPeriods);
+    return RoomService.getRoomPricesForStayPeriods(newDateToRequestStayPeriods, currency);
   }
 
   private getAveragePricePerNight(roomId: RoomModel['roomId']) {
-    if (!this.roomPrices[roomId]) {
+    if (!this.roomPrices[roomId] || !Object.keys(this.roomPrices[roomId]).length) {
       return RoomDefaultLabel.NoPrice;
     }
 
@@ -269,6 +272,18 @@ export class QwRoomList {
   onAddedToBasket = (e: BasketModel) => {
     this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(e);
   };
+
+  private resetRoomPrices() {
+    this.roomPrices = Object.keys(this.roomPrices).reduce((acc, key) => ({...acc, [key]: {}}), {});
+    this.rangeDateStored = [];
+  }
+
+  @Listen('qwCurrencyChanged', {target: 'window'})
+  public currencyChanged(event: CustomEvent<SessionDisplay['currency']>) {
+    this.resetRoomPrices();
+    this.getRoomsSearchForRange(this.session.context.stayPeriod, event.detail)
+      .subscribe((newRoomPrices) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
+  }
 
   public render() {
     return (
