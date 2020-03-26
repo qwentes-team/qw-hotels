@@ -151,8 +151,7 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowPrices && <div class="qw-room-list-card__prices">
             {this.qwRoomListCardBasketIsEmpty && <div class="qw-room-list-card__prices-container">
               <div class="qw-room-list-card__prices-average">
-                {Language.getTranslation('bestPrices')} - {Language.getTranslation('averagePerNight')}:
-                {this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}
+                {Language.getTranslation('bestPrices')} - {Language.getTranslation('averagePerNight')}: {this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}
               </div>
               <qw-week-calendar
                 qwWeekCalendarRangeDate={this.qwRoomListCardRangeDate}
