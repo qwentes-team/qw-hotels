@@ -51,12 +51,17 @@ export class QwCurrency {
     const ordered = Object.keys(MONEY_CURRENCIES)
       .filter(k => !importantKeys.includes(k) && !toSkipKeys.includes(k))
       .sort((a, b) => {
-        return MONEY_CURRENCIES[a].currency < MONEY_CURRENCIES[b].currency
+        const keyToSort = this.isClassic() ? 'currency' : 'alphabeticCode';
+        return MONEY_CURRENCIES[a][keyToSort] < MONEY_CURRENCIES[b][keyToSort]
           ? -1
-          : (MONEY_CURRENCIES[b].currency > MONEY_CURRENCIES[a].currency ? 1 : 0);
+          : (MONEY_CURRENCIES[b][keyToSort] > MONEY_CURRENCIES[a][keyToSort] ? 1 : 0);
       }).reduce((acc, key) => ({...acc, [key]: MONEY_CURRENCIES[key]}), {});
     const important = importantKeys.reduce((acc, key) => ({...acc, [key]: MONEY_CURRENCIES[key]}), {});
     return {...important, ...ordered};
+  }
+
+  private isClassic() {
+    return this.qwCurrencyType === QwCurrencyType.Classic;
   }
 
   render() {
@@ -68,11 +73,7 @@ export class QwCurrency {
           QwSelectOnChange={(e) => this.currencyChanged(e)}>
           {Object.keys(this.currencies).map(currencyCode => {
             return <option value={currencyCode} selected={currencyCode === this.currentCurrency}>
-              {
-                this.qwCurrencyType === QwCurrencyType.Classic
-                  ? this.currencies[currencyCode].currency
-                  : currencyCode
-              }
+              {this.isClassic() ? this.currencies[currencyCode].currency : currencyCode}
             </option>;
           })}
         </QwSelect>}
