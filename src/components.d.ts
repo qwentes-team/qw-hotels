@@ -26,6 +26,7 @@ import {
 import {
   QwCalendarGuestInlineInputType,
   QwChangeRoomEvent,
+  QwCurrencyType,
   QwOffersOrderType,
   QwRoomBaseInfoGuestType,
   QwRoomBaseInfoType,
@@ -113,7 +114,9 @@ export namespace Components {
     'qwCounterName': string | number;
     'qwCounterValue': number;
   }
-  interface QwCurrency {}
+  interface QwCurrency {
+    'qwCurrencyType': QwCurrencyType;
+  }
   interface QwError {}
   interface QwExtra {}
   interface QwExtraBasket {
@@ -675,6 +678,7 @@ declare namespace LocalJSX {
   }
   interface QwCurrency {
     'onQwCurrencyChanged'?: (event: CustomEvent<SessionDisplay['currency']>) => void;
+    'qwCurrencyType'?: QwCurrencyType;
   }
   interface QwError {}
   interface QwExtra {}

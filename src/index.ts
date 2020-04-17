@@ -81,3 +81,8 @@ export enum QwOffersOrderType {
   OrderByPrice = 'orderByPrice',
   OrderByRoomType = 'orderByRoomType',
 }
+
+export enum QwCurrencyType {
+  Classic = 'classic',
+  Compact = 'compact',
+}

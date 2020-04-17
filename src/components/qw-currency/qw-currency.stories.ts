@@ -14,4 +14,8 @@ export const base = () => `
   </qw-room-rates>
 `;
 
+export const compact = () => `
+  <qw-currency qw-currency-type="compact"></qw-currency>
+`;
+
 window.addEventListener('qwCurrencyChanged', logEvent);
