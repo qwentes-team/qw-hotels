@@ -55,10 +55,10 @@ export class QwCalendarPicker {
 
     if (selectedDates.length === 2) {
       this.disableStartDate = false;
-      const datesToEmit = dateStr.split(' to ');
+      const datesToEmit = dateStr.split(' ');
       const newStayPeriod: SessionStayPeriod = {
         arrivalDate: datesToEmit[0],
-        departureDate: datesToEmit[1] || datesToEmit[0],
+        departureDate: datesToEmit[datesToEmit.length - 1] || datesToEmit[0],
       };
       this.qwCalendarPickerChangeDates.emit(newStayPeriod);
     }
