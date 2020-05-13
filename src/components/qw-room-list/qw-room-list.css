@@ -33,6 +33,10 @@ qw-room-list {
   display: none;
 }
 
+.qw-room-list__no-availability {
+  margin: var(--qw-hotel-gap-md) 0;
+}
+
 qw-room-list qw-image {
   min-height: 200px;
 }

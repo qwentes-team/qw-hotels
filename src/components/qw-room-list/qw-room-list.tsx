@@ -1,7 +1,7 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketModel, BasketService, BasketWithPrice$, DateFormat, DateUtil,
-  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod, RateInformation,
+  BasketHelper, BasketModel, BasketService, BasketWithPrice$, DateFormat, DateUtil, Language,
+  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod, RateInformation, RoomAvailability,
   RoomBasketModel, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
   SessionDisplay, SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService, SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
@@ -34,6 +34,7 @@ export class QwRoomList {
   @Prop() qwRoomListBaseInfoType: QwRoomBaseInfoType = QwRoomBaseInfoType.Inline;
   @Prop() qwRoomListImageTransformationOptions: string;
   @Prop() qwRoomListRateHighlight: RateInformation['code'];
+  @Prop() qwRoomListShowAvailabilityMessage: boolean = false;
   @State() rooms: RoomModel[] = [];
   @State() firstLoad: boolean = false;
   @State() isBasketLoading: boolean;
@@ -52,6 +53,7 @@ export class QwRoomList {
   @State() numberOfGuests: number;
   @State() numberOfAccommodation: number;
   @State() language: SessionDisplay['culture'];
+  @State() noAvailability = false;
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
   @Event() qwRoomListOnLoad: EventEmitter<void>;
 
@@ -84,6 +86,9 @@ export class QwRoomList {
         return zip(of(session), BasketService.getBasket(session));
       }),
       switchMap(([session]) => {
+        RoomService.getRoomsAvailability(session.sessionId)
+          .subscribe((res) => this.getRoomAvailabilitySuccess(res));
+
         if (!this.qwRoomListShowPrices) {
           return zip(of({}), RoomService.getRooms(session.sessionId));
         }
@@ -199,7 +204,13 @@ export class QwRoomList {
     const rangeWithoutDepartureDate = [...range];
     rangeWithoutDepartureDate.length = range.length - 1;
 
-    return `${this.symbol} ${Math.round(this.calculateAverage(roomId, rangeWithoutDepartureDate)).toString()}`;
+    const calculate = this.calculateAverage(roomId, rangeWithoutDepartureDate);
+
+    if (!Number(calculate)) {
+      return RoomDefaultLabel.NoPrice;
+    }
+
+    return `${this.symbol} ${Math.round(calculate).toString()}`;
   }
 
   private calculateAverage(roomId: RoomModel['roomId'], rangeWithoutDepartureDate: string[]) {
@@ -285,6 +296,10 @@ export class QwRoomList {
       .subscribe((newRoomPrices) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
   }
 
+  public getRoomAvailabilitySuccess(availability: RoomAvailability) {
+    this.noAvailability = availability === RoomAvailability.noAvailability;
+  }
+
   public render() {
     return (
       <Host class={`
@@ -295,6 +310,11 @@ export class QwRoomList {
           <slot name="qwRoomListLoading"/>
         </div>
         <div class="qw-room-list__cards">
+
+          {this.qwRoomListShowAvailabilityMessage && this.noAvailability
+            ? <qw-error class="qw-room-list__no-availability">{Language.getTranslation('noAvailabilityRooms')}</qw-error>
+            : ''}
+
           {this.rooms.map(r => {
             return <div class="qw-room-list__card-wrapper">
               <qw-room-list-card

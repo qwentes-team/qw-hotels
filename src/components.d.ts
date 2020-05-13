@@ -204,6 +204,7 @@ export namespace Components {
     'qwRoomListOrder': QwRoomListOrderType;
     'qwRoomListPlaceholders': string;
     'qwRoomListRateHighlight': RateInformation['code'];
+    'qwRoomListShowAvailabilityMessage': boolean;
     'qwRoomListShowCta': boolean;
     'qwRoomListShowPrices': boolean;
     'qwRoomListShowRates': boolean;
@@ -783,6 +784,7 @@ declare namespace LocalJSX {
     'qwRoomListOrder'?: QwRoomListOrderType;
     'qwRoomListPlaceholders'?: string;
     'qwRoomListRateHighlight'?: RateInformation['code'];
+    'qwRoomListShowAvailabilityMessage'?: boolean;
     'qwRoomListShowCta'?: boolean;
     'qwRoomListShowPrices'?: boolean;
     'qwRoomListShowRates'?: boolean;
