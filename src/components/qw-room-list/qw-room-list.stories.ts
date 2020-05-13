@@ -77,5 +77,11 @@ export const withImageResized = () => `
   </qw-room-list>
 `;
 
+export const withAvailabilityMessage = () => `
+  <qw-room-list
+    qw-room-list-show-availability-message="true">
+  </qw-room-list>
+`;
+
 window.addEventListener('qwRoomListClickRoom', logEvent);
 window.addEventListener('qwRoomListOnLoad', logEvent);
