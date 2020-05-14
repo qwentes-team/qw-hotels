@@ -141,7 +141,7 @@ export class QwRoomListCard {
                   qwPriceCaption={`
                     ${Language.getTranslation('totalFor')} ${this.qwRoomListCardNights} ${Language.getTranslation('nights')}
                   `}/>
-              : '')}
+              : <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>)}
           </div>
 
           {this.qwRoomListCardShowDescription && <div class="qw-room-list-card__descriptions">
