@@ -39,6 +39,7 @@ graph TD;
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-placeholder
   qw-room-list-card --> qw-price
+  qw-room-list-card --> qw-error
   qw-room-list-card --> qw-week-calendar
   qw-room-list-card --> qw-room-rates
   qw-room-list-card --> qw-counter
