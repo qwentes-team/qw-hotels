@@ -86,6 +86,7 @@ export namespace Components {
   interface QwCalendar {
     'qwCalendarConfig': string;
     'qwCalendarDesktopLimit': number;
+    'qwCalendarId': string;
     'qwCalendarNumberOfMonths': number;
     'qwCalendarResponsive': boolean;
     'qwCalendarSyncOnChange': boolean;
@@ -99,6 +100,7 @@ export namespace Components {
     'qwCalendarPickerConfig': any;
     'qwCalendarPickerDesktopLimit': number;
     'qwCalendarPickerDisabled': boolean;
+    'qwCalendarPickerId': string;
     'qwCalendarPickerLocale': SessionDisplay['culture'];
     'qwCalendarPickerNumberOfMonths': number;
     'qwCalendarPickerResponsive': boolean;
@@ -640,6 +642,7 @@ declare namespace LocalJSX {
     'onQwCalendarChangeSuccess'?: (event: CustomEvent<void>) => void;
     'qwCalendarConfig'?: string;
     'qwCalendarDesktopLimit'?: number;
+    'qwCalendarId'?: string;
     'qwCalendarNumberOfMonths'?: number;
     'qwCalendarResponsive'?: boolean;
     'qwCalendarSyncOnChange'?: boolean;
@@ -656,6 +659,7 @@ declare namespace LocalJSX {
     'qwCalendarPickerConfig'?: any;
     'qwCalendarPickerDesktopLimit'?: number;
     'qwCalendarPickerDisabled'?: boolean;
+    'qwCalendarPickerId'?: string;
     'qwCalendarPickerLocale'?: SessionDisplay['culture'];
     'qwCalendarPickerNumberOfMonths'?: number;
     'qwCalendarPickerResponsive'?: boolean;

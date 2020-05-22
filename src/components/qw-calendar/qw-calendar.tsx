@@ -14,6 +14,7 @@ import {
   shadow: false
 })
 export class QwCalendar {
+  @Prop() qwCalendarId: string;
   @Prop() qwCalendarNumberOfMonths: number = 1;
   @Prop() qwCalendarResponsive: boolean = true;
   @Prop() qwCalendarSyncOnChange: boolean = true;
@@ -69,6 +70,7 @@ export class QwCalendar {
     return (
       <Host>
         <qw-calendar-picker
+          qwCalendarPickerId={this.qwCalendarId}
           qwCalendarPickerDesktopLimit={this.qwCalendarDesktopLimit}
           qwCalendarPickerResponsive={this.qwCalendarResponsive}
           qwCalendarPickerNumberOfMonths={this.qwCalendarNumberOfMonths}

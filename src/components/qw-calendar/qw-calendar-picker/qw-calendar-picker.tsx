@@ -15,6 +15,7 @@ const CALENDAR_ID = 'flatpickr-element';
   shadow: false,
 })
 export class QwCalendarPicker {
+  @Prop() qwCalendarPickerId: string = CALENDAR_ID;
   @Prop() qwCalendarPickerDisabled: boolean;
   @Prop() qwCalendarPickerNumberOfMonths: number;
   @Prop() qwCalendarPickerResponsive: boolean;
@@ -34,7 +35,7 @@ export class QwCalendarPicker {
   }
 
   private initCalendar() {
-    this.elementCalendarInstance = document.querySelector(`#${CALENDAR_ID}`);
+    this.elementCalendarInstance = document.querySelector(`#${this.qwCalendarPickerId}`);
     this.configCalendarInstance = {
       mode: 'range',
       minDate: 'today',
@@ -132,7 +133,7 @@ export class QwCalendarPicker {
         ${this.disableStartDate && 'qw-calendar-picker--disable-start-date'}
         ${this.qwCalendarPickerResponsive && 'qw-calendar-picker--responsive'}
       `}>
-        <div id={CALENDAR_ID}/>
+        <div id={this.qwCalendarPickerId}/>
       </Host>
     );
   }
