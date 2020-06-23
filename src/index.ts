@@ -86,3 +86,8 @@ export enum QwCurrencyType {
   Classic = 'classic',
   Compact = 'compact',
 }
+
+export enum QwLanguageType {
+  Select = 'select',
+  DropDown = 'dropDown',
+}

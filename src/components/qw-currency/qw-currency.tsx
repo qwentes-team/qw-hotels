@@ -19,6 +19,7 @@ import {QwCurrencyType} from '../../index';
 })
 export class QwCurrency {
   @Prop() qwCurrencyType: QwCurrencyType = QwCurrencyType.Classic;
+  @Prop() qwCurrencyHasSymbol = false;
   @State() session: SessionModel;
   @State() currentCurrency: SessionDisplay['currency'];
   @State() isSessionLoading: boolean;
@@ -47,11 +48,11 @@ export class QwCurrency {
 
   private sortCurrenciesByName() {
     const importantKeys = ['EUR', 'USD', 'AUD', 'CAD', 'GBP', 'CHF', 'JPY'];
-    const toSkipKeys = ['XUA', 'BYN', 'VES', 'XBA', 'XBB', 'XBD', 'XBC', 'XTS', 'SVC', 'XAU', 'MXV', 'BOV', 'MRU', 'XPD', 'XPT', 'XDR', 'XAG', 'XSU', 'XXX', 'USN', 'UYW', 'CLF', 'COU', 'UYI'];
+    const toSkipKeys = ['BYN'];
     const ordered = Object.keys(MONEY_CURRENCIES)
       .filter(k => !importantKeys.includes(k) && !toSkipKeys.includes(k))
       .sort((a, b) => {
-        const keyToSort = this.isClassic() ? 'currency' : 'alphabeticCode';
+        const keyToSort = this.isClassic() ? 'name' : 'code';
         return MONEY_CURRENCIES[a][keyToSort] < MONEY_CURRENCIES[b][keyToSort]
           ? -1
           : (MONEY_CURRENCIES[b][keyToSort] > MONEY_CURRENCIES[a][keyToSort] ? 1 : 0);
@@ -64,6 +65,10 @@ export class QwCurrency {
     return this.qwCurrencyType === QwCurrencyType.Classic;
   }
 
+  private shouldShowSymbol(currencyCode: string) {
+    return this.qwCurrencyHasSymbol ? `(${this.currencies[currencyCode].symbol})` : ''
+  }
+
   render() {
     return (
       <Host>
@@ -73,7 +78,7 @@ export class QwCurrency {
           QwSelectOnChange={(e) => this.currencyChanged(e)}>
           {Object.keys(this.currencies).map(currencyCode => {
             return <option value={currencyCode} selected={currencyCode === this.currentCurrency}>
-              {this.isClassic() ? this.currencies[currencyCode].currency : currencyCode}
+              {this.isClassic() ? this.currencies[currencyCode].name : currencyCode} {this.shouldShowSymbol(currencyCode)}
             </option>;
           })}
         </QwSelect>}

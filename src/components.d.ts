@@ -27,6 +27,7 @@ import {
   QwCalendarGuestInlineInputType,
   QwChangeRoomEvent,
   QwCurrencyType,
+  QwLanguageType,
   QwOffersOrderType,
   QwRoomBaseInfoGuestType,
   QwRoomBaseInfoType,
@@ -117,6 +118,7 @@ export namespace Components {
     'qwCounterValue': number;
   }
   interface QwCurrency {
+    'qwCurrencyHasSymbol': boolean;
     'qwCurrencyType': QwCurrencyType;
   }
   interface QwError {}
@@ -156,6 +158,7 @@ export namespace Components {
   interface QwLanguage {
     'qwLanguageLanguages': string;
     'qwLanguagePreselected': string;
+    'qwLanguageType': QwLanguageType;
   }
   interface QwLoading {
     'QwLoadingSize': string;
@@ -683,6 +686,7 @@ declare namespace LocalJSX {
   }
   interface QwCurrency {
     'onQwCurrencyChanged'?: (event: CustomEvent<SessionDisplay['currency']>) => void;
+    'qwCurrencyHasSymbol'?: boolean;
     'qwCurrencyType'?: QwCurrencyType;
   }
   interface QwError {}
@@ -727,6 +731,7 @@ declare namespace LocalJSX {
     'onQwLanguageChanged'?: (event: CustomEvent<SessionDisplay['culture']>) => void;
     'qwLanguageLanguages'?: string;
     'qwLanguagePreselected'?: string;
+    'qwLanguageType'?: QwLanguageType;
   }
   interface QwLoading {
     'QwLoadingSize'?: string;

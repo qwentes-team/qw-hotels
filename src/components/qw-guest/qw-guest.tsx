@@ -1,5 +1,6 @@
 import {Component, Host, h, State, Listen, Prop, Event, EventEmitter} from '@stencil/core';
 import {
+  Language,
   SessionGuests,
   SessionHasRoomsSync,
   SessionIsLoading$,
@@ -66,10 +67,10 @@ export class QwGuest {
         ${this.qwGuestCenter ? 'qw-guest--center' : ''}
         ${this.isSessionLoading ? 'qw-guest--disabled' : ''}
       `}>
-        {Object.keys(this.guests).map(guestKey => {
+        {Object.keys(this.guests).map((guestKey: 'adults' | 'children' | 'infants') => {
           return (
             <div class="qw-guest__counter-wrapper">
-              <div class="qw-guest__counter-wrapper__label">{guestKey}</div>
+              <div class="qw-guest__counter-wrapper__label">{Language.getTranslation(guestKey)}</div>
               <qw-counter
                 qwCounterId={QwCounterId.QwGuestCounter}
                 qwCounterValue={this.guests[guestKey]}

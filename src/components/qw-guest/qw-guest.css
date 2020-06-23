@@ -1,6 +1,6 @@
 qw-guest {
   --qw-guest-width: 60%;
-  
+
   display: flex;
   flex-direction: column;
   width: var(--qw-guest-width);
@@ -22,6 +22,5 @@ qw-guest .qw-guest__counter-wrapper {
 }
 
 qw-guest .qw-guest__counter-wrapper__label {
-  text-transform: capitalize;
   margin-right: var(--qw-hotel-gap-md);
 }
