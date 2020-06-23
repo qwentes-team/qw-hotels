@@ -22,4 +22,8 @@ export const preselected = () => `
   <qw-language qw-language-preselected="fr-FR"></qw-language>
 `;
 
+export const dropdown = () => `
+  <qw-language qw-language-type="dropDown"></qw-language>
+`;
+
 window.addEventListener('qwLanguageChanged', logEvent);

@@ -18,4 +18,12 @@ export const compact = () => `
   <qw-currency qw-currency-type="compact"></qw-currency>
 `;
 
+export const withSymbol = () => `
+  <qw-currency qw-currency-has-symbol="true"></qw-currency>
+`;
+
+export const compactWithSymbol = () => `
+  <qw-currency qw-currency-type="compact" qw-currency-has-symbol="true"></qw-currency>
+`;
+
 window.addEventListener('qwCurrencyChanged', logEvent);
