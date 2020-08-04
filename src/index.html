@@ -5,17 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>aNGie</title>
 
-  <script>
-    window.QW_HOTEL_ENV = {
-      ENDPOINT: 'https://booking-api-hub.decms.eu',
-      ENGINE_ID: 'JJ7Y', // 'J262' hotel gabriel fake
-      GUESTS: 7,
-    };
-
-    window.addEventListener('qwBasketWillBeReset', () => {
-      console.log('RESET');
-    })
-  </script>
+  <script src="env.js"></script>
 
   <link rel="stylesheet" href="/build/qw-hotels.css">
   <script type="module" src="/build/qw-hotels.esm.js"></script>
@@ -24,10 +14,10 @@
 <body>
 
 <qw-currency qw-currency-has-symbol="true" ></qw-currency>
-<qw-language qw-language-type="dropDown"></qw-language>
+<!--<qw-language qw-language-type="dropDown"></qw-language>-->
 <!--<qw-guest></qw-guest>-->
 <!--<qw-calendar-shorthand></qw-calendar-shorthand>-->
-<qw-calendar></qw-calendar>
+<!--<qw-calendar></qw-calendar>-->
 
 <!--<qw-basket-->
 <!--  qw-basket-show-empty-button="true"-->
@@ -72,8 +62,8 @@
 <!--  qw-offers-image-transformation-options='{"width": 300, "height": 200}'>-->
 <!--</qw-offers>-->
 
-<!--<qw-room-list qw-room-list-show-availability-message="true">-->
-<!--</qw-room-list>-->
+<qw-room-list qw-room-list-show-availability-message="true">
+</qw-room-list>
 
 <!--<qw-room-service qw-room-service-room-id="103251"></qw-room-service>-->
 </body>

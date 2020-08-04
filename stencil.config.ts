@@ -27,7 +27,8 @@ export const config: Config = {
       type: 'www',
       serviceWorker: null,
       copy: [
-        { src: 'globals/img', dest: 'img' }
+        { src: 'globals/img', dest: 'img' },
+        { src: 'env.js', dest: 'env.js' }
       ]
     }
   ],

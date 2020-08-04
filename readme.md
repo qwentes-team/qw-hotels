@@ -3,3 +3,19 @@
 # Qw Hotels
 
 Stencil components for D-Edge booking-engine project
+
+## Dev
+
+- Clone repo
+- `npm install`
+- copy `src/env.example.js` in `src/env.js`
+- `npm start` to run dev
+
+## Prod
+
+- bump version in `package.json`
+- `npm run build` to build the production package
+- copy the content of `dist/` folder in the server:
+  -  `/public_html/versions/v1` -> for the version 1 of the components (master)
+  -  `/public_html/versions/next` -> for the next of the components (staging)
+- `git tag` the new version

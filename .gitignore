@@ -26,3 +26,4 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 .env
 storybook-static/
+src/env.js
