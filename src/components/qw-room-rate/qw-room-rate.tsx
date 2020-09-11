@@ -131,7 +131,14 @@ export class QwRoomRate {
           </div>
         </div>}
         {this.qwRoomRateRate && <div class="qw-room-rate__price">
-          {this.qwRoomRateRate.price ? this.qwRoomRateRate.price.totalPrice.converted.text : '--'}
+          {this.qwRoomRateRate.price?.crossedOutPrice ?
+            <div class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
+            : '--'
+          }
+          {this.qwRoomRateRate.price ?
+            <div class="qw-room-rate__price-active">{this.qwRoomRateRate.price.totalPrice.converted.text}</div>
+            : '--'
+          }
           <div class="qw-room-rate__taxes">
             {this.qwRoomRateRate.taxes && RateHelper.getTaxesMessageFormatted(this.qwRoomRateRate.taxes)}
           </div>
@@ -178,12 +185,6 @@ export class QwRoomRate {
             </div>}
           </div>}
         </ul>}
-        {/*{this.isCardType() && this.getRateSummary() &&*/}
-        {/*  <QwWrapInDiv wrapIt={false}>*/}
-        {/*    <span class="qw-room-rate__info"/>*/}
-        {/*    <div class="qw-room-rate__other-conditions-popup">{this.getRateSummary()}</div>*/}
-        {/*  </QwWrapInDiv>*/}
-        {/*}*/}
       </Host>
     );
   }

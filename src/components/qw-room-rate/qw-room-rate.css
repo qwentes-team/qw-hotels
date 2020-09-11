@@ -13,6 +13,14 @@ qw-room-rate {
 
 .qw-room-rate__price {
   width: 18%;
+  display: flex;
+  flex-direction: column;
+}
+
+.qw-room-rate__price-crossed {
+  font-size: var(--qw-hotel-small-font-size);
+  color: var(--qw-hotel-neutral-medium);
+  text-decoration: line-through;
 }
 
 .qw-room-rate__taxes {
