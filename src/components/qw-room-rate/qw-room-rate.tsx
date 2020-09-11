@@ -65,6 +65,8 @@ export class QwRoomRate {
         return BasketService.getBasket(session);
       })
     ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
+
+    console.log(this.qwRoomRateRate);
   }
 
   addToBasket = () => {
@@ -131,9 +133,8 @@ export class QwRoomRate {
           </div>
         </div>}
         {this.qwRoomRateRate && <div class="qw-room-rate__price">
-          {this.qwRoomRateRate.price?.crossedOutPrice ?
+          {this.qwRoomRateRate.price?.crossedOutPrice &&
             <div class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
-            : '--'
           }
           {this.qwRoomRateRate.price ?
             <div class="qw-room-rate__price-active">{this.qwRoomRateRate.price.totalPrice.converted.text}</div>
