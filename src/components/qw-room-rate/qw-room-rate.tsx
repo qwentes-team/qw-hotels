@@ -65,8 +65,6 @@ export class QwRoomRate {
         return BasketService.getBasket(session);
       })
     ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
-
-    console.log(this.qwRoomRateRate);
   }
 
   addToBasket = () => {
