@@ -18,4 +18,4 @@ Stencil components for D-Edge booking-engine project
 - copy the content of `dist/` folder in the server:
   -  `/public_html/versions/v1` -> for the version 1 of the components (master)
   -  `/public_html/versions/next` -> for the next of the components (staging)
-- `git tag` the new version
+- `git tag` the new version (only in production/v1)

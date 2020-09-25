@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/model/room.interface";
-import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomModel, SessionDisplay, SessionGuests, SessionStayPeriod } from "@qwentes/booking-state-manager";
+import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
 import { QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
 import { QwExtraEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
@@ -253,6 +253,8 @@ export namespace Components {
         "qwRoomServiceRoomId": string;
     }
     interface QwSeparator {
+    }
+    interface QwSession {
     }
     interface QwTextarea {
         "qwTextareaName": string;
@@ -514,6 +516,12 @@ declare global {
         prototype: HTMLQwSeparatorElement;
         new (): HTMLQwSeparatorElement;
     };
+    interface HTMLQwSessionElement extends Components.QwSession, HTMLStencilElement {
+    }
+    var HTMLQwSessionElement: {
+        prototype: HTMLQwSessionElement;
+        new (): HTMLQwSessionElement;
+    };
     interface HTMLQwTextareaElement extends Components.QwTextarea, HTMLStencilElement {
     }
     var HTMLQwTextareaElement: {
@@ -568,6 +576,7 @@ declare global {
         "qw-room-rich-info": HTMLQwRoomRichInfoElement;
         "qw-room-service": HTMLQwRoomServiceElement;
         "qw-separator": HTMLQwSeparatorElement;
+        "qw-session": HTMLQwSessionElement;
         "qw-textarea": HTMLQwTextareaElement;
         "qw-week-calendar": HTMLQwWeekCalendarElement;
     }
@@ -849,6 +858,9 @@ declare namespace LocalJSX {
     }
     interface QwSeparator {
     }
+    interface QwSession {
+        "onQwSessionChanged"?: (event: CustomEvent<SessionModel>) => void;
+    }
     interface QwTextarea {
         "onQwTextareaChanged"?: (event: CustomEvent<QwInputEmitter>) => void;
         "qwTextareaName"?: string;
@@ -905,6 +917,7 @@ declare namespace LocalJSX {
         "qw-room-rich-info": QwRoomRichInfo;
         "qw-room-service": QwRoomService;
         "qw-separator": QwSeparator;
+        "qw-session": QwSession;
         "qw-textarea": QwTextarea;
         "qw-week-calendar": QwWeekCalendar;
     }
@@ -954,6 +967,7 @@ declare module "@stencil/core" {
             "qw-room-rich-info": LocalJSX.QwRoomRichInfo & JSXBase.HTMLAttributes<HTMLQwRoomRichInfoElement>;
             "qw-room-service": LocalJSX.QwRoomService & JSXBase.HTMLAttributes<HTMLQwRoomServiceElement>;
             "qw-separator": LocalJSX.QwSeparator & JSXBase.HTMLAttributes<HTMLQwSeparatorElement>;
+            "qw-session": LocalJSX.QwSession & JSXBase.HTMLAttributes<HTMLQwSessionElement>;
             "qw-textarea": LocalJSX.QwTextarea & JSXBase.HTMLAttributes<HTMLQwTextareaElement>;
             "qw-week-calendar": LocalJSX.QwWeekCalendar & JSXBase.HTMLAttributes<HTMLQwWeekCalendarElement>;
         }
