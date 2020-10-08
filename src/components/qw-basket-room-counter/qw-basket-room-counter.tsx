@@ -12,7 +12,6 @@ export class QwBasketRoomCounter {
   @Event() qwBasketRoomCounterNumber: EventEmitter<number>;
 
   public componentWillLoad() {
-    console.log('test');
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap(BasketService.getBasket)).subscribe();
 
