@@ -16,6 +16,7 @@ export class QwPromoCode {
   public componentWillLoad() {
     SessionLoaded$.subscribe((session) => {
       this.session = session;
+      console.log(session);
     });
   }
 
@@ -33,12 +34,19 @@ export class QwPromoCode {
     );
   }
 
-  private fetchSessionWithPromoCode() {
-    SessionHelperService.fetchUpdateSessionContext(this.session.sessionId, {promoCode: this.promoCodeValue} as any).subscribe(res => console.log(res));
-  }
-
   private onChangeValue(event) {
     this.promoCodeValue = event.target.value;
+  }
+
+  private fetchSessionWithPromoCode() {
+    SessionHelperService.fetchUpdateSessionContext(
+      this.session.sessionId,
+      {
+        stayPeriod: this.session.context.stayPeriod,
+        guests: this.session.context.guests,
+        selectedHotelId: this.session.context.selectedHotelId,
+        promoCode: this.promoCodeValue
+      }).subscribe(res => console.log(res));
   }
 
 }
