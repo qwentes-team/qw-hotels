@@ -1,4 +1,7 @@
-import {Component, Host, h, Prop} from '@stencil/core';
+import {Component, Host, h, Prop, State} from '@stencil/core';
+import {SessionLoaded$, SessionModel} from '@qwentes/booking-state-manager';
+import {SessionHelperService} from '@qwentes/booking-state-manager/dist/feature/session/session-helper.service';
+import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
   tag: 'qw-promo-code',
@@ -6,21 +9,36 @@ import {Component, Host, h, Prop} from '@stencil/core';
   shadow: false,
 })
 export class QwPromoCode {
+  @State() session: SessionModel;
+  @State() promoCodeValue: string;
   @Prop() qwPromoCodeLabel: string;
 
   public componentWillLoad() {
-    console.log('test');
+    SessionLoaded$.subscribe((session) => {
+      this.session = session;
+    });
   }
 
   render() {
     return (
       <Host>
-        <label>
-          {this.qwPromoCodeLabel}
-          <input type="text"/>
-        </label>
+        <qw-input
+          qwInputLabel={this.qwPromoCodeLabel}
+          onKeyUp={(event: UIEvent) => this.onChangeValue(event)}/>
+        {this.promoCodeValue && <QwButton
+          QwButtonIcon={true}
+          QwButtonIconFileName={'arrow-select.svg'}
+          QwButtonOnClick={() => this.fetchSessionWithPromoCode()}/> }
       </Host>
     );
+  }
+
+  private fetchSessionWithPromoCode() {
+    SessionHelperService.fetchUpdateSessionContext(this.session.sessionId, {promoCode: this.promoCodeValue} as any).subscribe(res => console.log(res));
+  }
+
+  private onChangeValue(event) {
+    this.promoCodeValue = event.target.value;
   }
 
 }

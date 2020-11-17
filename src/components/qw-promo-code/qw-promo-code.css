@@ -1,3 +1,11 @@
 qw-promo-code {
-  display: block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+qw-promo-code .qw-button--icon {
+  margin-left: var(--qw-hotel-gap-sm);
+  background-size: 12px;
+  transform: rotate(-90deg);
 }

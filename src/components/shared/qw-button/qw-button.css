@@ -4,7 +4,7 @@
   --qw-button-border: 1px solid var(--qw-button-color);
   --qw-button-gap: var(--qw-hotel-gap-sm);
   --qw-button-border-radius: 2px;
-  
+
   cursor: pointer;
   padding: var(--qw-button-gap);
   color: var(--qw-button-color);
@@ -19,6 +19,13 @@
 .qw-button.qw-button--disabled {
   opacity: var(--qw-hotel-opacity);
   pointer-events: none !important;
+}
+
+.qw-button.qw-button--icon {
+  padding: var(--qw-hotel-gap-md);
+  margin-bottom: 0;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .qw-button qw-loading {
