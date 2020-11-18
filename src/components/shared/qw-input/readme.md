@@ -33,6 +33,7 @@
  - [qw-book](../../qw-book)
  - [qw-book-guest-detail](../../qw-book/qw-book-guest-detail)
  - [qw-calendar-guest-inline](../../qw-calendar-guest-inline)
+ - [qw-promo-code](../../qw-promo-code)
 
 ### Graph
 ```mermaid
@@ -40,6 +41,7 @@ graph TD;
   qw-book --> qw-input
   qw-book-guest-detail --> qw-input
   qw-calendar-guest-inline --> qw-input
+  qw-promo-code --> qw-input
   style qw-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

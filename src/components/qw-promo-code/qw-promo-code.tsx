@@ -43,7 +43,7 @@ export class QwPromoCode {
 
   private fetchSessionWithPromoCode() {
     SessionHelperService.fetchUpdateSessionContext(
-      this.session.sessionId,
+      this.session?.sessionId,
       {
         stayPeriod: this.session.context.stayPeriod,
         guests: this.session.context.guests,
