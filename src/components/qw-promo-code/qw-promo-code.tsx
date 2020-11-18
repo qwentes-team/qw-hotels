@@ -2,6 +2,8 @@ import {Component, Host, h, Prop, State} from '@stencil/core';
 import {SessionLoaded$, SessionModel} from '@qwentes/booking-state-manager';
 import {SessionHelperService} from '@qwentes/booking-state-manager/dist/feature/session/session-helper.service';
 import {QwButton} from '../shared/qw-button/qw-button';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   tag: 'qw-promo-code',
@@ -11,12 +13,12 @@ import {QwButton} from '../shared/qw-button/qw-button';
 export class QwPromoCode {
   @State() session: SessionModel;
   @State() promoCodeValue: string;
+  @State() invalidCodeMessage = '';
   @Prop() qwPromoCodeLabel: string;
 
   public componentWillLoad() {
     SessionLoaded$.subscribe((session) => {
       this.session = session;
-      console.log(session);
     });
   }
 
@@ -25,6 +27,7 @@ export class QwPromoCode {
       <Host>
         <qw-input
           qwInputLabel={this.qwPromoCodeLabel}
+          qwInputCaption={this.invalidCodeMessage}
           onKeyUp={(event: UIEvent) => this.onChangeValue(event)}/>
         {this.promoCodeValue && <QwButton
           QwButtonIcon={true}
@@ -46,7 +49,10 @@ export class QwPromoCode {
         guests: this.session.context.guests,
         selectedHotelId: this.session.context.selectedHotelId,
         promoCode: this.promoCodeValue
-      }).subscribe(res => console.log(res));
+      }).pipe(
+        catchError((err) => of(err))
+    ).subscribe(res => {
+      this.invalidCodeMessage = res.status === 400 && res.body.Message;
+    });
   }
-
 }
