@@ -115,7 +115,7 @@ export class QwBasketSummary {
                   <div class="qw-basket-summary__room-rate-name">{rateName}</div>
                   <div class="qw-basket-summary__room-rate-occupancy">{rateOccupancyText}</div>
                 </div>
-                <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
+                <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)} {Language.getTranslation('nights')}</div>
                 <div class="qw-basket-summary__room-quantity">
                   <qw-counter
                     qwCounterId={QwCounterId.QwBasketSummaryBasketRoomsCounter}
