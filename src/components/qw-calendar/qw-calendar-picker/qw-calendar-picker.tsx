@@ -32,6 +32,7 @@ export class QwCalendarPicker {
 
   public componentDidLoad() {
     this.initCalendar();
+    console.log('initCalendar');
     this.qwCalendarPickerConfig.defaultDate && this.updateConfigCalendarAndRefresh({
       defaultDate: [
         this.qwCalendarPickerConfig.defaultDate[0],
