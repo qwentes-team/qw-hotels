@@ -9,7 +9,7 @@
 
 | Property                   | Attribute                      | Description | Type      | Default     |
 | -------------------------- | ------------------------------ | ----------- | --------- | ----------- |
-| `qwCalendarConfig`         | `qw-calendar-config`           |             | `string`  | `undefined` |
+| `qwCalendarConfig`         | `qw-calendar-config`           |             | `any`     | `undefined` |
 | `qwCalendarDesktopLimit`   | `qw-calendar-desktop-limit`    |             | `number`  | `600`       |
 | `qwCalendarId`             | `qw-calendar-id`               |             | `string`  | `undefined` |
 | `qwCalendarNumberOfMonths` | `qw-calendar-number-of-months` |             | `number`  | `1`         |
