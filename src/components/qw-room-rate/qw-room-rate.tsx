@@ -48,6 +48,9 @@ export class QwRoomRate {
   @State() quantity: number = 0;
   @State() numberOfGuests: number = 0;
   @State() numberOfRooms: number = 0;
+  @State() adultCount: number = 0;
+  @State() childCount: number = 0;
+  @State() infantCount: number = 0;
   @Event() qwRoomRateAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateCounterChangedEmitter>;
 
@@ -63,7 +66,7 @@ export class QwRoomRate {
       switchMap(session => {
         this.numberOfGuests = SessionHelper.getTotalGuests(session);
         return BasketService.getBasket(session);
-      })
+      }),
     ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
   }
 
@@ -115,6 +118,24 @@ export class QwRoomRate {
     return this.qwRoomRateHighlight === code;
   }
 
+  private formatOccupancySegment(peopleCount: number) {
+    return Array.from(Array(peopleCount))
+  }
+
+  private getOccupancy() {
+    const occupancyValue = this.qwRoomRateRate.occupancy.definition.value;
+    const hasDetailedOccupancy = occupancyValue.isDetailed;
+    console.log('hasDetailedOccupancy', hasDetailedOccupancy);
+    if (hasDetailedOccupancy) {
+      const adults = this.formatOccupancySegment(occupancyValue.adultCount).map(() => <span class="adult"/>);
+      const children = this.formatOccupancySegment(occupancyValue.childCount).map(() => <span class="child"/>);
+      const infants = this.formatOccupancySegment(occupancyValue.infantCount).map(() => <span class="infant"/>);
+      return Array(adults, children, infants);
+    } else {
+      return Array.from(Array(occupancyValue.personCount)).map(() => <span/>);
+    }
+  }
+
   render() {
     return (
       <Host class={`
@@ -127,12 +148,12 @@ export class QwRoomRate {
         {this.qwRoomRateRate && <div class="qw-room-rate__title">
           <div class="qw-room-rate__title-name">{this.qwRoomRateRate.description.name}</div>
           <div class="qw-room-rate__occupancy">
-            {Array.from(Array(this.qwRoomRateRate.occupancy.definition.value.personCount)).map(() => <span/>)}
+            {this.getOccupancy()}
           </div>
         </div>}
         {this.qwRoomRateRate && <div class="qw-room-rate__price">
           {this.qwRoomRateRate.price?.crossedOutPrice &&
-            <div class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
+          <div class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
           }
           {this.qwRoomRateRate.price ?
             <div class="qw-room-rate__price-active">{this.qwRoomRateRate.price.totalPrice.converted.text}</div>
@@ -167,7 +188,8 @@ export class QwRoomRate {
           {this.qwRoomRateRate.taxes.onSite.amount.text && <li class="qw-room-rate--stay-tax">
             {RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
           </li>}
-          <li class={this.hasBreakfast(this.qwRoomRateRate.description.qualifier) ? 'qw-room-rate--has-breakfast' : 'qw-room-rate--has-not-breakfast'}>
+          <li
+            class={this.hasBreakfast(this.qwRoomRateRate.description.qualifier) ? 'qw-room-rate--has-breakfast' : 'qw-room-rate--has-not-breakfast'}>
             {this.qwRoomRateRate.description.qualifier.text}
           </li>
           <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>

@@ -45,14 +45,28 @@ qw-room-rate .qw-button {
 .qw-room-rate__occupancy {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .qw-room-rate__occupancy span {
   width: 20px;
-  height: 20px;
-  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/person.svg') no-repeat center;
-  background-size: 17px 17px;
+  height: 25px;
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/person.svg') no-repeat bottom;
+  background-size: 17px 18px;
+}
+
+.qw-room-rate__occupancy span.child {
+  width: 20px;
+  height: 25px;
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/person.svg') no-repeat bottom;
+  background-size: 17px 15px;
+}
+
+.qw-room-rate__occupancy span.infant {
+  width: 20px;
+  height: 25px;
+  background: url('https://hotels-booking-engine.qwentes.it/versions/v1/img/person.svg') no-repeat bottom;
+  background-size: 17px 12px;
 }
 
 .qw-room-rate__counter {
