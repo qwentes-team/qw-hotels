@@ -19,7 +19,7 @@ export class QwCalendar {
   @Prop() qwCalendarResponsive: boolean = true;
   @Prop() qwCalendarSyncOnChange: boolean = true;
   @Prop() qwCalendarDesktopLimit: number = 600;
-  @Prop() qwCalendarConfig: string; // flatpickr Options
+  @Prop() qwCalendarConfig: any; // flatpickr Options
   @State() session: SessionModel;
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean;

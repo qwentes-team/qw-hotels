@@ -39,7 +39,7 @@ export namespace Components {
         "qwBookGuestDetailTitleOptions": Array<RoomMetadata<string>>;
     }
     interface QwCalendar {
-        "qwCalendarConfig": string;
+        "qwCalendarConfig": any;
         "qwCalendarDesktopLimit": number;
         "qwCalendarId": string;
         "qwCalendarNumberOfMonths": number;
@@ -622,7 +622,7 @@ declare namespace LocalJSX {
         "onQwBasketWillBeReset"?: (event: CustomEvent<void>) => void;
         "onQwCalendarChange"?: (event: CustomEvent<SessionStayPeriod>) => void;
         "onQwCalendarChangeSuccess"?: (event: CustomEvent<void>) => void;
-        "qwCalendarConfig"?: string;
+        "qwCalendarConfig"?: any;
         "qwCalendarDesktopLimit"?: number;
         "qwCalendarId"?: string;
         "qwCalendarNumberOfMonths"?: number;
