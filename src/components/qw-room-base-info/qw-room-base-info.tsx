@@ -25,7 +25,17 @@ export class QwRoomBaseInfo {
 
     RoomLoaded$.subscribe(rooms => {
       this.room = rooms.find(r => r.roomId === parseInt(this.qwRoomBaseInfoRoomId));
+      console.log(this.room);
     });
+  }
+
+  private getMaxOccupancyValue() {
+    const occupancyValue = RoomHelper.getDefaultOccupancy(this.room).definition.value;
+    if (occupancyValue.isDetailed) {
+      return occupancyValue.adultCount + occupancyValue.childCount + occupancyValue.infantCount;
+    } else {
+      return occupancyValue.personCount;
+    }
   }
 
   render() {
@@ -34,11 +44,10 @@ export class QwRoomBaseInfo {
         {this.room ? <ul class={`${this.qwRoomBaseInfoType === QwRoomBaseInfoType.Inline ? 'qw-room-base-info--inline' : ''}`}>
           {this.qwRoomBaseInfoGuestType === QwRoomBaseInfoGuestType.Icon
             ? <li class="qw-room-base-info__person-icon">
-              {Array.from(Array(RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount)).map(() => <span/>)}
-              {RoomHelper.getDefaultOccupancy(this.room).definition.value.personCount === 1
+              {Language.getTranslation('maximum')} {this.getMaxOccupancyValue()} {this.getMaxOccupancyValue() === 1
                 ? Language.getTranslation('person')
-                : Language.getTranslation('people')}
-              </li>
+                : Language.getTranslation('people')} 
+            </li>
             : <li class="qw-room-base-info__person-text">{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
           }
           {this.room.surfaceArea.text && <li class="qw-room-base-info__surface">{this.room.surfaceArea.text}</li>}

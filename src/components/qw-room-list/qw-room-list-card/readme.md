@@ -38,6 +38,7 @@
 | `qwRoomListCardRangeDate`                  | --                                          |             | `Date[]`                                                              | `undefined`                 |
 | `qwRoomListCardRangeDateSession`           | --                                          |             | `Date[]`                                                              | `undefined`                 |
 | `qwRoomListCardRateHighlight`              | `qw-room-list-card-rate-highlight`          |             | `string`                                                              | `undefined`                 |
+| `qwRoomListCardRateListTitle`              | `qw-room-list-card-rate-list-title`         |             | `string`                                                              | `undefined`                 |
 | `qwRoomListCardShowActions`                | `qw-room-list-card-show-actions`            |             | `boolean`                                                             | `undefined`                 |
 | `qwRoomListCardShowCta`                    | `qw-room-list-card-show-cta`                |             | `boolean`                                                             | `true`                      |
 | `qwRoomListCardShowDescription`            | `qw-room-list-card-show-description`        |             | `boolean`                                                             | `true`                      |

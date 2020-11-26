@@ -15,6 +15,7 @@
 | `qwRoomListOrder`                      | `qw-room-list-order`                        |             | `QwRoomListOrderType.AscendingPrice \| QwRoomListOrderType.DescendingPrice` | `QwRoomListOrderType.AscendingPrice` |
 | `qwRoomListPlaceholders`               | `qw-room-list-placeholders`                 |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListRateHighlight`              | `qw-room-list-rate-highlight`               |             | `string`                                                                    | `undefined`                          |
+| `qwRoomListRateListTitle`              | `qw-room-list-rate-list-title`              |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListShowAvailabilityMessage`    | `qw-room-list-show-availability-message`    |             | `boolean`                                                                   | `false`                              |
 | `qwRoomListShowCta`                    | `qw-room-list-show-cta`                     |             | `boolean`                                                                   | `true`                               |
 | `qwRoomListShowPrices`                 | `qw-room-list-show-prices`                  |             | `boolean`                                                                   | `true`                               |
