@@ -172,6 +172,7 @@ export namespace Components {
         "qwRoomListOrder": QwRoomListOrderType;
         "qwRoomListPlaceholders": string;
         "qwRoomListRateHighlight": RateInformation['code'];
+        "qwRoomListRateListTitle": string;
         "qwRoomListShowAvailabilityMessage": boolean;
         "qwRoomListShowCta": boolean;
         "qwRoomListShowPrices": boolean;
@@ -208,6 +209,7 @@ export namespace Components {
         "qwRoomListCardRangeDate": Date[];
         "qwRoomListCardRangeDateSession": Date[];
         "qwRoomListCardRateHighlight": RateInformation['code'];
+        "qwRoomListCardRateListTitle": string;
         "qwRoomListCardShowActions": boolean;
         "qwRoomListCardShowCta": boolean;
         "qwRoomListCardShowDescription": boolean;
@@ -780,6 +782,7 @@ declare namespace LocalJSX {
         "qwRoomListOrder"?: QwRoomListOrderType;
         "qwRoomListPlaceholders"?: string;
         "qwRoomListRateHighlight"?: RateInformation['code'];
+        "qwRoomListRateListTitle"?: string;
         "qwRoomListShowAvailabilityMessage"?: boolean;
         "qwRoomListShowCta"?: boolean;
         "qwRoomListShowPrices"?: boolean;
@@ -816,6 +819,7 @@ declare namespace LocalJSX {
         "qwRoomListCardRangeDate"?: Date[];
         "qwRoomListCardRangeDateSession"?: Date[];
         "qwRoomListCardRateHighlight"?: RateInformation['code'];
+        "qwRoomListCardRateListTitle"?: string;
         "qwRoomListCardShowActions"?: boolean;
         "qwRoomListCardShowCta"?: boolean;
         "qwRoomListCardShowDescription"?: boolean;

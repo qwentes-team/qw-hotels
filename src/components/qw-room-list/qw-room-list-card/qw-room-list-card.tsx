@@ -67,6 +67,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardOnChangeRoom: (e: QwChangeRoomEvent) => void;
   @Prop() qwRoomListCardOnChangeWeekDates: (e: QwWeekCalendarDirection) => void;
   @Prop() qwRoomListCardOnAddedToBasket: (e: BasketModel) => void;
+  @Prop() qwRoomListCardRateListTitle: string;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
@@ -177,7 +178,7 @@ export class QwRoomListCard {
 
           {this.qwRoomListCardShowRates
             ? <div class="qw-room-list-card__rates">
-                <h4>{Language.getTranslation('rateList')}</h4>
+                <h4>{this.qwRoomListCardRateListTitle ? this.qwRoomListCardRateListTitle : Language.getTranslation('rateList')}</h4>
                 <qw-room-rates
                   qwRoomRatesType={this.qwRoomListCardType}
                   qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}

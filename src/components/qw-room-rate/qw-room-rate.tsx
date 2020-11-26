@@ -125,7 +125,6 @@ export class QwRoomRate {
   private getOccupancy() {
     const occupancyValue = this.qwRoomRateRate.occupancy.definition.value;
     const hasDetailedOccupancy = occupancyValue.isDetailed;
-    console.log('hasDetailedOccupancy', hasDetailedOccupancy);
     if (hasDetailedOccupancy) {
       const adults = this.formatOccupancySegment(occupancyValue.adultCount).map(() => <span class="adult"/>);
       const children = this.formatOccupancySegment(occupancyValue.childCount).map(() => <span class="child"/>);

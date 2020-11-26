@@ -35,6 +35,7 @@ export class QwRoomList {
   @Prop() qwRoomListImageTransformationOptions: string;
   @Prop() qwRoomListRateHighlight: RateInformation['code'];
   @Prop() qwRoomListShowAvailabilityMessage: boolean = false;
+  @Prop() qwRoomListRateListTitle: string;
   @State() rooms: RoomModel[] = [];
   @State() firstLoad: boolean = false;
   @State() isBasketLoading: boolean;
@@ -322,6 +323,7 @@ export class QwRoomList {
                   qw-room-list-card--${this.qwRoomListType}
                   ${this.isLoadingData() ? 'qw-room-list-card__disabled' : ''}
                 `}
+                qwRoomListCardRateListTitle={this.qwRoomListRateListTitle}
                 qwRoomListCardId={r.roomId}
                 qwRoomListCardTitle={r.name}
                 qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}
