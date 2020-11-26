@@ -193,7 +193,7 @@ export class QwRoomRate {
           </li>
           <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
 
-          {this.getRateSummary() && <div class="qw-room-rate__other-conditions">
+          <div class="qw-room-rate__other-conditions">
             <div
               class="qw-room-rate__conditions-trigger"
               onClick={() => this.qwRoomRateShowConditions = !this.qwRoomRateShowConditions}>
@@ -203,7 +203,7 @@ export class QwRoomRate {
             {this.qwRoomRateShowConditions && <div class="qw-room-rate__conditions-content">
               {<li>{this.getRateSummary()}</li>}
             </div>}
-          </div>}
+          </div>
         </ul>}
       </Host>
     );

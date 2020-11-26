@@ -46,7 +46,7 @@ export class QwRoomBaseInfo {
             ? <li class="qw-room-base-info__person-icon">
               {Language.getTranslation('maximum')} {this.getMaxOccupancyValue()} {this.getMaxOccupancyValue() === 1
                 ? Language.getTranslation('person')
-                : Language.getTranslation('people')} 
+                : Language.getTranslation('people')}
             </li>
             : <li class="qw-room-base-info__person-text">{RoomHelper.getDefaultOccupancy(this.room).definition.text}</li>
           }
