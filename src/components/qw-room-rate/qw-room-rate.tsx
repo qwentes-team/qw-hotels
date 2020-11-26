@@ -10,8 +10,7 @@ import {
   RateHelper,
   RateInformation,
   RateQualifierType,
-  RoomModel,
-  RoomSummaryType,
+  RoomModel, RoomSummaryType,
   SessionHelper,
   SessionLoaded$,
   SessionService,
@@ -87,10 +86,17 @@ export class QwRoomRate {
     return qualifier.value === RateQualifierType.BreakfastIncluded;
   }
 
+  private getSummaryType(summary, type) {
+    return summary.find(s => s.value === type);
+  }
+
   public getRateSummary() {
     const summary = this.qwRoomRateRate?.description.summary;
-    if (summary.find(summary => summary.text)) {
-      return summary.find(summary => summary.text).text
+    if (this.getSummaryType( summary, RoomSummaryType.Html)) {
+      const htmlSummary = this.getSummaryType( summary, RoomSummaryType.Html)?.text;
+      return <div innerHTML={htmlSummary}></div>;
+    } else {
+      return this.getSummaryType( summary, RoomSummaryType.PlainText)?.text
     }
   }
 

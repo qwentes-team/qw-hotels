@@ -42,6 +42,10 @@ qw-room-rate .qw-button {
   font-size: var(--qw-hotel-small-font-size);
 }
 
+.qw-room-rate__conditions-content p {
+  margin: 0;
+}
+
 .qw-room-rate__occupancy {
   display: flex;
   justify-content: flex-start;
