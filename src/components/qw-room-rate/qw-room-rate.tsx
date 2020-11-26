@@ -88,7 +88,10 @@ export class QwRoomRate {
   }
 
   public getRateSummary() {
-    return this.qwRoomRateRate?.description.summary.find(summary => summary.value === RoomSummaryType.PlainText)?.text;
+    const summary = this.qwRoomRateRate?.description.summary;
+    if (summary.find(summary => summary.text)) {
+      return summary.find(summary => summary.text).text
+    }
   }
 
   private getMaxValue(currentValue = 0) {

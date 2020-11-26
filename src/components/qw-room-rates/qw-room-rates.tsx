@@ -104,7 +104,7 @@ export class QwRoomRates {
               qwRoomRateType={this.qwRoomRatesType}
               qwRoomRateIsDisabled={this.isRateDisabled(r.rateId)}
               qwRoomRateHighlight={this.qwRoomRatesRateHighlight}
-              qwRoomRateShowConditions={this.mergedRates.length === 1}/>;
+              qwRoomRateShowConditions={true}/>;
           })}
         </div>
 
