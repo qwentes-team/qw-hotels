@@ -108,6 +108,7 @@ export class QwRoomListCard {
   }
 
   render() {
+    // @ts-ignore
     return (
       <Host class={this.qwRoomListCardIsLoading ? 'qw-room-list-card__is-loading' : ''}>
         <qw-card>
@@ -176,6 +177,7 @@ export class QwRoomListCard {
 
           {this.qwRoomListCardShowRates
             ? <div class="qw-room-list-card__rates">
+                <h4>{Language.getTranslation('rateList')}</h4>
                 <qw-room-rates
                   qwRoomRatesType={this.qwRoomListCardType}
                   qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}
