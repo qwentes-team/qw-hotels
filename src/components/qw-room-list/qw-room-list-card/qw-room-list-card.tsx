@@ -211,7 +211,7 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
             {this.showProceedButton()
               ? <QwButton
-                  QwButtonLabel={Language.getTranslation('proceedToCheckout')}
+                  QwButtonLabel={Language.getTranslation('viewRoom')}
                   QwButtonOnClick={() => this.qwRoomListCardOnProceedToCheckout()}/>
               : <QwButton
                   QwButtonLabel={Language.getTranslation('viewRoom')}
