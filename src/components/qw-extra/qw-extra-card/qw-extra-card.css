@@ -12,6 +12,14 @@ qw-extra-card .qw-extra-card__title h4 {
   margin: var(--qw-hotel-gap-sm) 0;
 }
 
+qw-extra-card .qw-extra-card__summary {
+  display: none;
+}
+
+qw-extra-card .qw-extra-card__summary p {
+  margin: 0;
+}
+
 qw-extra-card .qw-extra-card__image {
   width: 100%;
 }

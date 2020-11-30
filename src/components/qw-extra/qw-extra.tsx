@@ -52,6 +52,10 @@ export class QwExtra {
     return this.basketIsLoading || this.extraIsLoading;
   }
 
+  private getSummaryExtra(extra) {
+    return <p innerHTML={extra.summary.find(s => s.text).text}></p>;
+  }
+
   render() {
     return (
       <Host class={`${!this.extra ? 'qw-extra--loading' : 'qw-extra--loaded'}`}>
@@ -65,6 +69,7 @@ export class QwExtra {
               class={this.isLoadingData() ? 'qw-extra-card--disabled' : ''}
               qwExtraCardId={extra.extraId}
               qwExtraCardName={extra.name}
+              qwExtraCardSummary={this.getSummaryExtra(extra)}
               qwExtraCardCover={ExtraHelper.getCoverImage(extra).url}
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
               qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}

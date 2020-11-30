@@ -92,6 +92,7 @@ export namespace Components {
         "qwExtraCardId": number;
         "qwExtraCardName": string;
         "qwExtraCardSelectedQuantity": number;
+        "qwExtraCardSummary": string;
         "qwExtraCardUnitPrice": string;
     }
     interface QwGuest {
@@ -687,6 +688,7 @@ declare namespace LocalJSX {
         "qwExtraCardId"?: number;
         "qwExtraCardName"?: string;
         "qwExtraCardSelectedQuantity"?: number;
+        "qwExtraCardSummary"?: string;
         "qwExtraCardUnitPrice"?: string;
     }
     interface QwGuest {

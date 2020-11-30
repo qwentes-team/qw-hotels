@@ -16,6 +16,7 @@ export interface QwExtraEmitter {
 export class QwExtraCard {
   @Prop() qwExtraCardId: number;
   @Prop() qwExtraCardName: string;
+  @Prop() qwExtraCardSummary: string;
   @Prop() qwExtraCardCover: string;
   @Prop() qwExtraCardUnitPrice: string;
   @Prop() qwExtraCardAvailability: number;
@@ -36,6 +37,7 @@ export class QwExtraCard {
         </div>
         <div class="qw-extra-card__title">
           <h4>{this.qwExtraCardName}</h4>
+          <span class="qw-extra-card__summary">{this.qwExtraCardSummary}</span>
         </div>
         <div class="qw-extra-card__footer">
           <div class="qw-extra-card__price">
