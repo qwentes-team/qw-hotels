@@ -32,7 +32,6 @@ export class QwCalendarPicker {
 
   public componentDidLoad() {
     this.initCalendar();
-    console.log('initCalendar');
     this.qwCalendarPickerConfig.defaultDate && this.updateConfigCalendarAndRefresh({
       defaultDate: [
         this.qwCalendarPickerConfig.defaultDate[0],
@@ -50,8 +49,9 @@ export class QwCalendarPicker {
       showMonths: this.qwCalendarPickerNumberOfMonths,
       locale: this.getLocaleForCalendar(),
       onChange: this.change,
+      ...this.qwCalendarPickerConfig
     };
-
+    console.log('configCalendarInstance', this.configCalendarInstance);
     this.calendarInstance = flatpickr(this.elementCalendarInstance, this.configCalendarInstance);
     this.setOneOrTwoMonthIfResponsive();
   }
