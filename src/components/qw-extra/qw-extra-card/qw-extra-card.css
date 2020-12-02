@@ -43,3 +43,7 @@ qw-extra-card .qw-extra-card__price-label,
 qw-extra-card .qw-extra-card__quantity-label {
   font-size: 70%;
 }
+
+qw-extra-card .qw-extra-card__add-btn {
+  width: 100%;
+}

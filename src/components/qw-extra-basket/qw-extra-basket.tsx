@@ -44,8 +44,16 @@ export class QwExtraBasket {
     }).subscribe();
   }
 
+  @Listen('qwSingleExtraChanged')
+  public singleExtraChanged(e: CustomEvent<QwExtraEmitter>) {
+    BasketService.setExtraInBasket({
+      quantity: e.detail.quantity,
+      extraId: e.detail.extraId,
+    }).subscribe();
+  }
+
   private getSummaryType(summary, type) {
-    return summary.find(s => s.value === type);
+    return summary.find(s => s?.value === type);
   }
   private getSummaryExtra(extra) {
     const summary = extra.summary;
@@ -78,6 +86,7 @@ export class QwExtraBasket {
                 qwExtraCardCover={this.qwExtraBasketHasImage ? ExtraHelper.getCoverImage(basketExtra).url : undefined}
                 qwExtraCardUnitPrice={price}
                 qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
+                qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}
                 qwExtraCardSelectedQuantity={basketExtra?.selectedQuantity.value || 0}/>;
             }) : undefined}
       </Host>

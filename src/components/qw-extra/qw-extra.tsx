@@ -18,6 +18,7 @@ export class QwExtra {
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
   @State() extraIsLoading: boolean;
+  @State() canAddMoreExtra: boolean;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -28,7 +29,7 @@ export class QwExtra {
         BasketService.getBasket(session),
       )),
       switchMap(([sessionId, hasRooms]) => hasRooms ? ExtraService.getExtra(sessionId) : of(null)),
-    ).subscribe();
+    ).subscribe(res => console.log('extra', res));
 
     ExtraLoaded$.subscribe(extra => this.extra = extra);
     BasketWithPrice$.subscribe(basket => this.basket = basket);
@@ -44,6 +45,14 @@ export class QwExtra {
     }).subscribe();
   }
 
+  @Listen('qwSingleExtraChanged')
+  public singleExtraChanged(e: CustomEvent<QwExtraEmitter>) {
+    BasketService.setExtraInBasket({
+      quantity: e.detail.quantity,
+      extraId: e.detail.extraId,
+    }).subscribe();
+  }
+
   private isInitData() {
     return this.extra && !!this.extra.length && this.basket;
   }
@@ -53,7 +62,7 @@ export class QwExtra {
   }
 
   private getSummaryExtra(extra) {
-    return <p innerHTML={extra.summary.find(s => s.text).text}></p>;
+    return extra.summary.length && <p innerHTML={extra.summary.find(s => s.text).text}></p>;
   }
 
   render() {
@@ -71,8 +80,10 @@ export class QwExtra {
               qwExtraCardName={extra.name}
               qwExtraCardSummary={this.getSummaryExtra(extra)}
               qwExtraCardCover={ExtraHelper.getCoverImage(extra).url}
+              qwExtraCardCounting={extra.counting}
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
-              qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
+              qwExtraCardAvailability={basketExtra?.availableQuantity}
+              qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}
               qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
           })}
         </div>

@@ -9,7 +9,7 @@ import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/mo
 import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
 import { QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
-import { QwExtraEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
+import { QwExtraCounting, QwExtraEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
 import { Transformation } from "cloudinary-core";
 import { QwInputEmitter } from "./components/shared/qw-input/qw-input";
 import { QwOfferClickEmitter } from "./components/qw-offers/qw-offers";
@@ -88,6 +88,8 @@ export namespace Components {
     }
     interface QwExtraCard {
         "qwExtraCardAvailability": number;
+        "qwExtraCardCanAddMoreExtra": boolean;
+        "qwExtraCardCounting": QwExtraCounting;
         "qwExtraCardCover": string;
         "qwExtraCardId": number;
         "qwExtraCardName": string;
@@ -683,7 +685,10 @@ declare namespace LocalJSX {
     }
     interface QwExtraCard {
         "onQwExtraCounterChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
+        "onQwSingleExtraChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "qwExtraCardAvailability"?: number;
+        "qwExtraCardCanAddMoreExtra"?: boolean;
+        "qwExtraCardCounting"?: QwExtraCounting;
         "qwExtraCardCover"?: string;
         "qwExtraCardId"?: number;
         "qwExtraCardName"?: string;

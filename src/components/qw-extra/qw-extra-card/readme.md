@@ -14,6 +14,7 @@
 | `qwExtraCardId`               | `qw-extra-card-id`                |             | `number` | `undefined` |
 | `qwExtraCardName`             | `qw-extra-card-name`              |             | `string` | `undefined` |
 | `qwExtraCardSelectedQuantity` | `qw-extra-card-selected-quantity` |             | `number` | `undefined` |
+| `qwExtraCardSummary`          | `qw-extra-card-summary`           |             | `string` | `undefined` |
 | `qwExtraCardUnitPrice`        | `qw-extra-card-unit-price`        |             | `string` | `undefined` |
 
 
