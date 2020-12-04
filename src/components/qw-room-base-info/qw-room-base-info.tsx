@@ -25,7 +25,7 @@ export class QwRoomBaseInfo {
 
     RoomLoaded$.subscribe(rooms => {
       this.room = rooms.find(r => r.roomId === parseInt(this.qwRoomBaseInfoRoomId));
-      console.log(this.room);
+      // console.log(this.room);
     });
   }
 

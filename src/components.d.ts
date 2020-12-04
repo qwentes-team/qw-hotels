@@ -72,6 +72,7 @@ export namespace Components {
         "qwCounterMaxValue": number;
         "qwCounterMinValue": number;
         "qwCounterName": string | number;
+        "qwCounterQuantity": number;
         "qwCounterValue": number;
     }
     interface QwCurrency {
@@ -93,9 +94,12 @@ export namespace Components {
         "qwExtraCardCover": string;
         "qwExtraCardId": number;
         "qwExtraCardName": string;
-        "qwExtraCardSelectedQuantity": number;
+        "qwExtraCardQuantityOptions": any[];
+        "qwExtraCardSelectedQuantityValue": number;
         "qwExtraCardSummary": string;
+        "qwExtraCardType": string;
         "qwExtraCardUnitPrice": string;
+        "qwExtraCardUnitQuantity": number;
     }
     interface QwGuest {
         "qwGuestCenter": boolean;
@@ -668,6 +672,7 @@ declare namespace LocalJSX {
         "qwCounterMaxValue"?: number;
         "qwCounterMinValue"?: number;
         "qwCounterName"?: string | number;
+        "qwCounterQuantity"?: number;
         "qwCounterValue"?: number;
     }
     interface QwCurrency {
@@ -685,6 +690,7 @@ declare namespace LocalJSX {
     }
     interface QwExtraCard {
         "onQwExtraCounterChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
+        "onQwQuantityExtraChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "onQwSingleExtraChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "qwExtraCardAvailability"?: number;
         "qwExtraCardCanAddMoreExtra"?: boolean;
@@ -692,9 +698,12 @@ declare namespace LocalJSX {
         "qwExtraCardCover"?: string;
         "qwExtraCardId"?: number;
         "qwExtraCardName"?: string;
-        "qwExtraCardSelectedQuantity"?: number;
+        "qwExtraCardQuantityOptions"?: any[];
+        "qwExtraCardSelectedQuantityValue"?: number;
         "qwExtraCardSummary"?: string;
+        "qwExtraCardType"?: string;
         "qwExtraCardUnitPrice"?: string;
+        "qwExtraCardUnitQuantity"?: number;
     }
     interface QwGuest {
         "onQwBasketWillBeReset"?: (event: CustomEvent<void>) => void;

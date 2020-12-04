@@ -4,7 +4,7 @@ import {
   ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraModel, ExtraService, SessionHasRooms$,
   SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
-import {switchMap} from 'rxjs/operators';
+import {first, switchMap} from 'rxjs/operators';
 import {QwExtraEmitter} from './qw-extra-card/qw-extra-card';
 import {of, zip} from 'rxjs';
 
@@ -42,7 +42,7 @@ export class QwExtra {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
       extraId: e.detail.extraId,
-    }).subscribe();
+    }).pipe(first()).subscribe();
   }
 
   @Listen('qwSingleExtraChanged')
@@ -50,7 +50,15 @@ export class QwExtra {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
       extraId: e.detail.extraId,
-    }).subscribe();
+    }).pipe(first()).subscribe();
+  }
+
+  @Listen('qwQuantityExtraChanged')
+  public quantityExtraChanged(e: CustomEvent<QwExtraEmitter>) {
+    BasketService.setExtraInBasket({
+      quantity: e.detail.quantity,
+      extraId: e.detail.extraId,
+    }).pipe(first()).subscribe();
   }
 
   private isInitData() {
@@ -63,6 +71,10 @@ export class QwExtra {
 
   private getSummaryExtra(extra) {
     return extra.summary.length && <p innerHTML={extra.summary.find(s => s.text).text}></p>;
+  }
+
+  private getMaxAvailability(items) {
+    return Math.max.apply(Math, items.map(i => i.quantity.value));
   }
 
   render() {
@@ -81,10 +93,12 @@ export class QwExtra {
               qwExtraCardSummary={this.getSummaryExtra(extra)}
               qwExtraCardCover={ExtraHelper.getCoverImage(extra).url}
               qwExtraCardCounting={extra.counting}
+              qwExtraCardUnitQuantity={extra.items[0].quantity.value}
+              qwExtraCardQuantityOptions={extra.items}
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
-              qwExtraCardAvailability={basketExtra?.availableQuantity}
+              qwExtraCardAvailability={this.getMaxAvailability(extra.items)}
               qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}
-              qwExtraCardSelectedQuantity={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
+              qwExtraCardSelectedQuantityValue={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
           })}
         </div>
       </Host>

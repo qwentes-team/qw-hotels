@@ -15,12 +15,13 @@ export interface QwCounterEmitter {
 @Component({
   tag: 'qw-counter',
   styleUrl: 'qw-counter.css',
-  shadow: false
+  shadow: false,
 })
 export class QwCounter {
   @Prop() qwCounterId: string;
   @Prop() qwCounterName: string | number;
   @Prop() qwCounterValue: number = 0;
+  @Prop() qwCounterQuantity: number;
   @Prop() qwCounterMaxValue: number;
   @Prop() qwCounterMinValue: number;
   @Prop() qwCounterDisabled: boolean;

@@ -38,6 +38,7 @@ export class QwExtraBasket {
 
   @Listen('qwExtraCounterChanged')
   public extraChanged(e: CustomEvent<QwExtraEmitter>) {
+    console.log('qwExtraCounterChanged', e.detail);
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
       extraId: e.detail.extraId,
@@ -75,6 +76,7 @@ export class QwExtraBasket {
           !this.basket.hotelExtras.length
             ? <div class="qw-extra-basket__no-extra">{Language.getTranslation('noExtraInYourBasket')}</div>
             : this.basket.hotelExtras.map(basketExtra => {
+              console.log('basketExtra', basketExtra);
               const price = basketExtra.price.converted.text
                 ? RateHelper.multiplyMoney(basketExtra.price.converted, basketExtra.selectedQuantity.value)
                 : basketExtra.gratuitousnessType.text;
@@ -83,11 +85,14 @@ export class QwExtraBasket {
                 qwExtraCardId={basketExtra.extraId}
                 qwExtraCardName={basketExtra?.selectedQuantity.value + ' ' +basketExtra.name}
                 qwExtraCardSummary={basketExtra && this.getSummaryExtra(basketExtra)}
+                qwExtraCardCounting={basketExtra?.countingType}
                 qwExtraCardCover={this.qwExtraBasketHasImage ? ExtraHelper.getCoverImage(basketExtra).url : undefined}
                 qwExtraCardUnitPrice={price}
+                qwExtraCardUnitQuantity={basketExtra.selectedQuantity.value}
+                qwExtraCardQuantityOptions={[]}
                 qwExtraCardAvailability={basketExtra && basketExtra.availableQuantity}
                 qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}
-                qwExtraCardSelectedQuantity={basketExtra?.selectedQuantity.value || 0}/>;
+                qwExtraCardSelectedQuantityValue={basketExtra?.selectedQuantity.value || 0}/>;
             }) : undefined}
       </Host>
     );
