@@ -96,6 +96,7 @@ export namespace Components {
         "qwExtraCardName": string;
         "qwExtraCardQuantityOptions": any[];
         "qwExtraCardSelectedQuantityValue": number;
+        "qwExtraCardShowCounter": boolean;
         "qwExtraCardSummary": string;
         "qwExtraCardType": string;
         "qwExtraCardUnitPrice": string;
@@ -700,6 +701,7 @@ declare namespace LocalJSX {
         "qwExtraCardName"?: string;
         "qwExtraCardQuantityOptions"?: any[];
         "qwExtraCardSelectedQuantityValue"?: number;
+        "qwExtraCardShowCounter"?: boolean;
         "qwExtraCardSummary"?: string;
         "qwExtraCardType"?: string;
         "qwExtraCardUnitPrice"?: string;

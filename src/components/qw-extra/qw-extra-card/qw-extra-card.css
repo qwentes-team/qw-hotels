@@ -45,11 +45,16 @@ qw-extra-card .qw-extra-card__quantity-label {
 }
 
 qw-extra-card .qw-extra-card__add-btn {
-  width: 100%;
+  width: auto;
 }
 
 qw-extra-card .quantity-content__selected-quantity {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+qw-extra-card .quantity-content__selected-quantity p {
+  width: 60%;
+  margin-right: var(--qw-hotel-gap-md);
 }

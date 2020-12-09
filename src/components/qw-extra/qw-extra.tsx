@@ -29,7 +29,7 @@ export class QwExtra {
         BasketService.getBasket(session),
       )),
       switchMap(([sessionId, hasRooms]) => hasRooms ? ExtraService.getExtra(sessionId) : of(null)),
-    ).subscribe(res => console.log('extra', res));
+    ).subscribe();
 
     ExtraLoaded$.subscribe(extra => this.extra = extra);
     BasketWithPrice$.subscribe(basket => this.basket = basket);
@@ -98,6 +98,7 @@ export class QwExtra {
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
               qwExtraCardAvailability={this.getMaxAvailability(extra.items)}
               qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}
+              qwExtraCardShowCounter={false}
               qwExtraCardSelectedQuantityValue={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
           })}
         </div>

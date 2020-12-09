@@ -32,6 +32,7 @@ export class QwExtraCard {
   @Prop() qwExtraCardAvailability: number;
   @Prop() qwExtraCardSelectedQuantityValue: number = 0;
   @Prop() qwExtraCardCanAddMoreExtra: boolean;
+  @Prop() qwExtraCardShowCounter: boolean;
   @Event() qwExtraCounterChanged: EventEmitter<QwExtraEmitter>;
   @Event() qwSingleExtraChanged: EventEmitter<QwExtraEmitter>;
   @Event() qwQuantityExtraChanged: EventEmitter<QwExtraEmitter>;
@@ -98,7 +99,7 @@ export class QwExtraCard {
             <div class="qw-extra-card__quantity-content">
               {/*<qw-counter
                 qwCounterId={QwCounterId.QwExtraCardCounter}
-                qwCounterValue={this.qwExtraCardSelectedQuantity}
+                qwCounterValue={this.qwExtraCardSelectedQuantityValue}
                 qwCounterQuantity={this.qwExtraCardUnitQuantity}
                 qwCounterName={this.qwExtraCardId}
                 qwCounterMaxValue={this.qwExtraCardAvailability}/>*/}
@@ -109,7 +110,9 @@ export class QwExtraCard {
                 {this.createQuantitySelectOptions(this.qwExtraCardQuantityOptions)}
               </QwSelect>}
               <div class="quantity-content__selected-quantity">
-                {this.qwExtraCardQuantityOptions.length === 0 && <p>{this.qwExtraCardSelectedQuantityValue}</p>}
+                {this.qwExtraCardQuantityOptions.length === 0 && <p>
+                  {Language.getTranslation('quantity')} {this.qwExtraCardSelectedQuantityValue}
+                </p>}
                 {this.isExtraInBasket && <QwButton
                   QwButtonClass="qw-extra-card__add-btn"
                   QwButtonOnClick={() => this.onChangeSingleExtra(this.qwExtraCardId, this.isExtraInBasket)}
