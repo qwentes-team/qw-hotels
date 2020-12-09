@@ -33,7 +33,6 @@ graph TD;
   qw-book-guest-detail --> qw-input
   qw-extra --> qw-extra-card
   qw-extra-card --> qw-image
-  qw-extra-card --> qw-counter
   style qw-book fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

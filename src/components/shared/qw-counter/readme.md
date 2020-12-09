@@ -14,6 +14,7 @@
 | `qwCounterMaxValue` | `qw-counter-max-value` |             | `number`           | `undefined` |
 | `qwCounterMinValue` | `qw-counter-min-value` |             | `number`           | `undefined` |
 | `qwCounterName`     | `qw-counter-name`      |             | `number \| string` | `undefined` |
+| `qwCounterQuantity` | `qw-counter-quantity`  |             | `number`           | `undefined` |
 | `qwCounterValue`    | `qw-counter-value`     |             | `number`           | `0`         |
 
 
@@ -29,7 +30,6 @@
 ### Used by
 
  - [qw-basket-summary](../../qw-basket-summary)
- - [qw-extra-card](../../qw-extra/qw-extra-card)
  - [qw-guest](../../qw-guest)
  - [qw-room-list-card](../../qw-room-list/qw-room-list-card)
  - [qw-room-rate](../../qw-room-rate)
@@ -39,7 +39,6 @@
 ```mermaid
 graph TD;
   qw-basket-summary --> qw-counter
-  qw-extra-card --> qw-counter
   qw-guest --> qw-counter
   qw-room-list-card --> qw-counter
   qw-room-rate --> qw-counter

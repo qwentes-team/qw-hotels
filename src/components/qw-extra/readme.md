@@ -20,7 +20,6 @@
 graph TD;
   qw-extra --> qw-extra-card
   qw-extra-card --> qw-image
-  qw-extra-card --> qw-counter
   qw-book --> qw-extra
   style qw-extra fill:#f9f,stroke:#333,stroke-width:4px
 ```
