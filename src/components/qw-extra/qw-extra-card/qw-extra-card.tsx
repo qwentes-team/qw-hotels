@@ -74,7 +74,7 @@ export class QwExtraCard {
 
   private createQuantitySelectOptions(items) {
     return items?.map(i => <option selected={this.qwExtraCardSelectedQuantityValue === i.quantity.value}
-                                   value={i.quantity.value}>{i.quantity.value}</option>);
+                                   value={i.quantity.value}>{i.quantity.text}</option>);
   }
 
   render() {
@@ -89,7 +89,7 @@ export class QwExtraCard {
         </div>
         <div class="qw-extra-card__footer">
           <div class="qw-extra-card__price">
-            <div class="qw-extra-card__price-label">{this.qwExtraCardCounting?.text}</div>
+            <div class="qw-extra-card__price-label">{this.isExtraInBasket ? Language.getTranslation('total') : this.qwExtraCardCounting?.text}</div>
             <div class="qw-extra-card__price-content">{this.qwExtraCardUnitPrice}</div>
           </div>
           <div class="qw-extra-card__quantity">
