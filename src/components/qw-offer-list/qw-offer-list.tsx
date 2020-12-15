@@ -1,7 +1,6 @@
 import {Component, Host, h, State, Prop} from '@stencil/core';
-import {Rate, RateHelper, RoomModel, RoomService, SessionModel, SessionService} from '@qwentes/booking-state-manager';
+import {Rate, RateHelper, RoomModel, RoomService, SessionLoaded$, SessionModel, SessionService} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {of, zip} from 'rxjs';
 import {QwRoomListType} from '../../index';
 
 @Component({
@@ -13,23 +12,21 @@ export class QwOfferList {
   @State() rooms: RoomModel[] = [];
   @State() session: SessionModel;
   @State() offers: Rate[];
+  @State() isLoading: boolean = true;
   @Prop() qwOffersImageTransformationOptions: string;
   @Prop() qwOfferListType: QwRoomListType = QwRoomListType.Inline;
 
   public componentWillLoad() {
     // GET SESSION AND ROOMS
-    SessionService.getSession().pipe(
-      switchMap((session: SessionModel) => {
-        return zip(of(session), RoomService.getRooms(session.sessionId));
-      }),
-    ).subscribe(([session, roomsArray]) => {
-      this.rooms = roomsArray;
-      console.log('rooms qui', this.rooms);
-      this.session = session;
+    SessionService.getSession().subscribe();
+
+    SessionLoaded$.pipe(
+      switchMap((session) => RoomService.getRooms(session.sessionId)),
+    ).subscribe((rooms) => {
+      this.rooms = rooms;
       const flatRates = this.flatRoomRates(this.getRoomRates());
-      console.log('flatRates', flatRates);
       this.offers = this.getPossibleOffers(flatRates);
-      console.log('offers', this.offers);
+      this.isLoading = false;
     });
   }
 
@@ -57,18 +54,13 @@ export class QwOfferList {
   }
 
   private hasRoomOffer(room, offerCode) {
-    console.log('hasRoomOffer', room);
-    if(room.rates) {
-      return !!room.rates.find(rate => rate.description.code === offerCode);
-    } else {
-      return false
-    }
+    return room.rates ? !!room.rates.find(rate => rate.description.code === offerCode) : false
   }
 
   render() {
     return (
       <Host>
-        <slot></slot>
+        {this.isLoading && <slot>Loading offers...</slot>}
         {this.offers?.map(o => {
           return <div class="qw-offer-list__card-wrapper">
             <div class="qw-offer-list__offer">
