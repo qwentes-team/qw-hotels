@@ -192,7 +192,7 @@ export class QwRoomRate {
             QwButtonOnClick={() => this.addToBasket()}/>}
         </QwWrapInDiv>
 
-        {this.qwRoomRateRate && <ul class="qw-room-rate__conditions">
+        {this.qwRoomRateRate && this.qwRoomRateRate.taxes.onSite.amount.text && <ul class="qw-room-rate__conditions">
           {this.qwRoomRateRate.taxes.onSite.amount.text && <li class="qw-room-rate--stay-tax">
             {RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
           </li>}

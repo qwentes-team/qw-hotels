@@ -1,5 +1,14 @@
 import {Component, Host, h, State, Prop} from '@stencil/core';
-import {Rate, RateHelper, RoomModel, RoomService, SessionLoaded$, SessionModel, SessionService} from '@qwentes/booking-state-manager';
+import {
+  Rate,
+  RateHelper,
+  RoomModel,
+  RoomService,
+  RoomSummaryType,
+  SessionLoaded$,
+  SessionModel,
+  SessionService,
+} from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomListType} from '../../index';
 
@@ -26,6 +35,7 @@ export class QwOfferList {
       this.rooms = rooms;
       const flatRates = this.flatRoomRates(this.getRoomRates());
       this.offers = this.getPossibleOffers(flatRates);
+      console.log('offers', this.offers);
       this.isLoading = false;
     });
   }
@@ -57,6 +67,16 @@ export class QwOfferList {
     return room.rates ? !!room.rates.find(rate => rate.description.code === offerCode) : false
   }
 
+  private getOfferRateSummary(offer) {
+    const summary = offer?.description.summary;
+    if (RateHelper.getSummaryType( summary, RoomSummaryType.Html)) {
+      const htmlSummary = RateHelper.getSummaryType( summary, RoomSummaryType.Html)?.text;
+      return <p innerHTML={htmlSummary}></p>;
+    } else {
+      return RateHelper.getSummaryType( summary, RoomSummaryType.PlainText)?.text
+    }
+  }
+
   render() {
     return (
       <Host>
@@ -65,6 +85,12 @@ export class QwOfferList {
           return <div class="qw-offer-list__card-wrapper">
             <div class="qw-offer-list__offer">
               <h4>{o.description.name}</h4>
+              <div class="qw-offer__conditions">
+                <p>{RateHelper.getOnSiteTaxesMessageFormatted(o)}</p>
+                <p>{o.description.qualifier.text}</p>
+                <p>{RateHelper.getDefaultCancelConditionName(o)}</p>
+                <p>{this.getOfferRateSummary(o)}</p>
+              </div>
               <qw-image
                 qwImageTransformationOptions={this.qwOffersImageTransformationOptions ? JSON.parse(this.qwOffersImageTransformationOptions) : {}}
                 qwImageUrl={RateHelper.getCoverImage(o).url}
