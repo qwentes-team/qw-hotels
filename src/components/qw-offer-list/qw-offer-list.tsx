@@ -35,7 +35,6 @@ export class QwOfferList {
       this.rooms = rooms;
       const flatRates = this.flatRoomRates(this.getRoomRates());
       this.offers = this.getPossibleOffers(flatRates);
-      console.log('offers', this.offers);
       this.isLoading = false;
     });
   }
