@@ -131,6 +131,10 @@ export namespace Components {
     interface QwLoading {
         "QwLoadingSize": string;
     }
+    interface QwOfferList {
+        "qwOfferListType": QwRoomListType;
+        "qwOffersImageTransformationOptions": string;
+    }
     interface QwOffers {
         "qwOffersImageTransformationOptions": string;
         "qwOffersMax": number;
@@ -427,6 +431,12 @@ declare global {
         prototype: HTMLQwLoadingElement;
         new (): HTMLQwLoadingElement;
     };
+    interface HTMLQwOfferListElement extends Components.QwOfferList, HTMLStencilElement {
+    }
+    var HTMLQwOfferListElement: {
+        prototype: HTMLQwOfferListElement;
+        new (): HTMLQwOfferListElement;
+    };
     interface HTMLQwOffersElement extends Components.QwOffers, HTMLStencilElement {
     }
     var HTMLQwOffersElement: {
@@ -578,6 +588,7 @@ declare global {
         "qw-input": HTMLQwInputElement;
         "qw-language": HTMLQwLanguageElement;
         "qw-loading": HTMLQwLoadingElement;
+        "qw-offer-list": HTMLQwOfferListElement;
         "qw-offers": HTMLQwOffersElement;
         "qw-placeholder": HTMLQwPlaceholderElement;
         "qw-price": HTMLQwPriceElement;
@@ -739,6 +750,10 @@ declare namespace LocalJSX {
     }
     interface QwLoading {
         "QwLoadingSize"?: string;
+    }
+    interface QwOfferList {
+        "qwOfferListType"?: QwRoomListType;
+        "qwOffersImageTransformationOptions"?: string;
     }
     interface QwOffers {
         "onQwOffersOfferClick"?: (event: CustomEvent<QwOfferClickEmitter>) => void;
@@ -935,6 +950,7 @@ declare namespace LocalJSX {
         "qw-input": QwInput;
         "qw-language": QwLanguage;
         "qw-loading": QwLoading;
+        "qw-offer-list": QwOfferList;
         "qw-offers": QwOffers;
         "qw-placeholder": QwPlaceholder;
         "qw-price": QwPrice;
@@ -986,6 +1002,7 @@ declare module "@stencil/core" {
             "qw-input": LocalJSX.QwInput & JSXBase.HTMLAttributes<HTMLQwInputElement>;
             "qw-language": LocalJSX.QwLanguage & JSXBase.HTMLAttributes<HTMLQwLanguageElement>;
             "qw-loading": LocalJSX.QwLoading & JSXBase.HTMLAttributes<HTMLQwLoadingElement>;
+            "qw-offer-list": LocalJSX.QwOfferList & JSXBase.HTMLAttributes<HTMLQwOfferListElement>;
             "qw-offers": LocalJSX.QwOffers & JSXBase.HTMLAttributes<HTMLQwOffersElement>;
             "qw-placeholder": LocalJSX.QwPlaceholder & JSXBase.HTMLAttributes<HTMLQwPlaceholderElement>;
             "qw-price": LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
