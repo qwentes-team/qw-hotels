@@ -19,6 +19,7 @@
 ### Used by
 
  - [qw-extra-card](../../qw-extra/qw-extra-card)
+ - [qw-offer-list](../../qw-offer-list)
  - [qw-offers](../../qw-offers)
  - [qw-room-detail-card](../../qw-room-detail/qw-room-detail-card)
  - [qw-room-list-card](../../qw-room-list/qw-room-list-card)
@@ -28,6 +29,7 @@
 ```mermaid
 graph TD;
   qw-extra-card --> qw-image
+  qw-offer-list --> qw-image
   qw-offers --> qw-image
   qw-room-detail-card --> qw-image
   qw-room-list-card --> qw-image

@@ -32,6 +32,7 @@
 
 ### Used by
 
+ - [qw-offer-list](../qw-offer-list)
  - [qw-room-rate-list](../qw-room-rate-list)
  - [qw-room-rates](../qw-room-rates)
 
@@ -43,6 +44,7 @@
 ```mermaid
 graph TD;
   qw-room-rate --> qw-counter
+  qw-offer-list --> qw-room-rate
   qw-room-rate-list --> qw-room-rate
   qw-room-rates --> qw-room-rate
   style qw-room-rate fill:#f9f,stroke:#333,stroke-width:4px
