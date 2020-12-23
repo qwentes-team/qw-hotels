@@ -1,0 +1,42 @@
+qw-offer-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  font-family: var(--qw-hotel-font-family);
+  width: 100%;
+}
+
+.qw-offer-list__card-wrapper {
+  --qw-room-list-card-gap: var(--qw-hotel-gap-sm);
+  --qw-room-list-card-background: var(--qw-hotel-background);
+  align-items: flex-start;
+  margin: var(--qw-hotel-gap-sm) 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--qw-room-list-card-gap);
+  background: var(--qw-room-list-card-background);
+}
+
+.qw-offer-list__offer {
+  width: 50%;
+}
+
+.qw-offer-list__offer qw-image img {
+  width: 100%;
+}
+
+.qw-offer-list__room-wrapper {
+  width: 50%;
+  margin: var(--qw-hotel-gap-sm);
+}
+
+.qw-offer-list--card {
+  display: flex;
+  overflow: scroll;
+}
+
+.qw-offer-list--card .room__rate-wrapper {
+  display: flex;
+  overflow: scroll;
+}
