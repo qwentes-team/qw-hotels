@@ -1,8 +1,8 @@
 import {Component, Host, h, Prop, State} from '@stencil/core';
-import {SessionLoaded$, SessionModel, SessionQuery, SessionService} from '@qwentes/booking-state-manager';
+import {Language, SessionLoaded$, SessionModel, SessionService} from '@qwentes/booking-state-manager';
 import {SessionHelperService} from '@qwentes/booking-state-manager/dist/feature/session/session-helper.service';
 import {QwButton} from '../shared/qw-button/qw-button';
-import {catchError, finalize, switchMap, tap} from 'rxjs/operators';
+import {catchError, switchMap} from 'rxjs/operators';
 import {forkJoin, of} from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ import {forkJoin, of} from 'rxjs';
 })
 export class QwPromoCode {
   @State() session: SessionModel;
-  @State() promoCodeValue: string;
+  @State() promoCodeValue: string = window.QW_HOTEL_ENV.PROMO_CODE_DEFAULT ? window.QW_HOTEL_ENV.PROMO_CODE_DEFAULT : '';
   @State() hasPromo: boolean;
   @State() promoCodeFeedback = '';
   @Prop() qwPromoCodeLabel: string;
@@ -56,8 +56,7 @@ export class QwPromoCode {
         }),
       catchError((err) =>of(err)),
     ).subscribe((res) => {
-      console.log('res', res);
-      const actionFeedback = action === 'add' ? 'Promo Code added' : 'Promo Code removed';
+      const actionFeedback = action === 'add' ? Language.getTranslation('promoCodeAdded') : Language.getTranslation('promoCodeRemoved');
       this.setPromoCodeFeedback(res, actionFeedback);
     });
   }
