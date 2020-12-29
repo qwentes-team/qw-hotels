@@ -1,9 +1,9 @@
 import {Component, Host, h, Prop, State} from '@stencil/core';
-import {SessionLoaded$, SessionModel} from '@qwentes/booking-state-manager';
+import {SessionLoaded$, SessionModel, SessionQuery, SessionService} from '@qwentes/booking-state-manager';
 import {SessionHelperService} from '@qwentes/booking-state-manager/dist/feature/session/session-helper.service';
 import {QwButton} from '../shared/qw-button/qw-button';
-import {catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {catchError, finalize, switchMap, tap} from 'rxjs/operators';
+import {forkJoin, of} from 'rxjs';
 
 @Component({
   tag: 'qw-promo-code',
@@ -13,12 +13,52 @@ import {of} from 'rxjs';
 export class QwPromoCode {
   @State() session: SessionModel;
   @State() promoCodeValue: string;
-  @State() invalidCodeMessage = '';
+  @State() hasPromo: boolean;
+  @State() promoCodeFeedback = '';
   @Prop() qwPromoCodeLabel: string;
 
   public componentWillLoad() {
     SessionLoaded$.subscribe((session) => {
       this.session = session;
+      this.hasPromo = this.hasPromoCode();
+      if (this.hasPromo) {
+        this.promoCodeValue = this.session.context.promoCode;
+      }
+    });
+  }
+
+  private hasPromoCode() {
+    return !!this.session.context.promoCode;
+  }
+
+  private onChangeValue(event) {
+    this.promoCodeValue = event.target.value;
+  }
+
+  private setPromoCodeFeedback(res, customFeedback) {
+    this.promoCodeFeedback = res.status === 400 ? res.body.Message : customFeedback;
+  }
+
+  private fetchSessionWithPromoCode(action) {
+    if (action === 'remove') {
+      this.promoCodeValue = '';
+    }
+    return SessionHelperService.fetchUpdateSessionContext(
+      this.session?.sessionId,
+      {
+        stayPeriod: this.session.context.stayPeriod,
+        guests: this.session.context.guests,
+        selectedHotelId: this.session.context.selectedHotelId,
+        promoCode: this.promoCodeValue,
+      }).pipe(
+        switchMap((res) => {
+          return forkJoin([of(res), SessionService.fetchSession(this.session.sessionId)])
+        }),
+      catchError((err) =>of(err)),
+    ).subscribe((res) => {
+      console.log('res', res);
+      const actionFeedback = action === 'add' ? 'Promo Code added' : 'Promo Code removed';
+      this.setPromoCodeFeedback(res, actionFeedback);
     });
   }
 
@@ -26,33 +66,19 @@ export class QwPromoCode {
     return (
       <Host>
         <qw-input
+          qwInputValue={this.promoCodeValue}
           qwInputLabel={this.qwPromoCodeLabel}
-          qwInputCaption={this.invalidCodeMessage}
+          qwInputCaption={this.promoCodeFeedback}
           onKeyUp={(event: UIEvent) => this.onChangeValue(event)}/>
-        {this.promoCodeValue && <QwButton
+        {!this.hasPromo && <QwButton
           QwButtonIcon={true}
           QwButtonIconFileName={'arrow-select.svg'}
-          QwButtonOnClick={() => this.fetchSessionWithPromoCode()}/> }
+          QwButtonOnClick={() => this.fetchSessionWithPromoCode('add')}/>}
+        {this.hasPromo && <QwButton
+          QwButtonIcon={true}
+          QwButtonIconFileName={'close.svg'}
+          QwButtonOnClick={() => this.fetchSessionWithPromoCode('remove')}/>}
       </Host>
     );
-  }
-
-  private onChangeValue(event) {
-    this.promoCodeValue = event.target.value;
-  }
-
-  private fetchSessionWithPromoCode() {
-    SessionHelperService.fetchUpdateSessionContext(
-      this.session?.sessionId,
-      {
-        stayPeriod: this.session.context.stayPeriod,
-        guests: this.session.context.guests,
-        selectedHotelId: this.session.context.selectedHotelId,
-        promoCode: this.promoCodeValue
-      }).pipe(
-        catchError((err) => of(err))
-    ).subscribe(res => {
-      this.invalidCodeMessage = res.status === 400 && res.body.Message;
-    });
   }
 }
