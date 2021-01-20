@@ -60,6 +60,7 @@ export class QwRoomRate {
   }
 
   public componentWillLoad() {
+    this.qwRoomRateShowConditions = false;
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(
       switchMap(session => {

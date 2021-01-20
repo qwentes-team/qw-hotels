@@ -1,6 +1,6 @@
 {
   "name": "qw-hotels",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Stencil components for D-Edge booking-engine project",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -47,7 +47,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@qwentes/booking-state-manager": "^0.5.20",
+    "@qwentes/booking-state-manager": "^0.5.21",
     "cloudinary-core": "^2.8.1",
     "flatpickr": "^4.6.3",
     "intl-tel-input": "^16.0.7",

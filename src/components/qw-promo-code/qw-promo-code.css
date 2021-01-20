@@ -19,5 +19,5 @@ qw-promo-code qw-input {
 }
 
 qw-promo-code qw-input .qw-input__caption {
-  color: var(--qw-hotel-accent-color);
+  color: var(--qw-hotel-primary-color);
 }

@@ -65,6 +65,7 @@ export class QwPromoCode {
     return (
       <Host>
         <qw-input
+          class="promo-code__label"
           qwInputValue={this.promoCodeValue}
           qwInputLabel={this.qwPromoCodeLabel}
           qwInputCaption={this.promoCodeFeedback}
