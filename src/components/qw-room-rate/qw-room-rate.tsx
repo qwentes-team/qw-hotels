@@ -182,7 +182,7 @@ export class QwRoomRate {
               qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
               qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
             <div class="qw-room-rate__counter-availability">
-              {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} available
+              {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
             </div>
           </div>}
 
