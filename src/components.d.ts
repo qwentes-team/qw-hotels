@@ -100,7 +100,7 @@ export namespace Components {
         "qwExtraCardSummary": string;
         "qwExtraCardType": string;
         "qwExtraCardUnitPrice": string;
-        "qwExtraCardUnitQuantity": number;
+        "qwExtraCardUnitQuantity": number | string;
     }
     interface QwGuest {
         "qwGuestCenter": boolean;
@@ -716,7 +716,7 @@ declare namespace LocalJSX {
         "qwExtraCardSummary"?: string;
         "qwExtraCardType"?: string;
         "qwExtraCardUnitPrice"?: string;
-        "qwExtraCardUnitQuantity"?: number;
+        "qwExtraCardUnitQuantity"?: number | string;
     }
     interface QwGuest {
         "onQwBasketWillBeReset"?: (event: CustomEvent<void>) => void;

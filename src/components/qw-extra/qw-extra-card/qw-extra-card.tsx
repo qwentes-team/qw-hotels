@@ -27,7 +27,7 @@ export class QwExtraCard {
   @Prop() qwExtraCardType: string;
   @Prop() qwExtraCardCounting: QwExtraCounting;
   @Prop() qwExtraCardUnitPrice: string;
-  @Prop() qwExtraCardUnitQuantity: number;
+  @Prop() qwExtraCardUnitQuantity: number | string;
   @Prop() qwExtraCardQuantityOptions: any[];
   @Prop() qwExtraCardAvailability: number;
   @Prop() qwExtraCardSelectedQuantityValue: number = 0;
@@ -106,7 +106,7 @@ export class QwExtraCard {
               {this.qwExtraCardQuantityOptions.length !== 0 && <QwSelect
                 QwSelectName={'extraQuantity'}
                 QwSelectOnChange={(e) => this.onChangeExtraQuantitySelect(this.qwExtraCardId, e)}>
-                <option value="0">0</option>
+                <option value="0">{Language.getTranslation('noThanks')}</option>
                 {this.createQuantitySelectOptions(this.qwExtraCardQuantityOptions)}
               </QwSelect>}
               <div class="quantity-content__selected-quantity">
