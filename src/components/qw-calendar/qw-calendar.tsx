@@ -34,6 +34,7 @@ export class QwCalendar {
       this.session = session;
       this.stayPeriod = {...session.context.stayPeriod};
       this.locale = session.display.culture;
+      console.log(this.locale);
     });
     SessionIsLoading$.subscribe(isLoading => this.isSessionLoading = isLoading);
   }
