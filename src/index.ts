@@ -92,4 +92,4 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.3');
+console.log('version 1.1.5');
