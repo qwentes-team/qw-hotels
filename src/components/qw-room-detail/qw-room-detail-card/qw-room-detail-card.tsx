@@ -60,7 +60,7 @@ export class QwRoomDetailCard {
                     <QwButton
                       QwButtonLabel={Language.getTranslation('addAnotherRoom')}
                       QwButtonOnClick={() => this.qwRoomDetailCardAddAnotherRoom.emit()}/>
-                    <div>{Language.getTranslation('noSufficientRooms')}</div>
+                    <div>aaa{Language.getTranslation('noSufficientRooms')}</div>
                   </div>
                   : <QwButton
                       QwButtonClass="qw-room-detail-card__alert-proceed"

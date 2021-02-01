@@ -158,6 +158,7 @@ export class QwRoomRate {
           <div class="qw-room-rate__title-name">{this.qwRoomRateRate.description.name}</div>
           <div class="qw-room-rate__occupancy">
             {this.getOccupancy()}
+            <div class="occupancy__label">{Language.getTranslation('guests')}</div>
           </div>
         </div>}
         {this.qwRoomRateRate && <div class="qw-room-rate__price">
