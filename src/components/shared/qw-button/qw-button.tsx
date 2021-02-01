@@ -2,6 +2,7 @@ import {FunctionalComponent, h} from '@stencil/core';
 
 interface QwButtonProps {
   QwButtonLabel?: string;
+  QwButtonToAdd?: boolean;
   QwButtonDisabled?: boolean;
   QwButtonClass?: string;
   QwButtonIcon?: boolean;
@@ -14,6 +15,7 @@ export const QwButton: FunctionalComponent<QwButtonProps> = (props) => {
     <div
       class={`
         qw-button
+        ${props.QwButtonToAdd ? 'qw-button--to-add': 'qw-button--to-remove'}
         ${props.QwButtonDisabled ? 'qw-button--disabled' : ''}
         ${props.QwButtonIcon ? 'qw-button--icon' : ''}
         ${props.QwButtonClass || ''}

@@ -65,16 +65,18 @@ export class QwPromoCode {
     return (
       <Host>
         <qw-input
-          class="promo-code__label"
+          class={this.hasPromo ? "promo-code__label--to-remove" : "promo-code__label--to-add"}
           qwInputValue={this.promoCodeValue}
           qwInputLabel={this.qwPromoCodeLabel}
           qwInputCaption={this.promoCodeFeedback}
           onKeyUp={(event: UIEvent) => this.onChangeValue(event)}/>
         {!this.hasPromo && <QwButton
+          QwButtonToAdd={true}
           QwButtonIcon={true}
           QwButtonIconFileName={'arrow-select.svg'}
           QwButtonOnClick={() => this.fetchSessionWithPromoCode('add')}/>}
         {this.hasPromo && <QwButton
+          QwButtonToAdd={false}
           QwButtonIcon={true}
           QwButtonIconFileName={'close.svg'}
           QwButtonOnClick={() => this.fetchSessionWithPromoCode('remove')}/>}
