@@ -33,6 +33,7 @@ export class QwExtraCard {
   @Prop() qwExtraCardSelectedQuantityValue: number = 0;
   @Prop() qwExtraCardCanAddMoreExtra: boolean;
   @Prop() qwExtraCardShowCounter: boolean;
+  @Prop() qwExtraShowSummary: boolean;
   @Event() qwExtraCounterChanged: EventEmitter<QwExtraEmitter>;
   @Event() qwSingleExtraChanged: EventEmitter<QwExtraEmitter>;
   @Event() qwQuantityExtraChanged: EventEmitter<QwExtraEmitter>;
@@ -85,7 +86,16 @@ export class QwExtraCard {
         </div>
         <div class="qw-extra-card__title">
           <h4>{this.qwExtraCardName}</h4>
-          <span class="qw-extra-card__summary">{this.qwExtraCardSummary}</span>
+          <div class="qw-extra-card__summary">
+            <div
+              class="qw-extra-card__summary-trigger"
+              onClick={() => this.qwExtraShowSummary = !this.qwExtraShowSummary}>
+              {this.qwExtraShowSummary ? '-' : '+'} {Language.getTranslation('viewMore')}
+            </div>
+            {this.qwExtraShowSummary && <div class="qw-extra-card__summary-content">
+              {this.qwExtraCardSummary}
+            </div>}
+          </div>
         </div>
         <div class="qw-extra-card__footer">
           <div class="qw-extra-card__price">
