@@ -25,13 +25,13 @@ export class QwBasket {
   @State() numberOfAccommodation: number;
   @Event() qwBasketBookNow: EventEmitter<void>;
   @Event() qwBasketClickPrice: EventEmitter<void>;
-  @Event() qwBasketIsAccommodationSatisfy: EventEmitter<boolean>;
+  @Event() qwBasketIsAccommodationSatisfy: EventEmitter<{isAccommodationSatisfy: boolean, status: number}>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap((session) => {
       this.numberOfGuests = SessionHelper.getTotalGuests(session);
-      return BasketService.getBasket(session)
+      return BasketService.getBasket(session);
     })).subscribe();
 
     BasketWithPrice$.pipe(debounceTime(500)).subscribe(basket => {
@@ -57,11 +57,20 @@ export class QwBasket {
   }
 
   private isTotalPriceZero() {
-    return !this.totalPrice || this.totalPrice.value.amount === 0
+    return !this.totalPrice || this.totalPrice.value.amount === 0;
   }
 
   private isAccommodationSatisfy() {
-    return this.numberOfGuests <= this.numberOfAccommodation;
+    if (this.numberOfAccommodation === 0) {
+      console.log('vuoto');
+      return {isAccommodationSatisfy: false, status: 0}
+    } else if (this.numberOfGuests <= this.numberOfAccommodation){
+      console.log('pieno');
+      return {isAccommodationSatisfy: true, status: 2}
+    } else {
+      console.log('mancano');
+      return {isAccommodationSatisfy: false, status: 1}
+    }
   }
 
   public render() {
@@ -84,7 +93,8 @@ export class QwBasket {
           QwButtonLabel={Language.getTranslation('checkout')}
           QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero() || !this.isAccommodationSatisfy()}
           QwButtonOnClick={this.bookNow}/>}
-        {(!this.isTotalPriceZero() && this.qwBasketShowOnSiteTaxes) && <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
+        {(!this.isTotalPriceZero() && this.qwBasketShowOnSiteTaxes) &&
+        <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
           <span>{Language.getTranslation('cityTaxesNotIncluded')}</span> {this.onSiteTaxes}
         </div>}
       </Host>

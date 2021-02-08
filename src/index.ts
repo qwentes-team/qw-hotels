@@ -93,3 +93,7 @@ export enum QwLanguageType {
 }
 
 console.log('version 1.1.6');
+
+document.addEventListener('qwBasketIsAccommodationSatisfy', (e) => {
+  console.log('event', e);
+})
