@@ -62,13 +62,10 @@ export class QwBasket {
 
   private isAccommodationSatisfy() {
     if (this.numberOfAccommodation === 0) {
-      console.log('vuoto');
       return {isAccommodationSatisfy: false, status: 0}
     } else if (this.numberOfGuests <= this.numberOfAccommodation){
-      console.log('pieno');
       return {isAccommodationSatisfy: true, status: 2}
     } else {
-      console.log('mancano');
       return {isAccommodationSatisfy: false, status: 1}
     }
   }

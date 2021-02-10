@@ -22,6 +22,7 @@
 | `qwExtraCardType`                  | `qw-extra-card-type`                    |             | `string`           | `undefined` |
 | `qwExtraCardUnitPrice`             | `qw-extra-card-unit-price`              |             | `string`           | `undefined` |
 | `qwExtraCardUnitQuantity`          | `qw-extra-card-unit-quantity`           |             | `number \| string` | `undefined` |
+| `qwExtraShowSummary`               | `qw-extra-show-summary`                 |             | `boolean`          | `undefined` |
 
 
 ## Events
