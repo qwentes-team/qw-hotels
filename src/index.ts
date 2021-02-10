@@ -92,7 +92,7 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.6');
+console.log('version 1.1.7');
 
 document.addEventListener('qwBasketIsAccommodationSatisfy', (e) => {
   console.log('event', e);
