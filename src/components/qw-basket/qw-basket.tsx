@@ -75,9 +75,9 @@ export class QwBasket {
     if (!this.numberOfAccommodation?.length) {
       return {isAccommodationSatisfy: false, status: 0}
     } else if (!this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)){
-      return {isAccommodationSatisfy: true, status: 2}
+      return {isAccommodationSatisfy: false, status: 2}
     } else if(this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
-      return {isAccommodationSatisfy: false, status: 1}
+      return {isAccommodationSatisfy: true, status: 1}
     } else {
       return
     }
