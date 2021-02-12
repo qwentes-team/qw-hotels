@@ -21,8 +21,8 @@ export class QwBasket {
   @State() onSiteTaxes: string;
   @State() taxesMessage: string;
   @State() isLoading: boolean;
-  @State() numberOfGuests: number;
-  @State() numberOfAccommodation: number;
+  @State() sessionOccupancy: any;
+  @State() numberOfAccommodation: any;
   @Event() qwBasketBookNow: EventEmitter<void>;
   @Event() qwBasketClickPrice: EventEmitter<void>;
   @Event() qwBasketIsAccommodationSatisfy: EventEmitter<{isAccommodationSatisfy: boolean, status: number}>;
@@ -30,7 +30,7 @@ export class QwBasket {
   public componentWillLoad() {
     SessionService.getSession().subscribe();
     SessionLoaded$.pipe(switchMap((session) => {
-      this.numberOfGuests = SessionHelper.getTotalGuests(session);
+      this.sessionOccupancy = SessionHelper.getSessionOccupancy(session);
       return BasketService.getBasket(session);
     })).subscribe();
 
@@ -38,7 +38,7 @@ export class QwBasket {
       this.totalPrice = BasketHelper.getTotalConvertedPrice(basket);
       this.onSiteTaxes = basket.taxes.onSite.text;
       this.taxesMessage = BasketHelper.getTaxesFormatted(basket);
-      this.numberOfAccommodation = BasketHelper.getNumberOfAccommodation(basket);
+      this.numberOfAccommodation = BasketHelper.getOccupancyOfAccommodation(basket);
       this.qwBasketIsAccommodationSatisfy.emit(this.isAccommodationSatisfy());
     });
     BasketIsLoading$.subscribe(isLoading => this.isLoading = isLoading);
@@ -61,13 +61,32 @@ export class QwBasket {
   }
 
   private isAccommodationSatisfy() {
-    if (this.numberOfAccommodation === 0) {
+    const totalAdults = this.numberOfAccommodation?.reduce((acc, room) => {
+      const adulti = room.occupancy.personCount || room.occupancy.adultCount;
+      return acc + adulti;
+    }, 0);
+    const totalChildren = this.numberOfAccommodation?.reduce((acc, room) => {
+      return acc + room.occupancy.childCount || 0;
+    }, 0);
+    const totalInfants = this.numberOfAccommodation?.reduce((acc, room) => {
+      return acc + room.occupancy.infantCount || 0;
+    }, 0);
+
+    if (!this.numberOfAccommodation?.length) {
       return {isAccommodationSatisfy: false, status: 0}
-    } else if (this.numberOfGuests <= this.numberOfAccommodation){
+    } else if (!this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)){
       return {isAccommodationSatisfy: true, status: 2}
-    } else {
+    } else if(this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
       return {isAccommodationSatisfy: false, status: 1}
+    } else {
+      return
     }
+  }
+
+  private isOccupancySatisfied(totalAdults, totalChildren, totalInfants) {
+    return totalAdults >= this.sessionOccupancy?.adults
+      && totalChildren >= this.sessionOccupancy?.children
+      && totalInfants >= this.sessionOccupancy?.infants
   }
 
   public render() {
