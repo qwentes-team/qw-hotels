@@ -149,6 +149,7 @@ export namespace Components {
         "qwPriceCaption": string;
         "qwPriceCrossedPrice": string;
         "qwPriceMainPrice": string;
+        "qwPriceRoomId"?: number;
     }
     interface QwPromoCode {
         "qwPromoCodeLabel": string;
@@ -772,6 +773,7 @@ declare namespace LocalJSX {
         "qwPriceCaption"?: string;
         "qwPriceCrossedPrice"?: string;
         "qwPriceMainPrice"?: string;
+        "qwPriceRoomId"?: number;
     }
     interface QwPromoCode {
         "qwPromoCodeLabel"?: string;
