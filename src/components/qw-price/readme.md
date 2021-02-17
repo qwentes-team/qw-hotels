@@ -12,6 +12,7 @@
 | `qwPriceCaption`      | `qw-price-caption`       |             | `string` | `undefined` |
 | `qwPriceCrossedPrice` | `qw-price-crossed-price` |             | `string` | `undefined` |
 | `qwPriceMainPrice`    | `qw-price-main-price`    |             | `string` | `undefined` |
+| `qwPriceRoomId`       | `qw-price-room-id`       |             | `number` | `undefined` |
 
 
 ## Dependencies
