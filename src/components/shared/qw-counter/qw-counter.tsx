@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, Event, EventEmitter} from '@stencil/core';
+import {Component, Host, h, Prop, Event, EventEmitter, State} from '@stencil/core';
 import {QwButton} from '../qw-button/qw-button';
 
 enum QwCounterAction {
@@ -26,6 +26,19 @@ export class QwCounter {
   @Prop() qwCounterMinValue: number;
   @Prop() qwCounterDisabled: boolean;
   @Event() qwCounterChangeValue: EventEmitter<QwCounterEmitter>;
+  @State() qwBasketIsAccommodationSatisfy: boolean;
+
+  public componentWillLoad() {
+    if (this.checkIfIsGuestCounter(this.qwCounterName)) {
+      window.addEventListener('qwBasketIsAccommodationSatisfy', (res: CustomEvent) => {
+        this.qwBasketIsAccommodationSatisfy = res.detail.isAccommodationSatisfy;
+      });
+    }
+  }
+
+  private checkIfIsGuestCounter(qwCounterName) {
+    return qwCounterName !== 'adults' && qwCounterName !== 'children' && qwCounterName !== 'infants';
+  }
 
   private click(action: QwCounterAction) {
     this.qwCounterValue = action === QwCounterAction.Plus ? this.qwCounterValue + 1 : this.qwCounterValue - 1;
@@ -34,6 +47,16 @@ export class QwCounter {
       name: this.qwCounterName,
       value: this.qwCounterValue,
     });
+  }
+
+  private checkIfCounterIsDisabled() {
+    if (this.qwBasketIsAccommodationSatisfy) {
+      return true;
+    } else if (this.qwCounterMaxValue !== undefined && this.qwCounterValue >= this.qwCounterMaxValue) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   render() {
@@ -45,7 +68,7 @@ export class QwCounter {
           QwButtonOnClick={() => this.click(QwCounterAction.Minus)}/>
         <div class="qw-counter__value">{this.qwCounterValue}</div>
         <QwButton
-          QwButtonDisabled={this.qwCounterMaxValue !== undefined && this.qwCounterValue >= this.qwCounterMaxValue}
+          QwButtonDisabled={this.checkIfCounterIsDisabled()}
           QwButtonLabel={QwCounterAction.Plus}
           QwButtonOnClick={() => this.click(QwCounterAction.Plus)}/>
       </Host>
