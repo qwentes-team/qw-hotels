@@ -93,3 +93,18 @@ export enum QwLanguageType {
 }
 
 console.log('version 1.1.10');
+
+// GET SESSION AND ROOMS
+// SessionService.getSession().pipe(
+//   switchMap((session: SessionModel) => {
+//     return of(session);
+//   })
+// ).subscribe((session) => {
+//
+//   window.QW_HOTEL_UPDATE_SESSION_DATA(
+//     session,
+//     {adults: 2, children: 1, infants: 0},
+//     {arrivalDate: '2021-02-27', departureDate: '2021-02-28'},
+//
+//   ).then(session => console.log('session updated', session));
+// });
