@@ -18,6 +18,7 @@ export class QwBasket {
   @Prop() qwBasketShowTaxes: boolean = false;
   @Prop() qwBasketShowOnSiteTaxes: boolean = false;
   @State() totalPrice: MoneyPrice;
+  @State() totalPriceValue: string;
   @State() onSiteTaxes: string;
   @State() taxesMessage: string;
   @State() isLoading: boolean;
@@ -36,6 +37,9 @@ export class QwBasket {
 
     BasketWithPrice$.pipe(debounceTime(500)).subscribe(basket => {
       this.totalPrice = BasketHelper.getTotalConvertedPrice(basket);
+      const totalPriceAmount = parseInt(this.totalPrice.value.amount.toString().replace(",", ""), 10);
+      console.log('totalPriceAmount', totalPriceAmount);
+      this.totalPriceValue = this.formatPrice(totalPriceAmount);
       this.onSiteTaxes = basket.taxes.onSite.text;
       this.taxesMessage = BasketHelper.getTaxesFormatted(basket);
       this.numberOfAccommodation = BasketHelper.getOccupancyOfAccommodation(basket);
@@ -89,6 +93,40 @@ export class QwBasket {
     }
   }
 
+  /* 0 < 10 000 : € or IDR
+10 000 < 10 000 000 : k€ kIDR => 9000k € or 9000k IDR
+10 000 000 : M€ MIDR => 11M € or 11M IDR */
+
+  private formatPrice(value) {
+    console.log('format this', value);
+    let valueHtml = Math.ceil(value) + "";
+    if (value >= Math.pow(10, 12 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 12), 1) + "T";
+    } else if (value >= Math.pow(10, 9 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 9), 1) + "G";
+    } else if (value >= Math.pow(10, 6 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 6), 1) + "M";
+    } else if (value >= Math.pow(10, 3 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 3), 1) + "k";
+    }
+    return valueHtml;
+  }
+
+  private precisionRound(value, divisor, precision) {
+    let number = value / divisor;
+    // Round to the n decimal
+    const factor = Math.pow(10, precision);
+    let r = Math.round(number * factor) / factor;
+
+    let d = r.toFixed(1);
+
+    if (d[d.length - 1] === "0") {
+      return r.toFixed(0);
+    }
+
+    return d;
+  }
+
   private isOccupancySatisfied(totalAdults, totalChildren, totalInfants) {
     return totalAdults >= this.sessionOccupancy?.adults
       && totalChildren >= this.sessionOccupancy?.children
@@ -104,7 +142,7 @@ export class QwBasket {
             {this.taxesMessage}
           </div>}
           <div class={`qw-basket__price-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
-            {this.totalPrice && this.totalPrice.text}
+            {this.totalPrice && this.totalPrice.value.currency} {this.totalPrice && this.totalPriceValue}
           </div>
         </div>}
         {this.qwBasketShowEmptyButton && <QwButton
