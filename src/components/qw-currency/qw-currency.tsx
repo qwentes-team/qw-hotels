@@ -43,8 +43,8 @@ export class QwCurrency {
   private setCurrency = (currency: SessionDisplay['currency']) => {
     SessionService.updateDisplaySession({...this.session.display, currency})
       .pipe(tap((session) => BasketService.fetchBasket(session).subscribe(res => {
-        if(!res) {
-          console.log('qui', res);
+        if ((res as any).body?.Code === 'UNKNOWN_ERROR') {
+          window.alert((res as any).body?.Message);
         }
       })))
       .subscribe(session => this.qwCurrencyChanged.emit(session.display.currency));
@@ -70,7 +70,7 @@ export class QwCurrency {
   }
 
   private shouldShowSymbol(currencyCode: string) {
-    return this.qwCurrencyHasSymbol ? `(${this.currencies[currencyCode].symbol})` : ''
+    return this.qwCurrencyHasSymbol ? `(${this.currencies[currencyCode].symbol})` : '';
   }
 
   render() {
