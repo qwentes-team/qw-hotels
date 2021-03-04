@@ -81,7 +81,7 @@ export class QwOfferList {
       <Host>
         {this.isLoading && <slot>Loading offers...</slot>}
         {this.offers?.map(o => {
-          return <div class="qw-offer-list__card-wrapper">
+          return <div class={`qw-offer-list__offer-id-${o.offerId} qw-offer-list__card-wrapper`}>
             <div class="qw-offer-list__offer">
               <h4>{o.description.name}</h4>
               <div class="qw-offer__conditions">

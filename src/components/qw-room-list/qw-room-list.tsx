@@ -323,7 +323,7 @@ export class QwRoomList {
             : ''}
 
           {this.rooms.map(r => {
-            return <div class="qw-room-list__card-wrapper">
+            return <div class={`qw-room-list__room-id-${r.roomId} qw-room-list__card-wrapper`}>
               <qw-room-list-card
                 class={`
                   qw-room-list-card--${this.qwRoomListType}
