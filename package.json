@@ -1,6 +1,6 @@
 {
   "name": "qw-hotels",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Stencil components for D-Edge booking-engine project",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
