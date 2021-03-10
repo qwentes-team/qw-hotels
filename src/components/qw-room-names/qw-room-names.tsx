@@ -29,7 +29,7 @@ export class QwRoomNames {
   render() {
     return (
       <Host>{this.rooms.map(r => {
-        return <div class="qw-room-names__name" onClick={() => this.qwRoomNamesClick.emit(r)}>{r.name}</div>
+        return <div class={`qw-room-names__name qw-room-names__room-id-${r.roomId}`} onClick={() => this.qwRoomNamesClick.emit(r)}>{r.name}</div>
       })}</Host>
     );
   }
