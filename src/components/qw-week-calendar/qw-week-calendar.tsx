@@ -27,7 +27,43 @@ export class QwWeekCalendar {
 
   private getPriceForDate(date: Date) {
     const price = this.qwWeekCalendarPricesByRoom[DateUtil.getDateStringFromDate(date)];
-    return price ? price.text : RoomDefaultLabel.NoPrice;
+    const priceValue = price?.text.split(' ')[1];
+    const priceCurrency = price?.text.split(' ')[0];
+    const formattedPriceValue = this.formatPrice(priceValue?.replace(/,/g, ""));
+    return price ? {currency: priceCurrency, value: priceValue, formattedValue: formattedPriceValue} : {currency: RoomDefaultLabel.NoPrice, value: RoomDefaultLabel.NoPrice, formattedValue: RoomDefaultLabel.NoPrice};
+  }
+
+  /* 0 < 10 000 : € or IDR
+    10 000 < 10 000 000 : k€ kIDR => 9000k € or 9000k IDR
+    10 000 000 : M€ MIDR => 11M € or 11M IDR */
+
+  private formatPrice(value) {
+    let valueHtml = Math.ceil(value) + "";
+    if (value >= Math.pow(10, 12 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 12), 1) + "T";
+    } else if (value >= Math.pow(10, 9 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 9), 1) + "G";
+    } else if (value >= Math.pow(10, 6 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 6), 1) + "M";
+    } else if (value >= Math.pow(10, 3 + 1)) {
+      valueHtml = this.precisionRound(value, Math.pow(10, 3), 1) + "k";
+    }
+    return valueHtml;
+  }
+
+  private precisionRound(value, divisor, precision) {
+    let number = value / divisor;
+    // Round to the n decimal
+    var factor = Math.pow(10, precision);
+    let r = Math.round(number * factor) / factor;
+
+    let d = r.toFixed(1);
+
+    if (d[d.length - 1] === "0") {
+      return r.toFixed(0);
+    }
+
+    return d;
   }
 
   private isFirstDateInSession(date: Date) {
@@ -69,8 +105,8 @@ export class QwWeekCalendar {
             ${this.isLastDateInSession(date) ? 'qw-calendar-week__block--last' : ''}`
           }>
             <div class="qw-calendar-week__block-date">{`${this.formatDate(date)}`}</div>
-            <div class="qw-calendar-week__block-price">
-              {this.getPriceForDate(date)}
+            <div class="qw-calendar-week__block-price" title={this.getPriceForDate(date).currency + ' ' + this.getPriceForDate(date).value}>
+              {this.getPriceForDate(date).currency + ' ' + this.getPriceForDate(date).formattedValue}
             </div>
           </div>;
         })}
