@@ -79,25 +79,25 @@ export class QwBasket {
     };
 
     if (!this.numberOfAccommodation?.length) {
-      return {isAccommodationSatisfy: false, status: 0, detail: currentOccupancy}
-    } else if (!this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)){
-      return {isAccommodationSatisfy: false, status: 2, detail: currentOccupancy}
-    } else if(this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
-      return {isAccommodationSatisfy: true, status: 1, detail: currentOccupancy}
+      return {isAccommodationSatisfy: false, status: 0, detail: currentOccupancy};
+    } else if (!this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
+      return {isAccommodationSatisfy: false, status: 2, detail: currentOccupancy};
+    } else if (this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
+      return {isAccommodationSatisfy: true, status: 1, detail: currentOccupancy};
     } else {
-      return
+      return;
     }
   }
 
   private isOccupancySatisfied(totalAdults, totalChildren, totalInfants) {
     return totalAdults >= this.sessionOccupancy?.adults
       && totalChildren >= this.sessionOccupancy?.children
-      && totalInfants >= this.sessionOccupancy?.infants
+      && totalInfants >= this.sessionOccupancy?.infants;
   }
 
   public render() {
     return (
-      <Host class={this.isAccommodationSatisfy().isAccommodationSatisfy ? 'qw-basket--active' : ''}>
+      <Host class={this.isAccommodationSatisfy() ? 'qw-basket--active' : ''}>
         {(!this.isTotalPriceZero() || this.qwBasketShowPriceIfEmpty) && <div class="qw-basket__price" onClick={() => this.clickPrice()}>
           <span>{Language.getTranslation('total')}</span>
           {this.qwBasketShowTaxes && <div class={`qw-basket__tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
