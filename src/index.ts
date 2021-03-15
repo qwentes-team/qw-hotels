@@ -62,6 +62,7 @@ export enum GuestDetailFormProperty {
   ConfirmConditions = 'confirmConditions',
   Title = 'title',
   CountryCode = 'countryCode',
+  InsuranceAcceptance = 'insuranceAcceptance',
 }
 
 export enum QwWeekCalendarDirection {

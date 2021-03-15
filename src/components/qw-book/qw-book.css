@@ -24,13 +24,13 @@ qw-book {
   margin-bottom: var(--qw-hotel-gap-md);
 }
 
-.qw-book__confirmation-checkbox {
+.qw-book__confirmation-checkbox, .qw-book__insurance-acceptance-checkbox {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.qw-book__confirmation-checkbox qw-input {
+.qw-book__confirmation-checkbox qw-input, .qw-book__insurance-acceptance-checkbox qw-input {
   width: 50px;
 }
 
@@ -46,4 +46,26 @@ qw-book {
 
 .qw-book__pay {
   margin-top: var(--qw-hotel-gap-md);
+}
+
+.qw-book__insurance {
+  display: flex;
+  flex-flow: column;
+  border: 1px solid var(--qw-hotel-neutral-light);
+  padding: var(--qw-hotel-gap-md);
+}
+
+.qw-book__insurance h3, h4 {
+  margin: 0;
+}
+
+.qw-book__insurance .insurance__heading {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: var(--qw-hotel-gap-md);
+}
+
+.qw-book__insurance .insurance__heading img {
+  margin-right: var(--qw-hotel-gap-sm);
 }

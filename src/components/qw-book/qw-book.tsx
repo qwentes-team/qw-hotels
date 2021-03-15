@@ -19,9 +19,11 @@ import {of} from 'rxjs';
 export class QwBook {
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
+  @State() isInsuranceAccepted: boolean = false;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
   @Event() qwBookIsLoaded: EventEmitter<void>;
+  @Event() qwInsuranceAcceptanceChanged: EventEmitter<boolean>;
 
   private session: SessionModel;
   private mandatoriesCustomerFields = [
@@ -52,7 +54,10 @@ export class QwBook {
     })).subscribe();
 
     QuoteLoaded$.pipe(first()).subscribe(() => this.qwBookIsLoaded.emit());
-    QuoteLoaded$.subscribe(quote => this.quote = quote);
+    QuoteLoaded$.subscribe(quote => {
+      this.quote = quote
+    });
+    this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
   }
 
   private quoteHasError() {
@@ -69,6 +74,10 @@ export class QwBook {
     const {name, value} = e.detail;
     if (this.isConfirmConditionsFormName(name)) {
       this.isConfirmedConditions = Boolean(value);
+    }
+    if (this.isInsuranceAcceptanceFormName(name)) {
+      this.isInsuranceAccepted = Boolean(value);
+      this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
     }
   }
 
@@ -100,7 +109,12 @@ export class QwBook {
     return name === GuestDetailFormProperty.ConfirmConditions;
   }
 
+  private isInsuranceAcceptanceFormName(name: QwInputEmitter['name']) {
+    return name === GuestDetailFormProperty.InsuranceAcceptance;
+  }
+
   public payNow = () => {
+    console.log(this.formQuote);
     if (this.isFormValid()) {
       let windowReference: any = window.open();
       QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
@@ -113,6 +127,10 @@ export class QwBook {
 
   public showMissingRequiredForm() {
     return this.showFormErrors && (!this.isFormValid() || !this.isConfirmedConditions);
+  }
+
+  public emitInsuranceAcceptance() {
+    this.qwInsuranceAcceptanceChanged.emit(true);
   }
 
   render() {
@@ -130,6 +148,23 @@ export class QwBook {
               <qw-book-guest-detail
                 qwBookFormShowError={this.showFormErrors}
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
+
+              <div class="qw-book__insurance">
+                <h3>Cancellation insurance</h3>
+                <div class="insurance__heading">
+                  <img src={this.quote.insurance.logoUrl} alt="insurance logo"/>
+                  <h4>{this.quote.insurance.name}</h4>
+                </div>
+                <p>{this.quote.insurance.depositText}</p>
+                <a href={this.quote.insurance.termsUrl} target="_blank">Terms & Conditions</a>
+                <p>{this.quote.insurance.price.converted.text}</p>
+                <div
+                  class={`qw-book__insurance-acceptance-checkbox ${this.showFormErrors && !this.isInsuranceAccepted ? 'qw-book__insurance-acceptance-checkbox--error' : ''}`}>
+                  <qw-input qwInputType="checkbox" qwInputName="insuranceAcceptance"/>
+                  <div>By checking this flag you will be charged with the insurance cost above during the payment process.</div>
+                </div>
+
+              </div>
 
               <div class="qw-book__extra">
                 <h3>{Language.getTranslation('extras')}</h3>
