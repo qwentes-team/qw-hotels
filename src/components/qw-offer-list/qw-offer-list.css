@@ -27,6 +27,11 @@ qw-offer-list {
 }
 
 .qw-offer-list__room-wrapper {
+  width: 100%;
+  margin: var(--qw-hotel-gap-sm);
+}
+
+.qw-offer-list__room-section {
   width: 50%;
   margin: var(--qw-hotel-gap-sm);
 }

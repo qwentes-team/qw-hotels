@@ -1,5 +1,6 @@
 import {Component, Host, h, State, Prop} from '@stencil/core';
 import {
+  Language,
   Rate,
   RateHelper,
   RoomModel,
@@ -11,6 +12,7 @@ import {
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
 import {QwRoomListType} from '../../index';
+import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
   tag: 'qw-offer-list',
@@ -22,6 +24,7 @@ export class QwOfferList {
   @State() session: SessionModel;
   @State() offers: Rate[];
   @State() isLoading: boolean = true;
+  @State() hideRoomsWrapper: boolean = true;
   @Prop() qwOffersImageTransformationOptions: string;
   @Prop() qwOfferListType: QwRoomListType = QwRoomListType.Inline;
 
@@ -76,6 +79,10 @@ export class QwOfferList {
     }
   }
 
+  public toggleRooms() {
+    return this.hideRoomsWrapper = !this.hideRoomsWrapper
+  }
+
   render() {
     return (
       <Host>
@@ -85,17 +92,22 @@ export class QwOfferList {
             <div class="qw-offer-list__offer">
               <h4>{o.description.name}</h4>
               <div class="qw-offer__conditions">
-                <p>{RateHelper.getOnSiteTaxesMessageFormatted(o)}</p>
-                <p>{o.description.qualifier.text}</p>
-                <p>{RateHelper.getDefaultCancelConditionName(o)}</p>
-                <p>{this.getOfferRateSummary(o)}</p>
+                <p class="qw-offer__stay-tax">{RateHelper.getOnSiteTaxesMessageFormatted(o)}</p>
+                <p class="qw-offer__description">{o.description.qualifier.text}</p>
+                <p class="qw-offer__cancel-condition-name">{RateHelper.getDefaultCancelConditionName(o)}</p>
+                <p class="qw-offer__summary">{this.getOfferRateSummary(o)}</p>
               </div>
               <qw-image
                 qwImageTransformationOptions={this.qwOffersImageTransformationOptions ? JSON.parse(this.qwOffersImageTransformationOptions) : {}}
                 qwImageUrl={RateHelper.getCoverImage(o).url}
                 qwImageAlt={o.description.name}/>
             </div>
-            <div class={`
+            <div class="qw-offer-list__room-section">
+            <QwButton
+              QwButtonClass="qw-button--primary"
+              QwButtonLabel={this.hideRoomsWrapper ? Language.getTranslation('showRooms') : Language.getTranslation('hideRooms')}
+              QwButtonOnClick={() => this.toggleRooms()}/>
+            {!this.hideRoomsWrapper && <div class={`
             qw-offer-list__room-wrapper
             qw-offer-list--${this.qwOfferListType}`}>
               {this.rooms?.map(room => {
@@ -112,6 +124,7 @@ export class QwOfferList {
                   })}</div>
                 </div>;
               })}
+            </div>}
             </div>
           </div>;
         })}
