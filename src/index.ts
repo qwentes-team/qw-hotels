@@ -92,7 +92,7 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.12');
+console.log('version 1.1.13');
 
 // GET SESSION AND ROOMS
 // SessionService.getSession().pipe(
