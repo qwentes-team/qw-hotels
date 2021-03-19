@@ -148,7 +148,7 @@ export class QwRoomRate {
   render() {
     return (
       <Host class={`
-        qw-room-rate__offer-id-${this.qwRoomRateRate.offerId}
+        qw-room-rate__offer-id-${this.qwRoomRateRate.description.code}
         qw-room-rate--${this.qwRoomRateType}
         ${this.isHighlight(this.qwRoomRateRate?.description.code) ? 'qw-room-rate__highlight' : ''}
         ${this.qwRoomRateIsDisabled ? 'qw-room-rate__disabled' : ''}

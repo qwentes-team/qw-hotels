@@ -88,7 +88,8 @@ export class QwOfferList {
       <Host>
         {this.isLoading && <slot>Loading offers...</slot>}
         {this.offers?.map(o => {
-          return <div class={`qw-offer-list__offer-id-${o.offerId} qw-offer-list__card-wrapper`}>
+          console.log('offer', o);
+          return <div class={`qw-offer-list__offer-id-${o.description.code} qw-offer-list__card-wrapper`}>
             <div class="qw-offer-list__offer">
               <h4>{o.description.name}</h4>
               <div class="qw-offer__conditions">
@@ -113,7 +114,7 @@ export class QwOfferList {
               {this.rooms?.map(room => {
                 return this.hasRoomOffer(room, o.description.code) && <div class="qw-offer-list__room">
                   <h4 class="room__name">{room.name}</h4>
-                  <div class="room__rate-wrapper">{room.rates.map(r => {
+                  <div class={`room__rate-wrapper room__rate-wrapper--offer-id-${o.description.code}`}>{room.rates.map(r => {
                     if (r && (r.description.code === o.description.code)) {
                       return r && (r.description.code === o.description.code) && <qw-room-rate
                         qwRoomRateType={this.qwOfferListType}
