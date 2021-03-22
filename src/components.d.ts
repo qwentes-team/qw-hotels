@@ -657,7 +657,6 @@ declare namespace LocalJSX {
     interface QwCalendarGuestInline {
         "onQwCalendarGuestInlineCheckAvailability"?: (event: CustomEvent<void>) => void;
         "onQwCalendarGuestInlineClickInput"?: (event: CustomEvent<QwCalendarGuestInlineInputType>) => void;
-        "onQwCalendarGuestInlineSessionLoaded"?: (event: CustomEvent<SessionModel>) => void;
         "qwCalendarGuestInlineShowCheckButton"?: boolean;
         "qwCalendarGuestInlineShowInputs"?: boolean;
     }
