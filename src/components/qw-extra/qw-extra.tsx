@@ -1,7 +1,7 @@
 import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
-  ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraModel, ExtraService, SessionHasRooms$,
+  ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraService, ExtraStructure, SessionHasRooms$,
   SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {first, switchMap} from 'rxjs/operators';
@@ -14,7 +14,7 @@ import {of, zip} from 'rxjs';
   shadow: false,
 })
 export class QwExtra {
-  @State() extra: ExtraModel[];
+  @State() extra: ExtraStructure;
   @State() basket: BasketModel;
   @State() basketIsLoading: boolean;
   @State() extraIsLoading: boolean;
@@ -62,7 +62,7 @@ export class QwExtra {
   }
 
   private isInitData() {
-    return this.extra && !!this.extra.length && this.basket;
+    return this.extra && !!this.extra.hotelExtras.length && this.basket;
   }
 
   private isLoadingData() {
@@ -84,7 +84,7 @@ export class QwExtra {
           <slot name="qwExtraLoading"/>
         </div>
         <div class="qw-extra__card-wrapper">
-          {this.isInitData() && this.extra.map(extra => {
+          {this.isInitData() && this.extra.hotelExtras.map(extra => {
             const basketExtra = this.basket.hotelExtras.find(basketEx => basketEx.extraId === extra.extraId);
             return <qw-extra-card
               class={this.isLoadingData() ? 'qw-extra-card--disabled' : ''}

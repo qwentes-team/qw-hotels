@@ -133,7 +133,7 @@ export class QwBook {
 
               <div class="qw-book__extra">
                 <h3>{Language.getTranslation('extras')}</h3>
-                <qw-extra/>
+                <qw-extra></qw-extra>
               </div>
 
               <div class="qw-book__other-info">
