@@ -112,4 +112,4 @@ SessionService.getSession().pipe(
 // window.addEventListener('qwSessionChanged', (e: CustomEvent) => {
 //   console.log('session listener', e.detail);
 // })
->>>>>>> develop
+
