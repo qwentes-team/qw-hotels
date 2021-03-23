@@ -90,9 +90,10 @@ export class QwBasket {
   }
 
   private isOccupancySatisfied(totalAdults, totalChildren, totalInfants) {
+    const totalSessionGuests = this.sessionOccupancy?.adults + this.sessionOccupancy?.children + this.sessionOccupancy?.infants
     return totalAdults >= this.sessionOccupancy?.adults
-      && totalChildren >= this.sessionOccupancy?.children
-      && totalInfants >= this.sessionOccupancy?.infants;
+      && totalChildren >= this.sessionOccupancy?.children || totalAdults >= totalSessionGuests
+      && totalInfants >= this.sessionOccupancy?.infants || totalAdults >= totalSessionGuests;
   }
 
   public render() {
