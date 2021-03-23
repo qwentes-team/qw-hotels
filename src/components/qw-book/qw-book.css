@@ -24,13 +24,13 @@ qw-book {
   margin-bottom: var(--qw-hotel-gap-md);
 }
 
-.qw-book__confirmation-checkbox, .qw-book__insurance-acceptance-checkbox {
+.qw-book__confirmation-checkbox {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.qw-book__confirmation-checkbox qw-input, .qw-book__insurance-acceptance-checkbox qw-input {
+.qw-book__confirmation-checkbox qw-input {
   width: 50px;
 }
 
@@ -50,7 +50,8 @@ qw-book {
 
 .qw-book__insurance {
   display: flex;
-  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start;
   border: 1px solid var(--qw-hotel-neutral-light);
   padding: var(--qw-hotel-gap-md);
 }
@@ -60,12 +61,46 @@ qw-book {
 }
 
 .qw-book__insurance .insurance__heading {
+  width: 10%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: var(--qw-hotel-gap-md);
+  margin: var(--qw-hotel-gap-md) 0;
 }
 
 .qw-book__insurance .insurance__heading img {
   margin-right: var(--qw-hotel-gap-sm);
+}
+
+.qw-book__insurance .insurance__content {
+  width: 80%;
+  display: flex;
+  flex-flow: column;
+}
+
+.qw-book__insurance .insurance__content .insurance__link {
+  display: block;
+  margin-bottom: var(--qw-hotel-gap-md);
+}
+
+.qw-book__insurance-acceptance-actions {
+  width: 10%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.qw-book__insurance-acceptance-actions .qw-button {
+  margin-right: var(--qw-hotel-gap-md);
+}
+
+@media only screen and (max-width: 1000px) {
+  .qw-book__insurance {
+    flex-flow: column;
+  }
+  .qw-book__insurance .insurance__heading {
+    width: 100%;
+  }
+  .qw-book__insurance .insurance__content {
+    width: 100%;
+  }
 }

@@ -634,7 +634,6 @@ declare namespace LocalJSX {
     }
     interface QwBook {
         "onQwBookIsLoaded"?: (event: CustomEvent<void>) => void;
-        "onQwInsuranceAcceptanceChanged"?: (event: CustomEvent<boolean>) => void;
     }
     interface QwBookCondition {
         "qwBookConditionForceQuoteCall"?: boolean;
