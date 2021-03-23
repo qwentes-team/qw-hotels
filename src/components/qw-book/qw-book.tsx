@@ -74,14 +74,9 @@ export class QwBook {
     if (this.isConfirmConditionsFormName(name)) {
       this.isConfirmedConditions = Boolean(value);
     }
-    if (this.isInsuranceAcceptanceFormName(name)) {
-      this.isInsuranceAccepted = Boolean(value);
-      this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
-    }
   }
 
   public onClickInsuranceAcceptance(value: boolean) {
-    console.log('click', value);
     this.isInsuranceAccepted = value;
     this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
   }
@@ -112,10 +107,6 @@ export class QwBook {
 
   private isConfirmConditionsFormName(name: QwInputEmitter['name']) {
     return name === GuestDetailFormProperty.ConfirmConditions;
-  }
-
-  private isInsuranceAcceptanceFormName(name: QwInputEmitter['name']) {
-    return name === GuestDetailFormProperty.InsuranceAcceptance;
   }
 
   public payNow = () => {
