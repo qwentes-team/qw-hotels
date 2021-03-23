@@ -10,6 +10,7 @@
 | Property                               | Attribute                                   | Description | Type                                                                        | Default                              |
 | -------------------------------------- | ------------------------------------------- | ----------- | --------------------------------------------------------------------------- | ------------------------------------ |
 | `qwRoomListBaseInfoType`               | `qw-room-list-base-info-type`               |             | `QwRoomBaseInfoType.Inline \| QwRoomBaseInfoType.List`                      | `QwRoomBaseInfoType.Inline`          |
+| `qwRoomListExcludeRooms`               | `qw-room-list-exclude-rooms`                |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListFilterRoomsWith`            | `qw-room-list-filter-rooms-with`            |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListImageTransformationOptions` | `qw-room-list-image-transformation-options` |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListOrder`                      | `qw-room-list-order`                        |             | `QwRoomListOrderType.AscendingPrice \| QwRoomListOrderType.DescendingPrice` | `QwRoomListOrderType.AscendingPrice` |

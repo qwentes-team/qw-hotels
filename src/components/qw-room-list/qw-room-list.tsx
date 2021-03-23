@@ -26,6 +26,7 @@ const mockRoomsSkeleton = {roomId: 1, pictures: [], summary: []} as any;
 export class QwRoomList {
   @Prop() qwRoomListType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomListFilterRoomsWith: string;
+  @Prop() qwRoomListExcludeRooms: string;
   @Prop() qwRoomListShowPrices: boolean = true;
   @Prop() qwRoomListShowCta: boolean = true;
   @Prop() qwRoomListShowRates: boolean = false;
@@ -120,7 +121,7 @@ export class QwRoomList {
 
       const rooms = [...sortedRooms, ...roomsWithoutPrice];
 
-      return this.rooms = !this.qwRoomListFilterRoomsWith ? rooms : this.getFilteredRooms(rooms);
+      return this.rooms = !this.qwRoomListFilterRoomsWith && !this.qwRoomListExcludeRooms ? rooms : this.getFilteredRooms(rooms);
     });
 
     BasketWithPrice$.subscribe(basket => {
@@ -151,8 +152,13 @@ export class QwRoomList {
   }
 
   private getFilteredRooms(rooms: RoomModel[]) {
-    const roomIdsToFilter = JSON.parse(this.qwRoomListFilterRoomsWith);
-    return rooms.filter(r => roomIdsToFilter.includes(r.roomId));
+    if (this.qwRoomListFilterRoomsWith) {
+      const roomIdsToFilter = JSON.parse(this.qwRoomListFilterRoomsWith);
+      return rooms.filter(r => roomIdsToFilter.includes(r.roomId));
+    } else if (this.qwRoomListExcludeRooms) {
+      const roomIdsToExclude = JSON.parse(this.qwRoomListExcludeRooms);
+      return rooms.filter(r => !roomIdsToExclude.includes(r.roomId));
+    }
   }
 
   private mergeActiveRoomPricesWitNewRoomPrices(newRoomPrices: PricesForStayPeriod) {
@@ -317,7 +323,7 @@ export class QwRoomList {
             : ''}
 
           {this.rooms.map(r => {
-            return <div class="qw-room-list__card-wrapper">
+            return <div class={`qw-room-list__room-id-${r.code} qw-room-list__card-wrapper`}>
               <qw-room-list-card
                 class={`
                   qw-room-list-card--${this.qwRoomListType}

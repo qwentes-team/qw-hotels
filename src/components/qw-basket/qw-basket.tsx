@@ -72,21 +72,27 @@ export class QwBasket {
       return acc + room.occupancy.infantCount || 0;
     }, 0);
 
+    const currentOccupancy = {
+      adults: {currentValue: totalAdults, sessionValue: this.sessionOccupancy?.adults},
+      children: {currentValue: totalChildren, sessionValue: this.sessionOccupancy?.children},
+      infants: {currentValue: totalInfants, sessionValue: this.sessionOccupancy?.infants},
+    };
+
     if (!this.numberOfAccommodation?.length) {
-      return {isAccommodationSatisfy: false, status: 0}
-    } else if (!this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)){
-      return {isAccommodationSatisfy: false, status: 2}
-    } else if(this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
-      return {isAccommodationSatisfy: true, status: 1}
+      return {isAccommodationSatisfy: false, status: 0, detail: currentOccupancy};
+    } else if (!this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
+      return {isAccommodationSatisfy: false, status: 2, detail: currentOccupancy};
+    } else if (this.isOccupancySatisfied(totalAdults, totalChildren, totalInfants)) {
+      return {isAccommodationSatisfy: true, status: 1, detail: currentOccupancy};
     } else {
-      return
+      return;
     }
   }
 
   private isOccupancySatisfied(totalAdults, totalChildren, totalInfants) {
     return totalAdults >= this.sessionOccupancy?.adults
       && totalChildren >= this.sessionOccupancy?.children
-      && totalInfants >= this.sessionOccupancy?.infants
+      && totalInfants >= this.sessionOccupancy?.infants;
   }
 
   public render() {
@@ -107,7 +113,7 @@ export class QwBasket {
         {this.qwBasketShowBookNowButton && <QwButton
           QwButtonClass="qw-button--checkout"
           QwButtonLabel={Language.getTranslation('checkout')}
-          QwButtonDisabled={!this.totalPrice || this.isTotalPriceZero() || !this.isAccommodationSatisfy()}
+          QwButtonDisabled={!this.isAccommodationSatisfy().isAccommodationSatisfy}
           QwButtonOnClick={this.bookNow}/>}
         {(!this.isTotalPriceZero() && this.qwBasketShowOnSiteTaxes) &&
         <div class={`qw-basket__on-site-tax-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>

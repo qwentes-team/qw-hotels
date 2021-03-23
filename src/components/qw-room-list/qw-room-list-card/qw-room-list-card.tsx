@@ -1,4 +1,4 @@
-import {Component, h, Host, Listen, Prop} from '@stencil/core';
+import {Component, h, Host, Listen, Prop, State} from '@stencil/core';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {
   BasketHelper,
@@ -68,6 +68,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardOnChangeWeekDates: (e: QwWeekCalendarDirection) => void;
   @Prop() qwRoomListCardOnAddedToBasket: (e: BasketModel) => void;
   @Prop() qwRoomListCardRateListTitle: string;
+  @State() qwBasketIsAccommodationSatisfy: boolean;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
@@ -96,7 +97,7 @@ export class QwRoomListCard {
     return {
       selectedQuantity: this.qwRoomListCardBasketRoom.occupancies[occupancyId].selectedQuantity,
       availableQuantity: this.qwRoomListCardBasketRoom.occupancies[occupancyId].availableQuantity,
-    }
+    };
   }
 
   private getMaxValue(availableQuantity: number, selectedQuantity: number) {
@@ -123,27 +124,27 @@ export class QwRoomListCard {
           <div class={`qw-room-list-card__title ${!this.qwRoomListCardPrice ? 'qw-room-list-card--has-error' : ''}`}>
             {this.qwRoomListCardTitle
               ? <div class="qw-room-list-card__title-content" onClick={() => this.qwRoomListCardOnClickView()}>
-                  <h4>{this.qwRoomListCardTitle}</h4>
-                  <h6 class="qw-room-list-card__caption">
-                    <qw-room-base-info
-                      qw-room-base-info-guest-type={this.qwRoomListCardBaseInfoType === QwRoomBaseInfoType.List
-                        ? QwRoomBaseInfoGuestType.Text
-                        : QwRoomBaseInfoGuestType.Icon}
-                      qw-room-base-info-type={this.qwRoomListCardBaseInfoType}
-                      qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
-                  </h6>
-                </div>
-              : <qw-placeholder />
+                <h4>{this.qwRoomListCardTitle}</h4>
+                <h6 class="qw-room-list-card__caption">
+                  <qw-room-base-info
+                    qw-room-base-info-guest-type={this.qwRoomListCardBaseInfoType === QwRoomBaseInfoType.List
+                      ? QwRoomBaseInfoGuestType.Text
+                      : QwRoomBaseInfoGuestType.Icon}
+                    qw-room-base-info-type={this.qwRoomListCardBaseInfoType}
+                    qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
+                </h6>
+              </div>
+              : <qw-placeholder/>
             }
             {this.qwRoomListCardShowPrice && (this.qwRoomListCardPrice
-              ? <qw-price
+                ? <qw-price
                   onClick={() => this.qwRoomListCardOnClickBook()}
                   qwPriceCrossedPrice={this.qwRoomListCardCrossedOutPrice || RoomDefaultLabel.NoPrice}
                   qwPriceMainPrice={this.qwRoomListCardPrice || RoomDefaultLabel.NoPrice}
                   qwPriceCaption={`
                     ${Language.getTranslation('totalFor')} ${this.qwRoomListCardNights} ${Language.getTranslation('nights')}
                   `}/>
-              : !this.qwRoomListCardIsLoading
+                : !this.qwRoomListCardIsLoading
                   ? <qw-error>{Language.getTranslation('roomListCardErrorMessage')}</qw-error>
                   : ''
             )}
@@ -169,22 +170,22 @@ export class QwRoomListCard {
 
             {!this.qwRoomListCardBasketIsEmpty
               ? <qw-room-rates
-                  qwRoomRatesType={QwRoomListType.Inline}
-                  qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}
-                  qwRoomRatesRoomId={this.qwRoomListCardId}/>
+                qwRoomRatesType={QwRoomListType.Inline}
+                qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}
+                qwRoomRatesRoomId={this.qwRoomListCardId}/>
               : ''
             }
           </div>}
 
           {this.qwRoomListCardShowRates
             ? <div class="qw-room-list-card__rates">
-                <h4>{this.qwRoomListCardRateListTitle ? this.qwRoomListCardRateListTitle : Language.getTranslation('rateList')}</h4>
-                <qw-room-rates
-                  qwRoomRatesType={this.qwRoomListCardType}
-                  qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}
-                  qwRoomRatesPlaceholders={this.qwRoomListCardPlaceholders}
-                  qwRoomRatesRoomId={this.qwRoomListCardId}/>
-              </div>
+              <h4>{this.qwRoomListCardRateListTitle ? this.qwRoomListCardRateListTitle : Language.getTranslation('rateList')}</h4>
+              <qw-room-rates
+                qwRoomRatesType={this.qwRoomListCardType}
+                qwRoomRatesRateHighlight={this.qwRoomListCardRateHighlight}
+                qwRoomRatesPlaceholders={this.qwRoomListCardPlaceholders}
+                qwRoomRatesRoomId={this.qwRoomListCardId}/>
+            </div>
             : ''
           }
 
@@ -211,19 +212,19 @@ export class QwRoomListCard {
           {this.qwRoomListCardShowCta && <div class="qw-room-list-card__cta">
             {this.showProceedButton()
               ? <QwButton
-                  QwButtonLabel={Language.getTranslation('viewRoom')}
-                  QwButtonOnClick={() => this.qwRoomListCardOnProceedToCheckout()}/>
+                QwButtonLabel={Language.getTranslation('viewRoom')}
+                QwButtonOnClick={() => this.qwRoomListCardOnProceedToCheckout()}/>
               : <QwButton
-                  QwButtonLabel={Language.getTranslation('viewRoom')}
-                  QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
+                QwButtonLabel={Language.getTranslation('viewRoom')}
+                QwButtonOnClick={() => this.qwRoomListCardOnClickView()}/>
             }
             {this.qwRoomListCardPrice
               ? <QwButton
-                  QwButtonLabel={Language.getTranslation('viewAllRates')}
-                  QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
+                QwButtonLabel={Language.getTranslation('viewAllRates')}
+                QwButtonOnClick={() => this.qwRoomListCardOnClickBook()}/>
               : <QwButton
-                  QwButtonLabel={Language.getTranslation('changeDates')}
-                  QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
+                QwButtonLabel={Language.getTranslation('changeDates')}
+                QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
           </div>}
         </qw-card>

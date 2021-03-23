@@ -1,4 +1,6 @@
-import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
+import {ExtraModel, RoomBasketModel, SessionModel, SessionService} from '@qwentes/booking-state-manager';
+import {switchMap} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 export * from './components';
 
@@ -92,4 +94,22 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.9');
+console.log('version 1.1.13');
+
+SessionService.getSession().pipe(
+  switchMap((session: SessionModel) => {
+    return of(session);
+  })
+).subscribe((session) => {
+  console.log('session', session);
+  // window.QW_HOTEL_UPDATE_SESSION_DATA(
+  //   session,
+  //   {adults: 2, children: 1, infants: 0},
+  //   {arrivalDate: '2021-03-27', departureDate: '2021-03-28'},
+  //   'PROMO'
+  // ).then(session => console.log('session updated', session));
+});
+// window.addEventListener('qwSessionChanged', (e: CustomEvent) => {
+//   console.log('session listener', e.detail);
+// })
+>>>>>>> develop

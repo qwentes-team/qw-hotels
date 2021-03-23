@@ -149,6 +149,7 @@ export namespace Components {
         "qwPriceCaption": string;
         "qwPriceCrossedPrice": string;
         "qwPriceMainPrice": string;
+        "qwPriceRoomId"?: number;
     }
     interface QwPromoCode {
         "qwPromoCodeLabel": string;
@@ -180,6 +181,7 @@ export namespace Components {
     }
     interface QwRoomList {
         "qwRoomListBaseInfoType": QwRoomBaseInfoType;
+        "qwRoomListExcludeRooms": string;
         "qwRoomListFilterRoomsWith": string;
         "qwRoomListImageTransformationOptions": string;
         "qwRoomListOrder": QwRoomListOrderType;
@@ -235,6 +237,7 @@ export namespace Components {
         "qwRoomListCardType": QwRoomListType;
     }
     interface QwRoomNames {
+        "qwRoomNamesIds": string;
     }
     interface QwRoomNotification {
         "qwRoomNotificationShowPopupTime": number;
@@ -772,6 +775,7 @@ declare namespace LocalJSX {
         "qwPriceCaption"?: string;
         "qwPriceCrossedPrice"?: string;
         "qwPriceMainPrice"?: string;
+        "qwPriceRoomId"?: number;
     }
     interface QwPromoCode {
         "qwPromoCodeLabel"?: string;
@@ -812,6 +816,7 @@ declare namespace LocalJSX {
         "onQwRoomListClickRoom"?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
         "onQwRoomListOnLoad"?: (event: CustomEvent<void>) => void;
         "qwRoomListBaseInfoType"?: QwRoomBaseInfoType;
+        "qwRoomListExcludeRooms"?: string;
         "qwRoomListFilterRoomsWith"?: string;
         "qwRoomListImageTransformationOptions"?: string;
         "qwRoomListOrder"?: QwRoomListOrderType;
@@ -868,6 +873,7 @@ declare namespace LocalJSX {
     }
     interface QwRoomNames {
         "onQwRoomNamesClick"?: (event: CustomEvent<RoomModel>) => void;
+        "qwRoomNamesIds"?: string;
     }
     interface QwRoomNotification {
         "qwRoomNotificationShowPopupTime"?: number;
