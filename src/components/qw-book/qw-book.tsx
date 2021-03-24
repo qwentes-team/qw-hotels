@@ -159,9 +159,8 @@ export class QwBook {
                 </div>
                 <div
                   class={`qw-book__insurance-acceptance-actions ${this.showFormErrors && !this.isInsuranceAccepted ? 'qw-book__insurance-acceptance-actions--error' : ''}`}>
-                  {/*<qw-input qwInputType="checkbox" qwInputName="insuranceAcceptance"/>*/}
-                  <QwButton QwButtonLabel="yes" QwButtonOnClick={() => this.onClickInsuranceAcceptance(true)}/>
-                  <QwButton QwButtonLabel="no" QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
+                  <QwButton QwButtonClass={this.isInsuranceAccepted ? 'insurance__action--selected' : ''} QwButtonLabel={Language.getTranslation('yes')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(true)}/>
+                  <QwButton QwButtonClass={!this.isInsuranceAccepted ? 'insurance__action--selected' : ''} QwButtonLabel={Language.getTranslation('no')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
                 </div>
 
               </div>
