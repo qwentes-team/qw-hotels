@@ -47,7 +47,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@qwentes/booking-state-manager": "^0.5.47",
+    "@qwentes/booking-state-manager": "^0.5.48",
     "cloudinary-core": "^2.8.1",
     "flatpickr": "^4.6.3",
     "intl-tel-input": "^16.0.7",

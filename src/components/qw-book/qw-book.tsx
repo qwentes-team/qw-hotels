@@ -19,6 +19,7 @@ import {of} from 'rxjs';
 export class QwBook {
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
+  @State() isInsuranceAccepted: boolean = false;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
   @Event() qwBookIsLoaded: EventEmitter<void>;
@@ -52,7 +53,10 @@ export class QwBook {
     })).subscribe();
 
     QuoteLoaded$.pipe(first()).subscribe(() => this.qwBookIsLoaded.emit());
-    QuoteLoaded$.subscribe(quote => this.quote = quote);
+    QuoteLoaded$.subscribe(quote => {
+      this.quote = quote;
+    });
+    this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
   }
 
   private quoteHasError() {
@@ -70,6 +74,11 @@ export class QwBook {
     if (this.isConfirmConditionsFormName(name)) {
       this.isConfirmedConditions = Boolean(value);
     }
+  }
+
+  public onClickInsuranceAcceptance(value: boolean) {
+    this.isInsuranceAccepted = value;
+    this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
   }
 
   public isFormValid() {
@@ -101,6 +110,7 @@ export class QwBook {
   }
 
   public payNow = () => {
+    console.log(this.formQuote);
     if (this.isFormValid()) {
       let windowReference: any = window.open();
       QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
@@ -115,7 +125,12 @@ export class QwBook {
     return this.showFormErrors && (!this.isFormValid() || !this.isConfirmedConditions);
   }
 
+  private makeInsuranceLogoUrl() {
+    return this.quote.insurance.logoUrl.replace('~', 'http://secure-hotel-booking.com');
+  }
+
   render() {
+    console.log(this.quote);
     return (
       <Host class={`${!this.quote ? 'qw-book--loading' : 'qw-book--loaded'}`}>
         <div style={this.quote && {'display': 'none'}}>
@@ -124,12 +139,32 @@ export class QwBook {
         {this.quote
           ? this.quoteHasError()
             ? <div class="qw-book__error-quote">
-                {Language.getTranslation('quoteErrorMessage')}
-              </div>
+              {Language.getTranslation('quoteErrorMessage')}
+            </div>
             : <div class="qw-book__wrapper">
               <qw-book-guest-detail
                 qwBookFormShowError={this.showFormErrors}
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
+
+              <h3>Cancellation insurance</h3>
+              <div class="qw-book__insurance">
+                <div class="insurance__heading">
+                  <img src={this.makeInsuranceLogoUrl()} alt="insurance logo"/>
+                </div>
+                <div class="insurance__content">
+                  <h3>{Language.getTranslation('cancellationInsuranceQuestion')} {this.quote.insurance.price.converted.text}?</h3>
+                  <p>{Language.getTranslation('cancellationInsuranceAcceptance')}</p>
+                  <a class="insurance__link" href={this.quote.insurance.termsUrl} target="_blank">{Language.getTranslation('cancellationInsuranceTermsAndConditions')}</a>
+                  <a class="insurance__link" href={this.quote.insurance.ipidUrl} target="_blank">{Language.getTranslation('cancellationInsuranceSummary')}</a>
+                </div>
+                <div
+                  class={`qw-book__insurance-acceptance-actions ${this.showFormErrors && !this.isInsuranceAccepted ? 'qw-book__insurance-acceptance-actions--error' : ''}`}>
+                  {/*<qw-input qwInputType="checkbox" qwInputName="insuranceAcceptance"/>*/}
+                  <QwButton QwButtonLabel="yes" QwButtonOnClick={() => this.onClickInsuranceAcceptance(true)}/>
+                  <QwButton QwButtonLabel="no" QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
+                </div>
+
+              </div>
 
               <div class="qw-book__extra">
                 <h3>{Language.getTranslation('extras')}</h3>
@@ -153,7 +188,8 @@ export class QwBook {
                 {this.quote && <qw-book-condition/>}
                 <div class="qw-book__confirmation">
                   <h4>{Language.getTranslation('confirmation')}</h4>
-                  <div class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
+                  <div
+                    class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
                     <div>{Language.getTranslation('termsAndConditionMessage')} *</div>
                   </div>
