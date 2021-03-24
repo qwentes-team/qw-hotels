@@ -146,7 +146,7 @@ export class QwBook {
                 qwBookFormShowError={this.showFormErrors}
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
 
-              <h3>Cancellation insurance</h3>
+              <h3>{Language.getTranslation('cancellationInsurance')}</h3>
               <div class="qw-book__insurance">
                 <div class="insurance__heading">
                   <img src={this.makeInsuranceLogoUrl()} alt="insurance logo"/>
