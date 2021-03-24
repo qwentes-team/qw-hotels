@@ -95,7 +95,7 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.13');
+console.log('version 1.1.14');
 
 
 SessionService.getSession().pipe(
@@ -103,7 +103,7 @@ SessionService.getSession().pipe(
     return of(session);
   })
 ).subscribe((session) => {
-  console.log('session', session);
+  // console.log('session', session);
   // window.QW_HOTEL_UPDATE_SESSION_DATA(
   //   session,
   //   {adults: 2, children: 1, infants: 0},
