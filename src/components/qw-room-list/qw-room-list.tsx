@@ -26,6 +26,7 @@ const mockRoomsSkeleton = {roomId: 1, pictures: [], summary: []} as any;
 export class QwRoomList {
   @Prop() qwRoomListType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomListFilterRoomsWith: string;
+  @Prop() qwRoomListShowOnlyNames: boolean = false;
   @Prop() qwRoomListExcludeRooms: string;
   @Prop() qwRoomListShowPrices: boolean = true;
   @Prop() qwRoomListShowCta: boolean = true;
@@ -323,47 +324,51 @@ export class QwRoomList {
             : ''}
 
           {this.rooms.map(r => {
-            return <div class={`qw-room-list__room-id-${r.code} qw-room-list__card-wrapper`}>
-              <qw-room-list-card
-                class={`
+            if(this.qwRoomListShowOnlyNames) {
+              return <p>{r.name}</p>
+            } else {
+              return <div class={`qw-room-list__room-id-${r.code} qw-room-list__card-wrapper`}>
+                <qw-room-list-card
+                  class={`
                   qw-room-list-card--${this.qwRoomListType}
                   ${this.isLoadingData() ? 'qw-room-list-card__disabled' : ''}
                 `}
-                qwRoomListCardRateListTitle={this.qwRoomListRateListTitle}
-                qwRoomListCardId={r.roomId}
-                qwRoomListCardTitle={r.name}
-                qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}
-                qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
-                qwRoomListCardAveragePrice={this.roomPrices ? this.getAveragePricePerNight(r.roomId) : ''}
-                qwRoomListCardImage={RoomHelper.getCoverImage(r)?.url}
-                qwRoomListCardBasketRoom={this.getBasketRoom(r.roomId)}
-                qwRoomListCardIsLoading={this.isLoadingData()}
-                qwRoomListCardIsLoadingPrice={this.isPriceLoading}
-                qwRoomListCardDescription={RoomHelper.getSummary(r)?.text}
-                qwRoomListCardRangeDate={this.rangeDate}
-                qwRoomListCardRangeDateSession={this.rangeDateSession}
-                qwRoomListCardPrices={this.roomPrices[r.roomId]}
-                qwRoomListCardShowPrices={this.qwRoomListShowPrices}
-                qwRoomListCardNights={this.nights}
-                qwRoomListCardShowCta={this.qwRoomListShowCta}
-                qwRoomListCardShowRates={this.qwRoomListShowRates}
-                qwRoomListCardBasketIsEmpty={this.basketIsEmpty}
-                qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
-                qwRoomListCardNumberOfGuests={this.numberOfGuests}
-                qwRoomListCardNumberOfAccommodation={this.numberOfAccommodation}
-                qwRoomListCardLanguage={this.language}
-                qwRoomListCardType={this.qwRoomListType}
-                qwRoomListCardPlaceholders={this.qwRoomListPlaceholders}
-                qwRoomListCardBaseInfoType={this.qwRoomListBaseInfoType}
-                qwRoomListCardRateHighlight={this.qwRoomListRateHighlight}
-                qwRoomListCardImageTransformationOptions={this.qwRoomListImageTransformationOptions ? JSON.parse(this.qwRoomListImageTransformationOptions) : {}}
-                qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
-                qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
-                qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}
-                qwRoomListCardOnChangeWeekDates={(e) => this.weekDatesChanged(e)}
-                qwRoomListCardOnAddedToBasket={(e) => this.onAddedToBasket(e)}
-                qwRoomListCardOnProceedToCheckout={() => this.clickButton(QwRoomListCardButtonType.Checkout, r)}/>
-            </div>;
+                  qwRoomListCardRateListTitle={this.qwRoomListRateListTitle}
+                  qwRoomListCardId={r.roomId}
+                  qwRoomListCardTitle={r.name}
+                  qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}
+                  qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
+                  qwRoomListCardAveragePrice={this.roomPrices ? this.getAveragePricePerNight(r.roomId) : ''}
+                  qwRoomListCardImage={RoomHelper.getCoverImage(r)?.url}
+                  qwRoomListCardBasketRoom={this.getBasketRoom(r.roomId)}
+                  qwRoomListCardIsLoading={this.isLoadingData()}
+                  qwRoomListCardIsLoadingPrice={this.isPriceLoading}
+                  qwRoomListCardDescription={RoomHelper.getSummary(r)?.text}
+                  qwRoomListCardRangeDate={this.rangeDate}
+                  qwRoomListCardRangeDateSession={this.rangeDateSession}
+                  qwRoomListCardPrices={this.roomPrices[r.roomId]}
+                  qwRoomListCardShowPrices={this.qwRoomListShowPrices}
+                  qwRoomListCardNights={this.nights}
+                  qwRoomListCardShowCta={this.qwRoomListShowCta}
+                  qwRoomListCardShowRates={this.qwRoomListShowRates}
+                  qwRoomListCardBasketIsEmpty={this.basketIsEmpty}
+                  qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
+                  qwRoomListCardNumberOfGuests={this.numberOfGuests}
+                  qwRoomListCardNumberOfAccommodation={this.numberOfAccommodation}
+                  qwRoomListCardLanguage={this.language}
+                  qwRoomListCardType={this.qwRoomListType}
+                  qwRoomListCardPlaceholders={this.qwRoomListPlaceholders}
+                  qwRoomListCardBaseInfoType={this.qwRoomListBaseInfoType}
+                  qwRoomListCardRateHighlight={this.qwRoomListRateHighlight}
+                  qwRoomListCardImageTransformationOptions={this.qwRoomListImageTransformationOptions ? JSON.parse(this.qwRoomListImageTransformationOptions) : {}}
+                  qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
+                  qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
+                  qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}
+                  qwRoomListCardOnChangeWeekDates={(e) => this.weekDatesChanged(e)}
+                  qwRoomListCardOnAddedToBasket={(e) => this.onAddedToBasket(e)}
+                  qwRoomListCardOnProceedToCheckout={() => this.clickButton(QwRoomListCardButtonType.Checkout, r)}/>
+              </div>;
+            }
           })}
         </div>
       </Host>

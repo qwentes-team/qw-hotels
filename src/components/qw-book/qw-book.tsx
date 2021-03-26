@@ -154,13 +154,17 @@ export class QwBook {
                 <div class="insurance__content">
                   <h3>{Language.getTranslation('cancellationInsuranceQuestion')} {this.quote.insurance.price.converted.text}?</h3>
                   <p>{Language.getTranslation('cancellationInsuranceAcceptance')}</p>
-                  <a class="insurance__link" href={this.quote.insurance.termsUrl} target="_blank">{Language.getTranslation('cancellationInsuranceTermsAndConditions')}</a>
-                  <a class="insurance__link" href={this.quote.insurance.ipidUrl} target="_blank">{Language.getTranslation('cancellationInsuranceSummary')}</a>
+                  <a class="insurance__link" href={this.quote.insurance.termsUrl}
+                     target="_blank">{Language.getTranslation('cancellationInsuranceTermsAndConditions')}</a>
+                  <a class="insurance__link" href={this.quote.insurance.ipidUrl}
+                     target="_blank">{Language.getTranslation('cancellationInsuranceSummary')}</a>
                 </div>
                 <div
                   class={`qw-book__insurance-acceptance-actions ${this.showFormErrors && !this.isInsuranceAccepted ? 'qw-book__insurance-acceptance-actions--error' : ''}`}>
-                  <QwButton QwButtonClass={this.isInsuranceAccepted ? 'insurance__action--selected' : ''} QwButtonLabel={Language.getTranslation('yes')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(true)}/>
-                  <QwButton QwButtonClass={!this.isInsuranceAccepted ? 'insurance__action--selected' : ''} QwButtonLabel={Language.getTranslation('no')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
+                  <QwButton QwButtonClass={this.isInsuranceAccepted ? 'insurance__action--selected' : ''}
+                            QwButtonLabel={Language.getTranslation('yes')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(true)}/>
+                  <QwButton QwButtonClass={!this.isInsuranceAccepted ? 'insurance__action--selected' : ''}
+                            QwButtonLabel={Language.getTranslation('no')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
                 </div>
 
               </div>

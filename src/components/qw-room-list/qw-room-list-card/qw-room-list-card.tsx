@@ -151,7 +151,7 @@ export class QwRoomListCard {
           </div>
 
           {this.qwRoomListCardShowDescription && <div class="qw-room-list-card__descriptions">
-            <p>{this.qwRoomListCardDescription}</p>
+            <p innerHTML={this.qwRoomListCardDescription}/>
           </div>}
 
           {this.qwRoomListCardShowPrices && <div class="qw-room-list-card__prices">
