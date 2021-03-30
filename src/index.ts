@@ -1,6 +1,5 @@
-import {ExtraModel, RoomBasketModel, SessionModel, SessionService} from '@qwentes/booking-state-manager';
-import {switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
+
 
 export * from './components';
 
