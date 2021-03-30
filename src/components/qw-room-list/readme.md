@@ -19,6 +19,7 @@
 | `qwRoomListRateListTitle`              | `qw-room-list-rate-list-title`              |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListShowAvailabilityMessage`    | `qw-room-list-show-availability-message`    |             | `boolean`                                                                   | `false`                              |
 | `qwRoomListShowCta`                    | `qw-room-list-show-cta`                     |             | `boolean`                                                                   | `true`                               |
+| `qwRoomListShowOnlyNames`              | `qw-room-list-show-only-names`              |             | `boolean`                                                                   | `false`                              |
 | `qwRoomListShowPrices`                 | `qw-room-list-show-prices`                  |             | `boolean`                                                                   | `true`                               |
 | `qwRoomListShowRates`                  | `qw-room-list-show-rates`                   |             | `boolean`                                                                   | `false`                              |
 | `qwRoomListType`                       | `qw-room-list-type`                         |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline`       | `QwRoomListType.Inline`              |
