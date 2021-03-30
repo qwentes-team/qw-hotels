@@ -61,26 +61,35 @@ export class QwOfferList {
           ? acc
           : [...acc, rate];
       }
-      return acc
+      return acc;
     }, []);
   }
 
   private hasRoomOffer(room, offerCode) {
-    return room.rates ? !!room.rates.find(rate => rate.description.code === offerCode) : false
+    return room.rates ? !!room.rates.find(rate => rate.description.code === offerCode) : false;
   }
 
   private getOfferRateSummary(offer) {
     const summary = offer?.description.summary;
-    if (RateHelper.getSummaryType( summary, RoomSummaryType.Html)) {
-      const htmlSummary = RateHelper.getSummaryType( summary, RoomSummaryType.Html)?.text;
+    if (RateHelper.getSummaryType(summary, RoomSummaryType.Html)) {
+      const htmlSummary = RateHelper.getSummaryType(summary, RoomSummaryType.Html)?.text;
       return <p innerHTML={htmlSummary}></p>;
     } else {
-      return RateHelper.getSummaryType( summary, RoomSummaryType.PlainText)?.text
+      return RateHelper.getSummaryType(summary, RoomSummaryType.PlainText)?.text;
     }
   }
 
   public toggleRooms() {
-    return this.hideRoomsWrapper = !this.hideRoomsWrapper
+    return this.hideRoomsWrapper = !this.hideRoomsWrapper;
+  }
+
+  private getOnSiteTaxesMessageFormatted(rate) {
+    const onSiteTaxesDetail = rate.taxes.onSite.details[0];
+    if (onSiteTaxesDetail) {
+      return `${onSiteTaxesDetail?.name}: ${onSiteTaxesDetail.description} (${onSiteTaxesDetail.amount.converted.text})`;
+    } else {
+      return;
+    }
   }
 
   render() {
@@ -88,12 +97,11 @@ export class QwOfferList {
       <Host>
         {this.isLoading && <slot>Loading offers...</slot>}
         {this.offers?.map(o => {
-          console.log('offer', o);
           return <div class={`qw-offer-list__offer-id-${o.description.code} qw-offer-list__card-wrapper`}>
             <div class="qw-offer-list__offer">
               <h4>{o.description.name}</h4>
               <div class="qw-offer__conditions">
-                <p class="qw-offer__stay-tax">{RateHelper.getOnSiteTaxesMessageFormatted(o)}</p>
+                <p class="qw-offer__stay-tax">{this.getOnSiteTaxesMessageFormatted(o)}</p>
                 <p class="qw-offer__description">{o.description.qualifier.text}</p>
                 <p class="qw-offer__cancel-condition-name">{RateHelper.getDefaultCancelConditionName(o)}</p>
                 <p class="qw-offer__summary">{this.getOfferRateSummary(o)}</p>
@@ -104,28 +112,28 @@ export class QwOfferList {
                 qwImageAlt={o.description.name}/>
             </div>
             <div class="qw-offer-list__room-section">
-            <QwButton
-              QwButtonClass="qw-button--primary"
-              QwButtonLabel={this.hideRoomsWrapper ? Language.getTranslation('showRooms') : Language.getTranslation('hideRooms')}
-              QwButtonOnClick={() => this.toggleRooms()}/>
-            {!this.hideRoomsWrapper && <div class={`
+              <QwButton
+                QwButtonClass="qw-button--primary"
+                QwButtonLabel={this.hideRoomsWrapper ? Language.getTranslation('showRooms') : Language.getTranslation('hideRooms')}
+                QwButtonOnClick={() => this.toggleRooms()}/>
+              {!this.hideRoomsWrapper && <div class={`
             qw-offer-list__room-wrapper
             qw-offer-list--${this.qwOfferListType}`}>
-              {this.rooms?.map(room => {
-                return this.hasRoomOffer(room, o.description.code) && <div class="qw-offer-list__room">
-                  <h4 class="room__name">{room.name}</h4>
-                  <div class={`room__rate-wrapper room__rate-wrapper--offer-id-${o.description.code}`}>{room.rates.map(r => {
-                    if (r && (r.description.code === o.description.code)) {
-                      return r && (r.description.code === o.description.code) && <qw-room-rate
-                        qwRoomRateType={this.qwOfferListType}
-                        qwRoomRateRoomId={room.roomId}
-                        qwRoomRateRate={r}
-                        qwRoomRateShowConditions={true}/>;
-                    }
-                  })}</div>
-                </div>;
-              })}
-            </div>}
+                {this.rooms?.map(room => {
+                  return this.hasRoomOffer(room, o.description.code) && <div class="qw-offer-list__room">
+                    <h4 class="room__name">{room.name}</h4>
+                    <div class={`room__rate-wrapper room__rate-wrapper--offer-id-${o.description.code}`}>{room.rates.map(r => {
+                      if (r && (r.description.code === o.description.code)) {
+                        return r && (r.description.code === o.description.code) && <qw-room-rate
+                          qwRoomRateType={this.qwOfferListType}
+                          qwRoomRateRoomId={room.roomId}
+                          qwRoomRateRate={r}
+                          qwRoomRateShowConditions={true}/>;
+                      }
+                    })}</div>
+                  </div>;
+                })}
+              </div>}
             </div>
           </div>;
         })}
