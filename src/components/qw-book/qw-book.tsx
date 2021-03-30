@@ -146,11 +146,11 @@ export class QwBook {
                 qwBookFormShowError={this.showFormErrors}
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
 
-              <h3>{Language.getTranslation('cancellationInsurance')}</h3>
-              <div class="qw-book__insurance">
-                <div class="insurance__heading">
+              {this.quote.insurance && <h3>{Language.getTranslation('cancellationInsurance')}</h3>}
+              {this.quote.insurance && <div class="qw-book__insurance">
+                {this.quote.insurance.logoUrl && <div class="insurance__heading">
                   <img src={this.makeInsuranceLogoUrl()} alt="insurance logo"/>
-                </div>
+                </div>}
                 <div class="insurance__content">
                   <h3>{Language.getTranslation('cancellationInsuranceQuestion')} {this.quote.insurance.price.converted.text}?</h3>
                   <p>{Language.getTranslation('cancellationInsuranceAcceptance')}</p>
@@ -166,8 +166,7 @@ export class QwBook {
                   <QwButton QwButtonClass={!this.isInsuranceAccepted ? 'insurance__action--selected' : ''}
                             QwButtonLabel={Language.getTranslation('no')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
                 </div>
-
-              </div>
+              </div>}
 
               <div class="qw-book__extra">
                 <h3>{Language.getTranslation('extras')}</h3>
