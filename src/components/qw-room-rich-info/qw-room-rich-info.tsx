@@ -51,8 +51,8 @@ export class QwRoomRichInfo {
         </div>
 
         {this.showAmenities && <qw-room-service qwRoomServiceRoomId={this.qwRoomRichInfoRoomId} />}
-
-        <p class="qw-room-rich-info__description">{RoomHelper.getSummary(this.room)?.text}</p>
+        
+        <p class="qw-room-rich-info__description" innerHTML={RoomHelper.getSummary(this.room)?.text}/>
       </Host>
     );
   }
