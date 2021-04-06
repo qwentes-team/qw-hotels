@@ -327,7 +327,7 @@ export class QwRoomList {
             if(this.qwRoomListShowOnlyNames) {
               return <p class={`qw-room-list__room-id-${r.roomId}`}>{r.name}</p>
             } else {
-              return <div class={`qw-room-list__room-id-${r.code} qw-room-list__card-wrapper`}>
+              return <div class={`qw-room-list__room-id-${r.roomId} qw-room-list__card-wrapper`}>
                 <qw-room-list-card
                   class={`
                   qw-room-list-card--${this.qwRoomListType}
