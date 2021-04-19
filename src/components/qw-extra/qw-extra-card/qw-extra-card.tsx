@@ -86,7 +86,7 @@ export class QwExtraCard {
         </div>
         <div class="qw-extra-card__title">
           <h4>{this.qwExtraCardName}</h4>
-          {this.qwExtraCardSummary && <div class="qw-extra-card__summary">
+          {this.qwExtraCardSummary !== '0' && <div class="qw-extra-card__summary">
             <div
               class="qw-extra-card__summary-trigger"
               onClick={() => this.qwExtraShowSummary = !this.qwExtraShowSummary}>

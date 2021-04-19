@@ -79,8 +79,15 @@ export class QwOfferList {
     }
   }
 
-  public toggleRooms() {
-    return this.hideRoomsWrapper = !this.hideRoomsWrapper;
+  public toggleRooms(offerCode) {
+    const roomWrapper = document.getElementById(offerCode);
+    const triggerButton = document.getElementById(`qw-button--${offerCode}`)
+    if (roomWrapper.id === offerCode) {
+      // to show/hide content
+      roomWrapper.classList.toggle('qw-offer-list__room-wrapper--show');
+      // to change button label
+      triggerButton.innerHTML = roomWrapper?.classList.contains('qw-offer-list__room-wrapper--show') ? Language.getTranslation('hideRooms') : Language.getTranslation('showRooms')
+    }
   }
 
   private getOnSiteTaxesMessageFormatted(rate) {
@@ -113,10 +120,11 @@ export class QwOfferList {
             </div>
             <div class="qw-offer-list__room-section">
               <QwButton
+                QwButtonId={`qw-button--${o.description.code}`}
                 QwButtonClass="qw-button--primary"
-                QwButtonLabel={this.hideRoomsWrapper ? Language.getTranslation('showRooms') : Language.getTranslation('hideRooms')}
-                QwButtonOnClick={() => this.toggleRooms()}/>
-              {!this.hideRoomsWrapper && <div class={`
+                QwButtonLabel={Language.getTranslation('showRooms')}
+                QwButtonOnClick={() => this.toggleRooms(o.description.code)}/>
+              <div id={o.description.code} class={`
             qw-offer-list__room-wrapper
             qw-offer-list--${this.qwOfferListType}`}>
                 {this.rooms?.map(room => {
@@ -133,7 +141,7 @@ export class QwOfferList {
                     })}</div>
                   </div>;
                 })}
-              </div>}
+              </div>
             </div>
           </div>;
         })}
