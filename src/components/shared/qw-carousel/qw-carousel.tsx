@@ -1,4 +1,4 @@
-import {h, Host, Component, Prop} from '@stencil/core';
+import {h, Host, Component, Prop, State} from '@stencil/core';
 import {Transformation} from 'cloudinary-core';
 import {RoomImageMetadata} from '@qwentes/booking-state-manager';
 import Swiper from 'swiper';
@@ -10,8 +10,13 @@ import SwiperCore, { Navigation } from 'swiper';
   shadow: false,
 })
 export class QwCarousel {
-  @Prop() qwCarouselImagesUrl: RoomImageMetadata[];
+  @Prop() qwCarouselImagesUrl: any;
   @Prop() qwRoomListCardImageTransformationOptions: Transformation.Options = {};
+  @State() qwCarouselImagesUrlFormatted: RoomImageMetadata[];
+
+  public componentWillLoad() {
+    this.qwCarouselImagesUrl = JSON.parse(this.qwCarouselImagesUrl);
+  }
 
   public componentDidLoad() {
     this.initCarousel();
@@ -34,7 +39,7 @@ export class QwCarousel {
     return (
       <Host class="qw-carousel swiper-container" data-flickity='{ "cellAlign": "left", "contain": true }'>
         <div class="swiper-wrapper">
-          {this.qwCarouselImagesUrl.map((i) => {
+          {this.qwCarouselImagesUrl && this.qwCarouselImagesUrl.map((i) => {
             return <qw-image
               class="swiper-slide"
               qwImageTransformationOptions={this.qwRoomListCardImageTransformationOptions}
