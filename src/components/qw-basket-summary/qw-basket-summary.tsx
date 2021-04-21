@@ -44,7 +44,7 @@ export class QwBasketSummary {
   }
 
   private getInsuranceFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('insurance'));
+    return JSON.parse(localStorage.getItem('insurance')) || undefined;
   }
 
   public isLoading() {
