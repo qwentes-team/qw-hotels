@@ -7,9 +7,10 @@
 
 ## Events
 
-| Event            | Description | Type                |
-| ---------------- | ----------- | ------------------- |
-| `qwBookIsLoaded` |             | `CustomEvent<void>` |
+| Event                       | Description | Type                                               |
+| --------------------------- | ----------- | -------------------------------------------------- |
+| `changeInsuranceAcceptance` |             | `CustomEvent<{ insurance: any; amount: number; }>` |
+| `qwBookIsLoaded`            |             | `CustomEvent<void>`                                |
 
 
 ## Dependencies

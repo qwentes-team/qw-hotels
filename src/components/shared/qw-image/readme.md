@@ -18,6 +18,7 @@
 
 ### Used by
 
+ - [qw-carousel](../qw-carousel)
  - [qw-extra-card](../../qw-extra/qw-extra-card)
  - [qw-offer-list](../../qw-offer-list)
  - [qw-offers](../../qw-offers)
@@ -28,6 +29,7 @@
 ### Graph
 ```mermaid
 graph TD;
+  qw-carousel --> qw-image
   qw-extra-card --> qw-image
   qw-offer-list --> qw-image
   qw-offers --> qw-image

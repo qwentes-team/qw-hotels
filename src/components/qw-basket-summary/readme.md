@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Events
+
+| Event                       | Description | Type                                               |
+| --------------------------- | ----------- | -------------------------------------------------- |
+| `removeInsuranceAcceptance` |             | `CustomEvent<{ insurance: any; amount: number; }>` |
+
+
 ## Dependencies
 
 ### Depends on
