@@ -33,7 +33,7 @@ export class QwRoomRichInfo {
 
   render() {
     return (
-      this.room && <Host class={`${!this.room ? 'qw-room-rich-info--loading' : 'qw-room-rich-info--loaded'}`}>
+      this.room && <Host class={`qw-room-rich-info__content ${!this.room ? 'qw-room-rich-info--loading' : 'qw-room-rich-info--loaded'}`}>
         <div class="qw-room-rich-info__loading-wrapper">
           <slot name="qwRoomRichInfoLoading"/>
         </div>
