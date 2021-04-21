@@ -9,13 +9,14 @@ import {debounceTime} from 'rxjs/operators';
 })
 export class QwSession {
   @Event() qwSessionChanged: EventEmitter<SessionModel>;
+  @Event() qwSessionLoaded: EventEmitter<SessionModel>;
 
   public componentWillLoad() {
-    SessionService.getSession().subscribe();
+    SessionService.getSession().subscribe(session => this.qwSessionLoaded.emit(session));
     SessionLoaded$
       .pipe(debounceTime(300))
       .subscribe((session) => {
-      this.qwSessionChanged.emit(session);
-    });
+        this.qwSessionChanged.emit(session);
+      });
   }
 }

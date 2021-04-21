@@ -6,11 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/model/room.interface";
-import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
+import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomImageMetadata, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
 import { QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
+import { Transformation } from "cloudinary-core";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
 import { QwExtraCounting, QwExtraEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
-import { Transformation } from "cloudinary-core";
 import { QwInputEmitter } from "./components/shared/qw-input/qw-input";
 import { QwOfferClickEmitter } from "./components/qw-offers/qw-offers";
 import { QwRoomDetailAddToBasketEmitter } from "./components/qw-room-detail/qw-room-detail";
@@ -65,6 +65,10 @@ export namespace Components {
     interface QwCalendarShorthand {
     }
     interface QwCard {
+    }
+    interface QwCarousel {
+        "qwCarouselImagesUrl": RoomImageMetadata[];
+        "qwRoomListCardImageTransformationOptions": Transformation.Options;
     }
     interface QwCounter {
         "qwCounterDisabled": boolean;
@@ -364,6 +368,12 @@ declare global {
         prototype: HTMLQwCardElement;
         new (): HTMLQwCardElement;
     };
+    interface HTMLQwCarouselElement extends Components.QwCarousel, HTMLStencilElement {
+    }
+    var HTMLQwCarouselElement: {
+        prototype: HTMLQwCarouselElement;
+        new (): HTMLQwCarouselElement;
+    };
     interface HTMLQwCounterElement extends Components.QwCounter, HTMLStencilElement {
     }
     var HTMLQwCounterElement: {
@@ -581,6 +591,7 @@ declare global {
         "qw-calendar-picker": HTMLQwCalendarPickerElement;
         "qw-calendar-shorthand": HTMLQwCalendarShorthandElement;
         "qw-card": HTMLQwCardElement;
+        "qw-carousel": HTMLQwCarouselElement;
         "qw-counter": HTMLQwCounterElement;
         "qw-currency": HTMLQwCurrencyElement;
         "qw-error": HTMLQwErrorElement;
@@ -681,6 +692,10 @@ declare namespace LocalJSX {
         "onQwCalendarShorthandTomorrowSuccess"?: (event: CustomEvent<void>) => void;
     }
     interface QwCard {
+    }
+    interface QwCarousel {
+        "qwCarouselImagesUrl"?: RoomImageMetadata[];
+        "qwRoomListCardImageTransformationOptions"?: Transformation.Options;
     }
     interface QwCounter {
         "onQwCounterChangeValue"?: (event: CustomEvent<QwCounterEmitter>) => void;
@@ -948,6 +963,7 @@ declare namespace LocalJSX {
         "qw-calendar-picker": QwCalendarPicker;
         "qw-calendar-shorthand": QwCalendarShorthand;
         "qw-card": QwCard;
+        "qw-carousel": QwCarousel;
         "qw-counter": QwCounter;
         "qw-currency": QwCurrency;
         "qw-error": QwError;
@@ -1000,6 +1016,7 @@ declare module "@stencil/core" {
             "qw-calendar-picker": LocalJSX.QwCalendarPicker & JSXBase.HTMLAttributes<HTMLQwCalendarPickerElement>;
             "qw-calendar-shorthand": LocalJSX.QwCalendarShorthand & JSXBase.HTMLAttributes<HTMLQwCalendarShorthandElement>;
             "qw-card": LocalJSX.QwCard & JSXBase.HTMLAttributes<HTMLQwCardElement>;
+            "qw-carousel": LocalJSX.QwCarousel & JSXBase.HTMLAttributes<HTMLQwCarouselElement>;
             "qw-counter": LocalJSX.QwCounter & JSXBase.HTMLAttributes<HTMLQwCounterElement>;
             "qw-currency": LocalJSX.QwCurrency & JSXBase.HTMLAttributes<HTMLQwCurrencyElement>;
             "qw-error": LocalJSX.QwError & JSXBase.HTMLAttributes<HTMLQwErrorElement>;
