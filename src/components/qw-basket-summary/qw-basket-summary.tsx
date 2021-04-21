@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen} from '@stencil/core';
+import {Component, Host, h, State, Listen, Event, EventEmitter} from '@stencil/core';
 import {
   BasketHelper,
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, Language,
@@ -18,8 +18,11 @@ import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 export class QwBasketSummary {
   @State() basket: BasketModel;
   @State() session: SessionModel;
+  @State() insurance: any;
+  @State() insuranceAmount: number;
   @State() basketIsLoading: boolean;
   @State() sessionIsLoading: boolean;
+  @Event() removeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -31,6 +34,17 @@ export class QwBasketSummary {
     BasketWithPrice$.subscribe(basket => this.basket = basket);
     SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
+
+    this.insurance = this.getInsuranceFromLocalStorage();
+
+    window.addEventListener('changeInsuranceAcceptance', (event: CustomEvent) => {
+      this.insurance = event.detail.insurance;
+      this.insuranceAmount = event.detail.amount;
+    })
+  }
+
+  private getInsuranceFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('insurance')) || undefined;
   }
 
   public isLoading() {
@@ -77,6 +91,13 @@ export class QwBasketSummary {
     const numberOfRooms = BasketHelper.getNumberOfRooms(this.basket);
     const numberOfRoomsStillAddable = (numberOfGuests - numberOfRooms) + selectedQuantity;
     return Math.min(availableQuantity, numberOfRoomsStillAddable);
+  }
+
+  public removeInsuranceFromStorage() {
+    localStorage.removeItem('insurance');
+    localStorage.removeItem('insuranceAmount');
+    this.removeInsuranceAcceptance.emit({insurance: undefined, amount: 0});
+    this.insurance = undefined;
   }
 
   render() {
@@ -167,6 +188,23 @@ export class QwBasketSummary {
             );
           })}
         </div>
+        {this.session && this.insurance && this.insuranceAmount !== 0 && <div class="qw-basket-summary__insurance">
+          <div class="qw-basket-summary__room">
+            <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
+            <div class="qw-basket-summary__room-name">
+              <div class="qw-basket-summary__room-title">{this.insurance.name}</div>
+            </div>
+            <div class="qw-basket-summary__room-rate"/>
+            <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
+            <div class="qw-basket-summary__room-quantity">1</div>
+            <div class="qw-basket-summary__room-price">
+              {this.insurance.price.converted.text}
+            </div>
+            <div class="qw-basket-summary__room-delete">
+              <QwButton QwButtonLabel="" QwButtonOnClick={() => this.removeInsuranceFromStorage()}/>
+            </div>
+          </div>
+        </div>}
       </Host>
     );
   }

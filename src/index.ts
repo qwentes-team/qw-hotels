@@ -1,6 +1,5 @@
 import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
 
-
 export * from './components';
 
 export enum QwCalendarGuestInlineInputType {

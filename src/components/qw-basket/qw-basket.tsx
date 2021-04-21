@@ -18,6 +18,7 @@ export class QwBasket {
   @Prop() qwBasketShowTaxes: boolean = false;
   @Prop() qwBasketShowOnSiteTaxes: boolean = false;
   @State() totalPrice: MoneyPrice;
+  @State() totalPriceWithInsuranceAmount: number;
   @State() onSiteTaxes: string;
   @State() taxesMessage: string;
   @State() isLoading: boolean;
@@ -40,8 +41,17 @@ export class QwBasket {
       this.taxesMessage = BasketHelper.getTaxesFormatted(basket);
       this.numberOfAccommodation = BasketHelper.getOccupancyOfAccommodation(basket);
       this.qwBasketIsAccommodationSatisfy.emit(this.isAccommodationSatisfy());
+      this.getTotalPriceWithInsuranceAmount();
     });
     BasketIsLoading$.subscribe(isLoading => this.isLoading = isLoading);
+
+    window.addEventListener('changeInsuranceAcceptance', (e: CustomEvent) => {
+      this.getTotalPriceWithInsuranceAmount(e.detail.amount);
+    });
+  }
+
+  public getTotalPriceWithInsuranceAmount(insuranceAmount?) {
+    this.totalPriceWithInsuranceAmount = this.totalPrice?.value.amount + insuranceAmount || this.totalPrice?.value.amount + JSON.parse(localStorage.getItem('insuranceAmount')) || this.totalPrice?.value.amount;
   }
 
   private deleteBasket() {
@@ -105,7 +115,7 @@ export class QwBasket {
             {this.taxesMessage}
           </div>}
           <div class={`qw-basket__price-total ${this.isLoading ? 'qw-basket__price__amount--disabled' : ''}`}>
-            {this.totalPrice && this.totalPrice.text}
+            {this.totalPrice && this.totalPriceWithInsuranceAmount}{this.totalPrice && this.totalPrice.value.currency}
           </div>
         </div>}
         {this.qwBasketShowEmptyButton && <QwButton

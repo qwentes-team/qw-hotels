@@ -19,10 +19,11 @@ import {of} from 'rxjs';
 export class QwBook {
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
-  @State() isInsuranceAccepted: boolean = false;
+  @State() hasInsurance: boolean;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
   @Event() qwBookIsLoaded: EventEmitter<void>;
+  @Event() changeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
 
   private session: SessionModel;
   private mandatoriesCustomerFields = [
@@ -56,7 +57,15 @@ export class QwBook {
     QuoteLoaded$.subscribe(quote => {
       this.quote = quote;
     });
-    this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
+    this.hasInsurance = this.isInsuranceAccepted();
+    this.formQuote.subscribeInsurance = this.isInsuranceAccepted();
+
+    window.addEventListener('removeInsuranceAcceptance', (e: CustomEvent) => {
+      if (e.detail.insurance === undefined) {
+        this.formQuote.subscribeInsurance = this.isInsuranceAccepted();
+        this.hasInsurance = false;
+      }
+    });
   }
 
   private quoteHasError() {
@@ -66,6 +75,7 @@ export class QwBook {
   @Listen('qwBookGuestDetailChangeForm')
   public qwBookGuestDetailChangeForm(e: CustomEvent<QuoteCreateBody>) {
     this.formQuote = e.detail;
+    this.formQuote.subscribeInsurance = this.isInsuranceAccepted();
   }
 
   @Listen('qwInputChanged')
@@ -77,8 +87,21 @@ export class QwBook {
   }
 
   public onClickInsuranceAcceptance(value: boolean) {
-    this.isInsuranceAccepted = value;
-    this.formQuote.subscribeInsurance = this.isInsuranceAccepted;
+    this.formQuote.subscribeInsurance = value;
+    this.hasInsurance = value;
+    if (value) {
+      this.changeInsuranceAcceptance.emit({insurance: this.quote.insurance, amount: this.quote.insurance.price.converted.value.amount});
+      localStorage.setItem('insuranceAmount', JSON.stringify(this.quote.insurance.price.converted.value.amount));
+      localStorage.setItem('insurance', JSON.stringify(this.quote.insurance));
+    } else {
+      this.changeInsuranceAcceptance.emit({insurance: this.quote.insurance, amount: 0});
+      localStorage.setItem('insuranceAmount', JSON.stringify(0));
+      localStorage.setItem('insurance', undefined);
+    }
+  }
+
+  public isInsuranceAccepted() {
+    return JSON.parse(localStorage.getItem('insuranceAmount')) > 0;
   }
 
   public isFormValid() {
@@ -110,7 +133,6 @@ export class QwBook {
   }
 
   public payNow = () => {
-    console.log(this.formQuote);
     if (this.isFormValid()) {
       let windowReference: any = window.open();
       QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
@@ -130,7 +152,6 @@ export class QwBook {
   }
 
   render() {
-    console.log(this.quote);
     return (
       <Host class={`${!this.quote ? 'qw-book--loading' : 'qw-book--loaded'}`}>
         <div style={this.quote && {'display': 'none'}}>
@@ -160,10 +181,10 @@ export class QwBook {
                      target="_blank">{Language.getTranslation('cancellationInsuranceSummary')}</a>
                 </div>
                 <div
-                  class={`qw-book__insurance-acceptance-actions ${this.showFormErrors && !this.isInsuranceAccepted ? 'qw-book__insurance-acceptance-actions--error' : ''}`}>
-                  <QwButton QwButtonClass={this.isInsuranceAccepted ? 'insurance__action--selected' : ''}
+                  class={`qw-book__insurance-acceptance-actions ${this.showFormErrors && !this.hasInsurance ? 'qw-book__insurance-acceptance-actions--error' : ''}`}>
+                  <QwButton QwButtonClass={this.hasInsurance ? 'insurance__action--selected' : ''}
                             QwButtonLabel={Language.getTranslation('yes')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(true)}/>
-                  <QwButton QwButtonClass={!this.isInsuranceAccepted ? 'insurance__action--selected' : ''}
+                  <QwButton QwButtonClass={!this.hasInsurance ? 'insurance__action--selected' : ''}
                             QwButtonLabel={Language.getTranslation('no')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
                 </div>
               </div>}
