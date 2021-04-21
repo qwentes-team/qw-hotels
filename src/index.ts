@@ -1,4 +1,6 @@
-import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
+import {ExtraModel, RoomBasketModel, SessionModel, SessionService} from '@qwentes/booking-state-manager';
+import {switchMap} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 
 export * from './components';
@@ -97,19 +99,18 @@ export enum QwLanguageType {
 console.log('version 1.1.16');
 
 
-// SessionService.getSession().pipe(
-//   switchMap((session: SessionModel) => {
-//     return of(session);
-//   })
-// ).subscribe((session) => {
-//   console.log('session', session);
-  // window.QW_HOTEL_UPDATE_SESSION_DATA(
-  //   session,
-  //   {adults: 2, children: 1, infants: 0},
-  //   {arrivalDate: '2021-03-27', departureDate: '2021-03-28'},
-  //   'PROMO'
-  // ).then(session => console.log('session updated', session));
-//});
-// window.addEventListener('qwSessionChanged', (e: CustomEvent) => {
-//   console.log('session listener', e.detail);
-// })
+SessionService.getSession().pipe(
+  switchMap((session: SessionModel) => {
+    return of(session);
+  })
+).subscribe((session) => {
+  console.log('session', session);
+});
+window.addEventListener('qwSessionLoaded', (e: CustomEvent) => {
+  console.log('session listener', e.detail);
+  window.QW_HOTEL_UPDATE_SESSION_DATA(
+    e.detail,
+    {adults: 2, children: 1, infants: 0},
+    {arrivalDate: '2021-05-10', departureDate: '2021-05-13'},
+  ).then(session => console.log('session updated', session));
+})
