@@ -631,8 +631,10 @@ declare namespace LocalJSX {
         "onQwBasketRoomCounterNumber"?: (event: CustomEvent<number>) => void;
     }
     interface QwBasketSummary {
+        "onRemoveInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
     }
     interface QwBook {
+        "onChangeInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
         "onQwBookIsLoaded"?: (event: CustomEvent<void>) => void;
     }
     interface QwBookCondition {
