@@ -935,6 +935,7 @@ declare namespace LocalJSX {
     }
     interface QwSession {
         "onQwSessionChanged"?: (event: CustomEvent<SessionModel>) => void;
+        "onQwSessionLoaded"?: (event: CustomEvent<SessionModel>) => void;
     }
     interface QwTextarea {
         "onQwTextareaChanged"?: (event: CustomEvent<QwInputEmitter>) => void;
