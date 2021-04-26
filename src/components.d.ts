@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/model/room.interface";
-import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
+import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomImageMetadata, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
 import { QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
 import { Transformation } from "cloudinary-core";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
@@ -67,7 +67,7 @@ export namespace Components {
     interface QwCard {
     }
     interface QwCarousel {
-        "qwCarouselImagesUrl": any;
+        "qwCarouselImagesUrl": RoomImageMetadata[];
         "qwRoomListCardImageTransformationOptions": Transformation.Options;
     }
     interface QwCounter {
@@ -193,6 +193,7 @@ export namespace Components {
         "qwRoomListRateHighlight": RateInformation['code'];
         "qwRoomListRateListTitle": string;
         "qwRoomListShowAvailabilityMessage": boolean;
+        "qwRoomListShowCarouselInCard": boolean;
         "qwRoomListShowCta": boolean;
         "qwRoomListShowOnlyNames": boolean;
         "qwRoomListShowPrices": boolean;
@@ -205,6 +206,7 @@ export namespace Components {
         "qwRoomListCardBaseInfoType": QwRoomBaseInfoType;
         "qwRoomListCardBasketIsEmpty": boolean;
         "qwRoomListCardBasketRoom": RoomBasketModel;
+        "qwRoomListCardCarouselImages": RoomImageMetadata[];
         "qwRoomListCardCrossedOutPrice": string;
         "qwRoomListCardDescription": string;
         "qwRoomListCardId": RoomModel['roomId'];
@@ -231,6 +233,7 @@ export namespace Components {
         "qwRoomListCardRateHighlight": RateInformation['code'];
         "qwRoomListCardRateListTitle": string;
         "qwRoomListCardShowActions": boolean;
+        "qwRoomListCardShowCarouselInCard": boolean;
         "qwRoomListCardShowCta": boolean;
         "qwRoomListCardShowDescription": boolean;
         "qwRoomListCardShowPrice": boolean;
@@ -694,7 +697,7 @@ declare namespace LocalJSX {
     interface QwCard {
     }
     interface QwCarousel {
-        "qwCarouselImagesUrl"?: any;
+        "qwCarouselImagesUrl"?: RoomImageMetadata[];
         "qwRoomListCardImageTransformationOptions"?: Transformation.Options;
     }
     interface QwCounter {
@@ -840,6 +843,7 @@ declare namespace LocalJSX {
         "qwRoomListRateHighlight"?: RateInformation['code'];
         "qwRoomListRateListTitle"?: string;
         "qwRoomListShowAvailabilityMessage"?: boolean;
+        "qwRoomListShowCarouselInCard"?: boolean;
         "qwRoomListShowCta"?: boolean;
         "qwRoomListShowOnlyNames"?: boolean;
         "qwRoomListShowPrices"?: boolean;
@@ -852,6 +856,7 @@ declare namespace LocalJSX {
         "qwRoomListCardBaseInfoType"?: QwRoomBaseInfoType;
         "qwRoomListCardBasketIsEmpty"?: boolean;
         "qwRoomListCardBasketRoom"?: RoomBasketModel;
+        "qwRoomListCardCarouselImages"?: RoomImageMetadata[];
         "qwRoomListCardCrossedOutPrice"?: string;
         "qwRoomListCardDescription"?: string;
         "qwRoomListCardId"?: RoomModel['roomId'];
@@ -878,6 +883,7 @@ declare namespace LocalJSX {
         "qwRoomListCardRateHighlight"?: RateInformation['code'];
         "qwRoomListCardRateListTitle"?: string;
         "qwRoomListCardShowActions"?: boolean;
+        "qwRoomListCardShowCarouselInCard"?: boolean;
         "qwRoomListCardShowCta"?: boolean;
         "qwRoomListCardShowDescription"?: boolean;
         "qwRoomListCardShowPrice"?: boolean;
