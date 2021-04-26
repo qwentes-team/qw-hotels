@@ -19,9 +19,11 @@ import {of} from 'rxjs';
 export class QwBook {
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
+  @State() hasInsurance: boolean;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
   @Event() qwBookIsLoaded: EventEmitter<void>;
+  @Event() changeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
 
   private session: SessionModel;
   private mandatoriesCustomerFields = [
@@ -52,7 +54,18 @@ export class QwBook {
     })).subscribe();
 
     QuoteLoaded$.pipe(first()).subscribe(() => this.qwBookIsLoaded.emit());
-    QuoteLoaded$.subscribe(quote => this.quote = quote);
+    QuoteLoaded$.subscribe(quote => {
+      this.quote = quote;
+    });
+    this.hasInsurance = this.isInsuranceAccepted();
+    this.formQuote.subscribeInsurance = this.isInsuranceAccepted();
+
+    window.addEventListener('removeInsuranceAcceptance', (e: CustomEvent) => {
+      if (e.detail.insurance === undefined) {
+        this.formQuote.subscribeInsurance = this.isInsuranceAccepted();
+        this.hasInsurance = false;
+      }
+    });
   }
 
   private quoteHasError() {
@@ -62,6 +75,7 @@ export class QwBook {
   @Listen('qwBookGuestDetailChangeForm')
   public qwBookGuestDetailChangeForm(e: CustomEvent<QuoteCreateBody>) {
     this.formQuote = e.detail;
+    this.formQuote.subscribeInsurance = this.isInsuranceAccepted();
   }
 
   @Listen('qwInputChanged')
@@ -70,6 +84,24 @@ export class QwBook {
     if (this.isConfirmConditionsFormName(name)) {
       this.isConfirmedConditions = Boolean(value);
     }
+  }
+
+  public onClickInsuranceAcceptance(value: boolean) {
+    this.formQuote.subscribeInsurance = value;
+    this.hasInsurance = value;
+    if (value) {
+      this.changeInsuranceAcceptance.emit({insurance: this.quote.insurance, amount: this.quote.insurance.price.converted.value.amount});
+      localStorage.setItem('insuranceAmount', JSON.stringify(this.quote.insurance.price.converted.value.amount));
+      localStorage.setItem('insurance', JSON.stringify(this.quote.insurance));
+    } else {
+      this.changeInsuranceAcceptance.emit({insurance: this.quote.insurance, amount: 0});
+      localStorage.setItem('insuranceAmount', JSON.stringify(0));
+      localStorage.setItem('insurance', undefined);
+    }
+  }
+
+  public isInsuranceAccepted() {
+    return JSON.parse(localStorage.getItem('insuranceAmount')) > 0;
   }
 
   public isFormValid() {
@@ -115,6 +147,10 @@ export class QwBook {
     return this.showFormErrors && (!this.isFormValid() || !this.isConfirmedConditions);
   }
 
+  private makeInsuranceLogoUrl() {
+    return this.quote.insurance.logoUrl.replace('~', 'http://secure-hotel-booking.com');
+  }
+
   render() {
     return (
       <Host class={`${!this.quote ? 'qw-book--loading' : 'qw-book--loaded'}`}>
@@ -124,12 +160,34 @@ export class QwBook {
         {this.quote
           ? this.quoteHasError()
             ? <div class="qw-book__error-quote">
-                {Language.getTranslation('quoteErrorMessage')}
-              </div>
+              {Language.getTranslation('quoteErrorMessage')}
+            </div>
             : <div class="qw-book__wrapper">
               <qw-book-guest-detail
                 qwBookFormShowError={this.showFormErrors}
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
+
+              {this.quote.insurance && <h3>{Language.getTranslation('cancellationInsurance')}</h3>}
+              {this.quote.insurance && <div class="qw-book__insurance">
+                {this.quote.insurance.logoUrl && <div class="insurance__heading">
+                  <img src={this.makeInsuranceLogoUrl()} alt="insurance logo"/>
+                </div>}
+                <div class="insurance__content">
+                  <h3>{Language.getTranslation('cancellationInsuranceQuestion')} {this.quote.insurance.price.converted.text}?</h3>
+                  <p>{Language.getTranslation('cancellationInsuranceAcceptance')}</p>
+                  <a class="insurance__link" href={this.quote.insurance.termsUrl}
+                     target="_blank">{Language.getTranslation('cancellationInsuranceTermsAndConditions')}</a>
+                  <a class="insurance__link" href={this.quote.insurance.ipidUrl}
+                     target="_blank">{Language.getTranslation('cancellationInsuranceSummary')}</a>
+                </div>
+                <div
+                  class={`qw-book__insurance-acceptance-actions ${this.showFormErrors && !this.hasInsurance ? 'qw-book__insurance-acceptance-actions--error' : ''}`}>
+                  <QwButton QwButtonClass={this.hasInsurance ? 'insurance__action--selected' : ''}
+                            QwButtonLabel={Language.getTranslation('yes')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(true)}/>
+                  <QwButton QwButtonClass={!this.hasInsurance ? 'insurance__action--selected' : ''}
+                            QwButtonLabel={Language.getTranslation('no')} QwButtonOnClick={() => this.onClickInsuranceAcceptance(false)}/>
+                </div>
+              </div>}
 
               <div class="qw-book__extra">
                 <h3>{Language.getTranslation('extras')}</h3>
@@ -153,7 +211,8 @@ export class QwBook {
                 {this.quote && <qw-book-condition/>}
                 <div class="qw-book__confirmation">
                   <h4>{Language.getTranslation('confirmation')}</h4>
-                  <div class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
+                  <div
+                    class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
                     <div>{Language.getTranslation('termsAndConditionMessage')} *</div>
                   </div>

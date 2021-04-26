@@ -93,6 +93,7 @@ export class QwRoomRate {
 
   public getRateSummary() {
     const summary = this.qwRoomRateRate?.description.summary;
+
     if (this.getSummaryType( summary, RoomSummaryType.Html)) {
       const htmlSummary = this.getSummaryType( summary, RoomSummaryType.Html)?.text;
       return <div innerHTML={htmlSummary}></div>;
@@ -213,7 +214,9 @@ export class QwRoomRate {
             </div>
 
             {this.qwRoomRateShowConditions && <div class="qw-room-rate__conditions-content">
-              {<li>{this.getRateSummary()}</li>}
+              {<li>
+                <p innerHTML={this.getRateSummary()}/>
+              </li>}
             </div>}
           </div>
         </ul>}

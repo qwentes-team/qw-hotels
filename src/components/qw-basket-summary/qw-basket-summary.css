@@ -1,5 +1,6 @@
 qw-basket-summary {
   display: flex;
+  flex-flow: column;
 }
 
 qw-basket-summary .qw-basket-summary__rooms {

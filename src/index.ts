@@ -1,6 +1,5 @@
 import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
 
-
 export * from './components';
 
 export enum QwCalendarGuestInlineInputType {
@@ -61,6 +60,7 @@ export enum GuestDetailFormProperty {
   ConfirmConditions = 'confirmConditions',
   Title = 'title',
   CountryCode = 'countryCode',
+  InsuranceAcceptance = 'insuranceAcceptance',
 }
 
 export enum QwWeekCalendarDirection {
@@ -93,7 +93,9 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.14');
+
+console.log('version 1.1.18');
+
 
 // SessionService.getSession().pipe(
 //   switchMap((session: SessionModel) => {

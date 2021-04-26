@@ -10,6 +10,7 @@
 | Event              | Description | Type                        |
 | ------------------ | ----------- | --------------------------- |
 | `qwSessionChanged` |             | `CustomEvent<SessionModel>` |
+| `qwSessionLoaded`  |             | `CustomEvent<SessionModel>` |
 
 
 ----------------------------------------------
