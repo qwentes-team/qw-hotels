@@ -217,7 +217,7 @@ qw-room-list-card.qw-room-list-card--card .qw-room-list-card__prices {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 50%;
 }
 
 .qw-room-base-info__item {
