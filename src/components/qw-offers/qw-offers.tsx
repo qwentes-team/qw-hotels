@@ -95,7 +95,8 @@ export class QwOffers {
             return (
               <div class="qw-offers__offer">
                 <h5 class="qw-offers__offer__caption">
-                  {this.roomsFormatted[o.roomId].name} <qw-separator /> starting from <span class="qw-offers__offer__price">{o.price.totalPrice.converted.text}</span>
+                  {this.roomsFormatted[o.roomId].name} <qw-separator />
+                  {Language.getTranslation('startingFrom')} <span class="qw-offers__offer__price">{o.price.totalPrice.converted.text}</span>
                 </h5>
                 <qw-image
                   qwImageTransformationOptions={this.qwOffersImageTransformationOptions ? JSON.parse(this.qwOffersImageTransformationOptions) : {}}
