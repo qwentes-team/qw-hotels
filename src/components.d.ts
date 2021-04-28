@@ -232,6 +232,7 @@ export namespace Components {
         "qwRoomListCardRangeDateSession": Date[];
         "qwRoomListCardRateHighlight": RateInformation['code'];
         "qwRoomListCardRateListTitle": string;
+        "qwRoomListCardServices": any[];
         "qwRoomListCardShowActions": boolean;
         "qwRoomListCardShowCarouselInCard": boolean;
         "qwRoomListCardShowCta": boolean;
@@ -882,6 +883,7 @@ declare namespace LocalJSX {
         "qwRoomListCardRangeDateSession"?: Date[];
         "qwRoomListCardRateHighlight"?: RateInformation['code'];
         "qwRoomListCardRateListTitle"?: string;
+        "qwRoomListCardServices"?: any[];
         "qwRoomListCardShowActions"?: boolean;
         "qwRoomListCardShowCarouselInCard"?: boolean;
         "qwRoomListCardShowCta"?: boolean;

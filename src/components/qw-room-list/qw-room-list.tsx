@@ -337,6 +337,7 @@ export class QwRoomList {
                   qwRoomListCardShowCarouselInCard={this.qwRoomListShowCarouselInCard}
                   qwRoomListCardRateListTitle={this.qwRoomListRateListTitle}
                   qwRoomListCardId={r.roomId}
+                  qwRoomListCardServices={r.services}
                   qwRoomListCardTitle={r.name}
                   qwRoomListCardCarouselImages={RoomHelper.getCarouselImages(r)}
                   qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}

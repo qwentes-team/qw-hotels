@@ -6,3 +6,7 @@ qw-carousel.swiper-container {
   height: 100%;
 }
 
+.qw-image__loaded img {
+  width: 100%;
+}
+
