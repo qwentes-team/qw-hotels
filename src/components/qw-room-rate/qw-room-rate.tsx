@@ -71,6 +71,10 @@ export class QwRoomRate {
   }
 
   addToBasket = () => {
+    // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1
+    if (this.quantity === 0) {
+      this.qwRoomRateDefaultToOne = true;
+    }
     this.qwRoomRateIsAddingToBasket = true;
     BasketService.setRoomInBasket({
       roomId: this.qwRoomRateRoomId,
@@ -112,7 +116,7 @@ export class QwRoomRate {
       return false;
     }
 
-    return !this.quantity
+    return this.quantity > 0
       || this.quantity === this.qwRoomRateRate.selectedQuantity
       || this.qwRoomRateIsLoading;
   }
