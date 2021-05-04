@@ -31,6 +31,7 @@ graph TD;
   qw-room-basket --> qw-room-list-card
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-image
+  qw-room-list-card --> qw-carousel
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-placeholder
   qw-room-list-card --> qw-price
@@ -38,6 +39,7 @@ graph TD;
   qw-room-list-card --> qw-week-calendar
   qw-room-list-card --> qw-room-rates
   qw-room-list-card --> qw-counter
+  qw-carousel --> qw-image
   qw-price --> qw-loading
   qw-room-rates --> qw-room-rate
   qw-room-rates --> qw-placeholder

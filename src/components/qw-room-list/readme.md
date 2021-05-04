@@ -18,6 +18,7 @@
 | `qwRoomListRateHighlight`              | `qw-room-list-rate-highlight`               |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListRateListTitle`              | `qw-room-list-rate-list-title`              |             | `string`                                                                    | `undefined`                          |
 | `qwRoomListShowAvailabilityMessage`    | `qw-room-list-show-availability-message`    |             | `boolean`                                                                   | `false`                              |
+| `qwRoomListShowCarouselInCard`         | `qw-room-list-show-carousel-in-card`        |             | `boolean`                                                                   | `false`                              |
 | `qwRoomListShowCta`                    | `qw-room-list-show-cta`                     |             | `boolean`                                                                   | `true`                               |
 | `qwRoomListShowOnlyNames`              | `qw-room-list-show-only-names`              |             | `boolean`                                                                   | `false`                              |
 | `qwRoomListShowPrices`                 | `qw-room-list-show-prices`                  |             | `boolean`                                                                   | `true`                               |
@@ -47,6 +48,7 @@ graph TD;
   qw-room-list --> qw-room-list-card
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-image
+  qw-room-list-card --> qw-carousel
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-placeholder
   qw-room-list-card --> qw-price
@@ -54,6 +56,7 @@ graph TD;
   qw-room-list-card --> qw-week-calendar
   qw-room-list-card --> qw-room-rates
   qw-room-list-card --> qw-counter
+  qw-carousel --> qw-image
   qw-price --> qw-loading
   qw-room-rates --> qw-room-rate
   qw-room-rates --> qw-placeholder
