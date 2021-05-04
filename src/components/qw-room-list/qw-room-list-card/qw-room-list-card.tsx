@@ -6,7 +6,7 @@ import {
   Language,
   MoneyPrice, RateInformation,
   RoomBasketModel,
-  RoomDefaultLabel,
+  RoomDefaultLabel, RoomImageMetadata,
   RoomModel,
   SessionDisplay,
 } from '@qwentes/booking-state-manager';
@@ -32,6 +32,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardBaseInfoType: QwRoomBaseInfoType = QwRoomBaseInfoType.Inline;
   @Prop() qwRoomListCardId: RoomModel['roomId'];
   @Prop() qwRoomListCardTitle: string;
+  @Prop() qwRoomListCardCarouselImages: RoomImageMetadata[];
   @Prop() qwRoomListCardPrice: string;
   @Prop() qwRoomListCardCrossedOutPrice: string;
   @Prop() qwRoomListCardAveragePrice: string;
@@ -68,7 +69,10 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardOnChangeWeekDates: (e: QwWeekCalendarDirection) => void;
   @Prop() qwRoomListCardOnAddedToBasket: (e: BasketModel) => void;
   @Prop() qwRoomListCardRateListTitle: string;
+  @Prop() qwRoomListCardShowCarouselInCard: boolean = false;
+  @Prop() qwRoomListCardServices = [];
   @State() qwBasketIsAccommodationSatisfy: boolean;
+  @State() showRoomDetails: boolean = false;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
@@ -109,17 +113,57 @@ export class QwRoomListCard {
     return this.qwRoomListCardNumberOfGuests <= this.qwRoomListCardNumberOfAccommodation;
   }
 
+  private formatRoomListCardServices() {
+    const services = this.qwRoomListCardServices.map(s => s.amenities);
+    return services.reduce((acc, val) => acc.concat(val), []);
+  }
+
   render() {
     // @ts-ignore
     return (
       <Host class={this.qwRoomListCardIsLoading ? 'qw-room-list-card__is-loading' : ''}>
         <qw-card>
           <div class="qw-room-list-card__image" onClick={() => this.qwRoomListCardOnClickView()}>
-            {<qw-image
+            {!this.qwRoomListCardShowCarouselInCard && <qw-image
               qwImageTransformationOptions={this.qwRoomListCardImageTransformationOptions}
               qwImageUrl={this.qwRoomListCardImage}
               qwImageAlt={this.qwRoomListCardTitle}/>}
+            {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && <div>
+              <qw-carousel qwCarouselImagesUrl={this.qwRoomListCardCarouselImages}></qw-carousel>
+            </div>}
           </div>
+
+          {this.showRoomDetails &&
+          <div class="qw-room-list-card__details-popup-wrapper">
+            <div class="qw-room-list-card__details-popup-content">
+              <span class="close-icon" onClick={() => this.showRoomDetails = !this.showRoomDetails}/>
+              <div class="content-info">
+                <h2>{this.qwRoomListCardTitle}</h2>
+                <p innerHTML={this.qwRoomListCardDescription}/>
+                <div class="content-info__room-details">
+                  <h3>{Language.getTranslation('roomDetails')}</h3>
+                  <qw-room-base-info
+                    qw-room-base-info-guest-type={this.qwRoomListCardBaseInfoType === QwRoomBaseInfoType.List
+                      ? QwRoomBaseInfoGuestType.Text
+                      : QwRoomBaseInfoGuestType.Icon}
+                    qw-room-base-info-type={this.qwRoomListCardBaseInfoType}
+                    qw-room-base-info-room-id={this.qwRoomListCardId.toString()}/>
+                </div>
+                {!!this.formatRoomListCardServices().length && <div class="content-info__services">
+                  <h3>{Language.getTranslation('equipments')}</h3>
+                  <ul class="qw-room-base-info-list qw-room-list-card--services">{this.formatRoomListCardServices().map(s => {
+                    return <li class={`qw-room-base-info__item qw-room-base-info__item--${s.value}`}>
+                      <p>{s.text}</p>
+                    </li>;
+                  })}</ul>
+                </div>}
+              </div>
+              <div class="content-carousel">
+                <qw-carousel qwCarouselImagesUrl={this.qwRoomListCardCarouselImages}></qw-carousel>
+              </div>
+            </div>
+          </div>}
+
 
           <div class={`qw-room-list-card__title ${!this.qwRoomListCardPrice ? 'qw-room-list-card--has-error' : ''}`}>
             {this.qwRoomListCardTitle
@@ -226,6 +270,9 @@ export class QwRoomListCard {
                 QwButtonLabel={Language.getTranslation('changeDates')}
                 QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
+            <QwButton
+              QwButtonLabel={Language.getTranslation('moreInformations')}
+              QwButtonOnClick={() => this.showRoomDetails = !this.showRoomDetails}/>
           </div>}
         </qw-card>
       </Host>

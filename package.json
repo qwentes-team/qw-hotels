@@ -51,7 +51,8 @@
     "cloudinary-core": "^2.8.1",
     "flatpickr": "^4.6.3",
     "intl-tel-input": "^16.0.7",
-    "rxjs": "^6.5.3"
+    "rxjs": "^6.5.3",
+    "swiper": "^6.5.7"
   },
   "jest": {
     "collectCoverage": true
