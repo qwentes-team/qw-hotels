@@ -1,6 +1,6 @@
-import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
-import {QwButton} from '../shared/qw-button/qw-button';
-import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
+import { Component, Event, EventEmitter, h, Host, Listen, Prop, State } from '@stencil/core';
+import { QwButton } from '../shared/qw-button/qw-button';
+import { QwCounterEmitter } from '../shared/qw-counter/qw-counter';
 import {
   BasketHelper,
   BasketModel,
@@ -15,9 +15,9 @@ import {
   SessionLoaded$,
   SessionService,
 } from '@qwentes/booking-state-manager';
-import {switchMap} from 'rxjs/operators';
-import {QwCounterId, QwRoomListType} from '../../index';
-import {QwWrapInDiv} from '../shared/qw-wrap-in-div/qw-wrap-in-div';
+import { switchMap } from 'rxjs/operators';
+import { QwCounterId, QwRoomListType } from '../../index';
+import { QwWrapInDiv } from '../shared/qw-wrap-in-div/qw-wrap-in-div';
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
@@ -98,11 +98,11 @@ export class QwRoomRate {
   public getRateSummary() {
     const summary = this.qwRoomRateRate?.description.summary;
 
-    if (this.getSummaryType( summary, RoomSummaryType.Html)) {
-      const htmlSummary = this.getSummaryType( summary, RoomSummaryType.Html)?.text;
+    if (this.getSummaryType(summary, RoomSummaryType.Html)) {
+      const htmlSummary = this.getSummaryType(summary, RoomSummaryType.Html)?.text;
       return <div innerHTML={htmlSummary}></div>;
     } else {
-      return this.getSummaryType( summary, RoomSummaryType.PlainText)?.text
+      return this.getSummaryType(summary, RoomSummaryType.PlainText)?.text;
     }
   }
 
@@ -116,8 +116,11 @@ export class QwRoomRate {
       return false;
     }
 
-    return this.quantity > 0
-      || this.quantity === this.qwRoomRateRate.selectedQuantity
+    if (this.quantity === 0) {
+      return false;
+    }
+
+    return this.quantity === this.qwRoomRateRate.selectedQuantity
       || this.qwRoomRateIsLoading;
   }
 
@@ -134,7 +137,7 @@ export class QwRoomRate {
   }
 
   private formatOccupancySegment(peopleCount: number) {
-    return Array.from(Array(peopleCount))
+    return Array.from(Array(peopleCount));
   }
 
   private getOccupancy() {
