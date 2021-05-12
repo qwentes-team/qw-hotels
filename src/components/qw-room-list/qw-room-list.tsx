@@ -38,6 +38,7 @@ export class QwRoomList {
   @Prop() qwRoomListRateHighlight: RateInformation['code'];
   @Prop() qwRoomListShowAvailabilityMessage: boolean = false;
   @Prop() qwRoomListRateListTitle: string;
+  @Prop() qwRoomListShowCarouselInCard: boolean = false;
   @State() rooms: RoomModel[] = [];
   @State() firstLoad: boolean = false;
   @State() isBasketLoading: boolean;
@@ -333,9 +334,12 @@ export class QwRoomList {
                   qw-room-list-card--${this.qwRoomListType}
                   ${this.isLoadingData() ? 'qw-room-list-card__disabled' : ''}
                 `}
+                  qwRoomListCardShowCarouselInCard={this.qwRoomListShowCarouselInCard}
                   qwRoomListCardRateListTitle={this.qwRoomListRateListTitle}
                   qwRoomListCardId={r.roomId}
+                  qwRoomListCardServices={r.services}
                   qwRoomListCardTitle={r.name}
+                  qwRoomListCardCarouselImages={RoomHelper.getCarouselImages(r)}
                   qwRoomListCardPrice={RoomHelper.getCheapestPriceFormatted(r) || (this.basketRoomTotals[r.roomId] && this.basketRoomTotals[r.roomId].text)}
                   qwRoomListCardCrossedOutPrice={RoomHelper.getCheapestCrossedOutPriceFormatted(r)}
                   qwRoomListCardAveragePrice={this.roomPrices ? this.getAveragePricePerNight(r.roomId) : ''}

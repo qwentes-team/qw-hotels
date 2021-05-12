@@ -6,32 +6,7 @@ qw-carousel.swiper-container {
   height: 100%;
 }
 
-.swiper-button-next, .swiper-button-prev {
-  opacity: 0;
-  transition: opacity .2s;
-  width: 44px !important;
-  height: 44px !important;
-}
-
-.swiper-button-next:after, .swiper-button-prev:after {
+.qw-image__loaded img {
   width: 100%;
-  height: 100%;
-  margin-top: -22px !important;
-  font-family: none !important;
-  font-size: 0 !important;
-  background-image: url('https://joandjoestg.wpengine.com/jj-booking-engine-components/img/icons/left-arrow.svg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 100%;
 }
 
-.swiper-button-next:after {
-  background-image: url('https://joandjoestg.wpengine.com/jj-booking-engine-components/img/icons/right-arrow.svg');
-}
-
-.swiper-container:hover .swiper-button-next {
-  opacity: 1;
-}
-.swiper-container:hover .swiper-button-prev {
-  opacity: 1;
-}

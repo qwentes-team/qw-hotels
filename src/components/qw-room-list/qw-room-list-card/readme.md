@@ -14,6 +14,7 @@
 | `qwRoomListCardBaseInfoType`               | `qw-room-list-card-base-info-type`          |             | `QwRoomBaseInfoType.Inline \| QwRoomBaseInfoType.List`                | `QwRoomBaseInfoType.Inline` |
 | `qwRoomListCardBasketIsEmpty`              | `qw-room-list-card-basket-is-empty`         |             | `boolean`                                                             | `undefined`                 |
 | `qwRoomListCardBasketRoom`                 | --                                          |             | `RoomBasketModel`                                                     | `undefined`                 |
+| `qwRoomListCardCarouselImages`             | --                                          |             | `RoomImageMetadata[]`                                                 | `undefined`                 |
 | `qwRoomListCardCrossedOutPrice`            | `qw-room-list-card-crossed-out-price`       |             | `string`                                                              | `undefined`                 |
 | `qwRoomListCardDescription`                | `qw-room-list-card-description`             |             | `string`                                                              | `undefined`                 |
 | `qwRoomListCardId`                         | `qw-room-list-card-id`                      |             | `number`                                                              | `undefined`                 |
@@ -39,7 +40,9 @@
 | `qwRoomListCardRangeDateSession`           | --                                          |             | `Date[]`                                                              | `undefined`                 |
 | `qwRoomListCardRateHighlight`              | `qw-room-list-card-rate-highlight`          |             | `string`                                                              | `undefined`                 |
 | `qwRoomListCardRateListTitle`              | `qw-room-list-card-rate-list-title`         |             | `string`                                                              | `undefined`                 |
+| `qwRoomListCardServices`                   | --                                          |             | `any[]`                                                               | `[]`                        |
 | `qwRoomListCardShowActions`                | `qw-room-list-card-show-actions`            |             | `boolean`                                                             | `undefined`                 |
+| `qwRoomListCardShowCarouselInCard`         | `qw-room-list-card-show-carousel-in-card`   |             | `boolean`                                                             | `false`                     |
 | `qwRoomListCardShowCta`                    | `qw-room-list-card-show-cta`                |             | `boolean`                                                             | `true`                      |
 | `qwRoomListCardShowDescription`            | `qw-room-list-card-show-description`        |             | `boolean`                                                             | `true`                      |
 | `qwRoomListCardShowPrice`                  | `qw-room-list-card-show-price`              |             | `boolean`                                                             | `true`                      |
@@ -62,6 +65,7 @@
 
 - [qw-card](../../shared/qw-card)
 - [qw-image](../../shared/qw-image)
+- [qw-carousel](../../shared/qw-carousel)
 - [qw-room-base-info](../../qw-room-base-info)
 - [qw-placeholder](../../shared/qw-placeholder)
 - [qw-price](../../qw-price)
@@ -75,6 +79,7 @@
 graph TD;
   qw-room-list-card --> qw-card
   qw-room-list-card --> qw-image
+  qw-room-list-card --> qw-carousel
   qw-room-list-card --> qw-room-base-info
   qw-room-list-card --> qw-placeholder
   qw-room-list-card --> qw-price
@@ -82,6 +87,7 @@ graph TD;
   qw-room-list-card --> qw-week-calendar
   qw-room-list-card --> qw-room-rates
   qw-room-list-card --> qw-counter
+  qw-carousel --> qw-image
   qw-price --> qw-loading
   qw-room-rates --> qw-room-rate
   qw-room-rates --> qw-placeholder

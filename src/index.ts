@@ -1,4 +1,4 @@
-import {ExtraModel, RoomBasketModel} from '@qwentes/booking-state-manager';
+import { ExtraModel, RoomBasketModel } from '@qwentes/booking-state-manager';
 
 export * from './components';
 
@@ -93,24 +93,23 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
+console.log('version 1.1.19');
 
-console.log('version 1.1.18');
 
-
+//
 // SessionService.getSession().pipe(
 //   switchMap((session: SessionModel) => {
 //     return of(session);
 //   })
 // ).subscribe((session) => {
 //   console.log('session', session);
-  // window.QW_HOTEL_UPDATE_SESSION_DATA(
-  //   session,
-  //   {adults: 2, children: 1, infants: 0},
-  //   {arrivalDate: '2021-03-27', departureDate: '2021-03-28'},
-  //   'PROMO'
-  // ).then(session => console.log('session updated', session));
-//});
-// window.addEventListener('qwSessionChanged', (e: CustomEvent) => {
+// });
+// window.addEventListener('qwSessionLoaded', (e: CustomEvent) => {
 //   console.log('session listener', e.detail);
+//   window.QW_HOTEL_UPDATE_SESSION_DATA(
+//     e.detail,
+//     {adults: 2, children: 1, infants: 0},
+//     {arrivalDate: '2021-05-10', departureDate: '2021-05-13'},
+//   ).then(session => console.log('session updated', session));
 // })
 
