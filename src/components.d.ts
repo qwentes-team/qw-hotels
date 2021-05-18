@@ -99,6 +99,7 @@ export namespace Components {
         "qwExtraCardId": number;
         "qwExtraCardName": string;
         "qwExtraCardQuantityOptions": any[];
+        "qwExtraCardRoomId": RoomModel['roomId'];
         "qwExtraCardSelectedQuantityValue": number;
         "qwExtraCardShowCounter": boolean;
         "qwExtraCardSummary": string;
@@ -737,6 +738,7 @@ declare namespace LocalJSX {
         "qwExtraCardId"?: number;
         "qwExtraCardName"?: string;
         "qwExtraCardQuantityOptions"?: any[];
+        "qwExtraCardRoomId"?: RoomModel['roomId'];
         "qwExtraCardSelectedQuantityValue"?: number;
         "qwExtraCardShowCounter"?: boolean;
         "qwExtraCardSummary"?: string;

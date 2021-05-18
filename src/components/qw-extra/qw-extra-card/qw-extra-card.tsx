@@ -1,5 +1,5 @@
 import {Component, Host, h, Prop, Listen, EventEmitter, Event, State, Watch} from '@stencil/core';
-import {ExtraModel, Language} from '@qwentes/booking-state-manager';
+import { ExtraModel, Language, RoomModel } from '@qwentes/booking-state-manager';
 import {QwCounterEmitter} from '../../shared/qw-counter/qw-counter';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {QwSelect} from '../../shared/qw-select/qw-select';
@@ -7,6 +7,7 @@ import {QwSelect} from '../../shared/qw-select/qw-select';
 export interface QwExtraEmitter {
   quantity: number;
   extraId: ExtraModel['extraId'];
+  roomId?: RoomModel['roomId'];
 }
 
 export interface QwExtraCounting {
@@ -20,6 +21,7 @@ export interface QwExtraCounting {
   shadow: false,
 })
 export class QwExtraCard {
+  @Prop() qwExtraCardRoomId: RoomModel['roomId'];
   @Prop() qwExtraCardId: number;
   @Prop() qwExtraCardName: string;
   @Prop() qwExtraCardSummary: string;
@@ -47,7 +49,7 @@ export class QwExtraCard {
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
     const {value, name} = event.detail;
-    this.qwExtraCounterChanged.emit({quantity: value, extraId: name as number});
+    this.qwExtraCounterChanged.emit({quantity: value, extraId: name as number, roomId: this.qwExtraCardRoomId});
   }
 
   private emitQwSingleExtraChanged(quantity, name) {
@@ -62,15 +64,17 @@ export class QwExtraCard {
     this.emitQwSingleExtraChanged(nextQuantity, name);
   }
 
-  private emitQwQuantitySelectExtraChanged(quantity, name) {
+
+  private emitQwQuantitySelectExtraChanged(quantity, name, roomId?) {
     this.qwQuantityExtraChanged.emit({
       quantity: quantity,
+      roomId: roomId,
       extraId: name as number,
     });
   }
 
-  private onChangeExtraQuantitySelect(name, event) {
-    this.emitQwQuantitySelectExtraChanged(event?.target?.value, name);
+  private onChangeExtraQuantitySelect(name, event, roomId?) {
+    this.emitQwQuantitySelectExtraChanged(event?.target?.value, name, roomId);
   }
 
   private createQuantitySelectOptions(items) {
@@ -115,7 +119,7 @@ export class QwExtraCard {
                 qwCounterMaxValue={this.qwExtraCardAvailability}/>*/}
               {this.qwExtraCardQuantityOptions.length !== 0 && <QwSelect
                 QwSelectName={'extraQuantity'}
-                QwSelectOnChange={(e) => this.onChangeExtraQuantitySelect(this.qwExtraCardId, e)}>
+                QwSelectOnChange={(e) => this.onChangeExtraQuantitySelect(this.qwExtraCardId, e, this.qwExtraCardRoomId)}>
                 <option value="0">{Language.getTranslation('noThanks')}</option>
                 {this.createQuantitySelectOptions(this.qwExtraCardQuantityOptions)}
               </QwSelect>}

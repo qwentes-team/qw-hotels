@@ -1,7 +1,7 @@
 import {Component, Host, h, State, Listen} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
-  ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraService, ExtraStructure, SessionHasRooms$,
+  ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraService, ExtraStructure, Language, SessionHasRooms$,
   SessionLoaded$, SessionService,
 } from '@qwentes/booking-state-manager';
 import {first, switchMap} from 'rxjs/operators';
@@ -102,6 +102,33 @@ export class QwExtra {
               qwExtraCardSelectedQuantityValue={basketExtra ? basketExtra.selectedQuantity.value : 0}/>;
           })}
         </div>
+        {this.basket && this.basket.rooms.map(r => {
+          return <div class="qw-extra__card-wrapper">
+            {this.extra?.roomExtras[r.roomId] && <h3 class="qw-extra__card-wrapper-title">{r.name} {Language.getTranslation('extras')}</h3>}
+            {this.extra?.roomExtras[r.roomId] && <div class="qw-extra__card-content">
+              {this.isInitData() && this.extra.roomExtras[r.roomId]?.map(e => {
+                const extra = e;
+                const basketExtra = r.extras[e.extraId];
+                return <qw-extra-card
+                  class={this.isLoadingData() ? 'qw-extra-card--disabled' : ''}
+                  qwExtraCardRoomId={r.roomId}
+                  qwExtraCardId={extra.extraId}
+                  qwExtraCardName={extra.name}
+                  qwExtraCardSummary={this.getSummaryExtra(extra)}
+                  qwExtraCardCover={ExtraHelper.getCoverImage(extra).url}
+                  qwExtraCardCounting={extra.counting}
+                  qwExtraCardUnitQuantity={extra.items[0].quantity.value}
+                  qwExtraCardQuantityOptions={extra.items}
+                  qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
+                  qwExtraCardAvailability={this.getMaxAvailability(extra.items)}
+                  qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}
+                  qwExtraCardShowCounter={false}
+                  qwExtraCardSelectedQuantityValue={basketExtra ? basketExtra.selectedQuantity.value : 0}
+                />;
+              })}
+            </div>}
+          </div>;
+        })}
       </Host>
     );
   }
