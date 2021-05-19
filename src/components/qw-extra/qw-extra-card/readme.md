@@ -16,6 +16,7 @@
 | `qwExtraCardId`                    | `qw-extra-card-id`                      |             | `number`           | `undefined` |
 | `qwExtraCardName`                  | `qw-extra-card-name`                    |             | `string`           | `undefined` |
 | `qwExtraCardQuantityOptions`       | --                                      |             | `any[]`            | `undefined` |
+| `qwExtraCardRoomId`                | `qw-extra-card-room-id`                 |             | `number`           | `undefined` |
 | `qwExtraCardSelectedQuantityValue` | `qw-extra-card-selected-quantity-value` |             | `number`           | `0`         |
 | `qwExtraCardShowCounter`           | `qw-extra-card-show-counter`            |             | `boolean`          | `undefined` |
 | `qwExtraCardSummary`               | `qw-extra-card-summary`                 |             | `string`           | `undefined` |
