@@ -50,6 +50,7 @@ export class QwExtra {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
       extraId: e.detail.extraId,
+      roomId: e.detail.roomId
     }).pipe(first()).subscribe();
   }
 
@@ -58,6 +59,7 @@ export class QwExtra {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
       extraId: e.detail.extraId,
+      roomId: e.detail.roomId
     }).pipe(first()).subscribe();
   }
 
@@ -103,7 +105,7 @@ export class QwExtra {
           })}
         </div>
         {this.basket && this.basket.rooms.map(r => {
-          return <div class="qw-extra__card-wrapper">
+          return <div class="qw-extra__card-wrapper qw-extra__card-wrapper--room-extras">
             {this.extra?.roomExtras[r.roomId] && <h3 class="qw-extra__card-wrapper-title">{r.name} {Language.getTranslation('extras')}</h3>}
             {this.extra?.roomExtras[r.roomId] && <div class="qw-extra__card-content">
               {this.isInitData() && this.extra.roomExtras[r.roomId]?.map(e => {

@@ -11,6 +11,16 @@ qw-extra .qw-extra__card-wrapper {
   flex-flow: row wrap;
   width: 100%;
 }
+qw-extra .qw-extra__card-wrapper--room-extras {
+  flex-flow: column;
+}
+
+qw-extra .qw-extra__card-content {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  width: 100%;
+}
 
 qw-extra qw-extra-card {
   width: 32%;

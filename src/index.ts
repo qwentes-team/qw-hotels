@@ -48,6 +48,7 @@ export interface QwChangeRoomEvent {
 export interface QwChangeExtraEvent {
   quantity: string;
   extraId: ExtraModel['extraId'];
+  roomId?: number
 }
 
 export enum GuestDetailFormProperty {

@@ -52,16 +52,17 @@ export class QwExtraCard {
     this.qwExtraCounterChanged.emit({quantity: value, extraId: name as number, roomId: this.qwExtraCardRoomId});
   }
 
-  private emitQwSingleExtraChanged(quantity, name) {
+  private emitQwSingleExtraChanged(quantity, name, roomId?) {
     this.qwSingleExtraChanged.emit({
       quantity: this.qwExtraCardUnitQuantity > 0 ? quantity : this.qwExtraCardUnitQuantity,
+      roomId: roomId,
       extraId: name as number,
     });
   }
 
-  public onChangeSingleExtra(name: number, isInBasket: boolean) {
+  public onChangeSingleExtra(name: number, isInBasket: boolean, roomId: number) {
     const nextQuantity = isInBasket ? 0 : 1;
-    this.emitQwSingleExtraChanged(nextQuantity, name);
+    this.emitQwSingleExtraChanged(nextQuantity, name, roomId);
   }
 
 
@@ -129,7 +130,7 @@ export class QwExtraCard {
                 </p>}
                 {this.isExtraInBasket && <QwButton
                   QwButtonClass="qw-extra-card__add-btn"
-                  QwButtonOnClick={() => this.onChangeSingleExtra(this.qwExtraCardId, this.isExtraInBasket)}
+                  QwButtonOnClick={() => this.onChangeSingleExtra(this.qwExtraCardId, this.isExtraInBasket, this.qwExtraCardRoomId)}
                   QwButtonLabel={this.isExtraInBasket ? Language.getTranslation('removeFromCart') : Language.getTranslation('addToCart')}/>}
               </div>
             </div>
