@@ -21,3 +21,8 @@ qw-promo-code qw-input {
 qw-promo-code qw-input .qw-input__caption {
   color: var(--qw-hotel-primary-color);
 }
+
+qw-promo-code .promo-code__label--to-remove {
+  touch-action: none;
+  pointer-events: none;
+}
