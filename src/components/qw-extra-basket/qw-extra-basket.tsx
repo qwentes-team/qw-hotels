@@ -2,7 +2,7 @@ import {Component, Host, h, State, Listen, Prop} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel,
   BasketService,
-  BasketWithPrice$, ExtraHelper, Language, RateHelper,
+  BasketWithPrice$, ExtraBasketModel, ExtraHelper, Language, RateHelper,
   SessionLoaded$,
   SessionService,
 } from '@qwentes/booking-state-manager';
@@ -41,6 +41,7 @@ export class QwExtraBasket {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
       extraId: e.detail.extraId,
+      roomId: e.detail.roomId
     }).subscribe();
   }
 
@@ -49,6 +50,7 @@ export class QwExtraBasket {
     BasketService.setExtraInBasket({
       quantity: e.detail.quantity,
       extraId: e.detail.extraId,
+      roomId: e.detail.roomId
     }).subscribe();
   }
 
@@ -56,7 +58,7 @@ export class QwExtraBasket {
     return summary.find(s => s?.value === type);
   }
   private getSummaryExtra(extra) {
-    const summary = extra.summary;
+    const summary = extra.summary || extra.description.summary[0];
     if (this.getSummaryType( summary, ExtraSummaryType.Html)) {
       const htmlSummary = this.getSummaryType( summary, ExtraSummaryType.Html)?.text;
       return <div innerHTML={htmlSummary}></div>;
@@ -65,16 +67,17 @@ export class QwExtraBasket {
     }
   }
 
+  public isBasketRoomExtraEmpty() {
+    return this.basket?.rooms.every(r => !Object.values(r.extras).length);
+  }
+
   render() {
     return (
       <Host class={`
         qw-extra-basket--${this.qwExtraBasketType}
         ${!this.basket ? 'qw-extra-basket--loading' : 'qw-extra-basket--loaded'}
       `}>
-        {this.basket ?
-          !this.basket.hotelExtras.length
-            ? <div class="qw-extra-basket__no-extra">{Language.getTranslation('noExtraInYourBasket')}</div>
-            : this.basket.hotelExtras.map(basketExtra => {
+        {!!this.basket?.hotelExtras.length && this.basket.hotelExtras.map(basketExtra => {
               const price = basketExtra.price.converted.text
                 ? RateHelper.multiplyMoney(basketExtra.price.converted, basketExtra.selectedQuantity.value)
                 : basketExtra.gratuitousnessType.text;
@@ -92,7 +95,33 @@ export class QwExtraBasket {
                 qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}
                 qwExtraCardShowCounter={false}
                 qwExtraCardSelectedQuantityValue={basketExtra?.selectedQuantity.value || 0}/>;
-            }) : undefined}
+            })}
+        <div>
+          {this.basket?.rooms.map(basketRoom => {
+            const basketRoomExtras: ExtraBasketModel[] = Object.values(basketRoom.extras);
+            return <div>
+              {!!basketRoomExtras.length && <p class="qw-extra-basket__room">{basketRoom.name + ' ' + Language.getTranslation('extras')}</p>}
+              {!!basketRoomExtras.length && basketRoomExtras.map(extra => {
+                return <qw-extra-card
+                  class={this.basketIsLoading ? 'qw-extra-card--disabled' : ''}
+                  qwExtraCardId={extra.extraId}
+                  qwExtraCardRoomId={basketRoom.roomId}
+                  qwExtraCardName={extra?.selectedQuantity.value + ' ' + extra.name}
+                  qwExtraCardCounting={extra?.countingType}
+                  qwExtraCardCover={this.qwExtraBasketHasImage ? (extra as any).description.pictures[0].templates[0].url : undefined}
+                  qwExtraCardUnitPrice={extra.price.converted.text}
+                  qwExtraCardUnitQuantity={extra.selectedQuantity.value}
+                  qwExtraCardQuantityOptions={[]}
+                  qwExtraCardAvailability={extra && extra.availableQuantity}
+                  qwExtraCardCanAddMoreExtra={extra?.selectedQuantity.value > 0}
+                  qwExtraCardShowCounter={false}
+                  qwExtraCardSelectedQuantityValue={extra?.selectedQuantity.value || 0}/>;
+              })}
+            </div>
+          })}
+        </div>
+        {!this.basket?.hotelExtras.length && this.isBasketRoomExtraEmpty() &&
+        <div class="qw-extra-basket__no-extra">{Language.getTranslation('noExtraInYourBasket')}</div>}
       </Host>
     );
   }

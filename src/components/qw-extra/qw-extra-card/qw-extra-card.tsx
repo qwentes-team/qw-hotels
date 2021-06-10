@@ -61,6 +61,7 @@ export class QwExtraCard {
   }
 
   public onChangeSingleExtra(name: number, isInBasket: boolean, roomId: number) {
+    console.log(roomId);
     const nextQuantity = isInBasket ? 0 : 1;
     this.emitQwSingleExtraChanged(nextQuantity, name, roomId);
   }
