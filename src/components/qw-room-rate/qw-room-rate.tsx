@@ -185,7 +185,7 @@ export class QwRoomRate {
         </div>}
 
         <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
-          {!this.qwRoomRateDefaultToOne && <div class="qw-room-rate__counter">
+          {!this.qwRoomRateDefaultToOne && <div class={`qw-room-rate__counter ${this.quantity === 0 ? 'qw-room-rate__counter--no-quantity' : ''}`}>
             <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
             {this.qwRoomRateRate && <qw-counter
               qwCounterId={QwCounterId.QwRoomRateCounter}
