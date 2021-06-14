@@ -15,9 +15,10 @@ import {emailIsValid} from '../../../globals/app';
 export class QwBookGuestDetail {
   @Prop() qwBookGuestDetailTitleOptions: Array<RoomMetadata<string>> = [];
   @Prop() qwBookFormShowError: boolean;
-  @Prop({mutable: true}) qwBookGuestDetailPhoneCountry: string;
+  @Prop({mutable: true}) qwBookGuestDetailDefaultPhoneCountry: string;
   @State() guestDetailForm: QuoteCreateBody;
   @Event() qwBookGuestDetailChangeForm: EventEmitter<QuoteCreateBody>;
+  @Event() qwBookChangeGuestDetailPhoneCountry: EventEmitter<string>;
 
   private countries: Array<{ name: string, code: string }> = countries;
 
@@ -36,8 +37,9 @@ export class QwBookGuestDetail {
 
   private guestDetailCountrySelectChanged(e) {
     console.log('country selected', e.target.value.toLowerCase())
-    this.qwBookGuestDetailPhoneCountry = e.target.value.toLowerCase();
+    this.qwBookGuestDetailDefaultPhoneCountry = e.target.value.toLowerCase();
     this.updateFormQuoteCustomerDetail(GuestDetailFormProperty.CountryCode, e.target.value);
+    this.qwBookChangeGuestDetailPhoneCountry.emit(this.qwBookGuestDetailDefaultPhoneCountry);
     this.emitForm();
   };
 
@@ -115,7 +117,7 @@ export class QwBookGuestDetail {
           qwInputName={GuestDetailFormProperty.Phone}
           qwInputLabel={Language.getTranslation('phone')}
           qwInputType="tel"
-          qwInputPhoneCountry={this.qwBookGuestDetailPhoneCountry}
+          qwInputDefaultPhoneCountry={this.qwBookGuestDetailDefaultPhoneCountry}
           qwInputCaption={Language.getTranslation('phoneCaption')}/>
       </Host>
     );

@@ -24,7 +24,7 @@ export class QwInput {
   @Prop() qwInputIsReadonly: boolean;
   @Prop() qwInputIsMandatory: boolean;
   @Prop() qwInputHasError: boolean;
-  @Prop() qwInputPhoneCountry: string;
+  @Prop() qwInputDefaultPhoneCountry: string;
   @Event() qwInputChanged: EventEmitter<QwInputEmitter>;
 
   public qwInputPhone;
@@ -40,12 +40,16 @@ export class QwInput {
   componentDidLoad() {
     if (this.isPhoneType()) {
       this.initPhoneInput();
+
+      window.addEventListener('qwBookChangeGuestDetailPhoneCountry', (e: CustomEvent<string>) => {
+        this.qwInputPhone?.setCountry(e.detail);
+      })
     }
   }
 
   private initPhoneInput() {
     const input = document.querySelector(`#${QW_INPUT_PHONE}`);
-    this.qwInputPhone = intlTelInput(input, {initialCountry: this.qwInputPhoneCountry, separateDialCode: true});
+    this.qwInputPhone = intlTelInput(input, {initialCountry: this.qwInputDefaultPhoneCountry, separateDialCode: true});
     input.addEventListener('countrychange', (event) => {
       this.emitChangesForPhone(event);
     });

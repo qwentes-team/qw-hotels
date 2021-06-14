@@ -165,7 +165,7 @@ export class QwBook {
             </div>
             : <div class="qw-book__wrapper">
               <qw-book-guest-detail
-                qwBookGuestDetailPhoneCountry={this.guestPhoneCountry}
+                qwBookGuestDetailDefaultPhoneCountry={this.guestPhoneCountry}
                 qwBookFormShowError={this.showFormErrors}
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
 

@@ -37,7 +37,7 @@ export namespace Components {
     }
     interface QwBookGuestDetail {
         "qwBookFormShowError": boolean;
-        "qwBookGuestDetailPhoneCountry": string;
+        "qwBookGuestDetailDefaultPhoneCountry": string;
         "qwBookGuestDetailTitleOptions": Array<RoomMetadata<string>>;
     }
     interface QwCalendar {
@@ -123,12 +123,12 @@ export namespace Components {
     }
     interface QwInput {
         "qwInputCaption": string;
+        "qwInputDefaultPhoneCountry": string;
         "qwInputHasError": boolean;
         "qwInputIsMandatory": boolean;
         "qwInputIsReadonly": boolean;
         "qwInputLabel": string;
         "qwInputName": string;
-        "qwInputPhoneCountry": string;
         "qwInputType": string;
         "qwInputValue": string;
     }
@@ -662,9 +662,10 @@ declare namespace LocalJSX {
         "qwBookConditionForceQuoteCall"?: boolean;
     }
     interface QwBookGuestDetail {
+        "onQwBookChangeGuestDetailPhoneCountry"?: (event: CustomEvent<string>) => void;
         "onQwBookGuestDetailChangeForm"?: (event: CustomEvent<QuoteCreateBody>) => void;
         "qwBookFormShowError"?: boolean;
-        "qwBookGuestDetailPhoneCountry"?: string;
+        "qwBookGuestDetailDefaultPhoneCountry"?: string;
         "qwBookGuestDetailTitleOptions"?: Array<RoomMetadata<string>>;
     }
     interface QwCalendar {
@@ -768,12 +769,12 @@ declare namespace LocalJSX {
     interface QwInput {
         "onQwInputChanged"?: (event: CustomEvent<QwInputEmitter>) => void;
         "qwInputCaption"?: string;
+        "qwInputDefaultPhoneCountry"?: string;
         "qwInputHasError"?: boolean;
         "qwInputIsMandatory"?: boolean;
         "qwInputIsReadonly"?: boolean;
         "qwInputLabel"?: string;
         "qwInputName"?: string;
-        "qwInputPhoneCountry"?: string;
         "qwInputType"?: string;
         "qwInputValue"?: string;
     }
