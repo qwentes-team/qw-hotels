@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen, EventEmitter, Event} from '@stencil/core';
+import {Component, Host, h, State, Listen, EventEmitter, Event, Prop} from '@stencil/core';
 import {
   SessionLoaded$, SessionService, SessionModel,
   QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper, QuoteLoaded$,
@@ -17,6 +17,7 @@ import {of} from 'rxjs';
   shadow: false,
 })
 export class QwBook {
+  @Prop()  guestPhoneCountry: string;
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
   @State() hasInsurance: boolean;
@@ -164,6 +165,7 @@ export class QwBook {
             </div>
             : <div class="qw-book__wrapper">
               <qw-book-guest-detail
+                qwBookGuestDetailPhoneCountry={this.guestPhoneCountry}
                 qwBookFormShowError={this.showFormErrors}
                 qwBookGuestDetailTitleOptions={this.quote && this.quote.guestTitles}/>
 

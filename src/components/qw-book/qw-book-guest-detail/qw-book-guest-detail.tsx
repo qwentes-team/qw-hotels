@@ -15,10 +15,11 @@ import {emailIsValid} from '../../../globals/app';
 export class QwBookGuestDetail {
   @Prop() qwBookGuestDetailTitleOptions: Array<RoomMetadata<string>> = [];
   @Prop() qwBookFormShowError: boolean;
+  @Prop({mutable: true}) qwBookGuestDetailPhoneCountry: string;
   @State() guestDetailForm: QuoteCreateBody;
   @Event() qwBookGuestDetailChangeForm: EventEmitter<QuoteCreateBody>;
 
-  private countries: Array<{name: string, code: string}> = countries;
+  private countries: Array<{ name: string, code: string }> = countries;
 
   public componentWillLoad() {
     this.guestDetailForm = QuoteHelper.initObjectForCreateBody();
@@ -34,6 +35,8 @@ export class QwBookGuestDetail {
   };
 
   private guestDetailCountrySelectChanged(e) {
+    console.log('country selected', e.target.value.toLowerCase())
+    this.qwBookGuestDetailPhoneCountry = e.target.value.toLowerCase();
     this.updateFormQuoteCustomerDetail(GuestDetailFormProperty.CountryCode, e.target.value);
     this.emitForm();
   };
@@ -112,6 +115,7 @@ export class QwBookGuestDetail {
           qwInputName={GuestDetailFormProperty.Phone}
           qwInputLabel={Language.getTranslation('phone')}
           qwInputType="tel"
+          qwInputPhoneCountry={this.qwBookGuestDetailPhoneCountry}
           qwInputCaption={Language.getTranslation('phoneCaption')}/>
       </Host>
     );
