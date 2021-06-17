@@ -98,7 +98,6 @@ export class QwRoomRates {
       <Host class={`qw-room-rates--${this.qwRoomRatesType}`}>
         <div class="qw-room-rates__wrapper">
           {this.mergedRates?.map(r => {
-            console.log('rate', r);
             return <qw-room-rate
               qwRoomRateRoomId={this.qwRoomRatesRoomId}
               qwRoomRateRate={r}

@@ -7,17 +7,19 @@
 
 ## Properties
 
-| Property                        | Attribute                 | Description | Type                     | Default     |
-| ------------------------------- | ------------------------- | ----------- | ------------------------ | ----------- |
-| `qwBookFormShowError`           | `qw-book-form-show-error` |             | `boolean`                | `undefined` |
-| `qwBookGuestDetailTitleOptions` | --                        |             | `RoomMetadata<string>[]` | `[]`        |
+| Property                               | Attribute                                    | Description | Type                     | Default     |
+| -------------------------------------- | -------------------------------------------- | ----------- | ------------------------ | ----------- |
+| `qwBookFormShowError`                  | `qw-book-form-show-error`                    |             | `boolean`                | `undefined` |
+| `qwBookGuestDetailDefaultPhoneCountry` | `qw-book-guest-detail-default-phone-country` |             | `string`                 | `undefined` |
+| `qwBookGuestDetailTitleOptions`        | --                                           |             | `RoomMetadata<string>[]` | `[]`        |
 
 
 ## Events
 
-| Event                         | Description | Type                           |
-| ----------------------------- | ----------- | ------------------------------ |
-| `qwBookGuestDetailChangeForm` |             | `CustomEvent<QuoteCreateBody>` |
+| Event                                 | Description | Type                           |
+| ------------------------------------- | ----------- | ------------------------------ |
+| `qwBookChangeGuestDetailPhoneCountry` |             | `CustomEvent<string>`          |
+| `qwBookGuestDetailChangeForm`         |             | `CustomEvent<QuoteCreateBody>` |
 
 
 ## Dependencies

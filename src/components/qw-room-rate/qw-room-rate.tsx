@@ -74,6 +74,7 @@ export class QwRoomRate {
   addToBasket = () => {
     // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1
     if (this.quantity === 0) {
+      this.quantity = 1;
       this.qwRoomRateDefaultToOne = true;
     }
     this.qwRoomRateIsAddingToBasket = true;
@@ -154,6 +155,10 @@ export class QwRoomRate {
     }
   }
 
+  public isQuantitySelected() {
+    return this.qwRoomRateRate.selectedQuantity ? this.qwRoomRateRate.selectedQuantity !== 0 : this.quantity !== 0
+  }
+
   render() {
     return (
       <Host class={`
@@ -185,7 +190,7 @@ export class QwRoomRate {
         </div>}
 
         <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
-          {!this.qwRoomRateDefaultToOne && <div class={`qw-room-rate__counter ${this.quantity === 0 ? 'qw-room-rate__counter--no-quantity' : ''}`}>
+          {!this.qwRoomRateDefaultToOne && <div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
             <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
             {this.qwRoomRateRate && <qw-counter
               qwCounterId={QwCounterId.QwRoomRateCounter}

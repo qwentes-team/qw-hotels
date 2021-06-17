@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property            | Attribute             | Description | Type     | Default     |
+| ------------------- | --------------------- | ----------- | -------- | ----------- |
+| `guestPhoneCountry` | `guest-phone-country` |             | `string` | `undefined` |
+
+
 ## Events
 
 | Event                       | Description | Type                                               |
