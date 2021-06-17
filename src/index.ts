@@ -48,6 +48,7 @@ export interface QwChangeRoomEvent {
 export interface QwChangeExtraEvent {
   quantity: string;
   extraId: ExtraModel['extraId'];
+  roomId?: number
 }
 
 export enum GuestDetailFormProperty {
@@ -93,7 +94,7 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.19');
+console.log('version 1.1.20');
 
 
 //

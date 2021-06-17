@@ -271,7 +271,7 @@ export class QwRoomListCard {
                 QwButtonOnClick={() => this.qwRoomListCardOnClickChangeDate()}/>
             }
             <QwButton
-              QwButtonLabel={Language.getTranslation('moreInformations')}
+              QwButtonLabel={Language.getTranslation('moreInformation')}
               QwButtonOnClick={() => this.showRoomDetails = !this.showRoomDetails}/>
           </div>}
         </qw-card>

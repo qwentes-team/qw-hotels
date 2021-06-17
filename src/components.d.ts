@@ -30,12 +30,14 @@ export namespace Components {
     interface QwBasketSummary {
     }
     interface QwBook {
+        "guestPhoneCountry": string;
     }
     interface QwBookCondition {
         "qwBookConditionForceQuoteCall": boolean;
     }
     interface QwBookGuestDetail {
         "qwBookFormShowError": boolean;
+        "qwBookGuestDetailDefaultPhoneCountry": string;
         "qwBookGuestDetailTitleOptions": Array<RoomMetadata<string>>;
     }
     interface QwCalendar {
@@ -99,6 +101,7 @@ export namespace Components {
         "qwExtraCardId": number;
         "qwExtraCardName": string;
         "qwExtraCardQuantityOptions": any[];
+        "qwExtraCardRoomId": RoomModel['roomId'];
         "qwExtraCardSelectedQuantityValue": number;
         "qwExtraCardShowCounter": boolean;
         "qwExtraCardSummary": string;
@@ -120,6 +123,7 @@ export namespace Components {
     }
     interface QwInput {
         "qwInputCaption": string;
+        "qwInputDefaultPhoneCountry": string;
         "qwInputHasError": boolean;
         "qwInputIsMandatory": boolean;
         "qwInputIsReadonly": boolean;
@@ -650,6 +654,7 @@ declare namespace LocalJSX {
         "onRemoveInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
     }
     interface QwBook {
+        "guestPhoneCountry"?: string;
         "onChangeInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
         "onQwBookIsLoaded"?: (event: CustomEvent<void>) => void;
     }
@@ -657,8 +662,10 @@ declare namespace LocalJSX {
         "qwBookConditionForceQuoteCall"?: boolean;
     }
     interface QwBookGuestDetail {
+        "onQwBookChangeGuestDetailPhoneCountry"?: (event: CustomEvent<string>) => void;
         "onQwBookGuestDetailChangeForm"?: (event: CustomEvent<QuoteCreateBody>) => void;
         "qwBookFormShowError"?: boolean;
+        "qwBookGuestDetailDefaultPhoneCountry"?: string;
         "qwBookGuestDetailTitleOptions"?: Array<RoomMetadata<string>>;
     }
     interface QwCalendar {
@@ -737,6 +744,7 @@ declare namespace LocalJSX {
         "qwExtraCardId"?: number;
         "qwExtraCardName"?: string;
         "qwExtraCardQuantityOptions"?: any[];
+        "qwExtraCardRoomId"?: RoomModel['roomId'];
         "qwExtraCardSelectedQuantityValue"?: number;
         "qwExtraCardShowCounter"?: boolean;
         "qwExtraCardSummary"?: string;
@@ -761,6 +769,7 @@ declare namespace LocalJSX {
     interface QwInput {
         "onQwInputChanged"?: (event: CustomEvent<QwInputEmitter>) => void;
         "qwInputCaption"?: string;
+        "qwInputDefaultPhoneCountry"?: string;
         "qwInputHasError"?: boolean;
         "qwInputIsMandatory"?: boolean;
         "qwInputIsReadonly"?: boolean;

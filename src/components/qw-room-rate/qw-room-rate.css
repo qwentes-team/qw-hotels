@@ -150,3 +150,65 @@ qw-room-rate .qw-button {
 .qw-room-rate__highlight .qw-room-rate__title-name {
   font-weight: bold;
 }
+
+.qw-room-rate__package-trigger {
+  cursor: pointer;
+  margin-top: var(--qw-hotel-gap-md);
+}
+
+.qw-room-rate__package-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.qw-room-rate__package-content {
+  position: relative;
+  width: 70%;
+  min-height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--qw-hotel-gap-md);
+  background-color: var(--qw-hotel-neutral-lightest);
+}
+
+.qw-room-rate__package-info {
+  width: 59%;
+}
+
+.qw-room-rate__package-image {
+  width: 39%;
+  margin-top: 50px;
+}
+
+.qw-room-rate__package-image img {
+  width: 100%;
+}
+
+.qw-room-rate__package-info .qw-room-rate__package-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.qw-room-rate__package-close {
+  position: absolute;
+  top: var(--qw-hotel-gap-md);
+  right: var(--qw-hotel-gap-md);
+  background: var(--qw-hotel-secondary-color);
+  width: 30px !important;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
