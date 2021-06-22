@@ -1,6 +1,6 @@
-import { Component, Event, EventEmitter, h, Host, Listen, Prop, State } from '@stencil/core';
-import { QwButton } from '../shared/qw-button/qw-button';
-import { QwCounterEmitter } from '../shared/qw-counter/qw-counter';
+import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
+import {QwButton} from '../shared/qw-button/qw-button';
+import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 import {
   BasketHelper,
   BasketModel,
@@ -15,9 +15,9 @@ import {
   SessionLoaded$,
   SessionService,
 } from '@qwentes/booking-state-manager';
-import { switchMap } from 'rxjs/operators';
-import { QwCounterId, QwRoomListType } from '../../index';
-import { QwWrapInDiv } from '../shared/qw-wrap-in-div/qw-wrap-in-div';
+import {switchMap} from 'rxjs/operators';
+import {QwCounterId, QwRoomListType} from '../../index';
+import {QwWrapInDiv} from '../shared/qw-wrap-in-div/qw-wrap-in-div';
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
@@ -159,6 +159,15 @@ export class QwRoomRate {
     return this.qwRoomRateRate.selectedQuantity ? this.qwRoomRateRate.selectedQuantity !== 0 : this.quantity !== 0
   }
 
+  public isPackageRate() {
+    return (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.Package
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.AllInclusivePackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.BreakfastIncludedPackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.FullBoardPackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.HalfBoardPackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.SelfCateringPackage
+  }
+
   render() {
     return (
       <Host class={`
@@ -190,7 +199,8 @@ export class QwRoomRate {
         </div>}
 
         <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
-          {!this.qwRoomRateDefaultToOne && <div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
+          {!this.qwRoomRateDefaultToOne &&
+          <div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
             <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
             {this.qwRoomRateRate && <qw-counter
               qwCounterId={QwCounterId.QwRoomRateCounter}
@@ -209,7 +219,9 @@ export class QwRoomRate {
             QwButtonOnClick={() => this.addToBasket()}/>}
         </QwWrapInDiv>
 
-        {(this.qwRoomRateRate.description.qualifier.value as any) === 'FullBoardPackage' && <div onClick={() => this.qwRoomRateShowPackageInfo = true} class="qw-room-rate__package-trigger">{Language.getTranslation('moreInformation')}</div>}
+        {this.isPackageRate() &&
+        <div onClick={() => this.qwRoomRateShowPackageInfo = true}
+             class="qw-room-rate__package-trigger">{Language.getTranslation('moreInformation')}</div>}
         {this.qwRoomRateShowPackageInfo && <div class="qw-room-rate__package-wrapper">
           <div class="qw-room-rate__package-content">
             <QwButton
@@ -229,7 +241,8 @@ export class QwRoomRate {
                 </div>}
                 {this.qwRoomRateRate && <div class="qw-room-rate__price">
                   {this.qwRoomRateRate.price?.crossedOutPrice &&
-                  <div class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
+                  <div
+                    class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
                   }
                   {this.qwRoomRateRate.price ?
                     <div class="qw-room-rate__price-active">{this.qwRoomRateRate.price.totalPrice.converted.text}</div>
@@ -240,7 +253,8 @@ export class QwRoomRate {
                   </div>
                 </div>}
                 <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
-                  {!this.qwRoomRateDefaultToOne && <div class={`qw-room-rate__counter ${this.quantity === 0 ? 'qw-room-rate__counter--no-quantity' : ''}`}>
+                  {!this.qwRoomRateDefaultToOne && <div
+                    class={`qw-room-rate__counter ${this.quantity === 0 ? 'qw-room-rate__counter--no-quantity' : ''}`}>
                     <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
                     {this.qwRoomRateRate && <qw-counter
                       qwCounterId={QwCounterId.QwRoomRateCounter}
@@ -273,7 +287,8 @@ export class QwRoomRate {
             class={this.hasBreakfast(this.qwRoomRateRate.description.qualifier) ? 'qw-room-rate--has-breakfast' : 'qw-room-rate--has-not-breakfast'}>
             {this.qwRoomRateRate.description.qualifier.text}
           </li>
-          <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
+          <li
+            class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
 
           <div class="qw-room-rate__other-conditions">
             <div
