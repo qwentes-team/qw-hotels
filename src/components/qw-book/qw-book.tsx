@@ -18,11 +18,13 @@ import {of} from 'rxjs';
 })
 export class QwBook {
   @Prop()  guestPhoneCountry: string;
+  @Prop()  privacyPolicyLink: string;
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
   @State() hasInsurance: boolean;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
+  @State() isOpenConditions: boolean = false;
   @Event() qwBookIsLoaded: EventEmitter<void>;
   @Event() changeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
 
@@ -210,14 +212,15 @@ export class QwBook {
                     <qw-textarea qwTextareaName="specialRequest"/>
                   </div>
                 </div>
-                {this.quote && <qw-book-condition/>}
+
                 <div class="qw-book__confirmation">
                   <h4>{Language.getTranslation('confirmation')}</h4>
                   <div
                     class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
-                    <div>{Language.getTranslation('termsAndConditionMessage')} *</div>
+                    <div>{Language.getTranslation('iHaveRead')} <span onClick={() => this.isOpenConditions = !this.isOpenConditions} class="confirmation-conditions">{Language.getTranslation('salesTermsAndConditions')}</span> {Language.getTranslation('andThe')} {this.privacyPolicyLink && <a target="_blank" href={this.privacyPolicyLink}>{Language.getTranslation('privacyPolicy')}</a>} {Language.getTranslation('confirmationAndAgreement')} *</div>
                   </div>
+                  {this.quote && this.isOpenConditions && <qw-book-condition/>}
                 </div>
               </div>
 

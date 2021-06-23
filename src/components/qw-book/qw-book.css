@@ -98,6 +98,11 @@ qw-book {
   --qw-button-background: var(--qw-hotel-secondary-color);
 }
 
+qw-book .confirmation-conditions {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @media only screen and (max-width: 1000px) {
   .qw-book__insurance {
     flex-flow: column;

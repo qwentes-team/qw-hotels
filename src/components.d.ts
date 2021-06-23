@@ -31,6 +31,7 @@ export namespace Components {
     }
     interface QwBook {
         "guestPhoneCountry": string;
+        "privacyPolicyLink": string;
     }
     interface QwBookCondition {
         "qwBookConditionForceQuoteCall": boolean;
@@ -657,6 +658,7 @@ declare namespace LocalJSX {
         "guestPhoneCountry"?: string;
         "onChangeInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
         "onQwBookIsLoaded"?: (event: CustomEvent<void>) => void;
+        "privacyPolicyLink"?: string;
     }
     interface QwBookCondition {
         "qwBookConditionForceQuoteCall"?: boolean;
