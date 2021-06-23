@@ -274,9 +274,9 @@ export class QwRoomRate {
                 </QwWrapInDiv>
               </div>
             </div>
-            <div class="qw-room-rate__package-image">
-              <img src={this.qwRoomRateRate.description.pictures[0].templates[0].url} alt=""/>
-            </div>
+            {!!this.qwRoomRateRate.description.pictures.length && <div class="qw-room-rate__package-image">
+              <qw-image qwImageUrl={this.qwRoomRateRate.description.pictures[0]?.templates[0]?.url}/>
+            </div>}
           </div>
         </div>}
         {this.qwRoomRateRate && this.qwRoomRateRate.taxes.onSite.amount.text && <ul class="qw-room-rate__conditions">

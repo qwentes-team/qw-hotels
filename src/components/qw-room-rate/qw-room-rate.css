@@ -181,7 +181,9 @@ qw-room-rate .qw-button {
 }
 
 .qw-room-rate__package-info {
-  width: 59%;
+  width: 58%;
+  flex-grow: 1;
+  margin-right: var(--qw-hotel-gap-md);
 }
 
 .qw-room-rate__package-image {
