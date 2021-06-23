@@ -36,7 +36,6 @@ export class QwBookGuestDetail {
   };
 
   private guestDetailCountrySelectChanged(e) {
-    console.log('country selected', e.target.value.toLowerCase())
     this.qwBookGuestDetailDefaultPhoneCountry = e.target.value.toLowerCase();
     this.updateFormQuoteCustomerDetail(GuestDetailFormProperty.CountryCode, e.target.value);
     this.qwBookChangeGuestDetailPhoneCountry.emit(this.qwBookGuestDetailDefaultPhoneCountry);
