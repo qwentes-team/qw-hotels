@@ -50,6 +50,7 @@ graph TD;
   qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error
   qw-room-rate --> qw-counter
+  qw-room-rate --> qw-image
   qw-room-notification --> qw-room-basket
   style qw-room-basket fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -154,6 +154,10 @@ export class QwBook {
     return this.quote.insurance.logoUrl.replace('~', 'http://secure-hotel-booking.com');
   }
 
+  private hasSalesAndTermsConditions() {
+    return !!QuoteHelper.getDefaultCancelConditionMessage(this.quote) || !!this.quote.depositConditions.text || !!this.quote.taxes.excludedTaxes.totalAmount.text || !!this.quote.taxes.onSiteTaxes.totalAmount.text;
+  }
+
   render() {
     return (
       <Host class={`${!this.quote ? 'qw-book--loading' : 'qw-book--loaded'}`}>
@@ -218,7 +222,7 @@ export class QwBook {
                   <div
                     class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
-                    <div>{Language.getTranslation('iHaveRead')} <span onClick={() => this.isOpenConditions = !this.isOpenConditions} class="confirmation-conditions">{Language.getTranslation('salesTermsAndConditions')}</span> {Language.getTranslation('andThe')} {this.privacyPolicyLink && <a target="_blank" href={this.privacyPolicyLink}>{Language.getTranslation('privacyPolicy')}</a>} {Language.getTranslation('confirmationAndAgreement')} *</div>
+                    <div>{Language.getTranslation('iHaveRead')} {this.hasSalesAndTermsConditions() && <span onClick={() => this.isOpenConditions = !this.isOpenConditions} class="confirmation-conditions">{Language.getTranslation('salesTermsAndConditions')}</span>} {this.privacyPolicyLink && Language.getTranslation('andThe')} {this.privacyPolicyLink && <a target="_blank" href={this.privacyPolicyLink}>{Language.getTranslation('privacyPolicy')}</a>} {Language.getTranslation('confirmationAndAgreement')} *</div>
                   </div>
                   {this.quote && this.isOpenConditions && <qw-book-condition/>}
                 </div>

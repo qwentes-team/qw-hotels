@@ -36,6 +36,7 @@ graph TD;
   qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error
   qw-room-rate --> qw-counter
+  qw-room-rate --> qw-image
   qw-room-detail-card --> qw-room-rates
   qw-room-list-card --> qw-room-rates
   style qw-room-rates fill:#f9f,stroke:#333,stroke-width:4px
