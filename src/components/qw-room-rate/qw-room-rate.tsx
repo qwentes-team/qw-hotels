@@ -71,7 +71,7 @@ export class QwRoomRate {
     ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
   }
 
-  addToBasket = () => {
+  addToBasket = (isInPackagePopup?: boolean) => {
     // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1
     if (this.quantity === 0) {
       this.quantity = 1;
@@ -86,6 +86,7 @@ export class QwRoomRate {
     }).subscribe((basket) => {
       this.qwRoomRateIsAddingToBasket = false;
       this.qwRoomRateAddedToBasket.emit({basket, roomId: this.qwRoomRateRoomId});
+      this.qwRoomRateShowPackageInfo = !isInPackagePopup;
     });
   };
 
@@ -270,7 +271,7 @@ export class QwRoomRate {
                     QwButtonClass="qw-button--primary qw-button--add-to-basket"
                     QwButtonLabel={Language.getTranslation('addToCart')}
                     QwButtonDisabled={this.isAddToCartDisabled()}
-                    QwButtonOnClick={() => this.addToBasket()}/>}
+                    QwButtonOnClick={() => this.addToBasket(true)}/>}
                 </QwWrapInDiv>
               </div>
             </div>
