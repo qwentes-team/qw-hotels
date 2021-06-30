@@ -50,13 +50,14 @@ export class QwCounter {
   }
 
   private checkIfCounterIsDisabled() {
-    if (this.qwBasketIsAccommodationSatisfy) {
+    /*if (this.qwBasketIsAccommodationSatisfy) {
       return true;
     } else if (this.qwCounterMaxValue !== undefined && this.qwCounterValue >= this.qwCounterMaxValue) {
       return true;
     } else {
       return false;
-    }
+    }*/
+    return false;
   }
 
   render() {

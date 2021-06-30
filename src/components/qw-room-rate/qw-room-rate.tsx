@@ -86,7 +86,10 @@ export class QwRoomRate {
     }).subscribe((basket) => {
       this.qwRoomRateIsAddingToBasket = false;
       this.qwRoomRateAddedToBasket.emit({basket, roomId: this.qwRoomRateRoomId});
-      this.qwRoomRateShowPackageInfo = !isInPackagePopup;
+
+      if(isInPackagePopup) {
+        this.qwRoomRateShowPackageInfo = false;
+      }
     });
   };
 
@@ -109,10 +112,10 @@ export class QwRoomRate {
     }
   }
 
-  private getMaxValue(currentValue = 0) {
+  /*private getMaxValue(currentValue = 0) {
     const numberOfRoomsStillAddable = (this.numberOfGuests - this.numberOfRooms) + currentValue;
     return Math.min(this.qwRoomRateRate.availableQuantity, numberOfRoomsStillAddable);
-  }
+  }*/
 
   private isAddToCartDisabled() {
     if (this.notAddedWithDefaultToOne()) {
@@ -206,8 +209,7 @@ export class QwRoomRate {
             {this.qwRoomRateRate && <qw-counter
               qwCounterId={QwCounterId.QwRoomRateCounter}
               qwCounterName={this.qwRoomRateRate.description.name}
-              qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-              qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
+              qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}/>}
             <div class="qw-room-rate__counter-availability">
               {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
             </div>
@@ -260,8 +262,7 @@ export class QwRoomRate {
                     {this.qwRoomRateRate && <qw-counter
                       qwCounterId={QwCounterId.QwRoomRateCounter}
                       qwCounterName={this.qwRoomRateRate.description.name}
-                      qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-                      qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
+                      qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}/>}
                     <div class="qw-room-rate__counter-availability">
                       {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
                     </div>
