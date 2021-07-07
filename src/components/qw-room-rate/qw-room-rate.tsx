@@ -203,17 +203,18 @@ export class QwRoomRate {
         </div>}
 
         <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
-          {!this.qwRoomRateDefaultToOne &&
+
           <div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
             <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
             {this.qwRoomRateRate && <qw-counter
               qwCounterId={QwCounterId.QwRoomRateCounter}
               qwCounterName={this.qwRoomRateRate.description.name}
+              qwCounterMaxValue={this.qwRoomRateRate.availableQuantity}
               qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}/>}
             <div class="qw-room-rate__counter-availability">
               {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
             </div>
-          </div>}
+          </div>
 
           {this.qwRoomRateRate && <QwButton
             QwButtonClass="qw-button--primary qw-button--add-to-basket"
