@@ -237,8 +237,20 @@ export class QwRoomList {
     this.qwRoomListClickRoom.emit({type, room});
   };
 
+  removeTimeFromDate(date: string) {
+    if (date) {
+      const dateElements = (date as string).split('-');
+      const year = parseInt(dateElements[0]);
+      const month = parseInt(dateElements[1]);
+      const day = parseInt(dateElements[2]);
+      const utcDate = Date.UTC(year, month, day, 0, 0, 0, 0);
+      return new Date(utcDate);
+    }
+  }
+
   private initNewDate(date: string | Date) {
-    return DateUtil.removeTimeFromDate(new Date(date));
+    const dateFormatted = DateUtil.formatDate(new Date(date));
+    return this.removeTimeFromDate(dateFormatted);
   }
 
   private isLoadingData() {
@@ -275,6 +287,7 @@ export class QwRoomList {
   };
 
   private getNextRangeOfDates(date: string): SessionStayPeriod {
+    console.log('date', date)
     const firstDateMinusOne = this.initNewDate(date);
     const firstDate = DateUtil.addDaysToDate(2, firstDateMinusOne);
     const lastDate = DateUtil.addDaysToDate(8, firstDate);
@@ -282,6 +295,7 @@ export class QwRoomList {
   }
 
   private getPrevRangeOfDates(date: string) {
+    console.log('date', date)
     const today = this.initNewDate(new Date());
     const lastDate = this.initNewDate(date);
     const shouldBeFirstDate = DateUtil.addDaysToDate(-6, lastDate);

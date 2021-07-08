@@ -101,6 +101,46 @@ export class QwBasketSummary {
     this.insurance = undefined;
   }
 
+
+  // TODO: to move in booking-state-manager
+
+  removeTimeFromDate(date: string) {
+    if (date) {
+      const dateElements = date.split('-');
+      const year = parseInt(dateElements[0]);
+      const month = parseInt(dateElements[1])-1;
+      const day = parseInt(dateElements[2]);
+      const utcDate = Date.UTC(year, month, day, 0,0,0,0);
+
+      return new Date(utcDate);
+    }
+  };
+
+  formatCalendarDate(date: Date, language: string) {
+    return Intl.DateTimeFormat(language, {day: 'numeric', month: 'short', timeZone: 'utc'}).format(date);
+  };
+
+  formatArrivalDate(session: SessionModel) {
+    const stayPeriod = session.context.stayPeriod;
+    const language = session.display.culture;
+    const arrivalDate = this.removeTimeFromDate(stayPeriod.arrivalDate);
+    return this.formatCalendarDate(arrivalDate, language);
+  };
+
+  formatDepartureDate(session: SessionModel) {
+    const stayPeriod = session.context.stayPeriod;
+    const language = session.display.culture;
+    const departureDate = this.removeTimeFromDate(stayPeriod.departureDate);
+    return this.formatCalendarDate(departureDate, language);
+  };
+
+  formatStayPeriod(session: SessionModel) {
+    return `${this.formatArrivalDate(session)} - ${this.formatDepartureDate(session)}`;
+  };
+
+
+  // END: to move in booking-state-manager
+
   render() {
     return (
       <Host class={`${!this.basket?.rooms.length ? 'qw-basket-summary--no-rooms' : ''}`}>
@@ -131,7 +171,7 @@ export class QwBasketSummary {
             return (
               <div class="qw-basket-summary__room--wrapper">
                 <div class="qw-basket-summary__room">
-                  <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
+                  <div class="qw-basket-summary__room-date">{this.formatStayPeriod(this.session)}</div>
                   <div class="qw-basket-summary__room-name">
                     <div class="qw-basket-summary__room-title">{basketRoom.name}</div>
                     <div class="qw-basket-summary__room-guests">{basketRoom.type}</div>
@@ -165,7 +205,7 @@ export class QwBasketSummary {
                   {basketRoomExtras && basketRoomExtras.map(extra => {
                     return (
                       <div class="qw-basket-summary__room qw-basket-summary__extra">
-                        <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
+                        <div class="qw-basket-summary__room-date">{this.formatStayPeriod(this.session)}</div>
                         <div class="qw-basket-summary__room-name">
                           <div class="qw-basket-summary__room-title">{extra.name}</div>
                         </div>
@@ -200,7 +240,7 @@ export class QwBasketSummary {
           {this.basket && this.basket.hotelExtras.map(extra => {
             return (
               <div class="qw-basket-summary__room qw-basket-summary__extra">
-                <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
+                <div class="qw-basket-summary__room-date">{this.formatStayPeriod(this.session)}</div>
                 <div class="qw-basket-summary__room-name">
                   <div class="qw-basket-summary__room-title">{extra.name}</div>
                 </div>
@@ -229,7 +269,7 @@ export class QwBasketSummary {
         </div>
         {this.session && this.insurance && this.insuranceAmount !== 0 && <div class="qw-basket-summary__insurance">
           <div class="qw-basket-summary__room">
-            <div class="qw-basket-summary__room-date">{SessionHelper.formatStayPeriod(this.session)}</div>
+            <div class="qw-basket-summary__room-date">{this.formatStayPeriod(this.session)}</div>
             <div class="qw-basket-summary__room-name">
               <div class="qw-basket-summary__room-title">{this.insurance.name}</div>
             </div>

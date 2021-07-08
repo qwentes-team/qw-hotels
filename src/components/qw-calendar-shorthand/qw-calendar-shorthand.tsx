@@ -29,12 +29,32 @@ export class QwCalendarShorthand {
     SessionIsLoading$.subscribe((isLoading) => this.isSessionLoading = isLoading);
   }
 
+//
+  removeTimeFromDate(date: string) {
+    if (date) {
+      const dateElements = (date as string).split('-');
+      const year = parseInt(dateElements[0]);
+      const month = parseInt(dateElements[1]);
+      const day = parseInt(dateElements[2]);
+      const utcDate = Date.UTC(year, month, day, 0, 0, 0, 0);
+      return new Date(utcDate);
+    }
+  }
+
+  addDaysToDate(days: number, date: Date) {
+    const dateToFormat = DateUtil.formatDate(date);
+    const extendedDate = this.removeTimeFromDate(dateToFormat);
+    extendedDate.setDate(extendedDate.getDate() + (days + 1));
+    return extendedDate;
+  };
+
+//
   private getTomorrowDateString() {
-    return DateUtil.getDateStringFromDate(DateUtil.addDaysToDate(1, DateUtil.removeTimeFromDate(new Date())));
+    return DateUtil.getDateStringFromDate(this.addDaysToDate(1, this.removeTimeFromDate(DateUtil.formatDate(new Date()))));
   }
 
   public today() {
-    const arrivalDate = DateUtil.getDateStringFromDate(DateUtil.removeTimeFromDate(new Date()));
+    const arrivalDate = DateUtil.getDateStringFromDate(this.removeTimeFromDate(DateUtil.formatDate(new Date())));
     const departureDate = this.getTomorrowDateString();
     this.updateDates({arrivalDate, departureDate}).subscribe(() => {
       this.qwCalendarShorthandTodaySuccess.emit();
@@ -43,7 +63,7 @@ export class QwCalendarShorthand {
 
   public tomorrow() {
     const arrivalDate = this.getTomorrowDateString();
-    const departureDate = DateUtil.getDateStringFromDate(DateUtil.addDaysToDate(2, DateUtil.removeTimeFromDate(new Date())));
+    const departureDate = DateUtil.getDateStringFromDate(this.addDaysToDate(2, this.removeTimeFromDate(DateUtil.formatDate(new Date()))));
     this.updateDates({arrivalDate, departureDate}).subscribe(() => {
       this.qwCalendarShorthandTomorrowSuccess.emit();
     });

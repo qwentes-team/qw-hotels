@@ -74,9 +74,20 @@ export class QwWeekCalendar {
     return this.qwWeekCalendarRangeDateSession[this.qwWeekCalendarRangeDateSession.length - 1].getTime() === date.getTime();
   }
 
+  removeTimeFromDate(date: string) {
+    if (date) {
+      const dateElements = (date as string).split('-');
+      const year = parseInt(dateElements[0]);
+      const month = parseInt(dateElements[1]);
+      const day = parseInt(dateElements[2]);
+      const utcDate = Date.UTC(year, month, day, 0, 0, 0, 0);
+      return new Date(utcDate);
+    }
+  }
+
   private disableLeftButton() {
-    const today = DateUtil.removeTimeFromDate(new Date());
-    const firstDateInRange = DateUtil.removeTimeFromDate(this.qwWeekCalendarRangeDate[0]);
+    const today = this.removeTimeFromDate(this.formatDate(new Date()));
+    const firstDateInRange = this.removeTimeFromDate(this.formatDate(this.qwWeekCalendarRangeDate[0]));
     return today >= firstDateInRange;
   }
 
