@@ -1,6 +1,13 @@
 import {Component, EventEmitter, h, Host, Prop, Event} from '@stencil/core';
-import {DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel, SessionDisplay} from '@qwentes/booking-state-manager';
-import {QwWeekCalendarDirection} from '../../index';
+import {
+  DateUtil,
+  PricesForStayPeriod,
+  RoomDefaultLabel,
+  RoomModel,
+  SessionDisplay,
+  SessionHelper
+} from '@qwentes/booking-state-manager';
+import {QwWeekCalendarDirection, removeTimeFromDate} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
@@ -74,20 +81,10 @@ export class QwWeekCalendar {
     return this.qwWeekCalendarRangeDateSession[this.qwWeekCalendarRangeDateSession.length - 1].getTime() === date.getTime();
   }
 
-  removeTimeFromDate(date: string) {
-    if (date) {
-      const dateElements = (date as string).split('-');
-      const year = parseInt(dateElements[0]);
-      const month = parseInt(dateElements[1]);
-      const day = parseInt(dateElements[2]);
-      const utcDate = Date.UTC(year, month, day, 0, 0, 0, 0);
-      return new Date(utcDate);
-    }
-  }
-
   private disableLeftButton() {
-    const today = this.removeTimeFromDate(this.formatDate(new Date()));
-    const firstDateInRange = this.removeTimeFromDate(this.formatDate(this.qwWeekCalendarRangeDate[0]));
+    const newDate = new Date();
+    const today = DateUtil.removeTimeFromDate(newDate);
+    const firstDateInRange = DateUtil.removeTimeFromDate(this.qwWeekCalendarRangeDate[0]);
     return today >= firstDateInRange;
   }
 

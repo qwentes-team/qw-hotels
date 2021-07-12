@@ -139,7 +139,12 @@ export class QwBook {
     if (this.isFormValid()) {
       let windowReference: any = window.open();
       QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
-        windowReference.location = res.redirectionUrl;
+        let url = res.redirectionUrl
+        if (typeof window.QW_HOTEL_ENV.LINK_DECORATOR_FN === 'function') {
+          console.log('qui', url)
+          url = window.QW_HOTEL_ENV.LINK_DECORATOR_FN(url);
+        }
+        windowReference.location = url;
       });
     } else {
       this.showFormErrors = true;

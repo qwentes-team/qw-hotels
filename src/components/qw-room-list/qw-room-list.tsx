@@ -13,7 +13,7 @@ import {
   QwRoomListCardButtonType,
   QwRoomListOrderType,
   QwRoomListType,
-  QwWeekCalendarDirection,
+  QwWeekCalendarDirection, removeTimeFromDate,
 } from '../../index';
 
 const mockRoomsSkeleton = {roomId: 1, pictures: [], summary: []} as any;
@@ -237,20 +237,9 @@ export class QwRoomList {
     this.qwRoomListClickRoom.emit({type, room});
   };
 
-  removeTimeFromDate(date: string) {
-    if (date) {
-      const dateElements = (date as string).split('-');
-      const year = parseInt(dateElements[0]);
-      const month = parseInt(dateElements[1]);
-      const day = parseInt(dateElements[2]);
-      const utcDate = Date.UTC(year, month, day, 0, 0, 0, 0);
-      return new Date(utcDate);
-    }
-  }
-
   private initNewDate(date: string | Date) {
     const dateFormatted = DateUtil.formatDate(new Date(date));
-    return this.removeTimeFromDate(dateFormatted);
+    return removeTimeFromDate(dateFormatted);
   }
 
   private isLoadingData() {

@@ -94,7 +94,19 @@ export enum QwLanguageType {
   DropDown = 'dropDown',
 }
 
-console.log('version 1.1.23');
+export const removeTimeFromDate = (date: string) => {
+  if (date) {
+    const dateElements = date.split('-');
+    const year = parseInt(dateElements[0]);
+    const month = parseInt(dateElements[1])-1;
+    const day = parseInt(dateElements[2]);
+    const utcDate = Date.UTC(year, month, day, 0,0,0,0);
+
+    return new Date(utcDate);
+  }
+};
+
+console.log('version 1.1.24');
 
 //
 // SessionService.getSession().pipe(
@@ -106,9 +118,7 @@ console.log('version 1.1.23');
 // });
 // window.addEventListener('qwSessionLoaded', (e: CustomEvent) => {
 //   console.log('session listener', e.detail);
-//   window.QW_HOTEL_UPDATE_SESSION_DATA(
-//     e.detail,
-//     {adults: 2, children: 1, infants: 0},
-//     {arrivalDate: '2021-05-10', departureDate: '2021-05-13'},
-//   ).then(session => console.log('session updated', session));
+//   window.QW_HOTEL_ENV.LINK_DECORATOR_FN = function(url) {
+//     return url;
+//   }
 // })

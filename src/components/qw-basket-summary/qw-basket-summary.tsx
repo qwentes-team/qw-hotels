@@ -1,12 +1,12 @@
 import { Component, Host, h, State, Listen, Event, EventEmitter } from '@stencil/core';
 import {
   BasketHelper,
-  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, ExtraBasketModel, Language,
+  BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$, DateUtil, ExtraBasketModel, Language,
   RateHelper, RoomBasketOccupancy,
   SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import { switchMap } from 'rxjs/operators';
-import { QwChangeExtraEvent, QwChangeRoomEvent, QwCounterId } from '../../index';
+import {QwChangeExtraEvent, QwChangeRoomEvent, QwCounterId, removeTimeFromDate} from '../../index';
 import { QwButton } from '../shared/qw-button/qw-button';
 import { QwCounterEmitter } from '../shared/qw-counter/qw-counter';
 
@@ -104,34 +104,18 @@ export class QwBasketSummary {
 
   // TODO: to move in booking-state-manager
 
-  removeTimeFromDate(date: string) {
-    if (date) {
-      const dateElements = date.split('-');
-      const year = parseInt(dateElements[0]);
-      const month = parseInt(dateElements[1])-1;
-      const day = parseInt(dateElements[2]);
-      const utcDate = Date.UTC(year, month, day, 0,0,0,0);
-
-      return new Date(utcDate);
-    }
-  };
-
-  formatCalendarDate(date: Date, language: string) {
-    return Intl.DateTimeFormat(language, {day: 'numeric', month: 'short', timeZone: 'utc'}).format(date);
-  };
-
   formatArrivalDate(session: SessionModel) {
     const stayPeriod = session.context.stayPeriod;
     const language = session.display.culture;
-    const arrivalDate = this.removeTimeFromDate(stayPeriod.arrivalDate);
-    return this.formatCalendarDate(arrivalDate, language);
+    const arrivalDate = removeTimeFromDate(stayPeriod.arrivalDate);
+    return DateUtil.formatCalendarDate(arrivalDate, language);
   };
 
   formatDepartureDate(session: SessionModel) {
     const stayPeriod = session.context.stayPeriod;
     const language = session.display.culture;
-    const departureDate = this.removeTimeFromDate(stayPeriod.departureDate);
-    return this.formatCalendarDate(departureDate, language);
+    const departureDate = removeTimeFromDate(stayPeriod.departureDate);
+    return DateUtil.formatCalendarDate(departureDate, language);
   };
 
   formatStayPeriod(session: SessionModel) {
