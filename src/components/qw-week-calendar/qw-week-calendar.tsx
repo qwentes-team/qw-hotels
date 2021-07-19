@@ -5,9 +5,8 @@ import {
   RoomDefaultLabel,
   RoomModel,
   SessionDisplay,
-  SessionHelper
 } from '@qwentes/booking-state-manager';
-import {QwWeekCalendarDirection, removeTimeFromDate} from '../../index';
+import {QwWeekCalendarDirection} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
 
 @Component({
@@ -99,6 +98,7 @@ export class QwWeekCalendar {
   }
 
   render() {
+    console.log('date: ', this.qwWeekCalendarRangeDate)
     return (
       <Host>
         <QwButton

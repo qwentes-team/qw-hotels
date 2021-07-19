@@ -6,7 +6,7 @@ import {
   SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService,
 } from '@qwentes/booking-state-manager';
 import { switchMap } from 'rxjs/operators';
-import {QwChangeExtraEvent, QwChangeRoomEvent, QwCounterId, removeTimeFromDate} from '../../index';
+import {QwChangeExtraEvent, QwChangeRoomEvent, QwCounterId} from '../../index';
 import { QwButton } from '../shared/qw-button/qw-button';
 import { QwCounterEmitter } from '../shared/qw-counter/qw-counter';
 
@@ -101,20 +101,34 @@ export class QwBasketSummary {
     this.insurance = undefined;
   }
 
+  public removeTimeFromDateUTC(date: string) {
+    if (date) {
+      const dateElements = date.split('-');
+      const year = parseInt(dateElements[0]);
+      const month = parseInt(dateElements[1])-1;
+      const day = parseInt(dateElements[2]);
+      const utcDate = Date.UTC(year, month, day, 0,0,0,0);
+
+      return new Date(utcDate);
+    }
+  };
+
+
+
 
   // TODO: to move in booking-state-manager
 
   formatArrivalDate(session: SessionModel) {
     const stayPeriod = session.context.stayPeriod;
     const language = session.display.culture;
-    const arrivalDate = removeTimeFromDate(stayPeriod.arrivalDate);
+    const arrivalDate = this.removeTimeFromDateUTC(stayPeriod.arrivalDate);
     return DateUtil.formatCalendarDate(arrivalDate, language);
   };
 
   formatDepartureDate(session: SessionModel) {
     const stayPeriod = session.context.stayPeriod;
     const language = session.display.culture;
-    const departureDate = removeTimeFromDate(stayPeriod.departureDate);
+    const departureDate = this.removeTimeFromDateUTC(stayPeriod.departureDate);
     return DateUtil.formatCalendarDate(departureDate, language);
   };
 

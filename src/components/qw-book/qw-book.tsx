@@ -141,7 +141,6 @@ export class QwBook {
       QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
         let url = res.redirectionUrl
         if (typeof window.QW_HOTEL_ENV.LINK_DECORATOR_FN === 'function') {
-          console.log('qui', url)
           url = window.QW_HOTEL_ENV.LINK_DECORATOR_FN(url);
         }
         windowReference.location = url;

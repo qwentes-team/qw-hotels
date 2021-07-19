@@ -13,7 +13,7 @@ import {
   QwRoomListCardButtonType,
   QwRoomListOrderType,
   QwRoomListType,
-  QwWeekCalendarDirection, removeTimeFromDate,
+  QwWeekCalendarDirection,
 } from '../../index';
 
 const mockRoomsSkeleton = {roomId: 1, pictures: [], summary: []} as any;
@@ -182,8 +182,8 @@ export class QwRoomList {
     this.startDate = DateUtil.addDaysToDate(dayToRemoveToStartDate, this.initNewDate(sessionStayPeriod.arrivalDate));
     this.endDate = DateUtil.addDaysToDate(6, this.initNewDate(this.startDate));
     this.rangeDate = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.Date);
-    this.rangeDateString = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.String);
 
+    this.rangeDateString = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.String);
     const newDateToRequest = this.rangeDateString.filter(d => !this.rangeDateStored.includes(d));
 
     if (!newDateToRequest.length) {
@@ -238,8 +238,8 @@ export class QwRoomList {
   };
 
   private initNewDate(date: string | Date) {
-    const dateFormatted = DateUtil.formatDate(new Date(date));
-    return removeTimeFromDate(dateFormatted);
+    // const dateFormatted = DateUtil.formatDate(new Date(date));
+    return DateUtil.removeTimeFromDate(new Date(date));
   }
 
   private isLoadingData() {
@@ -276,7 +276,6 @@ export class QwRoomList {
   };
 
   private getNextRangeOfDates(date: string): SessionStayPeriod {
-    console.log('date', date)
     const firstDateMinusOne = this.initNewDate(date);
     const firstDate = DateUtil.addDaysToDate(2, firstDateMinusOne);
     const lastDate = DateUtil.addDaysToDate(8, firstDate);
@@ -284,7 +283,6 @@ export class QwRoomList {
   }
 
   private getPrevRangeOfDates(date: string) {
-    console.log('date', date)
     const today = this.initNewDate(new Date());
     const lastDate = this.initNewDate(date);
     const shouldBeFirstDate = DateUtil.addDaysToDate(-6, lastDate);
