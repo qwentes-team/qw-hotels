@@ -730,6 +730,10 @@ declare namespace LocalJSX {
     interface QwError {
     }
     interface QwExtra {
+        "onBasketHotelExtraQuantity"?: (event: CustomEvent<number>) => void;
+        "onBasketRoomExtraLoaded"?: (event: CustomEvent<void>) => void;
+        "onHotelExtraQuantity"?: (event: CustomEvent<number>) => void;
+        "onNoRoomExtraLoaded"?: (event: CustomEvent<void>) => void;
     }
     interface QwExtraBasket {
         "qwExtraBasketHasImage"?: boolean;

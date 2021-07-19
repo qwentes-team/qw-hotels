@@ -98,7 +98,6 @@ export class QwWeekCalendar {
   }
 
   render() {
-    console.log('date: ', this.qwWeekCalendarRangeDate)
     return (
       <Host>
         <QwButton
