@@ -35,8 +35,15 @@ export class QwExtra {
       switchMap(([sessionId, hasRooms]) => hasRooms ? ExtraService.getExtra(sessionId) : of(null)),
     ).subscribe();
 
-    ExtraLoaded$.subscribe(extra => this.extra = extra);
-    BasketWithPrice$.subscribe(basket => this.basket = basket);
+    ExtraLoaded$.subscribe(extra => {
+      this.extra = extra;
+      this.emitHotelExtraQuantity();
+      this.noRoomExtra();
+    });
+    BasketWithPrice$.subscribe(basket => {
+      this.basket = basket;
+      this.emitBasketHotelExtra();
+    });
     BasketIsLoading$.subscribe(loading => this.basketIsLoading = loading);
     ExtraIsLoading$.subscribe(loading => this.extraIsLoading = loading);
   }
@@ -83,13 +90,11 @@ export class QwExtra {
     return Math.max.apply(Math, items.map(i => i.quantity.value));
   }
 
-  public emitHotelExtraLenght() {
-    console.log('emit hotelExtraQuantity', this.extra.hotelExtras.length)
+  public emitHotelExtraQuantity() {
     this.hotelExtraQuantity.emit(this.extra.hotelExtras.length)
   }
 
   public emitBasketHotelExtra() {
-    console.log('emit basketHotelExtraQuantity', this.basket.hotelExtras.length)
     this.basketHotelExtraQuantity.emit(this.basket.hotelExtras.length)
   }
 
@@ -101,11 +106,6 @@ export class QwExtra {
   }
 
   render() {
-    if (this.extra && this.basket) {
-      this.emitHotelExtraLenght();
-      this.emitBasketHotelExtra();
-      this.noRoomExtra();
-    }
     return (
       <Host class={`${!this.extra ? 'qw-extra--loading' : 'qw-extra--loaded'}`}>
         <div style={this.extra && {'display': 'none'}}>
