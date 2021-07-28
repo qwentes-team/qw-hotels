@@ -5,6 +5,16 @@
 <!-- Auto Generated Below -->
 
 
+## Events
+
+| Event                      | Description | Type                  |
+| -------------------------- | ----------- | --------------------- |
+| `basketHotelExtraQuantity` |             | `CustomEvent<number>` |
+| `basketRoomExtraLoaded`    |             | `CustomEvent<void>`   |
+| `hotelExtraQuantity`       |             | `CustomEvent<number>` |
+| `noRoomExtraLoaded`        |             | `CustomEvent<void>`   |
+
+
 ## Dependencies
 
 ### Used by
