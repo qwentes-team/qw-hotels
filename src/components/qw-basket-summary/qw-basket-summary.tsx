@@ -23,6 +23,7 @@ export class QwBasketSummary {
   @State() basketIsLoading: boolean;
   @State() sessionIsLoading: boolean;
   @Event() removeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
+  @Event() qwBasketChange: EventEmitter<BasketModel>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -31,7 +32,10 @@ export class QwBasketSummary {
       return BasketService.getBasket(session);
     })).subscribe();
 
-    BasketWithPrice$.subscribe(basket => this.basket = basket);
+    BasketWithPrice$.subscribe(basket => {
+      this.basket = basket;
+      this.qwBasketChange.emit(basket);
+    });
     SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
 
@@ -64,7 +68,9 @@ export class QwBasketSummary {
       roomId: e.room.roomId,
       rateId,
       occupancyId,
-    }).subscribe();
+    }).subscribe((basket) => {
+      this.qwBasketChange.emit(basket)
+    });
   };
 
   setExtraInBasket = (e: QwChangeExtraEvent) => {

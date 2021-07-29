@@ -1,4 +1,4 @@
-import {Component, h, Host, Listen, Prop, State} from '@stencil/core';
+import {Component, EventEmitter, h, Host, Listen, Prop, State, Event} from '@stencil/core';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {
   BasketHelper,
@@ -73,6 +73,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardServices = [];
   @State() qwBasketIsAccommodationSatisfy: boolean;
   @State() showRoomDetails: boolean = false;
+  @Event() qwMoreInformation: EventEmitter<any>;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
@@ -116,6 +117,11 @@ export class QwRoomListCard {
   private formatRoomListCardServices() {
     const services = this.qwRoomListCardServices.map(s => s.amenities);
     return services.reduce((acc, val) => acc.concat(val), []);
+  }
+
+  public onClickMoreInformation() {
+    this.showRoomDetails = !this.showRoomDetails;
+    this.qwMoreInformation.emit(this.qwRoomListCardId.toString());
   }
 
   render() {
@@ -272,7 +278,7 @@ export class QwRoomListCard {
             }
             <QwButton
               QwButtonLabel={Language.getTranslation('moreInformation')}
-              QwButtonOnClick={() => this.showRoomDetails = !this.showRoomDetails}/>
+              QwButtonOnClick={() => {this.onClickMoreInformation() }}/>
           </div>}
         </qw-card>
       </Host>

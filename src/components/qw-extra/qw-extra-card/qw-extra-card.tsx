@@ -38,6 +38,7 @@ export class QwExtraCard {
   @Prop() qwExtraShowSummary: boolean;
   @Event() qwExtraCounterChanged: EventEmitter<QwExtraEmitter>;
   @Event() qwSingleExtraChanged: EventEmitter<QwExtraEmitter>;
+  @Event() qwExtraDetails: EventEmitter<number>;
   @Event() qwQuantityExtraChanged: EventEmitter<QwExtraEmitter>;
   @State() isExtraInBasket: boolean = this.qwExtraCardCanAddMoreExtra;
 
@@ -84,6 +85,11 @@ export class QwExtraCard {
                                    value={i.quantity.value}>{i.quantity.text}</option>);
   }
 
+  public onClickExtra() {
+    this.qwExtraShowSummary = !this.qwExtraShowSummary;
+    this.qwExtraDetails.emit(this.qwExtraCardId);
+  }
+
   render() {
     return (
       <Host>
@@ -95,7 +101,7 @@ export class QwExtraCard {
           {this.qwExtraCardSummary !== '0' && <div class="qw-extra-card__summary">
             <div
               class="qw-extra-card__summary-trigger"
-              onClick={() => this.qwExtraShowSummary = !this.qwExtraShowSummary}>
+              onClick={() => this.onClickExtra()}>
               {this.qwExtraShowSummary ? '-' : '+'} {Language.getTranslation('viewMore')}
             </div>
             {this.qwExtraShowSummary && <div class="qw-extra-card__summary-content">

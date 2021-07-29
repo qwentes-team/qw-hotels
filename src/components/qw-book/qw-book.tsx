@@ -2,7 +2,7 @@ import {Component, Host, h, State, Listen, EventEmitter, Event, Prop} from '@ste
 import {
   SessionLoaded$, SessionService, SessionModel,
   QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper, QuoteLoaded$,
-  BasketService, BasketHelper, SessionHelper, BasketWithPrice$, Language,
+  BasketService, BasketHelper, SessionHelper, BasketWithPrice$, Language, BasketModel,
 } from '@qwentes/booking-state-manager';
 import {first, switchMap} from 'rxjs/operators';
 import {QwInputEmitter} from '../shared/qw-input/qw-input';
@@ -25,8 +25,10 @@ export class QwBook {
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
   @State() isOpenConditions: boolean = false;
+  @State() basket: BasketModel;
   @Event() qwBookIsLoaded: EventEmitter<void>;
   @Event() changeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
+  @Event() qwOnClickPayNow: EventEmitter<BasketModel['rooms']>;
 
   private session: SessionModel;
   private mandatoriesCustomerFields = [
@@ -47,6 +49,7 @@ export class QwBook {
       })).subscribe();
 
     BasketWithPrice$.pipe(switchMap(basket => {
+      this.basket = basket;
       const numberOfAccommodations = BasketHelper.getNumberOfAccommodation(basket);
       const numberOfGuests = SessionHelper.getTotalGuests(this.session);
       if (numberOfAccommodations >= numberOfGuests) {
@@ -135,8 +138,11 @@ export class QwBook {
     return name === GuestDetailFormProperty.ConfirmConditions;
   }
 
+
+
   public payNow = () => {
     if (this.isFormValid()) {
+      this.qwOnClickPayNow.emit(this.basket.rooms)
       let windowReference: any = window.open();
       QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
         let url = res.redirectionUrl

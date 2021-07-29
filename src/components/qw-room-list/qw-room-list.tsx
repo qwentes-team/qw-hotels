@@ -59,7 +59,7 @@ export class QwRoomList {
   @State() language: SessionDisplay['culture'];
   @State() noAvailability = false;
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
-  @Event() qwRoomListOnLoad: EventEmitter<void>;
+  @Event() qwRoomListOnLoad: EventEmitter<{session: SessionModel, listRooms: RoomModel[]}>;
 
   private startDate: Date;
   private endDate: Date;
@@ -102,8 +102,6 @@ export class QwRoomList {
       this.getRoomsSearchForRangeSuccess(newRoomPrices);
     });
 
-    RoomLoaded$.pipe(first()).subscribe(() => this.qwRoomListOnLoad.emit());
-
     RoomLoaded$.subscribe(res => {
       this.firstLoad = true;
 
@@ -125,6 +123,9 @@ export class QwRoomList {
 
       return this.rooms = !this.qwRoomListFilterRoomsWith && !this.qwRoomListExcludeRooms ? rooms : this.getFilteredRooms(rooms);
     });
+
+
+    RoomLoaded$.pipe(first()).subscribe(() => this.qwRoomListOnLoad.emit({session: this.session, listRooms: this.rooms}));
 
     BasketWithPrice$.subscribe(basket => {
       this.basketIsEmpty = !basket.rooms.length;
