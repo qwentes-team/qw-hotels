@@ -130,11 +130,11 @@ export class QwRoomListCard {
       <Host class={this.qwRoomListCardIsLoading ? 'qw-room-list-card__is-loading' : ''}>
         <qw-card>
           <div class="qw-room-list-card__image" onClick={() => this.qwRoomListCardOnClickView()}>
-            {!this.qwRoomListCardShowCarouselInCard && <qw-image
+            {(!this.qwRoomListCardShowCarouselInCard || this.qwRoomListCardCarouselImages.length === 1) && <qw-image
               qwImageTransformationOptions={this.qwRoomListCardImageTransformationOptions}
               qwImageUrl={this.qwRoomListCardImage}
               qwImageAlt={this.qwRoomListCardTitle}/>}
-            {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && <div>
+            {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && this.qwRoomListCardCarouselImages.length > 1 && <div>
               <qw-carousel qwCarouselImagesUrl={this.qwRoomListCardCarouselImages}></qw-carousel>
             </div>}
           </div>
