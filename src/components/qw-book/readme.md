@@ -19,6 +19,7 @@
 | --------------------------- | ----------- | -------------------------------------------------- |
 | `changeInsuranceAcceptance` |             | `CustomEvent<{ insurance: any; amount: number; }>` |
 | `qwBookIsLoaded`            |             | `CustomEvent<void>`                                |
+| `qwOnClickPayNow`           |             | `CustomEvent<RoomBasketModel[]>`                   |
 
 
 ## Dependencies

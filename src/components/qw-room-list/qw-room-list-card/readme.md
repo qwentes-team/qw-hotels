@@ -54,6 +54,13 @@
 | `qwRoomListCardType`                       | `qw-room-list-card-type`                    |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline`     |
 
 
+## Events
+
+| Event               | Description | Type               |
+| ------------------- | ----------- | ------------------ |
+| `qwMoreInformation` |             | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Used by

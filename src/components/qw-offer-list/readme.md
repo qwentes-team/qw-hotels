@@ -13,6 +13,13 @@
 | `qwOffersImageTransformationOptions` | `qw-offers-image-transformation-options` |             | `string`                                                              | `undefined`             |
 
 
+## Events
+
+| Event        | Description | Type                  |
+| ------------ | ----------- | --------------------- |
+| `qwViewRoom` |             | `CustomEvent<string>` |
+
+
 ## Dependencies
 
 ### Depends on
