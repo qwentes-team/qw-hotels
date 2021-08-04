@@ -106,7 +106,7 @@ export const removeTimeFromDate = (date: string) => {
   }
 };
 
-console.log('version 1.1.24');
+console.log('version 1.1.25');
 
 //
 // SessionService.getSession().pipe(
