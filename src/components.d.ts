@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/model/room.interface";
 import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomImageMetadata, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
+import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/model/room.interface";
 import { QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
 import { Transformation } from "cloudinary-core";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
@@ -31,6 +31,7 @@ export namespace Components {
     }
     interface QwBook {
         "guestPhoneCountry": string;
+        "privacyPolicyLink": string;
     }
     interface QwBookCondition {
         "qwBookConditionForceQuoteCall": boolean;
@@ -293,6 +294,8 @@ export namespace Components {
     interface QwTextarea {
         "qwTextareaName": string;
         "qwTextareaValue": string;
+    }
+    interface QwTrackingData {
     }
     interface QwWeekCalendar {
         "qwWeekCalendarIsLoading": boolean;
@@ -580,6 +583,12 @@ declare global {
         prototype: HTMLQwTextareaElement;
         new (): HTMLQwTextareaElement;
     };
+    interface HTMLQwTrackingDataElement extends Components.QwTrackingData, HTMLStencilElement {
+    }
+    var HTMLQwTrackingDataElement: {
+        prototype: HTMLQwTrackingDataElement;
+        new (): HTMLQwTrackingDataElement;
+    };
     interface HTMLQwWeekCalendarElement extends Components.QwWeekCalendar, HTMLStencilElement {
     }
     var HTMLQwWeekCalendarElement: {
@@ -633,6 +642,7 @@ declare global {
         "qw-separator": HTMLQwSeparatorElement;
         "qw-session": HTMLQwSessionElement;
         "qw-textarea": HTMLQwTextareaElement;
+        "qw-tracking-data": HTMLQwTrackingDataElement;
         "qw-week-calendar": HTMLQwWeekCalendarElement;
     }
 }
@@ -651,12 +661,15 @@ declare namespace LocalJSX {
         "onQwBasketRoomCounterNumber"?: (event: CustomEvent<number>) => void;
     }
     interface QwBasketSummary {
+        "onQwBasketChange"?: (event: CustomEvent<BasketModel>) => void;
         "onRemoveInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
     }
     interface QwBook {
         "guestPhoneCountry"?: string;
         "onChangeInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
         "onQwBookIsLoaded"?: (event: CustomEvent<void>) => void;
+        "onQwOnClickPayNow"?: (event: CustomEvent<BasketModel['rooms']>) => void;
+        "privacyPolicyLink"?: string;
     }
     interface QwBookCondition {
         "qwBookConditionForceQuoteCall"?: boolean;
@@ -728,6 +741,10 @@ declare namespace LocalJSX {
     interface QwError {
     }
     interface QwExtra {
+        "onBasketHotelExtraQuantity"?: (event: CustomEvent<number>) => void;
+        "onBasketRoomExtraLoaded"?: (event: CustomEvent<void>) => void;
+        "onHotelExtraQuantity"?: (event: CustomEvent<number>) => void;
+        "onNoRoomExtraLoaded"?: (event: CustomEvent<void>) => void;
     }
     interface QwExtraBasket {
         "qwExtraBasketHasImage"?: boolean;
@@ -735,6 +752,7 @@ declare namespace LocalJSX {
     }
     interface QwExtraCard {
         "onQwExtraCounterChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
+        "onQwExtraDetails"?: (event: CustomEvent<number>) => void;
         "onQwQuantityExtraChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "onQwSingleExtraChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "qwExtraCardAvailability"?: number;
@@ -788,6 +806,7 @@ declare namespace LocalJSX {
         "QwLoadingSize"?: string;
     }
     interface QwOfferList {
+        "onQwViewRoom"?: (event: CustomEvent<string>) => void;
         "qwOfferListType"?: QwRoomListType;
         "qwOffersImageTransformationOptions"?: string;
     }
@@ -845,7 +864,7 @@ declare namespace LocalJSX {
     }
     interface QwRoomList {
         "onQwRoomListClickRoom"?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
-        "onQwRoomListOnLoad"?: (event: CustomEvent<void>) => void;
+        "onQwRoomListOnLoad"?: (event: CustomEvent<{session: SessionModel, listRooms: RoomModel[]}>) => void;
         "qwRoomListBaseInfoType"?: QwRoomBaseInfoType;
         "qwRoomListExcludeRooms"?: string;
         "qwRoomListFilterRoomsWith"?: string;
@@ -863,6 +882,7 @@ declare namespace LocalJSX {
         "qwRoomListType"?: QwRoomListType;
     }
     interface QwRoomListCard {
+        "onQwMoreInformation"?: (event: CustomEvent<any>) => void;
         "qwRoomListCardAddableLeftover"?: number;
         "qwRoomListCardAveragePrice"?: string;
         "qwRoomListCardBaseInfoType"?: QwRoomBaseInfoType;
@@ -961,6 +981,16 @@ declare namespace LocalJSX {
         "qwTextareaName"?: string;
         "qwTextareaValue"?: string;
     }
+    interface QwTrackingData {
+        "onTrackingDataBasket"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataExtraId"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataPayment"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataPlugin"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataProperty"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataRateId"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataRoomId"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataRoomList"?: (event: CustomEvent<any>) => void;
+    }
     interface QwWeekCalendar {
         "onQwWeekCalendarChangeDates"?: (event: CustomEvent<QwWeekCalendarDirection>) => void;
         "qwWeekCalendarIsLoading"?: boolean;
@@ -1017,6 +1047,7 @@ declare namespace LocalJSX {
         "qw-separator": QwSeparator;
         "qw-session": QwSession;
         "qw-textarea": QwTextarea;
+        "qw-tracking-data": QwTrackingData;
         "qw-week-calendar": QwWeekCalendar;
     }
 }
@@ -1070,6 +1101,7 @@ declare module "@stencil/core" {
             "qw-separator": LocalJSX.QwSeparator & JSXBase.HTMLAttributes<HTMLQwSeparatorElement>;
             "qw-session": LocalJSX.QwSession & JSXBase.HTMLAttributes<HTMLQwSessionElement>;
             "qw-textarea": LocalJSX.QwTextarea & JSXBase.HTMLAttributes<HTMLQwTextareaElement>;
+            "qw-tracking-data": LocalJSX.QwTrackingData & JSXBase.HTMLAttributes<HTMLQwTrackingDataElement>;
             "qw-week-calendar": LocalJSX.QwWeekCalendar & JSXBase.HTMLAttributes<HTMLQwWeekCalendarElement>;
         }
     }

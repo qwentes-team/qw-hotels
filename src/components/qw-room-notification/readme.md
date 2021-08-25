@@ -45,6 +45,7 @@ graph TD;
   qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error
   qw-room-rate --> qw-counter
+  qw-room-rate --> qw-image
   style qw-room-notification fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

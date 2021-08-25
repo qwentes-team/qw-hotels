@@ -31,6 +31,7 @@
 | Event                    | Description | Type                          |
 | ------------------------ | ----------- | ----------------------------- |
 | `qwExtraCounterChanged`  |             | `CustomEvent<QwExtraEmitter>` |
+| `qwExtraDetails`         |             | `CustomEvent<number>`         |
 | `qwQuantityExtraChanged` |             | `CustomEvent<QwExtraEmitter>` |
 | `qwSingleExtraChanged`   |             | `CustomEvent<QwExtraEmitter>` |
 

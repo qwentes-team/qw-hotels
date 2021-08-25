@@ -10,6 +10,7 @@
 | Property            | Attribute             | Description | Type     | Default     |
 | ------------------- | --------------------- | ----------- | -------- | ----------- |
 | `guestPhoneCountry` | `guest-phone-country` |             | `string` | `undefined` |
+| `privacyPolicyLink` | `privacy-policy-link` |             | `string` | `undefined` |
 
 
 ## Events
@@ -18,6 +19,7 @@
 | --------------------------- | ----------- | -------------------------------------------------- |
 | `changeInsuranceAcceptance` |             | `CustomEvent<{ insurance: any; amount: number; }>` |
 | `qwBookIsLoaded`            |             | `CustomEvent<void>`                                |
+| `qwOnClickPayNow`           |             | `CustomEvent<RoomBasketModel[]>`                   |
 
 
 ## Dependencies
@@ -27,8 +29,8 @@
 - [qw-book-guest-detail](qw-book-guest-detail)
 - [qw-extra](../qw-extra)
 - [qw-textarea](../shared/qw-textarea)
-- [qw-book-condition](../qw-book-condition)
 - [qw-input](../shared/qw-input)
+- [qw-book-condition](../qw-book-condition)
 
 ### Graph
 ```mermaid
@@ -36,8 +38,8 @@ graph TD;
   qw-book --> qw-book-guest-detail
   qw-book --> qw-extra
   qw-book --> qw-textarea
-  qw-book --> qw-book-condition
   qw-book --> qw-input
+  qw-book --> qw-book-condition
   qw-book-guest-detail --> qw-input
   qw-extra --> qw-extra-card
   qw-extra-card --> qw-image

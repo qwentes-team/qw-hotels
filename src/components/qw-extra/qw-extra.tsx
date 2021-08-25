@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Listen} from '@stencil/core';
+import {Component, Host, h, State, Listen, EventEmitter, Event} from '@stencil/core';
 import {
   BasketIsLoading$, BasketModel, BasketService, BasketWithPrice$,
   ExtraHelper, ExtraIsLoading$, ExtraLoaded$, ExtraService, ExtraStructure, Language, SessionHasRooms$,
@@ -19,6 +19,10 @@ export class QwExtra {
   @State() basketIsLoading: boolean;
   @State() extraIsLoading: boolean;
   @State() canAddMoreExtra: boolean;
+  @Event() basketHotelExtraQuantity: EventEmitter<number>;
+  @Event() hotelExtraQuantity: EventEmitter<number>;
+  @Event() noRoomExtraLoaded: EventEmitter<void>;
+  @Event() basketRoomExtraLoaded: EventEmitter<void>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -31,8 +35,15 @@ export class QwExtra {
       switchMap(([sessionId, hasRooms]) => hasRooms ? ExtraService.getExtra(sessionId) : of(null)),
     ).subscribe();
 
-    ExtraLoaded$.subscribe(extra => this.extra = extra);
-    BasketWithPrice$.subscribe(basket => this.basket = basket);
+    ExtraLoaded$.subscribe(extra => {
+      this.extra = extra;
+      this.emitHotelExtraQuantity();
+      this.noRoomExtra();
+    });
+    BasketWithPrice$.subscribe(basket => {
+      this.basket = basket;
+      this.emitBasketHotelExtra();
+    });
     BasketIsLoading$.subscribe(loading => this.basketIsLoading = loading);
     ExtraIsLoading$.subscribe(loading => this.extraIsLoading = loading);
   }
@@ -79,6 +90,21 @@ export class QwExtra {
     return Math.max.apply(Math, items.map(i => i.quantity.value));
   }
 
+  public emitHotelExtraQuantity() {
+    this.hotelExtraQuantity.emit(this.extra.hotelExtras.length)
+  }
+
+  public emitBasketHotelExtra() {
+    this.basketHotelExtraQuantity.emit(this.basket.hotelExtras.length)
+  }
+
+  public noRoomExtra() {
+    const roomExtraExist = this.extra && this.basket?.rooms.every(r => {
+      return this.extra.roomExtras[r.roomId]?.length
+    })
+    !roomExtraExist && this.noRoomExtraLoaded.emit();
+  }
+
   render() {
     return (
       <Host class={`${!this.extra ? 'qw-extra--loading' : 'qw-extra--loaded'}`}>
@@ -106,7 +132,8 @@ export class QwExtra {
         </div>
         {this.basket && this.basket.rooms.map(r => {
           return <div class="qw-extra__card-wrapper qw-extra__card-wrapper--room-extras">
-            {this.extra?.roomExtras[r.roomId] && <h3 class="qw-extra__card-wrapper-title">{r.name} {Language.getTranslation('extras')}</h3>}
+            {this.extra?.roomExtras[r.roomId] &&
+            <h3 class="qw-extra__card-wrapper-title">{r.name} {Language.getTranslation('extras')}</h3>}
             {this.extra?.roomExtras[r.roomId] && <div class="qw-extra__card-content">
               {this.isInitData() && this.extra.roomExtras[r.roomId]?.map(e => {
                 const extra = e;

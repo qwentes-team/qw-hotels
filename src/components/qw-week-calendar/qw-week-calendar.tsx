@@ -1,5 +1,11 @@
 import {Component, EventEmitter, h, Host, Prop, Event} from '@stencil/core';
-import {DateUtil, PricesForStayPeriod, RoomDefaultLabel, RoomModel, SessionDisplay} from '@qwentes/booking-state-manager';
+import {
+  DateUtil,
+  PricesForStayPeriod,
+  RoomDefaultLabel,
+  RoomModel,
+  SessionDisplay,
+} from '@qwentes/booking-state-manager';
 import {QwWeekCalendarDirection} from '../../index';
 import {QwButton} from '../shared/qw-button/qw-button';
 
@@ -75,7 +81,8 @@ export class QwWeekCalendar {
   }
 
   private disableLeftButton() {
-    const today = DateUtil.removeTimeFromDate(new Date());
+    const newDate = new Date();
+    const today = DateUtil.removeTimeFromDate(newDate);
     const firstDateInRange = DateUtil.removeTimeFromDate(this.qwWeekCalendarRangeDate[0]);
     return today >= firstDateInRange;
   }

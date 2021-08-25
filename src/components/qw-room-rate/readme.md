@@ -39,11 +39,13 @@
 ### Depends on
 
 - [qw-counter](../shared/qw-counter)
+- [qw-image](../shared/qw-image)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-room-rate --> qw-counter
+  qw-room-rate --> qw-image
   qw-offer-list --> qw-room-rate
   qw-room-rate-list --> qw-room-rate
   qw-room-rates --> qw-room-rate

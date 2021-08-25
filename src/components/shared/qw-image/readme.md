@@ -25,6 +25,7 @@
  - [qw-room-detail-card](../../qw-room-detail/qw-room-detail-card)
  - [qw-room-list-card](../../qw-room-list/qw-room-list-card)
  - [qw-room-notification](../../qw-room-notification)
+ - [qw-room-rate](../../qw-room-rate)
 
 ### Graph
 ```mermaid
@@ -36,6 +37,7 @@ graph TD;
   qw-room-detail-card --> qw-image
   qw-room-list-card --> qw-image
   qw-room-notification --> qw-image
+  qw-room-rate --> qw-image
   style qw-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

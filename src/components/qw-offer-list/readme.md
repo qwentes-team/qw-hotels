@@ -13,6 +13,13 @@
 | `qwOffersImageTransformationOptions` | `qw-offers-image-transformation-options` |             | `string`                                                              | `undefined`             |
 
 
+## Events
+
+| Event        | Description | Type                  |
+| ------------ | ----------- | --------------------- |
+| `qwViewRoom` |             | `CustomEvent<string>` |
+
+
 ## Dependencies
 
 ### Depends on
@@ -26,6 +33,7 @@ graph TD;
   qw-offer-list --> qw-image
   qw-offer-list --> qw-room-rate
   qw-room-rate --> qw-counter
+  qw-room-rate --> qw-image
   style qw-offer-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

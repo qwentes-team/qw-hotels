@@ -2,7 +2,7 @@ import {Component, Host, h, State, Listen, EventEmitter, Event, Prop} from '@ste
 import {
   SessionLoaded$, SessionService, SessionModel,
   QuoteService, QuoteModel, QuoteCreateBody, QuoteHelper, QuoteLoaded$,
-  BasketService, BasketHelper, SessionHelper, BasketWithPrice$, Language,
+  BasketService, BasketHelper, SessionHelper, BasketWithPrice$, Language, BasketModel,
 } from '@qwentes/booking-state-manager';
 import {first, switchMap} from 'rxjs/operators';
 import {QwInputEmitter} from '../shared/qw-input/qw-input';
@@ -18,13 +18,17 @@ import {of} from 'rxjs';
 })
 export class QwBook {
   @Prop()  guestPhoneCountry: string;
+  @Prop()  privacyPolicyLink: string;
   @State() quote: QuoteModel;
   @State() isConfirmedConditions: boolean;
   @State() hasInsurance: boolean;
   @State() formQuote: QuoteCreateBody;
   @State() showFormErrors: boolean = false;
+  @State() isOpenConditions: boolean = false;
+  @State() basket: BasketModel;
   @Event() qwBookIsLoaded: EventEmitter<void>;
   @Event() changeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
+  @Event() qwOnClickPayNow: EventEmitter<BasketModel['rooms']>;
 
   private session: SessionModel;
   private mandatoriesCustomerFields = [
@@ -45,6 +49,7 @@ export class QwBook {
       })).subscribe();
 
     BasketWithPrice$.pipe(switchMap(basket => {
+      this.basket = basket;
       const numberOfAccommodations = BasketHelper.getNumberOfAccommodation(basket);
       const numberOfGuests = SessionHelper.getTotalGuests(this.session);
       if (numberOfAccommodations >= numberOfGuests) {
@@ -133,11 +138,18 @@ export class QwBook {
     return name === GuestDetailFormProperty.ConfirmConditions;
   }
 
+
+
   public payNow = () => {
     if (this.isFormValid()) {
+      this.qwOnClickPayNow.emit(this.basket.rooms)
       let windowReference: any = window.open();
       QuoteService.createQuote(this.session.sessionId, this.formQuote).subscribe((res) => {
-        windowReference.location = res.redirectionUrl;
+        let url = res.redirectionUrl
+        if (typeof window.QW_HOTEL_ENV.LINK_DECORATOR_FN === 'function') {
+          url = window.QW_HOTEL_ENV.LINK_DECORATOR_FN(url);
+        }
+        windowReference.location = url;
       });
     } else {
       this.showFormErrors = true;
@@ -150,6 +162,10 @@ export class QwBook {
 
   private makeInsuranceLogoUrl() {
     return this.quote.insurance.logoUrl.replace('~', 'http://secure-hotel-booking.com');
+  }
+
+  private hasSalesAndTermsConditions() {
+    return !!QuoteHelper.getDefaultCancelConditionMessage(this.quote) || !!this.quote.depositConditions.text || !!this.quote.taxes.excludedTaxes.totalAmount.text || !!this.quote.taxes.onSiteTaxes.totalAmount.text;
   }
 
   render() {
@@ -210,14 +226,15 @@ export class QwBook {
                     <qw-textarea qwTextareaName="specialRequest"/>
                   </div>
                 </div>
-                {this.quote && <qw-book-condition/>}
+
                 <div class="qw-book__confirmation">
                   <h4>{Language.getTranslation('confirmation')}</h4>
                   <div
                     class={`qw-book__confirmation-checkbox ${this.showFormErrors && !this.isConfirmedConditions ? 'qw-book__confirmation-checkbox--error' : ''}`}>
                     <qw-input qwInputType="checkbox" qwInputName="confirmConditions"/>
-                    <div>{Language.getTranslation('termsAndConditionMessage')} *</div>
+                    <div>{Language.getTranslation('iHaveRead')} {this.hasSalesAndTermsConditions() && <span onClick={() => this.isOpenConditions = !this.isOpenConditions} class="confirmation-conditions">{Language.getTranslation('salesTermsAndConditions')}</span>} {this.privacyPolicyLink && Language.getTranslation('andThe')} {this.privacyPolicyLink && <a target="_blank" href={this.privacyPolicyLink}>{Language.getTranslation('privacyPolicy')}</a>} {Language.getTranslation('confirmationAndAgreement')} *</div>
                   </div>
+                  {this.quote && this.isOpenConditions && <qw-book-condition/>}
                 </div>
               </div>
 

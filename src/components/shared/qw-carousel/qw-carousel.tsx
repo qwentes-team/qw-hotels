@@ -19,6 +19,7 @@ export class QwCarousel {
 
   private initCarousel() {
     SwiperCore.use([Navigation]);
+    // @ts-ignore
     const swiper = new Swiper('.swiper-container', {
       loop: true,
       speed: 400,
@@ -27,7 +28,6 @@ export class QwCarousel {
         prevEl: '.swiper-button-prev',
       },
     });
-    console.log(swiper);
   }
 
   render() {

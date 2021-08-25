@@ -54,6 +54,13 @@
 | `qwRoomListCardType`                       | `qw-room-list-card-type`                    |             | `QwRoomListType.Card \| QwRoomListType.Grid \| QwRoomListType.Inline` | `QwRoomListType.Inline`     |
 
 
+## Events
+
+| Event               | Description | Type               |
+| ------------------- | ----------- | ------------------ |
+| `qwMoreInformation` |             | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Used by
@@ -93,6 +100,7 @@ graph TD;
   qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error
   qw-room-rate --> qw-counter
+  qw-room-rate --> qw-image
   qw-room-basket --> qw-room-list-card
   qw-room-list --> qw-room-list-card
   style qw-room-list-card fill:#f9f,stroke:#333,stroke-width:4px

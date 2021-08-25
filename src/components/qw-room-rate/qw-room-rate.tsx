@@ -1,6 +1,6 @@
-import { Component, Event, EventEmitter, h, Host, Listen, Prop, State } from '@stencil/core';
-import { QwButton } from '../shared/qw-button/qw-button';
-import { QwCounterEmitter } from '../shared/qw-counter/qw-counter';
+import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
+import {QwButton} from '../shared/qw-button/qw-button';
+import {QwCounterEmitter} from '../shared/qw-counter/qw-counter';
 import {
   BasketHelper,
   BasketModel,
@@ -15,9 +15,9 @@ import {
   SessionLoaded$,
   SessionService,
 } from '@qwentes/booking-state-manager';
-import { switchMap } from 'rxjs/operators';
-import { QwCounterId, QwRoomListType } from '../../index';
-import { QwWrapInDiv } from '../shared/qw-wrap-in-div/qw-wrap-in-div';
+import {switchMap} from 'rxjs/operators';
+import {QwCounterId, QwRoomListType} from '../../index';
+import {QwWrapInDiv} from '../shared/qw-wrap-in-div/qw-wrap-in-div';
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
@@ -71,7 +71,7 @@ export class QwRoomRate {
     ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
   }
 
-  addToBasket = () => {
+  addToBasket = (isInPackagePopup?: boolean) => {
     // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1
     if (this.quantity === 0) {
       this.quantity = 1;
@@ -86,6 +86,10 @@ export class QwRoomRate {
     }).subscribe((basket) => {
       this.qwRoomRateIsAddingToBasket = false;
       this.qwRoomRateAddedToBasket.emit({basket, roomId: this.qwRoomRateRoomId});
+
+      if(isInPackagePopup) {
+        this.qwRoomRateShowPackageInfo = false;
+      }
     });
   };
 
@@ -108,10 +112,10 @@ export class QwRoomRate {
     }
   }
 
-  private getMaxValue(currentValue = 0) {
+  /*private getMaxValue(currentValue = 0) {
     const numberOfRoomsStillAddable = (this.numberOfGuests - this.numberOfRooms) + currentValue;
     return Math.min(this.qwRoomRateRate.availableQuantity, numberOfRoomsStillAddable);
-  }
+  }*/
 
   private isAddToCartDisabled() {
     if (this.notAddedWithDefaultToOne()) {
@@ -159,6 +163,15 @@ export class QwRoomRate {
     return this.qwRoomRateRate.selectedQuantity ? this.qwRoomRateRate.selectedQuantity !== 0 : this.quantity !== 0
   }
 
+  public isPackageRate() {
+    return (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.Package
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.AllInclusivePackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.BreakfastIncludedPackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.FullBoardPackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.HalfBoardPackage
+      || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.SelfCateringPackage
+  }
+
   render() {
     return (
       <Host class={`
@@ -190,17 +203,18 @@ export class QwRoomRate {
         </div>}
 
         <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
-          {!this.qwRoomRateDefaultToOne && <div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
+
+          <div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
             <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
             {this.qwRoomRateRate && <qw-counter
               qwCounterId={QwCounterId.QwRoomRateCounter}
               qwCounterName={this.qwRoomRateRate.description.name}
-              qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-              qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
+              qwCounterMaxValue={this.qwRoomRateRate.availableQuantity}
+              qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}/>}
             <div class="qw-room-rate__counter-availability">
               {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
             </div>
-          </div>}
+          </div>
 
           {this.qwRoomRateRate && <QwButton
             QwButtonClass="qw-button--primary qw-button--add-to-basket"
@@ -209,7 +223,9 @@ export class QwRoomRate {
             QwButtonOnClick={() => this.addToBasket()}/>}
         </QwWrapInDiv>
 
-        {(this.qwRoomRateRate.description.qualifier.value as any) === 'FullBoardPackage' && <div onClick={() => this.qwRoomRateShowPackageInfo = true} class="qw-room-rate__package-trigger">{Language.getTranslation('moreInformation')}</div>}
+        {this.isPackageRate() &&
+        <div onClick={() => this.qwRoomRateShowPackageInfo = true}
+             class="qw-room-rate__package-trigger">{Language.getTranslation('moreInformation')}</div>}
         {this.qwRoomRateShowPackageInfo && <div class="qw-room-rate__package-wrapper">
           <div class="qw-room-rate__package-content">
             <QwButton
@@ -229,7 +245,8 @@ export class QwRoomRate {
                 </div>}
                 {this.qwRoomRateRate && <div class="qw-room-rate__price">
                   {this.qwRoomRateRate.price?.crossedOutPrice &&
-                  <div class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
+                  <div
+                    class="qw-room-rate__price-crossed">{this.qwRoomRateRate.price.crossedOutPrice.converted.text}</div>
                   }
                   {this.qwRoomRateRate.price ?
                     <div class="qw-room-rate__price-active">{this.qwRoomRateRate.price.totalPrice.converted.text}</div>
@@ -240,13 +257,13 @@ export class QwRoomRate {
                   </div>
                 </div>}
                 <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
-                  {!this.qwRoomRateDefaultToOne && <div class={`qw-room-rate__counter ${this.quantity === 0 ? 'qw-room-rate__counter--no-quantity' : ''}`}>
+                  {!this.qwRoomRateDefaultToOne && <div
+                    class={`qw-room-rate__counter ${this.quantity === 0 ? 'qw-room-rate__counter--no-quantity' : ''}`}>
                     <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
                     {this.qwRoomRateRate && <qw-counter
                       qwCounterId={QwCounterId.QwRoomRateCounter}
                       qwCounterName={this.qwRoomRateRate.description.name}
-                      qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}
-                      qwCounterMaxValue={this.getMaxValue(this.qwRoomRateRate.selectedQuantity)}/>}
+                      qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}/>}
                     <div class="qw-room-rate__counter-availability">
                       {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
                     </div>
@@ -256,16 +273,16 @@ export class QwRoomRate {
                     QwButtonClass="qw-button--primary qw-button--add-to-basket"
                     QwButtonLabel={Language.getTranslation('addToCart')}
                     QwButtonDisabled={this.isAddToCartDisabled()}
-                    QwButtonOnClick={() => this.addToBasket()}/>}
+                    QwButtonOnClick={() => this.addToBasket(true)}/>}
                 </QwWrapInDiv>
               </div>
             </div>
-            <div class="qw-room-rate__package-image">
-              <img src={this.qwRoomRateRate.description.pictures[0].templates[0].url} alt=""/>
-            </div>
+            {!!this.qwRoomRateRate.description.pictures.length && <div class="qw-room-rate__package-image">
+              <qw-image qwImageUrl={this.qwRoomRateRate.description.pictures[0]?.templates[0]?.url}/>
+            </div>}
           </div>
         </div>}
-        {this.qwRoomRateRate && this.qwRoomRateRate.taxes.onSite.amount.text && <ul class="qw-room-rate__conditions">
+        {this.qwRoomRateRate && <ul class="qw-room-rate__conditions">
           {this.qwRoomRateRate.taxes.onSite.amount.text && <li class="qw-room-rate--stay-tax">
             {RateHelper.getOnSiteTaxesMessageFormatted(this.qwRoomRateRate)}
           </li>}
@@ -273,7 +290,8 @@ export class QwRoomRate {
             class={this.hasBreakfast(this.qwRoomRateRate.description.qualifier) ? 'qw-room-rate--has-breakfast' : 'qw-room-rate--has-not-breakfast'}>
             {this.qwRoomRateRate.description.qualifier.text}
           </li>
-          <li class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
+          <li
+            class="qw-room-rate--cancel-condition-name">{RateHelper.getDefaultCancelConditionName(this.qwRoomRateRate)}</li>
 
           <div class="qw-room-rate__other-conditions">
             <div

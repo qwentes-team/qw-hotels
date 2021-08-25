@@ -59,7 +59,7 @@ export class QwRoomList {
   @State() language: SessionDisplay['culture'];
   @State() noAvailability = false;
   @Event() qwRoomListClickRoom: EventEmitter<{type: QwRoomListCardButtonType, room: RoomModel}>;
-  @Event() qwRoomListOnLoad: EventEmitter<void>;
+  @Event() qwRoomListOnLoad: EventEmitter<{session: SessionModel, listRooms: RoomModel[]}>;
 
   private startDate: Date;
   private endDate: Date;
@@ -102,8 +102,6 @@ export class QwRoomList {
       this.getRoomsSearchForRangeSuccess(newRoomPrices);
     });
 
-    RoomLoaded$.pipe(first()).subscribe(() => this.qwRoomListOnLoad.emit());
-
     RoomLoaded$.subscribe(res => {
       this.firstLoad = true;
 
@@ -125,6 +123,9 @@ export class QwRoomList {
 
       return this.rooms = !this.qwRoomListFilterRoomsWith && !this.qwRoomListExcludeRooms ? rooms : this.getFilteredRooms(rooms);
     });
+
+
+    RoomLoaded$.pipe(first()).subscribe(() => this.qwRoomListOnLoad.emit({session: this.session, listRooms: this.rooms}));
 
     BasketWithPrice$.subscribe(basket => {
       this.basketIsEmpty = !basket.rooms.length;
@@ -182,8 +183,8 @@ export class QwRoomList {
     this.startDate = DateUtil.addDaysToDate(dayToRemoveToStartDate, this.initNewDate(sessionStayPeriod.arrivalDate));
     this.endDate = DateUtil.addDaysToDate(6, this.initNewDate(this.startDate));
     this.rangeDate = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.Date);
-    this.rangeDateString = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.String);
 
+    this.rangeDateString = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.String);
     const newDateToRequest = this.rangeDateString.filter(d => !this.rangeDateStored.includes(d));
 
     if (!newDateToRequest.length) {
@@ -238,6 +239,7 @@ export class QwRoomList {
   };
 
   private initNewDate(date: string | Date) {
+    // const dateFormatted = DateUtil.formatDate(new Date(date));
     return DateUtil.removeTimeFromDate(new Date(date));
   }
 

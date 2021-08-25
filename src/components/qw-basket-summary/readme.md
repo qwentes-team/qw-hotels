@@ -9,6 +9,7 @@
 
 | Event                       | Description | Type                                               |
 | --------------------------- | ----------- | -------------------------------------------------- |
+| `qwBasketChange`            |             | `CustomEvent<BasketModel>`                         |
 | `removeInsuranceAcceptance` |             | `CustomEvent<{ insurance: any; amount: number; }>` |
 
 

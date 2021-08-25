@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Prop} from '@stencil/core';
+import {Component, Host, h, State, Prop, Event, EventEmitter} from '@stencil/core';
 import {
   Language,
   Rate,
@@ -27,7 +27,8 @@ export class QwOfferList {
   @State() hideRoomsWrapper: boolean = true;
   @Prop() qwOffersImageTransformationOptions: string;
   @Prop() qwOfferListType: QwRoomListType = QwRoomListType.Inline;
-
+  @Event() qwViewRoom: EventEmitter<string>;
+  
   public componentWillLoad() {
     // GET SESSION AND ROOMS
     SessionService.getSession().subscribe();
@@ -88,6 +89,8 @@ export class QwOfferList {
       roomWrapper.classList.toggle('qw-offer-list__room-wrapper--show');
       // to change button label
       triggerButton.innerHTML = roomWrapper?.classList.contains('qw-offer-list__room-wrapper--show') ? Language.getTranslation('hideRooms') : Language.getTranslation('showRooms')
+
+      roomWrapper?.classList.contains('qw-offer-list__room-wrapper--show') ? this.qwViewRoom.emit(offerCode) : ''; 
     }
   }
 

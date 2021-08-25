@@ -34,6 +34,7 @@ graph TD;
   qw-room-rate-list --> qw-room-rate
   qw-room-rate-list --> qw-counter
   qw-room-rate --> qw-counter
+  qw-room-rate --> qw-image
   style qw-room-rate-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

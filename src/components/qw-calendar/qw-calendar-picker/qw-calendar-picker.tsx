@@ -143,7 +143,7 @@ export class QwCalendarPicker {
       case QwLanguageKeys.bg:
         return Bulgarian.default.bg;
       case QwLanguageKeys.ca:
-        return Catalan.default.ca;
+        return Catalan.default.cat;
       case QwLanguageKeys.zh:
         return Mandarin.default.zh;
       case QwLanguageKeys.hr:

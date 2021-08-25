@@ -1,4 +1,4 @@
-import {Component, h, Host, Listen, Prop, State} from '@stencil/core';
+import {Component, EventEmitter, h, Host, Listen, Prop, State, Event} from '@stencil/core';
 import {QwButton} from '../../shared/qw-button/qw-button';
 import {
   BasketHelper,
@@ -73,6 +73,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardServices = [];
   @State() qwBasketIsAccommodationSatisfy: boolean;
   @State() showRoomDetails: boolean = false;
+  @Event() qwMoreInformation: EventEmitter<any>;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
@@ -118,17 +119,22 @@ export class QwRoomListCard {
     return services.reduce((acc, val) => acc.concat(val), []);
   }
 
+  public onClickMoreInformation() {
+    this.showRoomDetails = !this.showRoomDetails;
+    this.qwMoreInformation.emit(this.qwRoomListCardId.toString());
+  }
+
   render() {
     // @ts-ignore
     return (
       <Host class={this.qwRoomListCardIsLoading ? 'qw-room-list-card__is-loading' : ''}>
         <qw-card>
           <div class="qw-room-list-card__image" onClick={() => this.qwRoomListCardOnClickView()}>
-            {!this.qwRoomListCardShowCarouselInCard && <qw-image
+            {(!this.qwRoomListCardShowCarouselInCard || this.qwRoomListCardCarouselImages.length === 1) && <qw-image
               qwImageTransformationOptions={this.qwRoomListCardImageTransformationOptions}
               qwImageUrl={this.qwRoomListCardImage}
               qwImageAlt={this.qwRoomListCardTitle}/>}
-            {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && <div>
+            {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && this.qwRoomListCardCarouselImages.length > 1 && <div>
               <qw-carousel qwCarouselImagesUrl={this.qwRoomListCardCarouselImages}></qw-carousel>
             </div>}
           </div>
@@ -272,7 +278,7 @@ export class QwRoomListCard {
             }
             <QwButton
               QwButtonLabel={Language.getTranslation('moreInformation')}
-              QwButtonOnClick={() => this.showRoomDetails = !this.showRoomDetails}/>
+              QwButtonOnClick={() => {this.onClickMoreInformation() }}/>
           </div>}
         </qw-card>
       </Host>
