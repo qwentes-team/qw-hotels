@@ -1,0 +1,60 @@
+qw-price-calendar {
+  --qw-week-calendar-font-size: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--qw-hotel-secondary-color);
+  font-size: var(--qw-week-calendar-font-size);
+  padding: var(--qw-hotel-gap-sm);
+}
+
+qw-price-calendar .qw-price-calendar__block {
+  background: var(--qw-hotel-neutral-lightest);
+  padding: var(--qw-hotel-gap-sm);
+  text-align: center;
+}
+
+qw-price-calendar .qw-price-calendar__block.qw-price-calendar__block--selected {
+  background: var(--qw-hotel-primary-color);
+  transition: background-color .3s ease;
+}
+
+qw-price-calendar .qw-price-calendar__block.qw-price-calendar__block--first {
+  border-radius: 50px 0 0 50px;
+}
+
+qw-price-calendar .qw-price-calendar__block.qw-price-calendar__block--last {
+  border-radius: 0 50px 50px 0;
+  background: var(--qw-hotel-secondary-color);
+}
+
+qw-price-calendar .qw-price-calendar__block-date,
+qw-price-calendar .qw-price-calendar__block-price {
+  opacity: 1;
+  transition: opacity .3s ease;
+}
+
+qw-price-calendar .qw-price-calendar__block.qw-price-calendar__block--selected.hide {
+  background: var(--qw-hotel-neutral-lightest);
+}
+
+qw-price-calendar .qw-price-calendar__block-date.hide,
+qw-price-calendar .qw-price-calendar__block-price.hide {
+  opacity: 0;
+}
+
+qw-price-calendar .qw-price-calendar__block-date {
+  padding-bottom: 2px;
+}
+qw-price-calendar .qw-price-calendar__block-price {
+  font-weight: bold;
+}
+
+qw-price-calendar qw-loading {
+  width: 100%;
+}
+
+qw-price-calendar qw-loading svg circle {
+  stroke: var(--qw-hotel-neutral-dark);
+}
