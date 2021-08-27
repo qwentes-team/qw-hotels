@@ -160,6 +160,12 @@ export namespace Components {
         "qwPriceMainPrice": string;
         "qwPriceRoomId"?: number;
     }
+    interface QwPriceCalendar {
+        "language": SessionDisplay['culture'];
+        "rangeDate": Date[];
+        "rangeDateSession": Date[];
+        "roomId": RoomModel['roomId'];
+    }
     interface QwPromoCode {
         "qwPromoCodeLabel": string;
     }
@@ -481,6 +487,12 @@ declare global {
         prototype: HTMLQwPriceElement;
         new (): HTMLQwPriceElement;
     };
+    interface HTMLQwPriceCalendarElement extends Components.QwPriceCalendar, HTMLStencilElement {
+    }
+    var HTMLQwPriceCalendarElement: {
+        prototype: HTMLQwPriceCalendarElement;
+        new (): HTMLQwPriceCalendarElement;
+    };
     interface HTMLQwPromoCodeElement extends Components.QwPromoCode, HTMLStencilElement {
     }
     var HTMLQwPromoCodeElement: {
@@ -625,6 +637,7 @@ declare global {
         "qw-offers": HTMLQwOffersElement;
         "qw-placeholder": HTMLQwPlaceholderElement;
         "qw-price": HTMLQwPriceElement;
+        "qw-price-calendar": HTMLQwPriceCalendarElement;
         "qw-promo-code": HTMLQwPromoCodeElement;
         "qw-room-base-info": HTMLQwRoomBaseInfoElement;
         "qw-room-basket": HTMLQwRoomBasketElement;
@@ -826,6 +839,13 @@ declare namespace LocalJSX {
         "qwPriceCrossedPrice"?: string;
         "qwPriceMainPrice"?: string;
         "qwPriceRoomId"?: number;
+    }
+    interface QwPriceCalendar {
+        "language"?: SessionDisplay['culture'];
+        "onQwPriceCalendarChangeDates"?: (event: CustomEvent<'left' | 'right'>) => void;
+        "rangeDate"?: Date[];
+        "rangeDateSession"?: Date[];
+        "roomId"?: RoomModel['roomId'];
     }
     interface QwPromoCode {
         "qwPromoCodeLabel"?: string;
@@ -1030,6 +1050,7 @@ declare namespace LocalJSX {
         "qw-offers": QwOffers;
         "qw-placeholder": QwPlaceholder;
         "qw-price": QwPrice;
+        "qw-price-calendar": QwPriceCalendar;
         "qw-promo-code": QwPromoCode;
         "qw-room-base-info": QwRoomBaseInfo;
         "qw-room-basket": QwRoomBasket;
@@ -1084,6 +1105,7 @@ declare module "@stencil/core" {
             "qw-offers": LocalJSX.QwOffers & JSXBase.HTMLAttributes<HTMLQwOffersElement>;
             "qw-placeholder": LocalJSX.QwPlaceholder & JSXBase.HTMLAttributes<HTMLQwPlaceholderElement>;
             "qw-price": LocalJSX.QwPrice & JSXBase.HTMLAttributes<HTMLQwPriceElement>;
+            "qw-price-calendar": LocalJSX.QwPriceCalendar & JSXBase.HTMLAttributes<HTMLQwPriceCalendarElement>;
             "qw-promo-code": LocalJSX.QwPromoCode & JSXBase.HTMLAttributes<HTMLQwPromoCodeElement>;
             "qw-room-base-info": LocalJSX.QwRoomBaseInfo & JSXBase.HTMLAttributes<HTMLQwRoomBaseInfoElement>;
             "qw-room-basket": LocalJSX.QwRoomBasket & JSXBase.HTMLAttributes<HTMLQwRoomBasketElement>;

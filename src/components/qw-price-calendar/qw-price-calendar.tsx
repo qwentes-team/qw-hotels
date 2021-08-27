@@ -1,6 +1,7 @@
 import {Component, Host, h, Prop, State, Event, EventEmitter} from '@stencil/core';
 import {DateUtil, RoomModel, SessionDisplay} from "@qwentes/booking-state-manager";
 import {QwButton} from "../shared/qw-button/qw-button";
+import {combineLatest, Observable, Subscription} from "rxjs";
 
 @Component({
   tag: 'qw-price-calendar',
@@ -73,14 +74,27 @@ export class QwPriceCalendar {
     return DateUtil.formatCalendarDate(date, this.language);
   }
 
-  componentWillLoad() {
-    console.log('rangeDate', this.rangeDate)
-    const pricesPromise = this.rangeDate.map((date) => this.getPriceForDate(date))
-    Promise.all(pricesPromise).then((prices) => {
+  private priceSub$: Subscription;
+
+  private hydratePrices() {
+    const prices$ = this.rangeDate.map((date) => this.getPriceForDate(date));
+    this.priceSub$?.unsubscribe();
+    this.priceSub$ = combineLatest(prices$).subscribe((prices: string[]) => {
       this.priceRange = prices;
       this.loading = false;
-    })
-    console.log('priceRange', this.priceRange)
+    });
+  }
+
+  componentWillLoad() {
+    this.hydratePrices();
+  }
+
+  componentShouldUpdate() {
+    this.hydratePrices();
+  }
+
+  disconnectedCallback() {
+    this.priceSub$.unsubscribe();
   }
 
   render() {
@@ -150,11 +164,21 @@ const buildUrl = (date: string) => {
   })
 }
 
-const fetchPrice = (date: string) => {
-  return fetch(buildUrl(date))
-    .then((req) => req.json())
-    .then(
-      // That data.data[0].pricePerNight contains the price for this calendar cell :)
-      (data) => data.data[0].pricePerNight ?? '-'
-    );
-}
+// const fetchPrice = (date: string) => {
+//   return fetch(buildUrl(date))
+//     .then((req) => req.json())
+//     .then(
+//       // That data.data[0].pricePerNight contains the price for this calendar cell :)
+//       (data) => data.data[0].pricePerNight ?? '-'
+//     );
+// }
+
+const fetchPrice = (date:string) => new Observable((observer) => {
+  fetch(buildUrl(date))
+    .then(response => response.json())
+    .then(res => {
+      observer.next(res.data[0].pricePerNight ?? '-');
+      observer.complete();
+    })
+    .catch(err => observer.error(err));
+});
