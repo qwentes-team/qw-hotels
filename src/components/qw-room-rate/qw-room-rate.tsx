@@ -18,6 +18,7 @@ import {
 import {switchMap} from 'rxjs/operators';
 import {QwCounterId, QwRoomListType} from '../../index';
 import {QwWrapInDiv} from '../shared/qw-wrap-in-div/qw-wrap-in-div';
+import {QwSelect} from "../shared/qw-select/qw-select";
 
 export interface QwRoomRateAddedToBasketEmitter {
   basket: BasketModel;
@@ -58,6 +59,7 @@ export class QwRoomRate {
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
     this.quantity = event.detail.value;
     this.qwRoomRateCounterChanged.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
+    console.log('counter emitter', this.quantity, this.qwRoomRateRate.rateId);
   }
 
   public componentWillLoad() {
@@ -72,11 +74,11 @@ export class QwRoomRate {
   }
 
   addToBasket = (isInPackagePopup?: boolean) => {
-    // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1
-    if (this.quantity === 0) {
+    // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1 -- ANNULLATA
+    /*if (this.quantity === 0) {
       this.quantity = 1;
       this.qwRoomRateDefaultToOne = true;
-    }
+    }*/
     this.qwRoomRateIsAddingToBasket = true;
     BasketService.setRoomInBasket({
       roomId: this.qwRoomRateRoomId,
@@ -172,6 +174,24 @@ export class QwRoomRate {
       || (this.qwRoomRateRate.description.qualifier.value as any) === RateQualifierType.SelfCateringPackage
   }
 
+  private getQuantityOptions(data) {
+    return Array.from(Array(data + 1).keys());
+  }
+
+  private createAvailableQuantityOptions() {
+    return this.qwRoomRateRate.availableQuantity < this.numberOfGuests ? this.getQuantityOptions(this.qwRoomRateRate.availableQuantity) : this.getQuantityOptions(this.numberOfGuests);
+  }
+
+  public hasNotAvailability() {
+    return this.qwRoomRateRate.availableQuantity === 0;
+  }
+
+  private onChangeQuantity(e) {
+    this.quantity = parseInt(e.target.value);
+    console.log(this.quantity)
+    this.qwRoomRateCounterChanged.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
+  }
+
   render() {
     return (
       <Host class={`
@@ -216,9 +236,29 @@ export class QwRoomRate {
             </div>
           </div>
 
+          <div
+            class={`qw-room-rate__counter-wrapper ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}\``}>
+            <QwSelect
+              QwSelectDisabled={this.hasNotAvailability()}
+              QwSelectLabel={`${this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} ${Language.getTranslation('available')}`}
+              QwSelectName={'quantity'}
+              QwSelectOnChange={(e) => this.onChangeQuantity(e)}>
+              <option value="0" selected={this.quantity === 0}>{Language.getTranslation('selectQuantity')}</option>
+              {this.createAvailableQuantityOptions().map((option) => {
+                if (option !== 0) {
+                  return <option
+                    selected={this.quantity === 0 ? this.qwRoomRateRate.selectedQuantity === option : this.quantity === option}
+                    value={option}>
+                    {option}</option>;
+                }
+              })}
+              {this.qwRoomRateRate.selectedQuantity > 0 && <option value="0">{Language.getTranslation('removeFromCart')}</option>}
+            </QwSelect>
+          </div>
+
           {this.qwRoomRateRate && <QwButton
             QwButtonClass="qw-button--primary qw-button--add-to-basket"
-            QwButtonLabel={Language.getTranslation('addToCart')}
+            QwButtonLabel={this.qwRoomRateRate.selectedQuantity > 0 ? Language.getTranslation('updateQuantity') : Language.getTranslation('addToCart')}
             QwButtonDisabled={this.isAddToCartDisabled()}
             QwButtonOnClick={() => this.addToBasket()}/>}
         </QwWrapInDiv>

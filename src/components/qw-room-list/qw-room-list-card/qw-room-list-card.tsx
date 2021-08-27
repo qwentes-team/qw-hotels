@@ -165,7 +165,13 @@ export class QwRoomListCard {
                 </div>}
               </div>
               <div class="content-carousel">
-                <qw-carousel qwCarouselImagesUrl={this.qwRoomListCardCarouselImages}></qw-carousel>
+                {(!this.qwRoomListCardShowCarouselInCard || this.qwRoomListCardCarouselImages.length === 1) && <qw-image
+                  qwImageTransformationOptions={this.qwRoomListCardImageTransformationOptions}
+                  qwImageUrl={this.qwRoomListCardImage}
+                  qwImageAlt={this.qwRoomListCardTitle}/>}
+                {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && this.qwRoomListCardCarouselImages.length > 1 && <div>
+                  <qw-carousel qwCarouselImagesUrl={this.qwRoomListCardCarouselImages}></qw-carousel>
+                </div>}
               </div>
             </div>
           </div>}
