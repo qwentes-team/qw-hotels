@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomImageMetadata, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
 import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/model/room.interface";
-import { QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
+import { PriceCalendarContext, QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
 import { Transformation } from "cloudinary-core";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
 import { QwExtraCounting, QwExtraEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
@@ -161,6 +161,7 @@ export namespace Components {
         "qwPriceRoomId"?: number;
     }
     interface QwPriceCalendar {
+        "context": PriceCalendarContext;
         "language": SessionDisplay['culture'];
         "rangeDate": Date[];
         "rangeDateSession": Date[];
@@ -238,6 +239,7 @@ export namespace Components {
         "qwRoomListCardOnProceedToCheckout": () => void;
         "qwRoomListCardPlaceholders": string;
         "qwRoomListCardPrice": string;
+        "qwRoomListCardPriceCalendarContext": PriceCalendarContext;
         "qwRoomListCardPrices": {[dateString: string]: MoneyPrice};
         "qwRoomListCardRangeDate": Date[];
         "qwRoomListCardRangeDateSession": Date[];
@@ -841,11 +843,12 @@ declare namespace LocalJSX {
         "qwPriceRoomId"?: number;
     }
     interface QwPriceCalendar {
+        "context"?: PriceCalendarContext;
         "language"?: SessionDisplay['culture'];
         "onQwPriceCalendarChangeDates"?: (event: CustomEvent<'left' | 'right'>) => void;
         "rangeDate"?: Date[];
         "rangeDateSession"?: Date[];
-        "roomId"?: RoomModel['roomId'];
+        "roomId": RoomModel['roomId'];
     }
     interface QwPromoCode {
         "qwPromoCodeLabel"?: string;
@@ -929,6 +932,7 @@ declare namespace LocalJSX {
         "qwRoomListCardOnProceedToCheckout"?: () => void;
         "qwRoomListCardPlaceholders"?: string;
         "qwRoomListCardPrice"?: string;
+        "qwRoomListCardPriceCalendarContext"?: PriceCalendarContext;
         "qwRoomListCardPrices"?: {[dateString: string]: MoneyPrice};
         "qwRoomListCardRangeDate"?: Date[];
         "qwRoomListCardRangeDateSession"?: Date[];

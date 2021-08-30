@@ -11,6 +11,7 @@ import {
   SessionDisplay,
 } from '@qwentes/booking-state-manager';
 import {
+  PriceCalendarContext,
   QwChangeRoomEvent,
   QwCounterId,
   QwRoomBaseInfoGuestType,
@@ -71,6 +72,7 @@ export class QwRoomListCard {
   @Prop() qwRoomListCardRateListTitle: string;
   @Prop() qwRoomListCardShowCarouselInCard: boolean = false;
   @Prop() qwRoomListCardServices = [];
+  @Prop() qwRoomListCardPriceCalendarContext: PriceCalendarContext;
   @State() qwBasketIsAccommodationSatisfy: boolean;
   @State() showRoomDetails: boolean = false;
   @Event() qwMoreInformation: EventEmitter<any>;
@@ -89,6 +91,11 @@ export class QwRoomListCard {
 
   @Listen('qwWeekCalendarChangeDates')
   public weekDatesChanged(event: CustomEvent<QwWeekCalendarDirection>) {
+    this.qwRoomListCardOnChangeWeekDates(event.detail);
+  }
+
+  @Listen('qwPriceCalendarChangeDates')
+  public priceDatesChanged(event: CustomEvent<any>) {
     this.qwRoomListCardOnChangeWeekDates(event.detail);
   }
 
@@ -215,13 +222,19 @@ export class QwRoomListCard {
               <div class="qw-room-list-card__prices-average">
                 {Language.getTranslation('bestPrices')} - {Language.getTranslation('averagePerNight')}: {this.qwRoomListCardAveragePrice || RoomDefaultLabel.NoPrice}
               </div>
-              <qw-week-calendar
-                qwWeekCalendarRangeDate={this.qwRoomListCardRangeDate}
-                qwWeekCalendarRangeDateSession={this.qwRoomListCardRangeDateSession}
-                qwWeekCalendarPricesByRoom={this.qwRoomListCardPrices}
-                qwWeekCalendarIsLoading={this.qwRoomListCardIsLoadingPrice}
-                qwWeekCalendarLanguage={this.qwRoomListCardLanguage}
-                qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>
+              {/*<qw-week-calendar*/}
+              {/*  qwWeekCalendarRangeDate={this.qwRoomListCardRangeDate}*/}
+              {/*  qwWeekCalendarRangeDateSession={this.qwRoomListCardRangeDateSession}*/}
+              {/*  qwWeekCalendarPricesByRoom={this.qwRoomListCardPrices}*/}
+              {/*  qwWeekCalendarIsLoading={this.qwRoomListCardIsLoadingPrice}*/}
+              {/*  qwWeekCalendarLanguage={this.qwRoomListCardLanguage}*/}
+              {/*  qwWeekCalendarSelectedRoomId={this.qwRoomListCardId}/>*/}
+              <qw-price-calendar
+                rangeDate={this.qwRoomListCardRangeDate}
+                rangeDateSession={this.qwRoomListCardRangeDateSession}
+                language={this.qwRoomListCardLanguage}
+                context={this.qwRoomListCardPriceCalendarContext}
+                roomId={this.qwRoomListCardId} />
             </div>}
 
             {!this.qwRoomListCardBasketIsEmpty

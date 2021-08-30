@@ -1,7 +1,14 @@
-import {Component, Host, h, Prop, State, Event, EventEmitter} from '@stencil/core';
-import {DateUtil, RoomModel, SessionDisplay} from "@qwentes/booking-state-manager";
+import {Component, Host, h, Prop, State, Event, EventEmitter, Watch} from '@stencil/core';
+import {
+  DateUtil,
+  RoomModel,
+  SessionDisplay,
+  WebsdkQuotationService,
+  WebskdQuotationParams
+} from "@qwentes/booking-state-manager";
 import {QwButton} from "../shared/qw-button/qw-button";
-import {combineLatest, Observable, Subscription} from "rxjs";
+import {combineLatest, Subscription} from "rxjs";
+import {PriceCalendarContext} from "../../index";
 
 @Component({
   tag: 'qw-price-calendar',
@@ -9,26 +16,11 @@ import {combineLatest, Observable, Subscription} from "rxjs";
   shadow: false,
 })
 export class QwPriceCalendar {
-  @Prop() rangeDate: Date[] = [
-    new Date(2021,7,26),
-    new Date(2021,7,27),
-    new Date(2021,7,28),
-    new Date(2021,7,29),
-    new Date(2021,7,30),
-    new Date(2021,7,31),
-    new Date(2021,8,2),
-    new Date(2021,8,3),
-    new Date(2021,8,4),
-  ];
-  @Prop() rangeDateSession: Date[] = [
-    new Date(2021,7,26),
-    new Date(2021,7,27),
-    new Date(2021,7,28),
-    new Date(2021,7,29),
-    new Date(2021,7,30),
-  ];
+  @Prop() rangeDate: Date[] = [new Date()];
+  @Prop() rangeDateSession: Date[] = [new Date()];
   @Prop() language: SessionDisplay['culture'];
-  @Prop() roomId: RoomModel['roomId'];
+  @Prop() roomId!: RoomModel['roomId'];
+  @Prop() context: PriceCalendarContext;
   @Event() qwPriceCalendarChangeDates: EventEmitter<'left' | 'right'>;
 
   @State() priceRange: string[];
@@ -36,8 +28,7 @@ export class QwPriceCalendar {
 
   private getPriceForDate(date: Date) {
     const stringDate = DateUtil.getDateStringFromDate(date);
-    // TODO usare state manager
-    return fetchPrice(stringDate);
+    return this.fetchPrice(stringDate);
   }
 
   private isFirstDateInSession(date: Date) {
@@ -56,7 +47,6 @@ export class QwPriceCalendar {
     const newDate = new Date();
     const today = DateUtil.removeTimeFromDate(newDate);
     const firstDateInRange = DateUtil.removeTimeFromDate(this.rangeDate[0]);
-    console.log('disable first', today >= firstDateInRange)
     return today >= firstDateInRange;
   }
 
@@ -77,6 +67,7 @@ export class QwPriceCalendar {
   private priceSub$: Subscription;
 
   private hydratePrices() {
+    this.priceRange = [];
     const prices$ = this.rangeDate.map((date) => this.getPriceForDate(date));
     this.priceSub$?.unsubscribe();
     this.priceSub$ = combineLatest(prices$).subscribe((prices: string[]) => {
@@ -85,16 +76,32 @@ export class QwPriceCalendar {
     });
   }
 
+  private createParamsForRequest(date: string) {
+    return {
+      arrivalDate: date,
+      nights: 1,
+      roomRestriction: this.roomId,
+      currency: this.context.currency,
+      adults: this.context.adults,
+    }
+  }
+
+  private fetchPrice(date: string) {
+    const params = this.createParamsForRequest(date);
+    return WebsdkQuotationService.getNightQuotation(params as WebskdQuotationParams)
+  }
+
   componentWillLoad() {
     this.hydratePrices();
   }
 
-  componentShouldUpdate() {
+  @Watch('rangeDate')
+  onNameChanged() {
     this.hydratePrices();
   }
 
   disconnectedCallback() {
-    this.priceSub$.unsubscribe();
+    this.priceSub$?.unsubscribe();
   }
 
   render() {
@@ -114,7 +121,7 @@ export class QwPriceCalendar {
           }>
             <div class="qw-price-calendar__block-date">{`${this.formatDate(date)}`}</div>
             <div class="qw-price-calendar__block-price" title={this.priceRange[index]}>
-              {this.priceRange[index]}
+              {this.priceRange[index] ?? '--'}
             </div>
           </div>;
         })}
@@ -126,59 +133,4 @@ export class QwPriceCalendar {
       </Host>
     );
   }
-
 }
-
-const WEBSDK_TOKEN  = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJib29raW5nRW5naW5lUmVmZXJlbmNlIjoiSko3WSIsImhvdGVsSWQiOiIyNDE4MiIsImdyb3VwSWQiOiIxNDgxNyIsInJlZmVyZW5jZVJhdGVDb2RlIjoiQkIiLCJkaXNwbGF5TmFtZSI6IkdyYW5kLUhvdGVsLUl0YWx5IiwibmJmIjoxNTg0NDU4Mjc4LCJleHAiOjI1MzQwMjMwMDgwMCwiaWF0IjoxNTg0NDU4Mjc4LCJpc3MiOiJBdmFpbHBybyBBUEkgTWFuYWdlciIsImF1ZCI6ImQtZWRnZSJ9.grqf869JR4wLntg3ZVdyA0zUCzx_tr97txzphfueDLKOJBVGbX8df_Kw-UsTd42e8LWqnV82DbjVo4xgxCUvSw';
-const WEBSDK_HOTEL_ID = 'JJ7Y-24182';
-
-// Utility function to build the URL query string
-const serialize = function(obj) {
-  var str = [];
-  for (var p in obj)
-    if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-    }
-  return str.join("&");
-}
-
-// To simplify the example, this is the context, given the session, the current date of calendar cell, room ID, rate ID, adults, children, accessCode in the session
-const context  =  { date: '2021-09-12', adults: 2, children: 1, infants: 0, roomId: 103252, rateName: 291308, accessCode: '', currency: 'EUR' }
-
-let childrenAges = [];
-for (let i = 0; i< context.children; i++) { childrenAges.push(12); }
-for (let i = 0; i< context.infants; i++) { childrenAges.push(0); }
-
-const buildUrl = (date: string) => {
-  return 'https://websdk.d-edge.com/quotation?' + serialize({
-    arrivalDate: date,
-    property: WEBSDK_HOTEL_ID,
-    _authCode:WEBSDK_TOKEN,
-    nights: 1,
-    roomRestriction: context.roomId,
-    currency: context.currency,
-    rateName: context.rateName,
-    adults: context.adults,
-    //childrenAges: childrenAges.join(','),
-    // accessCode: context.accessCode
-  })
-}
-
-// const fetchPrice = (date: string) => {
-//   return fetch(buildUrl(date))
-//     .then((req) => req.json())
-//     .then(
-//       // That data.data[0].pricePerNight contains the price for this calendar cell :)
-//       (data) => data.data[0].pricePerNight ?? '-'
-//     );
-// }
-
-const fetchPrice = (date:string) => new Observable((observer) => {
-  fetch(buildUrl(date))
-    .then(response => response.json())
-    .then(res => {
-      observer.next(res.data[0].pricePerNight ?? '-');
-      observer.complete();
-    })
-    .catch(err => observer.error(err));
-});
