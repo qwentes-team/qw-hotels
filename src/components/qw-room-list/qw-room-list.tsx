@@ -1,9 +1,31 @@
 import {Component, Event, EventEmitter, h, Host, Listen, Prop, State} from '@stencil/core';
 import {
-  BasketHelper, BasketModel, BasketService, BasketWithPrice$, DateFormat, DateUtil, Language,
-  MONEY_SYMBOLS, MoneyPrice, PricesForStayPeriod, RateInformation, RoomAvailability,
-  RoomBasketModel, RoomDefaultLabel, RoomHelper, RoomIsLoading$, RoomLoaded$, RoomModel, RoomService,
-  SessionDisplay, SessionHelper, SessionIsLoading$, SessionLoaded$, SessionModel, SessionService, SessionStayPeriod,
+  BasketHelper,
+  BasketModel,
+  BasketService,
+  BasketWithPrice$,
+  DateFormat,
+  DateUtil,
+  Language,
+  MONEY_SYMBOLS,
+  MoneyPrice,
+  PricesForStayPeriod,
+  RateInformation,
+  RoomAvailability,
+  RoomBasketModel,
+  RoomDefaultLabel,
+  RoomHelper,
+  RoomIsLoading$,
+  RoomLoaded$,
+  RoomModel,
+  RoomService,
+  SessionDisplay,
+  SessionHelper,
+  SessionIsLoading$,
+  SessionLoaded$,
+  SessionModel,
+  SessionService,
+  SessionStayPeriod,
 } from '@qwentes/booking-state-manager';
 import {first, switchMap} from 'rxjs/operators';
 import {of, zip} from 'rxjs';
@@ -276,6 +298,21 @@ export class QwRoomList {
       .subscribe((newRoomPrices) => this.getRoomsSearchForRangeSuccess(newRoomPrices));
   };
 
+  priceCalendarChangeRange = (e: 'left' | 'right') => {
+    const dates = document.querySelectorAll('.qw-price-calendar__block-date');
+    const prices = document.querySelectorAll('.qw-price-calendar__block-price');
+    const selectedBlocks = document.querySelectorAll('.qw-price-calendar__block--selected');
+    dates.forEach(d => d.classList.remove('hide'));
+    prices.forEach(d => d.classList.remove('hide'));
+    selectedBlocks.forEach(d => d.classList.remove('hide'));
+
+    const range = e === 'right'
+      ? this.getNextRangeOfDates(this.rangeDateString[this.rangeDateString.length - 1])
+      : this.getPrevRangeOfDates(this.rangeDateString[0]);
+    console.log('new range', DateUtil.getDatesRange(new Date(range.arrivalDate), new Date(range.departureDate), DateFormat.String));
+    this.rangeDate = DateUtil.getDatesRange(new Date(range.arrivalDate), new Date(range.departureDate), DateFormat.Date);
+  }
+
   private getNextRangeOfDates(date: string): SessionStayPeriod {
     const firstDateMinusOne = this.initNewDate(date);
     const firstDate = DateUtil.addDaysToDate(2, firstDateMinusOne);
@@ -367,10 +404,11 @@ export class QwRoomList {
                   qwRoomListCardBaseInfoType={this.qwRoomListBaseInfoType}
                   qwRoomListCardRateHighlight={this.qwRoomListRateHighlight}
                   qwRoomListCardImageTransformationOptions={this.qwRoomListImageTransformationOptions ? JSON.parse(this.qwRoomListImageTransformationOptions) : {}}
+                  qwRoomListCardPriceCalendarContext={{currency: this.session?.display?.currency, adults: this.session.context.guests.adults}}
                   qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
                   qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
                   qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}
-                  qwRoomListCardOnChangeWeekDates={(e) => this.weekDatesChanged(e)}
+                  qwRoomListCardOnChangeWeekDates={(e) => this.priceCalendarChangeRange(e)}
                   qwRoomListCardOnAddedToBasket={(e) => this.onAddedToBasket(e)}
                   qwRoomListCardOnProceedToCheckout={() => this.clickButton(QwRoomListCardButtonType.Checkout, r)}/>
               </div>;
