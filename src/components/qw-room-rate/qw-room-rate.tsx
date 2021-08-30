@@ -243,7 +243,7 @@ export class QwRoomRate {
               QwSelectLabel={`${this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} ${Language.getTranslation('available')}`}
               QwSelectName={'quantity'}
               QwSelectOnChange={(e) => this.onChangeQuantity(e)}>
-              <option value="0" selected={this.quantity === 0}>{"Language.getTranslation('selectQuantity')"}</option>
+              <option value="0" selected={this.quantity === 0}>{Language.getTranslation('selectQuantity')}</option>
               {this.createAvailableQuantityOptions().map((option) => {
                 if (option !== 0) {
                   return <option
@@ -258,7 +258,7 @@ export class QwRoomRate {
 
           {this.qwRoomRateRate && <QwButton
             QwButtonClass="qw-button--primary qw-button--add-to-basket"
-            QwButtonLabel={this.qwRoomRateRate.selectedQuantity > 0 ? "Language.getTranslation('updateQuantity')" : Language.getTranslation('addToCart')}
+            QwButtonLabel={this.qwRoomRateRate.selectedQuantity > 0 ? Language.getTranslation('updateQuantity') : Language.getTranslation('addToCart')}
             QwButtonDisabled={this.isAddToCartDisabled()}
             QwButtonOnClick={() => this.addToBasket()}/>}
         </QwWrapInDiv>
