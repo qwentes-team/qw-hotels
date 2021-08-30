@@ -224,7 +224,7 @@ export class QwRoomRate {
 
         <QwWrapInDiv wrapIt={this.isCardType()} wrapperClass="qw-room-rate__counter-add-to-basket">
 
-          <div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
+          {/*<div class={`qw-room-rate__counter ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}`}>
             <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
             {this.qwRoomRateRate && <qw-counter
               qwCounterId={QwCounterId.QwRoomRateCounter}
@@ -234,7 +234,7 @@ export class QwRoomRate {
             <div class="qw-room-rate__counter-availability">
               {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
             </div>
-          </div>
+          </div>*/}
 
           <div
             class={`qw-room-rate__counter-wrapper ${this.isQuantitySelected() ? '' : 'qw-room-rate__counter--no-quantity'}\``}>
