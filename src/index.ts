@@ -113,6 +113,24 @@ export interface PriceCalendarContext {
 
 console.log('version 1.1.25');
 
+
+// test errori webskd
+const once = (fn: any) => {
+  let executed = false;
+  return (...args) => {
+    if(!executed) {
+      fn(...args);
+      executed = true;
+    }
+  }
+}
+
+const alertError = (m: any) => alert(m);
+const alertErrorOnce  = once(alertError);
+
+
+window.addEventListener('booking-state-manager_websdk-error', (e: any) => alertErrorOnce(e.detail.message));
+
 //
 // SessionService.getSession().pipe(
 //   switchMap((session: SessionModel) => {

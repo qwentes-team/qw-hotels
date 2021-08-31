@@ -309,8 +309,12 @@ export class QwRoomList {
     const range = e === 'right'
       ? this.getNextRangeOfDates(this.rangeDateString[this.rangeDateString.length - 1])
       : this.getPrevRangeOfDates(this.rangeDateString[0]);
-    console.log('new range', DateUtil.getDatesRange(new Date(range.arrivalDate), new Date(range.departureDate), DateFormat.String));
-    this.rangeDate = DateUtil.getDatesRange(new Date(range.arrivalDate), new Date(range.departureDate), DateFormat.Date);
+
+    const dayToRemoveToStartDate = range.arrivalDate <= this.todayString ? 0 : -1;
+    this.startDate = DateUtil.addDaysToDate(dayToRemoveToStartDate, this.initNewDate(range.arrivalDate));
+    this.endDate = DateUtil.addDaysToDate(6, this.initNewDate(this.startDate));
+    this.rangeDate = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.Date);
+    this.rangeDateString = DateUtil.getDatesRange(this.startDate, this.endDate, DateFormat.String);
   }
 
   private getNextRangeOfDates(date: string): SessionStayPeriod {
