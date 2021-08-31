@@ -10,7 +10,7 @@ import {QwButton} from "../shared/qw-button/qw-button";
 import {combineLatest, Subscription} from "rxjs";
 import {PriceCalendarContext} from "../../index";
 
-const showNumberOrDefault = (s: string) => isNaN(Number(s)) ? '--' : s;
+const showNumberOrDefault = (s: any) => isNaN(Number(s)) ? '--' : s;
 
 @Component({
   tag: 'qw-price-calendar',
