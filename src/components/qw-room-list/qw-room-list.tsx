@@ -47,7 +47,7 @@ const mockRoomsSkeleton = {roomId: 1, pictures: [], summary: []} as any;
   shadow: false,
 })
 export class QwRoomList {
-  @Prop() qwRoomListCalendarType: QwRoomListCalendarType = QwRoomListCalendarType.WebSdk;
+  @Prop() qwRoomListCalendarType: QwRoomListCalendarType = QwRoomListCalendarType.Default;
   @Prop() qwRoomListType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomListFilterRoomsWith: string;
   @Prop() qwRoomListShowOnlyNames: boolean = false;
