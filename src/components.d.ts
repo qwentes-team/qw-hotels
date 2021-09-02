@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BasketModel, MoneyPrice, PricesForStayPeriod, QuoteCreateBody, Rate, RateInformation, RoomBasketModel, RoomImageMetadata, RoomModel, SessionDisplay, SessionGuests, SessionModel, SessionStayPeriod } from "@qwentes/booking-state-manager";
 import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/model/room.interface";
-import { PriceCalendarContext, QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
+import { PriceCalendarContext, QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCalendarType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
 import { Transformation } from "cloudinary-core";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
 import { QwExtraCounting, QwExtraEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
@@ -197,6 +197,7 @@ export namespace Components {
     }
     interface QwRoomList {
         "qwRoomListBaseInfoType": QwRoomBaseInfoType;
+        "qwRoomListCalendarType": QwRoomListCalendarType;
         "qwRoomListExcludeRooms": string;
         "qwRoomListFilterRoomsWith": string;
         "qwRoomListImageTransformationOptions": string;
@@ -218,6 +219,7 @@ export namespace Components {
         "qwRoomListCardBaseInfoType": QwRoomBaseInfoType;
         "qwRoomListCardBasketIsEmpty": boolean;
         "qwRoomListCardBasketRoom": RoomBasketModel;
+        "qwRoomListCardCalendarType": QwRoomListCalendarType;
         "qwRoomListCardCarouselImages": RoomImageMetadata[];
         "qwRoomListCardCrossedOutPrice": string;
         "qwRoomListCardDescription": string;
@@ -889,6 +891,7 @@ declare namespace LocalJSX {
         "onQwRoomListClickRoom"?: (event: CustomEvent<{type: QwRoomListCardButtonType, room: RoomModel}>) => void;
         "onQwRoomListOnLoad"?: (event: CustomEvent<{session: SessionModel, listRooms: RoomModel[]}>) => void;
         "qwRoomListBaseInfoType"?: QwRoomBaseInfoType;
+        "qwRoomListCalendarType"?: QwRoomListCalendarType;
         "qwRoomListExcludeRooms"?: string;
         "qwRoomListFilterRoomsWith"?: string;
         "qwRoomListImageTransformationOptions"?: string;
@@ -911,6 +914,7 @@ declare namespace LocalJSX {
         "qwRoomListCardBaseInfoType"?: QwRoomBaseInfoType;
         "qwRoomListCardBasketIsEmpty"?: boolean;
         "qwRoomListCardBasketRoom"?: RoomBasketModel;
+        "qwRoomListCardCalendarType"?: QwRoomListCalendarType;
         "qwRoomListCardCarouselImages"?: RoomImageMetadata[];
         "qwRoomListCardCrossedOutPrice"?: string;
         "qwRoomListCardDescription"?: string;

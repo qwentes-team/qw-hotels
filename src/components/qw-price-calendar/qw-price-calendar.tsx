@@ -1,6 +1,6 @@
 import {Component, Host, h, Prop, State, Event, EventEmitter, Watch} from '@stencil/core';
 import {
-  DateUtil,
+  DateUtil, GetNightQuotationData, RoomDefaultLabel,
   RoomModel,
   SessionDisplay,
   WebsdkQuotationService,
@@ -10,7 +10,7 @@ import {QwButton} from "../shared/qw-button/qw-button";
 import {combineLatest, Subscription} from "rxjs";
 import {PriceCalendarContext} from "../../index";
 
-const showNumberOrDefault = (s: any) => isNaN(Number(s)) ? '--' : s;
+const showNumberOrDefault = (s: any) => isNaN(Number(s)) ? RoomDefaultLabel.NoPrice : s;
 
 @Component({
   tag: 'qw-price-calendar',
@@ -26,6 +26,7 @@ export class QwPriceCalendar {
   @Event() qwPriceCalendarChangeDates: EventEmitter<'left' | 'right'>;
 
   @State() priceRange: string[];
+  @State() currenciesHtml: string[];
   @State() loading = true;
 
   private getPriceForDate(date: Date) {
@@ -72,8 +73,9 @@ export class QwPriceCalendar {
     this.priceRange = [];
     const prices$ = this.rangeDate.map((date) => this.getPriceForDate(date));
     this.priceSub$?.unsubscribe();
-    this.priceSub$ = combineLatest(prices$).subscribe((prices: string[]) => {
-      this.priceRange = prices;
+    this.priceSub$ = combineLatest(prices$).subscribe((prices: GetNightQuotationData[]) => {
+      this.priceRange = prices.map(p => p.price.toString());
+      this.currenciesHtml = prices.map(p => p.currencyHtml);
       this.loading = false;
     });
   }
@@ -123,6 +125,7 @@ export class QwPriceCalendar {
           }>
             <div class="qw-price-calendar__block-date">{`${this.formatDate(date)}`}</div>
             <div class="qw-price-calendar__block-price" title={this.priceRange[index]}>
+              <span innerHTML={this.currenciesHtml[index] || ''}> </span>
               {showNumberOrDefault(this.priceRange[index])}
             </div>
           </div>;
