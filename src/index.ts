@@ -20,6 +20,12 @@ export enum QwRoomListType {
   Card = 'card',
 }
 
+export enum QwRoomListCalendarType {
+  Default = 'default',
+  WebSdk = 'websdk',
+  None = 'none',
+}
+
 export enum QwRoomBasketType {
   Classic = 'classic',
   Basic = 'basic',
