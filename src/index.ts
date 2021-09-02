@@ -115,6 +115,8 @@ export const removeTimeFromDate = (date: string) => {
 export interface PriceCalendarContext {
   adults: number;
   currency: string;
+  children: number;
+  infants: number;
 }
 
 console.log('version 1.1.25');
