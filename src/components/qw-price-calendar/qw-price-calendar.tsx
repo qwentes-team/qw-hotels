@@ -74,20 +74,32 @@ export class QwPriceCalendar {
     const prices$ = this.rangeDate.map((date) => this.getPriceForDate(date));
     this.priceSub$?.unsubscribe();
     this.priceSub$ = combineLatest(prices$).subscribe((prices: GetNightQuotationData[]) => {
-      this.priceRange = prices.map(p => p.price.toString());
-      this.currenciesHtml = prices.map(p => p.currencyHtml);
+      this.priceRange = prices.map(p => p?.price?.toString());
+      this.currenciesHtml = prices.map(p => p?.currencyHtml);
       this.loading = false;
     });
   }
 
+  private getChildrenAges() {
+    const childrenAges = [];
+    for (let i = 0; i< this.context.children; i++) { childrenAges.push(window.QW_HOTEL_ENV.WEBSDK_CHILDREN_AGE); }
+    for (let i = 0; i< this.context.infants; i++) { childrenAges.push(window.QW_HOTEL_ENV.WEBSDK_INFANTS_AGE); }
+    return childrenAges.join(',');
+  }
+
   private createParamsForRequest(date: string) {
-    return {
+    const params = {
       arrivalDate: date,
       nights: 1,
       roomRestriction: this.roomId,
       currency: this.context.currency,
       adults: this.context.adults,
+    };
+    const childrenAges = this.getChildrenAges();
+    if(!!childrenAges) {
+      Object.assign(params, {childrenAges})
     }
+    return params;
   }
 
   private fetchPrice(date: string) {
