@@ -30,6 +30,18 @@ export interface QwRoomRateCounterChangedEmitter {
   rateId: string;
 }
 
+export interface QwRoomTrackingDataEmitter {
+  id: number,
+  category: string,
+  name: string,
+  rate: string,
+  offerId: string,
+  price: string,
+  currency: string,
+  quantity : number,
+}
+
+
 @Component({
   tag: 'qw-room-rate',
   styleUrl: 'qw-room-rate.css',
@@ -54,6 +66,8 @@ export class QwRoomRate {
   @State() qwRoomRateShowPackageInfo: boolean = false;
   @Event() qwRoomRateAddedToBasket: EventEmitter<QwRoomRateAddedToBasketEmitter>;
   @Event() qwRoomRateCounterChanged: EventEmitter<QwRoomRateCounterChangedEmitter>;
+  @Event() qwRoomAddedToBasket: EventEmitter<QwRoomTrackingDataEmitter>;
+  @Event() qwRoomRemovedFromBasket: EventEmitter<QwRoomTrackingDataEmitter>;
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
@@ -79,6 +93,7 @@ export class QwRoomRate {
       this.quantity = 1;
       this.qwRoomRateDefaultToOne = true;
     }*/
+
     this.qwRoomRateIsAddingToBasket = true;
     BasketService.setRoomInBasket({
       roomId: this.qwRoomRateRoomId,
@@ -88,6 +103,19 @@ export class QwRoomRate {
     }).subscribe((basket) => {
       this.qwRoomRateIsAddingToBasket = false;
       this.qwRoomRateAddedToBasket.emit({basket, roomId: this.qwRoomRateRoomId});
+
+      const trackingDataToEmit = {
+        id: this.qwRoomRateRoomId,
+        category: 'Room',
+        name: this.qwRoomRateRate.description.name,
+        rate: this.qwRoomRateRate.rateId,
+        offerId: this.qwRoomRateRate.offerId,
+        price: this.qwRoomRateRate.price.totalPrice.converted.text,
+        currency: basket.currency,
+        quantity : this.quantity,
+      }
+
+      this.quantity === 0 ? this.qwRoomRemovedFromBasket.emit(trackingDataToEmit) : this.qwRoomAddedToBasket.emit(trackingDataToEmit)
 
       if(isInPackagePopup) {
         this.qwRoomRateShowPackageInfo = false;

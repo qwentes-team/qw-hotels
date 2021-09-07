@@ -15,6 +15,16 @@ export interface QwExtraCounting {
   value: string;
 }
 
+export interface QwExtraTrackingDataEmitter {
+  id: number,
+  category: string,
+  name: string,
+  price: string,
+  currency: string,
+  quantity : string | number,
+}
+
+
 @Component({
   tag: 'qw-extra-card',
   styleUrl: 'qw-extra-card.css',
@@ -36,10 +46,13 @@ export class QwExtraCard {
   @Prop() qwExtraCardCanAddMoreExtra: boolean;
   @Prop() qwExtraCardShowCounter: boolean;
   @Prop() qwExtraShowSummary: boolean;
+  @Prop() qwExtraCardPriceCurrency: string;
   @Event() qwExtraCounterChanged: EventEmitter<QwExtraEmitter>;
   @Event() qwSingleExtraChanged: EventEmitter<QwExtraEmitter>;
   @Event() qwExtraDetails: EventEmitter<number>;
   @Event() qwQuantityExtraChanged: EventEmitter<QwExtraEmitter>;
+  @Event() qwExtraAddedToBasket: EventEmitter<QwExtraTrackingDataEmitter>;
+  @Event() qwExtraRemovedFromBasket: EventEmitter<QwExtraTrackingDataEmitter>;
   @State() isExtraInBasket: boolean = this.qwExtraCardCanAddMoreExtra;
 
   @Watch('qwExtraCardCanAddMoreExtra')
@@ -65,6 +78,15 @@ export class QwExtraCard {
     console.log(roomId);
     const nextQuantity = isInBasket ? 0 : 1;
     this.emitQwSingleExtraChanged(nextQuantity, name, roomId);
+
+    this.qwExtraRemovedFromBasket.emit({
+      id: this.qwExtraCardId,
+      category: 'Extra',
+      name: this.qwExtraCardName,
+      price: this.qwExtraCardUnitPrice,
+      currency: this.qwExtraCardPriceCurrency,
+      quantity : nextQuantity,
+    })
   }
 
 
@@ -88,6 +110,20 @@ export class QwExtraCard {
   public onClickExtra() {
     this.qwExtraShowSummary = !this.qwExtraShowSummary;
     this.qwExtraDetails.emit(this.qwExtraCardId);
+  }
+
+  public extraTrackingData(e) {
+    const trackinData = {
+      id: this.qwExtraCardId,
+      category: 'Extra',
+      name: this.qwExtraCardName,
+      price: this.qwExtraCardUnitPrice,
+      currency: this.qwExtraCardPriceCurrency,
+      quantity : e?.target?.value,
+    }
+
+    e?.target?.value == 0 ? this.qwExtraRemovedFromBasket.emit(trackinData) : this.qwExtraAddedToBasket.emit(trackinData)
+
   }
 
   render() {
@@ -127,7 +163,7 @@ export class QwExtraCard {
                 qwCounterMaxValue={this.qwExtraCardAvailability}/>*/}
               {this.qwExtraCardQuantityOptions.length !== 0 && <QwSelect
                 QwSelectName={'extraQuantity'}
-                QwSelectOnChange={(e) => this.onChangeExtraQuantitySelect(this.qwExtraCardId, e, this.qwExtraCardRoomId)}>
+                QwSelectOnChange={(e) => {this.onChangeExtraQuantitySelect(this.qwExtraCardId, e, this.qwExtraCardRoomId), this.extraTrackingData(e)}}>
                 <option value="0">{Language.getTranslation('noThanks')}</option>
                 {this.createQuantitySelectOptions(this.qwExtraCardQuantityOptions)}
               </QwSelect>}

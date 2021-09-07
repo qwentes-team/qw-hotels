@@ -123,6 +123,7 @@ export class QwExtra {
               qwExtraCardCounting={extra.counting}
               qwExtraCardUnitQuantity={extra.items[0].quantity.value}
               qwExtraCardQuantityOptions={extra.items}
+              qwExtraCardPriceCurrency={extra.price.unitPrice.converted.value.currency || '--'}
               qwExtraCardUnitPrice={extra.price.unitPrice.converted.text || extra.gratuitousnessType.text}
               qwExtraCardAvailability={this.getMaxAvailability(extra.items)}
               qwExtraCardCanAddMoreExtra={basketExtra?.selectedQuantity.value > 0}

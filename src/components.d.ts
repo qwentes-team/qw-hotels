@@ -10,12 +10,12 @@ import { RoomMetadata } from "@qwentes/booking-state-manager/src/feature/room/mo
 import { PriceCalendarContext, QwCalendarGuestInlineInputType, QwChangeRoomEvent, QwCurrencyType, QwLanguageType, QwOffersOrderType, QwRoomBaseInfoGuestType, QwRoomBaseInfoType, QwRoomBasketType, QwRoomListCardButtonType, QwRoomListOrderType, QwRoomListType, QwWeekCalendarDirection } from "./index";
 import { Transformation } from "cloudinary-core";
 import { QwCounterEmitter } from "./components/shared/qw-counter/qw-counter";
-import { QwExtraCounting, QwExtraEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
+import { QwExtraCounting, QwExtraEmitter, QwExtraTrackingDataEmitter } from "./components/qw-extra/qw-extra-card/qw-extra-card";
 import { QwInputEmitter } from "./components/shared/qw-input/qw-input";
 import { QwOfferClickEmitter } from "./components/qw-offers/qw-offers";
 import { QwRoomDetailAddToBasketEmitter } from "./components/qw-room-detail/qw-room-detail";
 import { QwRoomRateAddedToBasketEmitter } from "./components/qw-room-rate/qw-room-rate";
-import { QwRoomRateAddedToBasketEmitter as QwRoomRateAddedToBasketEmitter1, QwRoomRateCounterChangedEmitter } from "./components/qw-room-rate/qw-room-rate";
+import { QwRoomRateAddedToBasketEmitter as QwRoomRateAddedToBasketEmitter1, QwRoomRateCounterChangedEmitter, QwRoomTrackingDataEmitter } from "./components/qw-room-rate/qw-room-rate";
 import { QwInputEmitter as QwInputEmitter1 } from "./components/shared/qw-input/qw-input";
 export namespace Components {
     interface QwBasket {
@@ -101,6 +101,7 @@ export namespace Components {
         "qwExtraCardCover": string;
         "qwExtraCardId": number;
         "qwExtraCardName": string;
+        "qwExtraCardPriceCurrency": string;
         "qwExtraCardQuantityOptions": any[];
         "qwExtraCardRoomId": RoomModel['roomId'];
         "qwExtraCardSelectedQuantityValue": number;
@@ -676,7 +677,7 @@ declare namespace LocalJSX {
         "onQwBasketRoomCounterNumber"?: (event: CustomEvent<number>) => void;
     }
     interface QwBasketSummary {
-        "onQwBasketChange"?: (event: CustomEvent<BasketModel>) => void;
+        "onQwBasketChange"?: (event: CustomEvent<{basket: BasketModel, element: any, type: string}>) => void;
         "onRemoveInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
     }
     interface QwBook {
@@ -766,8 +767,10 @@ declare namespace LocalJSX {
         "qwExtraBasketType"?: QwRoomBasketType;
     }
     interface QwExtraCard {
+        "onQwExtraAddedToBasket"?: (event: CustomEvent<QwExtraTrackingDataEmitter>) => void;
         "onQwExtraCounterChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "onQwExtraDetails"?: (event: CustomEvent<number>) => void;
+        "onQwExtraRemovedFromBasket"?: (event: CustomEvent<QwExtraTrackingDataEmitter>) => void;
         "onQwQuantityExtraChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "onQwSingleExtraChanged"?: (event: CustomEvent<QwExtraEmitter>) => void;
         "qwExtraCardAvailability"?: number;
@@ -776,6 +779,7 @@ declare namespace LocalJSX {
         "qwExtraCardCover"?: string;
         "qwExtraCardId"?: number;
         "qwExtraCardName"?: string;
+        "qwExtraCardPriceCurrency"?: string;
         "qwExtraCardQuantityOptions"?: any[];
         "qwExtraCardRoomId"?: RoomModel['roomId'];
         "qwExtraCardSelectedQuantityValue"?: number;
@@ -959,8 +963,10 @@ declare namespace LocalJSX {
         "qwRoomNotificationShowPopupTime"?: number;
     }
     interface QwRoomRate {
+        "onQwRoomAddedToBasket"?: (event: CustomEvent<QwRoomTrackingDataEmitter>) => void;
         "onQwRoomRateAddedToBasket"?: (event: CustomEvent<QwRoomRateAddedToBasketEmitter>) => void;
         "onQwRoomRateCounterChanged"?: (event: CustomEvent<QwRoomRateCounterChangedEmitter>) => void;
+        "onQwRoomRemovedFromBasket"?: (event: CustomEvent<QwRoomTrackingDataEmitter>) => void;
         "qwRoomRateDefaultToOne"?: boolean;
         "qwRoomRateHighlight"?: RateInformation['code'];
         "qwRoomRateIsAddingToBasket"?: boolean;
@@ -1007,13 +1013,17 @@ declare namespace LocalJSX {
     }
     interface QwTrackingData {
         "onTrackingDataBasket"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataExtraAddedToBasket"?: (event: CustomEvent<any>) => void;
         "onTrackingDataExtraId"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataExtraRemovedFromBasket"?: (event: CustomEvent<any>) => void;
         "onTrackingDataPayment"?: (event: CustomEvent<any>) => void;
         "onTrackingDataPlugin"?: (event: CustomEvent<any>) => void;
         "onTrackingDataProperty"?: (event: CustomEvent<any>) => void;
         "onTrackingDataRateId"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataRoomAddedToBasket"?: (event: CustomEvent<any>) => void;
         "onTrackingDataRoomId"?: (event: CustomEvent<any>) => void;
         "onTrackingDataRoomList"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataRoomRemovedFromBasket"?: (event: CustomEvent<any>) => void;
     }
     interface QwWeekCalendar {
         "onQwWeekCalendarChangeDates"?: (event: CustomEvent<QwWeekCalendarDirection>) => void;

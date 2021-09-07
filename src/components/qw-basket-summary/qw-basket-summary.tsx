@@ -23,7 +23,7 @@ export class QwBasketSummary {
   @State() basketIsLoading: boolean;
   @State() sessionIsLoading: boolean;
   @Event() removeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
-  @Event() qwBasketChange: EventEmitter<BasketModel>;
+  @Event() qwBasketChange: EventEmitter<{basket: BasketModel, element: any, type: string}>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -34,8 +34,8 @@ export class QwBasketSummary {
 
     BasketWithPrice$.subscribe(basket => {
       this.basket = basket;
-      this.qwBasketChange.emit(basket);
     });
+
     SessionIsLoading$.subscribe(isLoading => this.sessionIsLoading = isLoading);
     BasketIsLoading$.subscribe(isLoading => this.basketIsLoading = isLoading);
 
@@ -62,6 +62,8 @@ export class QwBasketSummary {
   setRoomInBasket = (e: QwChangeRoomEvent) => {
     const occId = BasketHelper.getFirstOccupancyIdInBasketRoom(e.room);
     const {rateId, occupancyId} = e.room.occupancies[occId];
+    let element = e;
+    let type = 'Room';
 
     BasketService.setRoomInBasket({
       quantity: parseInt(e.quantity),
@@ -69,16 +71,20 @@ export class QwBasketSummary {
       rateId,
       occupancyId,
     }).subscribe((basket) => {
-      this.qwBasketChange.emit(basket)
+      this.qwBasketChange.emit({basket, element, type})
     });
   };
 
   setExtraInBasket = (e: QwChangeExtraEvent) => {
+    let element = e;
+    let type = 'Extra';
     BasketService.setExtraInBasket({
       extraId: e.extraId,
       quantity: parseInt(e.quantity),
       roomId: e.roomId
-    }).subscribe();
+    }).subscribe((basket) => {
+      this.qwBasketChange.emit({basket, element, type})
+    });
   };
 
   @Listen('qwCounterChangeValue')
