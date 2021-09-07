@@ -32,6 +32,7 @@ import {of, zip} from 'rxjs';
 import {
   QwChangeRoomEvent,
   QwRoomBaseInfoType,
+  QwRoomListCalendarType,
   QwRoomListCardButtonType,
   QwRoomListOrderType,
   QwRoomListType,
@@ -46,6 +47,7 @@ const mockRoomsSkeleton = {roomId: 1, pictures: [], summary: []} as any;
   shadow: false,
 })
 export class QwRoomList {
+  @Prop() qwRoomListCalendarType: QwRoomListCalendarType = QwRoomListCalendarType.Default;
   @Prop() qwRoomListType: QwRoomListType = QwRoomListType.Inline;
   @Prop() qwRoomListFilterRoomsWith: string;
   @Prop() qwRoomListShowOnlyNames: boolean = false;
@@ -377,6 +379,7 @@ export class QwRoomList {
                   qw-room-list-card--${this.qwRoomListType}
                   ${this.isLoadingData() ? 'qw-room-list-card__disabled' : ''}
                 `}
+                  qwRoomListCardCalendarType={this.qwRoomListCalendarType}
                   qwRoomListCardShowCarouselInCard={this.qwRoomListShowCarouselInCard}
                   qwRoomListCardRateListTitle={this.qwRoomListRateListTitle}
                   qwRoomListCardId={r.roomId}
@@ -408,11 +411,16 @@ export class QwRoomList {
                   qwRoomListCardBaseInfoType={this.qwRoomListBaseInfoType}
                   qwRoomListCardRateHighlight={this.qwRoomListRateHighlight}
                   qwRoomListCardImageTransformationOptions={this.qwRoomListImageTransformationOptions ? JSON.parse(this.qwRoomListImageTransformationOptions) : {}}
-                  qwRoomListCardPriceCalendarContext={{currency: this.session?.display?.currency, adults: this.session.context.guests.adults}}
+                  qwRoomListCardPriceCalendarContext={{
+                    currency: this.session?.display?.currency,
+                    adults: this.session.context.guests.adults,
+                    children: this.session.context.guests.children,
+                    infants: this.session.context.guests.infants,
+                  }}
                   qwRoomListCardOnClickBook={() => this.clickButton(QwRoomListCardButtonType.BookNow, r)}
                   qwRoomListCardOnClickView={() => this.clickButton(QwRoomListCardButtonType.ViewRoom, r)}
                   qwRoomListCardOnClickChangeDate={() => this.clickButton(QwRoomListCardButtonType.ChangeDate, r)}
-                  qwRoomListCardOnChangeWeekDates={(e) => this.priceCalendarChangeRange(e)}
+                  qwRoomListCardOnChangeWeekDates={(e) => this.qwRoomListCalendarType === QwRoomListCalendarType.WebSdk ? this.priceCalendarChangeRange(e) : this.weekDatesChanged(e)}
                   qwRoomListCardOnAddedToBasket={(e) => this.onAddedToBasket(e)}
                   qwRoomListCardOnProceedToCheckout={() => this.clickButton(QwRoomListCardButtonType.Checkout, r)}/>
               </div>;

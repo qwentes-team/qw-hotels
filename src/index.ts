@@ -20,6 +20,12 @@ export enum QwRoomListType {
   Card = 'card',
 }
 
+export enum QwRoomListCalendarType {
+  Default = 'default',
+  WebSdk = 'websdk',
+  None = 'none',
+}
+
 export enum QwRoomBasketType {
   Classic = 'classic',
   Basic = 'basic',
@@ -109,6 +115,8 @@ export const removeTimeFromDate = (date: string) => {
 export interface PriceCalendarContext {
   adults: number;
   currency: string;
+  children: number;
+  infants: number;
 }
 
 console.log('version 1.1.25');

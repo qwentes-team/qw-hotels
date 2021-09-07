@@ -216,7 +216,7 @@ export class QwRoomRate {
 
   private onChangeQuantity(e) {
     this.quantity = parseInt(e.target.value);
-    console.log(this.quantity)
+    console.log('quantity: ', this.quantity);
     this.qwRoomRateCounterChanged.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
   }
 
@@ -275,7 +275,7 @@ export class QwRoomRate {
               {this.createAvailableQuantityOptions().map((option) => {
                 if (option !== 0) {
                   return <option
-                    selected={this.quantity === 0 ? this.qwRoomRateRate.selectedQuantity === option : this.quantity === option}
+                    selected={this.qwRoomRateRate.selectedQuantity === option}
                     value={option}>
                     {option}</option>;
                 }
