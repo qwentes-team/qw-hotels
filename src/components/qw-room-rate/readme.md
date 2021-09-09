@@ -24,8 +24,10 @@
 
 | Event                      | Description | Type                                           |
 | -------------------------- | ----------- | ---------------------------------------------- |
+| `qwRoomAddedToBasket`      |             | `CustomEvent<QwRoomTrackingDataEmitter>`       |
 | `qwRoomRateAddedToBasket`  |             | `CustomEvent<QwRoomRateAddedToBasketEmitter>`  |
 | `qwRoomRateCounterChanged` |             | `CustomEvent<QwRoomRateCounterChangedEmitter>` |
+| `qwRoomRemovedFromBasket`  |             | `CustomEvent<QwRoomTrackingDataEmitter>`       |
 
 
 ## Dependencies

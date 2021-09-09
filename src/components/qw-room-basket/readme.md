@@ -42,10 +42,12 @@ graph TD;
   qw-room-list-card --> qw-price
   qw-room-list-card --> qw-error
   qw-room-list-card --> qw-week-calendar
+  qw-room-list-card --> qw-price-calendar
   qw-room-list-card --> qw-room-rates
   qw-room-list-card --> qw-counter
   qw-carousel --> qw-image
   qw-price --> qw-loading
+  qw-price-calendar --> qw-loading
   qw-room-rates --> qw-room-rate
   qw-room-rates --> qw-placeholder
   qw-room-rates --> qw-error

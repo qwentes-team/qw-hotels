@@ -7,10 +7,10 @@
 
 ## Events
 
-| Event                       | Description | Type                                               |
-| --------------------------- | ----------- | -------------------------------------------------- |
-| `qwBasketChange`            |             | `CustomEvent<BasketModel>`                         |
-| `removeInsuranceAcceptance` |             | `CustomEvent<{ insurance: any; amount: number; }>` |
+| Event                       | Description | Type                                                                                   |
+| --------------------------- | ----------- | -------------------------------------------------------------------------------------- |
+| `qwBasketChange`            |             | `CustomEvent<{ basket: BasketModel; element: any; type: string; increase: boolean; }>` |
+| `removeInsuranceAcceptance` |             | `CustomEvent<{ insurance: any; amount: number; }>`                                     |
 
 
 ## Dependencies

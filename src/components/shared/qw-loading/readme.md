@@ -17,11 +17,13 @@
 ### Used by
 
  - [qw-price](../../qw-price)
+ - [qw-price-calendar](../../qw-price-calendar)
 
 ### Graph
 ```mermaid
 graph TD;
   qw-price --> qw-loading
+  qw-price-calendar --> qw-loading
   style qw-loading fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

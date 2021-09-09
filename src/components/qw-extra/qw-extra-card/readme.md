@@ -15,6 +15,7 @@
 | `qwExtraCardCover`                 | `qw-extra-card-cover`                   |             | `string`           | `undefined` |
 | `qwExtraCardId`                    | `qw-extra-card-id`                      |             | `number`           | `undefined` |
 | `qwExtraCardName`                  | `qw-extra-card-name`                    |             | `string`           | `undefined` |
+| `qwExtraCardPriceCurrency`         | `qw-extra-card-price-currency`          |             | `string`           | `undefined` |
 | `qwExtraCardQuantityOptions`       | --                                      |             | `any[]`            | `undefined` |
 | `qwExtraCardRoomId`                | `qw-extra-card-room-id`                 |             | `number`           | `undefined` |
 | `qwExtraCardSelectedQuantityValue` | `qw-extra-card-selected-quantity-value` |             | `number`           | `0`         |
@@ -28,12 +29,14 @@
 
 ## Events
 
-| Event                    | Description | Type                          |
-| ------------------------ | ----------- | ----------------------------- |
-| `qwExtraCounterChanged`  |             | `CustomEvent<QwExtraEmitter>` |
-| `qwExtraDetails`         |             | `CustomEvent<number>`         |
-| `qwQuantityExtraChanged` |             | `CustomEvent<QwExtraEmitter>` |
-| `qwSingleExtraChanged`   |             | `CustomEvent<QwExtraEmitter>` |
+| Event                      | Description | Type                                      |
+| -------------------------- | ----------- | ----------------------------------------- |
+| `qwExtraAddedToBasket`     |             | `CustomEvent<QwExtraTrackingDataEmitter>` |
+| `qwExtraCounterChanged`    |             | `CustomEvent<QwExtraEmitter>`             |
+| `qwExtraDetails`           |             | `CustomEvent<number>`                     |
+| `qwExtraRemovedFromBasket` |             | `CustomEvent<QwExtraTrackingDataEmitter>` |
+| `qwQuantityExtraChanged`   |             | `CustomEvent<QwExtraEmitter>`             |
+| `qwSingleExtraChanged`     |             | `CustomEvent<QwExtraEmitter>`             |
 
 
 ## Dependencies
