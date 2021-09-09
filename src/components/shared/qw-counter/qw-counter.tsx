@@ -10,6 +10,7 @@ export interface QwCounterEmitter {
   id: string;
   name: string | number,
   value: number,
+  isIncremented: boolean,
 }
 
 @Component({
@@ -46,6 +47,7 @@ export class QwCounter {
       id: this.qwCounterId,
       name: this.qwCounterName,
       value: this.qwCounterValue,
+      isIncremented: action === QwCounterAction.Plus ? true : false,
     });
   }
 

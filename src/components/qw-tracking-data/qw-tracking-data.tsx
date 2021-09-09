@@ -13,7 +13,6 @@ export class QwTrackingData {
   @Event() trackingDataRoomId: EventEmitter<any>;
   @Event() trackingDataExtraId: EventEmitter<any>;
   @Event() trackingDataRateId: EventEmitter<any>;
-  @Event() trackingDataBasket: EventEmitter<any>;
   @Event() trackingDataPayment: EventEmitter<any>;
   @Event() trackingDataRoomAddedToBasket: EventEmitter<any>;
   @Event() trackingDataExtraAddedToBasket: EventEmitter<any>;
@@ -84,12 +83,40 @@ export class QwTrackingData {
   @Listen('qwBasketChange', {target: 'window'})
   trackingEventBasketRemovedElement(data: CustomEvent<any>) {
     let trackingData = data.detail;
+    let dataFromatted;
+
     if(trackingData.type === 'Room') {
-      console.log('qwBasketChange ==> Tracking removed room basket:', data.detail);
-      this.trackingDataRoomRemovedFromBasket.emit(data.detail)
+      dataFromatted = {
+        id: trackingData.element.room.roomId,
+        category: trackingData.type,
+        name: trackingData.element.room.name,
+        price: trackingData.element.room.occupancies[0].price.original.text,
+        currency: trackingData.basket.currency,
+        quantity : trackingData.element.quantity,
+      };
+      if(trackingData.increase == false) {
+        console.log(' Tracking removed room from basket:', dataFromatted);
+        this.trackingDataRoomAddedToBasket.emit(dataFromatted)
+      } else {
+        console.log(' Tracking added room basket:', dataFromatted);
+        this.trackingDataRoomRemovedFromBasket.emit(dataFromatted)
+      }
     } else if(trackingData.type === 'Extra') {
-      console.log('qwBasketChange ==> Tracking removed extra basket:', data.detail);
-      this.trackingDataExtraRemovedFromBasket.emit(data.detail)
+      dataFromatted = {
+        id: trackingData.element.extraId,
+        category: trackingData.type,
+        name: trackingData.element.extraName,
+        price: trackingData.element.extraPrice.original.text,
+        currency: trackingData.basket.currency,
+        quantity : trackingData.element.quantity,
+      };
+      if(trackingData.increase == false) {
+        console.log(' Tracking removed extra from basket:', dataFromatted);
+        this.trackingDataExtraRemovedFromBasket.emit(dataFromatted)
+      } else {
+        console.log(' Tracking added extra basket:', dataFromatted);
+        this.trackingDataExtraAddedToBasket.emit(dataFromatted)
+      }
     }
   }
 

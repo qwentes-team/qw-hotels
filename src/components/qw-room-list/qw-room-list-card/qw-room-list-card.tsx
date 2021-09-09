@@ -88,6 +88,7 @@ export class QwRoomListCard {
     this.qwRoomListCardOnChangeRoom({
       quantity: event.detail.value.toString(),
       room: this.qwRoomListCardBasketRoom,
+      isIncrementedValue: null
     });
   }
 

@@ -679,7 +679,7 @@ declare namespace LocalJSX {
         "onQwBasketRoomCounterNumber"?: (event: CustomEvent<number>) => void;
     }
     interface QwBasketSummary {
-        "onQwBasketChange"?: (event: CustomEvent<{basket: BasketModel, element: any, type: string}>) => void;
+        "onQwBasketChange"?: (event: CustomEvent<{basket: BasketModel, element: any, type: string, increase: boolean}>) => void;
         "onRemoveInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
     }
     interface QwBook {
@@ -1016,7 +1016,6 @@ declare namespace LocalJSX {
         "qwTextareaValue"?: string;
     }
     interface QwTrackingData {
-        "onTrackingDataBasket"?: (event: CustomEvent<any>) => void;
         "onTrackingDataExtraAddedToBasket"?: (event: CustomEvent<any>) => void;
         "onTrackingDataExtraId"?: (event: CustomEvent<any>) => void;
         "onTrackingDataExtraRemovedFromBasket"?: (event: CustomEvent<any>) => void;

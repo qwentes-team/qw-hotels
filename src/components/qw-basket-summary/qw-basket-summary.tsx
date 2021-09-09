@@ -23,7 +23,7 @@ export class QwBasketSummary {
   @State() basketIsLoading: boolean;
   @State() sessionIsLoading: boolean;
   @Event() removeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
-  @Event() qwBasketChange: EventEmitter<{basket: BasketModel, element: any, type: string}>;
+  @Event() qwBasketChange: EventEmitter<{basket: BasketModel, element: any, type: string, increase: boolean}>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -64,6 +64,7 @@ export class QwBasketSummary {
     const {rateId, occupancyId} = e.room.occupancies[occId];
     let element = e;
     let type = 'Room';
+    let increase = e.isIncrementedValue;
 
     BasketService.setRoomInBasket({
       quantity: parseInt(e.quantity),
@@ -71,31 +72,33 @@ export class QwBasketSummary {
       rateId,
       occupancyId,
     }).subscribe((basket) => {
-      this.qwBasketChange.emit({basket, element, type})
+      this.qwBasketChange.emit({basket, element, type, increase})
     });
   };
 
   setExtraInBasket = (e: QwChangeExtraEvent) => {
     let element = e;
     let type = 'Extra';
+    let increase = e.isIncrementedValue;
+
     BasketService.setExtraInBasket({
       extraId: e.extraId,
       quantity: parseInt(e.quantity),
-      roomId: e.roomId
+      roomId: e.roomId,
     }).subscribe((basket) => {
-      this.qwBasketChange.emit({basket, element, type})
+      this.qwBasketChange.emit({basket, element, type, increase})
     });
   };
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
-    const {name, value, id} = event.detail;
+    const {name, value, id, isIncremented} = event.detail;
 
     if (id === QwCounterId.QwBasketSummaryBasketRoomsCounter) {
       const basketRoom = this.basket.rooms.find(r => r.roomId === name);
-      this.setRoomInBasket({quantity: value.toString(), room: basketRoom});
+      this.setRoomInBasket({quantity: value.toString(), room: basketRoom, isIncrementedValue: isIncremented});
     } else {
-      this.setExtraInBasket({quantity: value.toString(), extraId: name as number});
+      this.setExtraInBasket({quantity: value.toString(), extraId: name as number, extraName: name, extraPrice: null,  isIncrementedValue: isIncremented});
     }
   }
 
@@ -207,7 +210,7 @@ export class QwBasketSummary {
                     </div>
                   </div>
                   <div class="qw-basket-summary__room-delete">
-                    <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom})}/>
+                    <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom, isIncrementedValue: false})}/>
                   </div>
                 </div>
                 {!!basketRoomExtras.length && <div class="qw-basket-summary__extras">
@@ -237,7 +240,7 @@ export class QwBasketSummary {
                         </div>
                         <div class="qw-basket-summary__room-delete">
                           <QwButton QwButtonLabel=""
-                                    QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId, roomId: basketRoom.roomId})}/>
+                                    QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId, roomId: basketRoom.roomId, extraName: extra.name, extraPrice: extra.price, isIncrementedValue: false})}/>
                         </div>
                       </div>
                     );
@@ -271,7 +274,7 @@ export class QwBasketSummary {
                     : extra.gratuitousnessType.text}
                 </div>
                 <div class="qw-basket-summary__room-delete">
-                  <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId})}/>
+                  <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId, extraName: extra.name, extraPrice: extra.price, isIncrementedValue: false})}/>
                 </div>
               </div>
             );
