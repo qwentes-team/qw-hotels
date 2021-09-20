@@ -88,11 +88,11 @@ export class QwRoomRate {
   }
 
   addToBasket = (isInPackagePopup?: boolean) => {
-    // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1 -- ANNULLATA
-    /*if (this.quantity === 0) {
+    // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1 -- ANNULLATA -- RICHIESTA NUOVAMENTE
+    if (this.quantity === 0) {
       this.quantity = 1;
       this.qwRoomRateDefaultToOne = true;
-    }*/
+    }
 
     this.qwRoomRateIsAddingToBasket = true;
     BasketService.setRoomInBasket({
