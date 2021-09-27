@@ -82,15 +82,15 @@ export class QwPriceCalendar {
 
   private getChildrenAges() {
     const childrenAges = [];
-    for (let i = 0; i< this.context.children; i++) { childrenAges.push(window.QW_HOTEL_ENV.WEBSDK_CHILDREN_AGE); }
-    for (let i = 0; i< this.context.infants; i++) { childrenAges.push(window.QW_HOTEL_ENV.WEBSDK_INFANTS_AGE); }
+    for (let i = 0; i< this.context.children; i++) { childrenAges.push(window.QW_HOTEL_ENV.WEBSDK_CHILDREN_AGE || 11); }
+    for (let i = 0; i< this.context.infants; i++) { childrenAges.push(window.QW_HOTEL_ENV.WEBSDK_INFANTS_AGE || 0); }
     return childrenAges.join(',');
   }
 
   private createParamsForRequest(date: string) {
     const params = {
       arrivalDate: date,
-      nights: 1,
+      nights: window.QW_HOTEL_ENV.WEBSDK_NUM_OF_NIGHTS || 1,
       roomRestriction: this.roomId,
       currency: this.context.currency,
       adults: this.context.adults,
