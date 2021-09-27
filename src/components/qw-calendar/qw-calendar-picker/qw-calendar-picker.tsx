@@ -49,6 +49,7 @@ const CALENDAR_ID = 'flatpickr-element';
 })
 export class QwCalendarPicker {
   @Prop() qwCalendarPickerId: string = CALENDAR_ID;
+  @Prop() qwCalendarPickerUniqueClass: string;
   @Prop() qwCalendarPickerDisabled: boolean;
   @Prop() qwCalendarPickerNumberOfMonths: number;
   @Prop() qwCalendarPickerResponsive: boolean;
@@ -58,7 +59,7 @@ export class QwCalendarPicker {
   @Prop() qwCalendarPickerConfig: any; // todo capire perché si rompe flatpickr.Options.Options;
   @State() disableStartDate: boolean = false;
   @State() calendarInstance: flatpickr.Instance;
-  @Event() qwCalendarPickerChangeDates: EventEmitter<SessionStayPeriod>;
+  @Event() qwCalendarPickerChangeDates: EventEmitter<any>;
 
   private elementCalendarInstance: HTMLElement;
   private configCalendarInstance: {[key: string]: any} = {};
@@ -85,6 +86,8 @@ export class QwCalendarPicker {
       ...this.qwCalendarPickerConfig,
     };
     console.log('configCalendarInstance', this.configCalendarInstance);
+    let uniqueClass = this.qwCalendarPickerId + '-' + Math.random().toString(16).slice(2)
+    this.qwCalendarPickerUniqueClass = uniqueClass;
     this.calendarInstance = flatpickr(this.elementCalendarInstance, this.configCalendarInstance);
     this.setOneOrTwoMonthIfResponsive();
   }
@@ -101,7 +104,13 @@ export class QwCalendarPicker {
         arrivalDate: datesToEmit[0],
         departureDate: datesToEmit[datesToEmit.length - 1] || datesToEmit[0],
       };
-      this.qwCalendarPickerChangeDates.emit(newStayPeriod);
+
+      const trackingData = {
+        stayPeriod: newStayPeriod,
+        classPicker: this.qwCalendarPickerUniqueClass
+      }
+
+      this.qwCalendarPickerChangeDates.emit(trackingData);
     }
   };
 
@@ -239,7 +248,7 @@ export class QwCalendarPicker {
         ${this.disableStartDate && 'qw-calendar-picker--disable-start-date'}
         ${this.qwCalendarPickerResponsive && 'qw-calendar-picker--responsive'}
       `}>
-        <div id={this.qwCalendarPickerId}/>
+        <div id={this.qwCalendarPickerId} class={this.qwCalendarPickerUniqueClass} />
       </Host>
     );
   }

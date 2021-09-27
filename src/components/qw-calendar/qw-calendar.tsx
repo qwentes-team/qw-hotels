@@ -24,7 +24,7 @@ export class QwCalendar {
   @State() stayPeriod: SessionStayPeriod;
   @State() isSessionLoading: boolean;
   @State() locale: SessionDisplay['culture'];
-  @Event() qwCalendarChange: EventEmitter<SessionStayPeriod>;
+  @Event() qwCalendarChangeTrackingData: EventEmitter<SessionStayPeriod>;
   @Event() qwCalendarChangeSuccess: EventEmitter<void>;
   @Event() qwBasketWillBeReset: EventEmitter<void>;
 
@@ -41,7 +41,7 @@ export class QwCalendar {
   @Listen('qwCalendarPickerChangeDates')
   updateStayPeriod(event: CustomEvent<SessionStayPeriod>) {
     this.stayPeriod = {...event.detail};
-    this.qwCalendarChange.emit(this.stayPeriod);
+    this.qwCalendarChangeTrackingData.emit(this.stayPeriod);
 
     if (!this.qwCalendarSyncOnChange) {
       return

@@ -64,6 +64,7 @@ export namespace Components {
         "qwCalendarPickerNumberOfMonths": number;
         "qwCalendarPickerResponsive": boolean;
         "qwCalendarPickerStayPeriod": SessionStayPeriod;
+        "qwCalendarPickerUniqueClass": string;
     }
     interface QwCalendarShorthand {
     }
@@ -679,7 +680,7 @@ declare namespace LocalJSX {
         "onQwBasketRoomCounterNumber"?: (event: CustomEvent<number>) => void;
     }
     interface QwBasketSummary {
-        "onQwBasketChange"?: (event: CustomEvent<{basket: BasketModel, element: any, type: string, increase: boolean}>) => void;
+        "onQwBasketChange"?: (event: CustomEvent<{basket: BasketModel, element: any, type: string, increase: boolean, quantityChanged: number}>) => void;
         "onRemoveInsuranceAcceptance"?: (event: CustomEvent<{insurance: any, amount: number}>) => void;
     }
     interface QwBook {
@@ -701,8 +702,8 @@ declare namespace LocalJSX {
     }
     interface QwCalendar {
         "onQwBasketWillBeReset"?: (event: CustomEvent<void>) => void;
-        "onQwCalendarChange"?: (event: CustomEvent<SessionStayPeriod>) => void;
         "onQwCalendarChangeSuccess"?: (event: CustomEvent<void>) => void;
+        "onQwCalendarChangeTrackingData"?: (event: CustomEvent<SessionStayPeriod>) => void;
         "qwCalendarConfig"?: any;
         "qwCalendarDesktopLimit"?: number;
         "qwCalendarId"?: string;
@@ -719,7 +720,7 @@ declare namespace LocalJSX {
     interface QwCalendarInline {
     }
     interface QwCalendarPicker {
-        "onQwCalendarPickerChangeDates"?: (event: CustomEvent<SessionStayPeriod>) => void;
+        "onQwCalendarPickerChangeDates"?: (event: CustomEvent<any>) => void;
         "qwCalendarPickerConfig"?: any;
         "qwCalendarPickerDesktopLimit"?: number;
         "qwCalendarPickerDisabled"?: boolean;
@@ -728,6 +729,7 @@ declare namespace LocalJSX {
         "qwCalendarPickerNumberOfMonths"?: number;
         "qwCalendarPickerResponsive"?: boolean;
         "qwCalendarPickerStayPeriod"?: SessionStayPeriod;
+        "qwCalendarPickerUniqueClass"?: string;
     }
     interface QwCalendarShorthand {
         "onQwBasketWillBeReset"?: (event: CustomEvent<void>) => void;
@@ -1007,7 +1009,7 @@ declare namespace LocalJSX {
     interface QwSeparator {
     }
     interface QwSession {
-        "onQwSessionChanged"?: (event: CustomEvent<SessionModel>) => void;
+        "onQwSessionChangedTrackingData"?: (event: CustomEvent<SessionModel>) => void;
         "onQwSessionLoaded"?: (event: CustomEvent<SessionModel>) => void;
     }
     interface QwTextarea {
@@ -1016,6 +1018,7 @@ declare namespace LocalJSX {
         "qwTextareaValue"?: string;
     }
     interface QwTrackingData {
+        "onTrackingDataCalendarChanged"?: (event: CustomEvent<any>) => void;
         "onTrackingDataExtraAddedToBasket"?: (event: CustomEvent<any>) => void;
         "onTrackingDataExtraId"?: (event: CustomEvent<any>) => void;
         "onTrackingDataExtraRemovedFromBasket"?: (event: CustomEvent<any>) => void;
@@ -1027,6 +1030,7 @@ declare namespace LocalJSX {
         "onTrackingDataRoomId"?: (event: CustomEvent<any>) => void;
         "onTrackingDataRoomList"?: (event: CustomEvent<any>) => void;
         "onTrackingDataRoomRemovedFromBasket"?: (event: CustomEvent<any>) => void;
+        "onTrackingDataSessionChanged"?: (event: CustomEvent<any>) => void;
     }
     interface QwWeekCalendar {
         "onQwWeekCalendarChangeDates"?: (event: CustomEvent<QwWeekCalendarDirection>) => void;

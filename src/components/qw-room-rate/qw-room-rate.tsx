@@ -36,7 +36,7 @@ export interface QwRoomTrackingDataEmitter {
   name: string,
   rate: string,
   offerId: string,
-  price: string,
+  price: number,
   currency: string,
   quantity : number,
 }
@@ -110,9 +110,9 @@ export class QwRoomRate {
         name: this.qwRoomRateRate.description.name,
         rate: this.qwRoomRateRate.rateId,
         offerId: this.qwRoomRateRate.offerId,
-        price: this.qwRoomRateRate.price.totalPrice.converted.text,
+        price: this.qwRoomRateRate.price.totalPrice.original.value.amount,
         currency: basket.currency,
-        quantity : this.quantity,
+        quantity : this.quantity === 0 ? this.qwRoomRateRate.selectedQuantity : this.quantity,
       }
 
       this.quantity === 0 ? this.qwRoomRemovedFromBasket.emit(trackingDataToEmit) : this.qwRoomAddedToBasket.emit(trackingDataToEmit)

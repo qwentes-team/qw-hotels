@@ -43,6 +43,7 @@ export class QwCounter {
 
   private click(action: QwCounterAction) {
     this.qwCounterValue = action === QwCounterAction.Plus ? this.qwCounterValue + 1 : this.qwCounterValue - 1;
+
     this.qwCounterChangeValue.emit({
       id: this.qwCounterId,
       name: this.qwCounterName,

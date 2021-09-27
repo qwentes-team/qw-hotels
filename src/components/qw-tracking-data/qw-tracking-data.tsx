@@ -18,6 +18,8 @@ export class QwTrackingData {
   @Event() trackingDataExtraAddedToBasket: EventEmitter<any>;
   @Event() trackingDataRoomRemovedFromBasket: EventEmitter<any>;
   @Event() trackingDataExtraRemovedFromBasket: EventEmitter<any>;
+  @Event() trackingDataSessionChanged: EventEmitter<any>;
+  @Event() trackingDataCalendarChanged: EventEmitter<any>;
 
 
 
@@ -85,30 +87,37 @@ export class QwTrackingData {
     let trackingData = data.detail;
     let dataFromatted;
 
+    console.log('basketChange')
+    
     if(trackingData.type === 'Room') {
       dataFromatted = {
         id: trackingData.element.room.roomId,
         category: trackingData.type,
         name: trackingData.element.room.name,
-        price: trackingData.element.room.occupancies[0].price.original.text,
+        price: trackingData.element.room.occupancies[0].price.original.value.amount,
         currency: trackingData.basket.currency,
-        quantity : trackingData.element.quantity,
+        quantity : trackingData.quantityChanged,
+        rate: trackingData.element.room.occupancies[0].rateId,
+        offerId: trackingData.element.room.occupancies[0].offerId,
       };
       if(trackingData.increase == false) {
-        console.log(' Tracking removed room from basket:', dataFromatted);
+        console.log('Tracking removed room from basket:', dataFromatted);
         this.trackingDataRoomAddedToBasket.emit(dataFromatted)
       } else {
         console.log(' Tracking added room basket:', dataFromatted);
         this.trackingDataRoomRemovedFromBasket.emit(dataFromatted)
       }
     } else if(trackingData.type === 'Extra') {
+      let priceFromBasket = this.getPriceOnExtraCounter(trackingData.basket.hotelExtras, trackingData.element.extraId);
+
+      let priceCheck = trackingData.element.extraPrice !== null  ? trackingData.element.extraPrice.original.value.amount : priceFromBasket.price.original.value.amount;
       dataFromatted = {
         id: trackingData.element.extraId,
         category: trackingData.type,
         name: trackingData.element.extraName,
-        price: trackingData.element.extraPrice.original.text,
+        price: priceCheck,
         currency: trackingData.basket.currency,
-        quantity : trackingData.element.quantity,
+        quantity : trackingData.quantityChanged,
       };
       if(trackingData.increase == false) {
         console.log(' Tracking removed extra from basket:', dataFromatted);
@@ -118,6 +127,12 @@ export class QwTrackingData {
         this.trackingDataExtraAddedToBasket.emit(dataFromatted)
       }
     }
+  }
+
+  getPriceOnExtraCounter(array, value) {
+    return array.find(obj => {
+      return obj.extraId === value;
+    })
   }
 
   @Listen('qwExtraRemovedFromBasket', {target: 'window'})
@@ -130,6 +145,18 @@ export class QwTrackingData {
   trackingEventPayNow(data: CustomEvent<any>) {
     console.log('Tracking event pay:', data.detail);
     this.trackingDataPayment.emit(data.detail)
+  }
+
+  @Listen('qwSessionChangedTrackingData', {target: 'window'})
+  trackingSessionChanged(data: CustomEvent<any>) {
+    console.log('Tracking session changed:', data.detail);
+    this.trackingDataSessionChanged.emit(data.detail)
+  }
+
+  @Listen('qwCalendarChangeTrackingData', {target: 'window'})
+  trackingCalendarChanged(data: CustomEvent<any>) {
+    console.log('Tracking calendar changed:', data.detail);
+    this.trackingDataCalendarChanged.emit(data.detail)
   }
 
 }

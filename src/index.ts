@@ -49,7 +49,7 @@ export enum QwRoomListOrderType {
 export interface QwChangeRoomEvent {
   quantity: string;
   room: RoomBasketModel;
-  isIncrementedValue: boolean
+  isIncrementedValue?: boolean;
 }
 
 export interface QwChangeExtraEvent {
@@ -58,7 +58,8 @@ export interface QwChangeExtraEvent {
   roomId?: number,
   extraName: string | number,
   extraPrice: any,
-  isIncrementedValue: boolean
+  isIncrementedValue: boolean,
+  selectedQuantity: any,
 }
 
 export enum GuestDetailFormProperty {

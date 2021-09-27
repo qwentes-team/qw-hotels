@@ -19,7 +19,7 @@ export interface QwExtraTrackingDataEmitter {
   id: number,
   category: string,
   name: string,
-  price: string,
+  price: string | number,
   currency: string,
   quantity : string | number,
 }
@@ -83,9 +83,9 @@ export class QwExtraCard {
       id: this.qwExtraCardId,
       category: 'Extra',
       name: this.qwExtraCardName,
-      price: this.qwExtraCardUnitPrice,
+      price: parseInt(this.qwExtraCardUnitPrice.replace(/[^\d.-]/g, '')),
       currency: this.qwExtraCardPriceCurrency,
-      quantity : nextQuantity,
+      quantity : nextQuantity === 0 ? this.qwExtraCardSelectedQuantityValue : nextQuantity,
     })
   }
 
@@ -113,16 +113,17 @@ export class QwExtraCard {
   }
 
   public extraTrackingData(e) {
+    let numberQuantity = parseInt(e?.target?.value)
     const trackinData = {
       id: this.qwExtraCardId,
       category: 'Extra',
       name: this.qwExtraCardName,
-      price: this.qwExtraCardUnitPrice,
+      price: parseInt(this.qwExtraCardUnitPrice.replace(/[^\d.-]/g, '')),
       currency: this.qwExtraCardPriceCurrency,
-      quantity : e?.target?.value,
+      quantity : numberQuantity,
     }
 
-    e?.target?.value == 0 ? this.qwExtraRemovedFromBasket.emit(trackinData) : this.qwExtraAddedToBasket.emit(trackinData)
+    numberQuantity == 0 ? this.qwExtraRemovedFromBasket.emit(trackinData) : this.qwExtraAddedToBasket.emit(trackinData)
 
   }
 

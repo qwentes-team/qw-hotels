@@ -8,7 +8,7 @@ import {debounceTime} from 'rxjs/operators';
   shadow: false,
 })
 export class QwSession {
-  @Event() qwSessionChanged: EventEmitter<SessionModel>;
+  @Event() qwSessionChangedTrackingData: EventEmitter<SessionModel>;
   @Event() qwSessionLoaded: EventEmitter<SessionModel>;
 
   public componentWillLoad() {
@@ -16,7 +16,7 @@ export class QwSession {
     SessionLoaded$
       .pipe(debounceTime(300))
       .subscribe((session) => {
-        this.qwSessionChanged.emit(session);
+        this.qwSessionChangedTrackingData.emit(session);
       });
   }
 }

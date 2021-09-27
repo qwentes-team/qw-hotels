@@ -23,7 +23,7 @@ export class QwBasketSummary {
   @State() basketIsLoading: boolean;
   @State() sessionIsLoading: boolean;
   @Event() removeInsuranceAcceptance: EventEmitter<{insurance: any, amount: number}>;
-  @Event() qwBasketChange: EventEmitter<{basket: BasketModel, element: any, type: string, increase: boolean}>;
+  @Event() qwBasketChange: EventEmitter<{basket: BasketModel, element: any, type: string, increase: boolean, quantityChanged: number}>;
 
   public componentWillLoad() {
     SessionService.getSession().subscribe();
@@ -65,6 +65,7 @@ export class QwBasketSummary {
     let element = e;
     let type = 'Room';
     let increase = e.isIncrementedValue;
+    let quantityChanged = increase == true ? parseInt(e.quantity) - e.room.occupancies[0].selectedQuantity : e.room.occupancies[0].selectedQuantity - parseInt(e.quantity);
 
     BasketService.setRoomInBasket({
       quantity: parseInt(e.quantity),
@@ -72,7 +73,7 @@ export class QwBasketSummary {
       rateId,
       occupancyId,
     }).subscribe((basket) => {
-      this.qwBasketChange.emit({basket, element, type, increase})
+      this.qwBasketChange.emit({basket, element, type, increase, quantityChanged})
     });
   };
 
@@ -80,25 +81,26 @@ export class QwBasketSummary {
     let element = e;
     let type = 'Extra';
     let increase = e.isIncrementedValue;
+    let quantityChanged = e.selectedQuantity;
 
     BasketService.setExtraInBasket({
       extraId: e.extraId,
       quantity: parseInt(e.quantity),
       roomId: e.roomId,
     }).subscribe((basket) => {
-      this.qwBasketChange.emit({basket, element, type, increase})
+      this.qwBasketChange.emit({basket, element, type, increase, quantityChanged})
     });
   };
 
   @Listen('qwCounterChangeValue')
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
     const {name, value, id, isIncremented} = event.detail;
-
+//TODO PASS EXTRA PRICE ON COUNTER
     if (id === QwCounterId.QwBasketSummaryBasketRoomsCounter) {
       const basketRoom = this.basket.rooms.find(r => r.roomId === name);
       this.setRoomInBasket({quantity: value.toString(), room: basketRoom, isIncrementedValue: isIncremented});
     } else {
-      this.setExtraInBasket({quantity: value.toString(), extraId: name as number, extraName: name, extraPrice: null,  isIncrementedValue: isIncremented});
+      this.setExtraInBasket({quantity: value.toString(), extraId: name as number, extraName: name, extraPrice: null,  isIncrementedValue: isIncremented, selectedQuantity: 1});
     }
   }
 
@@ -240,7 +242,7 @@ export class QwBasketSummary {
                         </div>
                         <div class="qw-basket-summary__room-delete">
                           <QwButton QwButtonLabel=""
-                                    QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId, roomId: basketRoom.roomId, extraName: extra.name, extraPrice: extra.price, isIncrementedValue: false})}/>
+                                    QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId, roomId: basketRoom.roomId, extraName: extra.name, extraPrice: extra.price, isIncrementedValue: false, selectedQuantity: extra.selectedQuantity.value})}/>
                         </div>
                       </div>
                     );
@@ -260,13 +262,13 @@ export class QwBasketSummary {
                 <div class="qw-basket-summary__room-rate"/>
                 <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}</div>
                 <div class="qw-basket-summary__room-quantity">
-                  {extra.selectedQuantity.value}
-                  {/*<qw-counter
+                  {/* {extra.selectedQuantity.value} */}
+                  <qw-counter
                     qwCounterId={QwCounterId.QwBasketSummaryBasketExtrasCounter}
                     qwCounterDisabled={this.basketIsLoading}
                     qwCounterValue={extra.selectedQuantity.value}
                     qwCounterName={extra.extraId}
-                    qwCounterMaxValue={extra.availableQuantity}/>*/}
+                    qwCounterMaxValue={extra.availableQuantity}/>
                 </div>
                 <div class="qw-basket-summary__room-price">
                   {extra.price.converted.text
@@ -274,7 +276,7 @@ export class QwBasketSummary {
                     : extra.gratuitousnessType.text}
                 </div>
                 <div class="qw-basket-summary__room-delete">
-                  <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId, extraName: extra.name, extraPrice: extra.price, isIncrementedValue: false})}/>
+                  <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setExtraInBasket({quantity: '0', extraId: extra.extraId, extraName: extra.name, extraPrice: extra.price, isIncrementedValue: false, selectedQuantity: extra.selectedQuantity.value})}/>
                 </div>
               </div>
             );
