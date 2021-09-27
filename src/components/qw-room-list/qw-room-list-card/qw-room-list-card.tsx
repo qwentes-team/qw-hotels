@@ -179,9 +179,9 @@ export class QwRoomListCard {
                   qwImageTransformationOptions={this.qwRoomListCardImageTransformationOptions}
                   qwImageUrl={this.qwRoomListCardImage}
                   qwImageAlt={this.qwRoomListCardTitle}/>}
-                {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && this.qwRoomListCardCarouselImages.length > 1 && <div>
+                {this.qwRoomListCardShowCarouselInCard && this.qwRoomListCardCarouselImages && this.qwRoomListCardCarouselImages.length > 1 &&
                   <qw-carousel qwCarouselImagesUrl={this.qwRoomListCardCarouselImages}></qw-carousel>
-                </div>}
+                }
               </div>
             </div>
           </div>}
@@ -309,3 +309,4 @@ export class QwRoomListCard {
     );
   }
 }
+
