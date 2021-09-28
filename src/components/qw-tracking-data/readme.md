@@ -9,6 +9,7 @@
 
 | Event                                | Description | Type               |
 | ------------------------------------ | ----------- | ------------------ |
+| `trackingDataCalendarChanged`        |             | `CustomEvent<any>` |
 | `trackingDataExtraAddedToBasket`     |             | `CustomEvent<any>` |
 | `trackingDataExtraId`                |             | `CustomEvent<any>` |
 | `trackingDataExtraRemovedFromBasket` |             | `CustomEvent<any>` |
@@ -20,6 +21,7 @@
 | `trackingDataRoomId`                 |             | `CustomEvent<any>` |
 | `trackingDataRoomList`               |             | `CustomEvent<any>` |
 | `trackingDataRoomRemovedFromBasket`  |             | `CustomEvent<any>` |
+| `trackingDataSessionChanged`         |             | `CustomEvent<any>` |
 
 
 ----------------------------------------------
