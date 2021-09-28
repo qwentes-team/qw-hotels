@@ -173,48 +173,56 @@ export class QwBasketSummary {
           </div>
 
           {this.basket?.rooms.map(basketRoom => {
-            const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
-            const basketOccupancy = basketRoom.occupancies[occupancyId];
-            const rateName = occupancyId && basketOccupancy.rateInformation.name;
-            const rateOccupancyText = occupancyId && basketOccupancy.definition.text;
-            const selectedQuantity = occupancyId && basketOccupancy.selectedQuantity;
-            const availableQuantity = occupancyId && basketOccupancy.availableQuantity;
-            const maxValueForCounter = this.getMaxValue(availableQuantity, selectedQuantity);
-            const taxes = occupancyId && basketOccupancy.taxes;
+            // const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
+            // const basketOccupancy = basketRoom.occupancies[occupancyId];
+            // const rateName = occupancyId && basketOccupancy.rateInformation.name;
+            // const rateOccupancyText = occupancyId && basketOccupancy.definition.text;
+            // const selectedQuantity = occupancyId && basketOccupancy.selectedQuantity;
+            // const availableQuantity = occupancyId && basketOccupancy.availableQuantity;
+            // const maxValueForCounter = this.getMaxValue(availableQuantity, selectedQuantity);
+            // const taxes = occupancyId && basketOccupancy.taxes;
             const basketRoomExtras: ExtraBasketModel[] = Object.values(basketRoom.extras);
+
+            const basketRoomOccupanciesArray = Object.values(basketRoom.occupancies);
 
             return (
               <div class="qw-basket-summary__room--wrapper">
-                <div class="qw-basket-summary__room">
-                  <div class="qw-basket-summary__room-date">{this.formatStayPeriod(this.session)}</div>
-                  <div class="qw-basket-summary__room-name">
-                    <div class="qw-basket-summary__room-title">{basketRoom.name}</div>
-                    <div class="qw-basket-summary__room-guests">{basketRoom.type}</div>
-                  </div>
-                  <div class="qw-basket-summary__room-rate">
-                    <div class="qw-basket-summary__room-rate-name">{rateName}</div>
-                    <div class="qw-basket-summary__room-rate-occupancy">{rateOccupancyText}</div>
-                  </div>
-                  <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}
-                    <span>{Language.getTranslation('nights')}</span></div>
-                  <div class="qw-basket-summary__room-quantity">
-                    <qw-counter
-                      qwCounterId={QwCounterId.QwBasketSummaryBasketRoomsCounter}
-                      qwCounterDisabled={this.basketIsLoading}
-                      qwCounterValue={selectedQuantity}
-                      qwCounterName={basketRoom.roomId}
-                      qwCounterMaxValue={maxValueForCounter}/>
-                  </div>
-                  <div class="qw-basket-summary__room-price">
-                    {this.getTotalPrice(basketOccupancy)}
-                    <div class="qw-basket-summary__room-taxes">
-                      {RateHelper.getTaxesMessageFormatted(taxes)}
+                {basketRoomOccupanciesArray.map(occ => {
+                  return <div class="qw-basket-summary__room">
+                    <div class="qw-basket-summary__room-date">{this.formatStayPeriod(this.session)}</div>
+                    <div class="qw-basket-summary__room-name">
+                      <div class="qw-basket-summary__room-title">{basketRoom.name}</div>
+                      <div class="qw-basket-summary__room-guests">{basketRoom.type}</div>
+                    </div>
+                    <div class="qw-basket-summary__room-rate">
+                      <div class="qw-basket-summary__room-rate-name">{occ.rateInformation.name}</div>
+                      <div class="qw-basket-summary__room-rate-occupancy">{occ.definition.text}</div>
+                    </div>
+                    <div class="qw-basket-summary__room-night">{SessionHelper.getNumberOfNights(this.session)}
+                      <span>{Language.getTranslation('nights')}</span></div>
+                    <div class="qw-basket-summary__room-quantity">
+                      <qw-counter
+                        qwCounterId={QwCounterId.QwBasketSummaryBasketRoomsCounter}
+                        qwCounterDisabled={this.basketIsLoading}
+                        qwCounterValue={occ.selectedQuantity}
+                        qwCounterName={basketRoom.roomId}
+                        qwCounterMaxValue={this.getMaxValue(occ.availableQuantity, occ.selectedQuantity)}/>
+                    </div>
+                    <div class="qw-basket-summary__room-price">
+                      {this.getTotalPrice(occ)}
+                      <div class="qw-basket-summary__room-taxes">
+                        {RateHelper.getTaxesMessageFormatted(occ.taxes)}
+                      </div>
+                    </div>
+                    <div class="qw-basket-summary__room-delete">
+                      <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({
+                        quantity: '0',
+                        room: basketRoom,
+                        isIncrementedValue: false
+                      })}/>
                     </div>
                   </div>
-                  <div class="qw-basket-summary__room-delete">
-                    <QwButton QwButtonLabel="" QwButtonOnClick={() => this.setRoomInBasket({quantity: '0', room: basketRoom, isIncrementedValue: false})}/>
-                  </div>
-                </div>
+                })}
                 {!!basketRoomExtras.length && <div class="qw-basket-summary__extras">
                   <p class="qw-basket-summary__section-title">{Language.getTranslation('extras')}</p>
                   {basketRoomExtras && basketRoomExtras.map(extra => {
