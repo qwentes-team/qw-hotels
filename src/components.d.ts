@@ -702,8 +702,8 @@ declare namespace LocalJSX {
     }
     interface QwCalendar {
         "onQwBasketWillBeReset"?: (event: CustomEvent<void>) => void;
+        "onQwCalendarChange"?: (event: CustomEvent<SessionStayPeriod>) => void;
         "onQwCalendarChangeSuccess"?: (event: CustomEvent<void>) => void;
-        "onQwCalendarChangeTrackingData"?: (event: CustomEvent<SessionStayPeriod>) => void;
         "qwCalendarConfig"?: any;
         "qwCalendarDesktopLimit"?: number;
         "qwCalendarId"?: string;
@@ -721,6 +721,7 @@ declare namespace LocalJSX {
     }
     interface QwCalendarPicker {
         "onQwCalendarPickerChangeDates"?: (event: CustomEvent<any>) => void;
+        "onQwCalendarPickerChangeDatesTracking"?: (event: CustomEvent<any>) => void;
         "qwCalendarPickerConfig"?: any;
         "qwCalendarPickerDesktopLimit"?: number;
         "qwCalendarPickerDisabled"?: boolean;

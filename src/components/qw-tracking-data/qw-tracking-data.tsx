@@ -153,7 +153,7 @@ export class QwTrackingData {
     this.trackingDataSessionChanged.emit(data.detail)
   }
 
-  @Listen('qwCalendarChangeTrackingData', {target: 'window'})
+  @Listen('qwCalendarPickerChangeDatesTracking', {target: 'window'})
   trackingCalendarChanged(data: CustomEvent<any>) {
     console.log('Tracking calendar changed:', data.detail);
     this.trackingDataCalendarChanged.emit(data.detail)

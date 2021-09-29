@@ -60,6 +60,7 @@ export class QwCalendarPicker {
   @State() disableStartDate: boolean = false;
   @State() calendarInstance: flatpickr.Instance;
   @Event() qwCalendarPickerChangeDates: EventEmitter<any>;
+  @Event() qwCalendarPickerChangeDatesTracking: EventEmitter<any>;
 
   private elementCalendarInstance: HTMLElement;
   private configCalendarInstance: {[key: string]: any} = {};
@@ -110,7 +111,8 @@ export class QwCalendarPicker {
         classPicker: this.qwCalendarPickerUniqueClass
       }
 
-      this.qwCalendarPickerChangeDates.emit(trackingData);
+      this.qwCalendarPickerChangeDates.emit(newStayPeriod);
+      this.qwCalendarPickerChangeDatesTracking.emit(trackingData);
     }
   };
 
