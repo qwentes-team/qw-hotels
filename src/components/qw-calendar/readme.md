@@ -19,11 +19,11 @@
 
 ## Events
 
-| Event                     | Description | Type                             |
-| ------------------------- | ----------- | -------------------------------- |
-| `qwBasketWillBeReset`     |             | `CustomEvent<void>`              |
-| `qwCalendarChange`        |             | `CustomEvent<SessionStayPeriod>` |
-| `qwCalendarChangeSuccess` |             | `CustomEvent<void>`              |
+| Event                          | Description | Type                             |
+| ------------------------------ | ----------- | -------------------------------- |
+| `qwBasketWillBeReset`          |             | `CustomEvent<void>`              |
+| `qwCalendarChangeSuccess`      |             | `CustomEvent<void>`              |
+| `qwCalendarChangeTrackingData` |             | `CustomEvent<SessionStayPeriod>` |
 
 
 ## Dependencies

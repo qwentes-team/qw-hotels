@@ -17,13 +17,14 @@
 | `qwCalendarPickerNumberOfMonths` | `qw-calendar-picker-number-of-months` |             | `number`            | `undefined`   |
 | `qwCalendarPickerResponsive`     | `qw-calendar-picker-responsive`       |             | `boolean`           | `undefined`   |
 | `qwCalendarPickerStayPeriod`     | --                                    |             | `SessionStayPeriod` | `undefined`   |
+| `qwCalendarPickerUniqueClass`    | `qw-calendar-picker-unique-class`     |             | `string`            | `undefined`   |
 
 
 ## Events
 
-| Event                         | Description | Type                             |
-| ----------------------------- | ----------- | -------------------------------- |
-| `qwCalendarPickerChangeDates` |             | `CustomEvent<SessionStayPeriod>` |
+| Event                         | Description | Type               |
+| ----------------------------- | ----------- | ------------------ |
+| `qwCalendarPickerChangeDates` |             | `CustomEvent<any>` |
 
 
 ## Dependencies

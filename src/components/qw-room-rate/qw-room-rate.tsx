@@ -41,6 +41,10 @@ export interface QwRoomTrackingDataEmitter {
   quantity : number,
 }
 
+enum BasketAction {
+  Add = 'add',
+  Update = 'update'
+}
 
 @Component({
   tag: 'qw-room-rate',
@@ -87,9 +91,9 @@ export class QwRoomRate {
     ).subscribe(basket => this.numberOfRooms = BasketHelper.getNumberOfRooms(basket));
   }
 
-  addToBasket = (isInPackagePopup?: boolean) => {
+  addToBasket = (options: {isInPackagePopup?: boolean, action?: BasketAction} = {isInPackagePopup: false, action: BasketAction.Add}) => {
     // richiesta esplicita di d-edge: quando la quantità è 0 si può aggiungere lo stesso la stanza con quantity: 1 -- ANNULLATA -- RICHIESTA NUOVAMENTE
-    if (this.quantity === 0) {
+    if (this.quantity === 0 && options.action === BasketAction.Add) {
       this.quantity = 1;
       this.qwRoomRateDefaultToOne = true;
     }
@@ -117,7 +121,7 @@ export class QwRoomRate {
 
       this.quantity === 0 ? this.qwRoomRemovedFromBasket.emit(trackingDataToEmit) : this.qwRoomAddedToBasket.emit(trackingDataToEmit)
 
-      if(isInPackagePopup) {
+      if (options.isInPackagePopup) {
         this.qwRoomRateShowPackageInfo = false;
       }
     });
@@ -288,7 +292,7 @@ export class QwRoomRate {
             QwButtonClass="qw-button--primary qw-button--add-to-basket"
             QwButtonLabel={this.qwRoomRateRate.selectedQuantity > 0 ? Language.getTranslation('updateQuantity') : Language.getTranslation('addToCart')}
             QwButtonDisabled={this.isAddToCartDisabled()}
-            QwButtonOnClick={() => this.addToBasket()}/>}
+            QwButtonOnClick={() => this.addToBasket({action: this.qwRoomRateRate.selectedQuantity > 0 ? BasketAction.Update : BasketAction.Add})}/>}
         </QwWrapInDiv>
 
         {this.isPackageRate() &&
@@ -341,7 +345,7 @@ export class QwRoomRate {
                     QwButtonClass="qw-button--primary qw-button--add-to-basket"
                     QwButtonLabel={Language.getTranslation('addToCart')}
                     QwButtonDisabled={this.isAddToCartDisabled()}
-                    QwButtonOnClick={() => this.addToBasket(true)}/>}
+                    QwButtonOnClick={() => this.addToBasket({isInPackagePopup: true})}/>}
                 </QwWrapInDiv>
               </div>
             </div>

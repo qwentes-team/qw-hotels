@@ -7,10 +7,10 @@
 
 ## Events
 
-| Event              | Description | Type                        |
-| ------------------ | ----------- | --------------------------- |
-| `qwSessionChanged` |             | `CustomEvent<SessionModel>` |
-| `qwSessionLoaded`  |             | `CustomEvent<SessionModel>` |
+| Event                          | Description | Type                        |
+| ------------------------------ | ----------- | --------------------------- |
+| `qwSessionChangedTrackingData` |             | `CustomEvent<SessionModel>` |
+| `qwSessionLoaded`              |             | `CustomEvent<SessionModel>` |
 
 
 ----------------------------------------------
