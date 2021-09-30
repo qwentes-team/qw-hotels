@@ -22,9 +22,10 @@
 
 ## Events
 
-| Event                         | Description | Type               |
-| ----------------------------- | ----------- | ------------------ |
-| `qwCalendarPickerChangeDates` |             | `CustomEvent<any>` |
+| Event                                 | Description | Type               |
+| ------------------------------------- | ----------- | ------------------ |
+| `qwCalendarPickerChangeDates`         |             | `CustomEvent<any>` |
+| `qwCalendarPickerChangeDatesTracking` |             | `CustomEvent<any>` |
 
 
 ## Dependencies
