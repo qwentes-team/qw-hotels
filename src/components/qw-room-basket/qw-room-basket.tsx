@@ -76,26 +76,28 @@ export class QwRoomBasket {
                 QwButtonOnClick={() => this.backToRoomList()}/>
               </div>
             : this.basket.rooms.map(basketRoom => {
-              const occupancyId = BasketHelper.getFirstOccupancyIdInBasketRoom(basketRoom);
-              return <qw-room-list-card
-                class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
-                qwRoomListCardId={basketRoom.roomId}
-                qwRoomListCardTitle={BasketHelper.getQuantityByBasketRoom(basketRoom) + ' ' + basketRoom.name}
-                qwRoomListCardImage={this.qwRoomBasketHasImage ? BasketHelper.getRoomCoverImage(basketRoom).url : undefined}
-                qwRoomListCardShowDescription={false}
-                qwRoomListCardNights={this.nights}
-                qwRoomListCardShowPrices={false}
-                qwRoomListCardShowPrice={false}
-                qwRoomListCardPrice={BasketHelper.getRoomTotalPrice(basketRoom)}
-                qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[occupancyId].taxes)}
-                qwRoomListCardShowCta={false}
-                qwRoomListCardShowPriceAndTaxes={true}
-                qwRoomListCardShowActions={true}
-                qwRoomListCardBasketRoom={basketRoom}
-                qwRoomListCardAddableLeftover={this.addableLeftover}
-                qwRoomListCardBaseInfoType={this.qwRoomBasketType === QwRoomBasketType.Classic ? QwRoomBaseInfoType.Inline : QwRoomBaseInfoType.List}
-                qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
-                qwRoomListCardOnClickView={() => {}}/>
+              const basketRoomOccupanciesArray = Object.values(basketRoom.occupancies);
+              return basketRoomOccupanciesArray.map(occ => {
+                return <qw-room-list-card
+                  class={`${this.basketIsLoading ? 'qw-room-list-card__disabled' : ''}`}
+                  qwRoomListCardId={basketRoom.roomId}
+                  qwRoomListCardTitle={BasketHelper.getQuantityByBasketRoom(basketRoom) + ' ' + basketRoom.name}
+                  qwRoomListCardImage={this.qwRoomBasketHasImage ? BasketHelper.getRoomCoverImage(basketRoom).url : undefined}
+                  qwRoomListCardShowDescription={false}
+                  qwRoomListCardNights={this.nights}
+                  qwRoomListCardShowPrices={false}
+                  qwRoomListCardShowPrice={false}
+                  qwRoomListCardPrice={BasketHelper.getRoomTotalPrice(basketRoom)}
+                  qwRoomListCardTaxes={RateHelper.getTaxesMessageFormatted(basketRoom.occupancies[occ.occupancyId].taxes)}
+                  qwRoomListCardShowCta={false}
+                  qwRoomListCardShowPriceAndTaxes={true}
+                  qwRoomListCardShowActions={true}
+                  qwRoomListCardBasketRoom={basketRoom}
+                  qwRoomListCardAddableLeftover={this.addableLeftover}
+                  qwRoomListCardBaseInfoType={this.qwRoomBasketType === QwRoomBasketType.Classic ? QwRoomBaseInfoType.Inline : QwRoomBaseInfoType.List}
+                  qwRoomListCardOnChangeRoom={(e) => this.setRoomInBasket(e)}
+                  qwRoomListCardOnClickView={() => {}}/>
+              })
           }) : undefined}
       </Host>
     );
