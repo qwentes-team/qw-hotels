@@ -8,6 +8,11 @@ export const base = () => `
   <qw-room-list></qw-room-list>
 `;
 
+export const carousel = () => `
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <qw-room-list qw-room-list-show-carousel-in-card="true"></qw-room-list>
+`;
+
 export const grid = () => `
   <qw-room-list qw-room-list-type="grid"></qw-room-list>
 `;
