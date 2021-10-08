@@ -16,7 +16,7 @@ import {
   SessionService,
 } from '@qwentes/booking-state-manager';
 import {switchMap} from 'rxjs/operators';
-import {QwCounterId, QwRoomListType} from '../../index';
+import {QwRoomListType} from '../../index';
 import {QwWrapInDiv} from '../shared/qw-wrap-in-div/qw-wrap-in-div';
 import {QwSelect} from "../shared/qw-select/qw-select";
 
@@ -137,10 +137,8 @@ export class QwRoomRate {
 
   public getRateSummary() {
     const summary = this.qwRoomRateRate?.description.summary;
-
     if (this.getSummaryType(summary, RoomSummaryType.Html)) {
-      const htmlSummary = this.getSummaryType(summary, RoomSummaryType.Html)?.text;
-      return <div innerHTML={htmlSummary}></div>;
+      return this.getSummaryType(summary, RoomSummaryType.Html)?.text;
     } else {
       return this.getSummaryType(summary, RoomSummaryType.PlainText)?.text;
     }
@@ -332,10 +330,22 @@ export class QwRoomRate {
                   {!this.qwRoomRateDefaultToOne && <div
                     class={`qw-room-rate__counter ${this.quantity === 0 ? 'qw-room-rate__counter--no-quantity' : ''}`}>
                     <div class="qw-room-rate__counter-label">{Language.getTranslation('numberOfRooms')}</div>
-                    {this.qwRoomRateRate && <qw-counter
-                      qwCounterId={QwCounterId.QwRoomRateCounter}
-                      qwCounterName={this.qwRoomRateRate.description.name}
-                      qwCounterValue={this.qwRoomRateRate.selectedQuantity || 0}/>}
+                    {this.qwRoomRateRate && <QwSelect
+                      QwSelectDisabled={this.hasNotAvailability()}
+                      QwSelectLabel={`${this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} ${Language.getTranslation('available')}`}
+                      QwSelectName={'quantity'}
+                      QwSelectOnChange={(e) => this.onChangeQuantity(e)}>
+                      <option value="0" selected={this.quantity === 0}>{Language.getTranslation('selectQuantity')}</option>
+                      {this.createAvailableQuantityOptions().map((option) => {
+                        if (option !== 0) {
+                          return <option
+                            selected={this.qwRoomRateRate.selectedQuantity === option}
+                            value={option}>
+                            {option}</option>;
+                        }
+                      })}
+                      {this.qwRoomRateRate.selectedQuantity > 0 && <option value="0">{Language.getTranslation('removeFromCart')}</option>}
+                    </QwSelect>}
                     <div class="qw-room-rate__counter-availability">
                       {this.qwRoomRateRate.availableQuantity - (this.qwRoomRateRate.selectedQuantity || 0)} {Language.getTranslation('available')}
                     </div>
@@ -343,7 +353,7 @@ export class QwRoomRate {
 
                   {this.qwRoomRateRate && <QwButton
                     QwButtonClass="qw-button--primary qw-button--add-to-basket"
-                    QwButtonLabel={Language.getTranslation('addToCart')}
+                    QwButtonLabel={this.qwRoomRateRate.selectedQuantity > 0 ? Language.getTranslation('updateQuantity') : Language.getTranslation('addToCart')}
                     QwButtonDisabled={this.isAddToCartDisabled()}
                     QwButtonOnClick={() => this.addToBasket({isInPackagePopup: true})}/>}
                 </QwWrapInDiv>

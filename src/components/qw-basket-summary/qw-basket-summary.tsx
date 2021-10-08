@@ -104,13 +104,6 @@ export class QwBasketSummary {
     }
   }
 
-  private getMaxValue(availableQuantity: number, selectedQuantity: number) {
-    const numberOfGuests = SessionHelper.getTotalGuests(this.session);
-    const numberOfRooms = BasketHelper.getNumberOfRooms(this.basket);
-    const numberOfRoomsStillAddable = (numberOfGuests - numberOfRooms) + selectedQuantity;
-    return Math.min(availableQuantity, numberOfRoomsStillAddable);
-  }
-
   public removeInsuranceFromStorage() {
     localStorage.removeItem('insurance');
     localStorage.removeItem('insuranceAmount');
@@ -205,8 +198,7 @@ export class QwBasketSummary {
                         qwCounterId={QwCounterId.QwBasketSummaryBasketRoomsCounter}
                         qwCounterDisabled={this.basketIsLoading}
                         qwCounterValue={occ.selectedQuantity}
-                        qwCounterName={basketRoom.roomId}
-                        qwCounterMaxValue={this.getMaxValue(occ.availableQuantity, occ.selectedQuantity)}/>
+                        qwCounterName={basketRoom.roomId}/>
                     </div>
                     <div class="qw-basket-summary__room-price">
                       {this.getTotalPrice(occ)}
