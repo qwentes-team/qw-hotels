@@ -84,6 +84,10 @@ qw-room-rate .qw-button {
   font-size: 70%;
 }
 
+.qw-select__quantity, .qw-select__quantity .qw-select__label {
+  width: 100%;
+}
+
 .qw-room-rate--card {
   position: relative;
   min-width: var(--qw-room-rate--card--min-width);
@@ -167,6 +171,7 @@ qw-room-rate .qw-button {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  z-index: 10;
 }
 
 .qw-room-rate__package-content {
