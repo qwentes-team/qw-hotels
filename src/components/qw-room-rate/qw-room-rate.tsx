@@ -77,7 +77,6 @@ export class QwRoomRate {
   public counterChanged(event: CustomEvent<QwCounterEmitter>) {
     this.quantity = event.detail.value;
     this.qwRoomRateCounterChanged.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
-    console.log('counter emitter', this.quantity, this.qwRoomRateRate.rateId);
   }
 
   public componentWillLoad() {
@@ -218,7 +217,6 @@ export class QwRoomRate {
 
   private onChangeQuantity(e) {
     this.quantity = parseInt(e.target.value);
-    console.log('quantity: ', this.quantity);
     this.qwRoomRateCounterChanged.emit({quantity: this.quantity, rateId: this.qwRoomRateRate.rateId});
   }
 
